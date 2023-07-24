@@ -34,6 +34,7 @@
           "caseInsensitive": true
         }
       }
-    ]
+    ],
+    "react/display-name": "off"
   }
 }
