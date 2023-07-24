@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint-fix": "next lint --fix ./",
-    "prepare": "husky install"
-
+    "lint-fix": "next lint --fix . --ext .js,.jsx ",
+    "prepare": "husky install",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "autoprefixer": "10.4.14",
