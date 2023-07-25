@@ -24,13 +24,11 @@ const NavbarLink = withTheme(({ children, link, theme, variant = 'default' }) =>
   const style = styles[variant];
 
   return (
-    <>
-      <div className={`${style.div[theme]} py-2 px-4 w-full font-semibold text-lg`}>
-        <Link href={link} className="flex w-full justify-center">
-          {children}
-        </Link>
-      </div>
-    </>
+    <div className={`${style.div[theme]} py-2 px-4 w-full font-semibold text-lg`}>
+      <Link href={link} className="flex w-full justify-center">
+        {children}
+      </Link>
+    </div>
   );
 });
 
