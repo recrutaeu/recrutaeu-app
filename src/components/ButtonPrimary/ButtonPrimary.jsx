@@ -22,7 +22,7 @@ const ButtonPrimary = withTheme(({ children, onClick, theme, variant = 'default'
 
   return (
     <button
-      className={`${style.div[theme]} min-w-[150px] px-6 py-3 rounded-lg font-bold text-md`}
+      className={`${style.div[theme]} px-4 py-3 rounded-lg font-bold text-md w-full md:w-40`}
       onClick={onClick}
     >
       {children}
