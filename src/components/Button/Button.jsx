@@ -21,7 +21,9 @@ const Button = withTheme(({ text, onclick, theme, variant = 'default' }) => {
   const style = styles[variant];
 
   return (
-    <button className={`${style.div[theme]} min-w-[150px] px-6 py-3 rounded-lg font-bold text-md`} onClick={onclick}>
+    <button 
+      className={`${style.div[theme]} min-w-[150px] px-6 py-3 rounded-lg font-bold text-md`} 
+      onClick={onclick}>
       {text}
     </button>
   );
