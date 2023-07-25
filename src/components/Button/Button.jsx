@@ -1,18 +1,33 @@
-const Button = ({ text, isOutlined, onclick }) => {
+import { themes, withTheme } from '@/contexts/ThemeContext';
+
+const styles = {
+  default: {
+    div: {
+      [themes.DEFAULT]: 'bg-primary-90 text-neutral-0 hover:bg-primary-100',
+      [themes.DARK]: 'bg-neutral-90 text-neutral-0 hover:bg-neutral-15 hover:text-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0 text-neutral-90 hover:bg-neutral-15 hover:text-neutral-90',
+    },
+  },
+  inverse: {
+    div: {
+      [themes.DEFAULT]: 'bg-neutral-120 text-primary-90 hover:bg-primary-90 hover:text-neutral-10 border-2 border-primary-90  ',
+      [themes.DARK]: 'bg-neutral-0 text-neutral-90 hover:bg-neutral-15 hover:text-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-90 text-neutral-0 hover:bg-neutral-15 hover:text-neutral-90',
+    },
+  },
+};
+
+const Button = withTheme(({ text, onclick, theme, variant = 'default' }) => {
+  const style = styles[variant];
+
   return (
     <button
       onClick={onclick}
-      className={`min-w-[150px] px-6 sm:py-3.5 py-3 rounded-lg
-                        font-semibold sm:text-base text-sm
-                        border-[#3C3784] 
-                        border-${isOutlined ? '2' : '0'}
-                        text-${isOutlined ? '[#3C3784]' : '[#fff]'}
-                        bg-${isOutlined ? 'transparent' : '[#3C3784]'}
-                        hover:bg-${isOutlined ? '[#fff]' : '[#2a275e]'}`}
+      className={`${style.div[theme]} min-w-[150px] px-6 py-3 rounded-lg font-bold  text-md`}
     >
       {text}
     </button>
   );
-};
+});
 
 export { Button };
