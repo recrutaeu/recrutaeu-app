@@ -22,12 +22,12 @@ module.exports = {
         40: '#6C6C6C',
         90: '#2A2A2D',
         100: '#000000',
-        120: 'transparent'
+        120: 'transparent',
       },
       primary: {
         40: '#E9FE47',
         90: '#3C3784',
-        100: '#2a275e'
+        100: '#2a275e',
       },
       error: {
         60: '#dc3838',
