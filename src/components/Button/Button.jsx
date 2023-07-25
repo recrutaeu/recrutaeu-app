@@ -11,7 +11,7 @@ const styles = {
   inverse: {
     div: {
       [themes.DEFAULT]:
-      'bg-neutral-120 text-primary-90 hover:bg-primary-90 hover:text-neutral-10 border-2 border-primary-90',
+        'bg-neutral-120 text-primary-90 hover:bg-primary-90 hover:text-neutral-10 border-2 border-primary-90',
       [themes.DARK]: 'bg-neutral-0 text-neutral-90 hover:bg-neutral-15 hover:text-neutral-90',
       [themes.LIGHT]: 'bg-neutral-90 text-neutral-0 hover:bg-neutral-15 hover:text-neutral-90',
     },
