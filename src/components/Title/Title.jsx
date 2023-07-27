@@ -1,3 +1,4 @@
+import { twMerge } from 'tailwind-merge';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 
 const styles = {
@@ -11,11 +12,11 @@ const styles = {
   },
 };
 
-const Title = withTheme(({ children, theme, variant = 'default', ...props }) => {
+const Title = withTheme(({ children, theme, variant = 'default', className, ...props }) => {
   const style = styles[variant];
 
   return (
-    <p className={`${style[theme]} text-4Xl font-bold md:text-5Xl`} {...props}>
+    <p className={twMerge('text-4Xl font-bold md:text-5Xl', style[theme], className)} {...props}>
       {children}
     </p>
   );
