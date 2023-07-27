@@ -23,7 +23,7 @@ const Card = withTheme(({ children, className, theme, variant = 'default', ...pr
 
   return (
     <div
-      className={twMerge(`${style.div[theme]}w-full rounded-2xl px-5 py-6`, className)}
+      className={twMerge('w-full rounded-3xl px-6 py-7', style.div[theme], className)}
       {...props}
     >
       {children}
