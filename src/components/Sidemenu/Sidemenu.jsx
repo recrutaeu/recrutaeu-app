@@ -6,6 +6,7 @@ import {
   Settings,
   LogOut,
 } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 
@@ -21,10 +22,16 @@ const styles = {
       [themes.DARK]: 'text-neutral-0 hover:text-neutral-40',
       [themes.LIGHT]: 'text-neutral-90 hover:text-neutral-40',
     },
+    logo: {
+      [themes.DEFAULT]: 'logo_default',
+      [themes.DARK]: 'logo_white',
+      [themes.LIGHT]: 'logo_black',
+    },
   },
 };
 
 const menuIconSize = 32;
+const logoSize = 50;
 
 const menu = {
   options: [
@@ -41,11 +48,15 @@ const Sidemenu = withTheme(({ theme, variant = 'default' }) => {
 
   return (
     <nav className={`${style.div[theme]} p-[25px] w-[100px] h-screen flex flex-col items-center`}>
-      <div className="pb-10">logo</div>
+      <Image
+        src={`images/${style.logo[theme]}.svg`}
+        height={logoSize}
+        width={logoSize}
+        className="pb-16"
+      />
       {menu.options.map((menu, key) => (
         <Link key={key} className={`${style.icon[theme]} mb-6`} href={menu}>
-          {' '}
-          {menu.icon}{' '}
+          {menu.icon}
         </Link>
       ))}
       <button className="mt-auto">
