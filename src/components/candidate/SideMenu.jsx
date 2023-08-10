@@ -1,10 +1,10 @@
+import Image from 'next/image';
 import { SideMenu } from '@/components/shared/SideMenu';
 import { themes, withTheme } from '@/contexts/ThemeContext';
-import Image from 'next/image';
 
-const CandidateSideMenu = withTheme(({theme,  variant = 'default'}) => {
-  const sideMenuLinks =  [
-    { href: '/home', icon: 'LayoutDashboard'},
+const CandidateSideMenu = withTheme(({ theme, variant = 'default' }) => {
+  const sideMenuLinks = [
+    { href: '/home', icon: 'LayoutDashboard' },
     { href: '/profile', icon: 'User2' },
     { href: '/jobs', icon: 'Briefcase' },
     { href: '/applications', icon: 'ClipboardSignature' },
@@ -26,24 +26,30 @@ const CandidateSideMenu = withTheme(({theme,  variant = 'default'}) => {
     },
   };
 
-  const style = styles[variant]
+  const style = styles[variant];
 
   return (
-  <>
-    <SideMenu.Root>
-      <SideMenu.Top>
-        <Image src={`assets/images/${style.logo[theme]}.svg`} width={50} height={50} />
-      </SideMenu.Top>
-      <SideMenu.LinkGroup>
-        {sideMenuLinks.map(({href, icon}) => (
-          <SideMenu.Link href={href} icon={icon} />
-        ))}
-      </SideMenu.LinkGroup>
-      <SideMenu.Bottom   >
-        <SideMenu.Link href="/logout" icon="LogOut" className="-scale-x-100 block" />
-      </SideMenu.Bottom>
-    </SideMenu.Root>
-  </>
-)});
+    <>
+      <SideMenu.Root>
+        <SideMenu.Top>
+          <Image
+            src={`assets/images/${style.logo[theme]}.svg`}
+            width={50}
+            height={50}
+            alt="logo recrutaeu"
+          />
+        </SideMenu.Top>
+        <SideMenu.LinkGroup>
+          {sideMenuLinks.map(({ href, icon }) => (
+            <SideMenu.Link key={icon} href={href} icon={icon} />
+          ))}
+        </SideMenu.LinkGroup>
+        <SideMenu.Bottom>
+          <SideMenu.Link href="/logout" icon="LogOut" className="-scale-x-100 block" />
+        </SideMenu.Bottom>
+      </SideMenu.Root>
+    </>
+  );
+});
 
 export { CandidateSideMenu };
