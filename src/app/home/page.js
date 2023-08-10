@@ -1,5 +1,5 @@
 'use client';
-import { Navbar } from '@/components/Navbar';
+import { Navbar } from '@/components/shared/Navbar';
 import { withTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
 
