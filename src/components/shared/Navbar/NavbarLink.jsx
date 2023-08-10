@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { twMerge } from 'tailwind-merge';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 
 const styles = {
@@ -18,16 +19,21 @@ const styles = {
   },
 };
 
-const NavbarLink = withTheme(({ children, link, theme, variant = 'default' }) => {
-  const style = styles[variant];
+const NavbarLink = withTheme(
+  ({ children, className, href = '', theme, variant = 'default', ...props }) => {
+    const style = styles[variant];
 
-  return (
-    <div className={`${style.div[theme]} py-2 px-4 w-full font-semibold text-lg`}>
-      <Link href={link} className="flex w-full justify-center">
-        {children}
-      </Link>
-    </div>
-  );
-});
+    return (
+      <div
+        className={twMerge('py-2 px-4 w-full font-semibold text-lg', style.div[theme], className)}
+        {...props}
+      >
+        <Link href={href} className="flex w-full justify-center">
+          {children}
+        </Link>
+      </div>
+    );
+  },
+);
 
 export { NavbarLink };
