@@ -1,16 +1,11 @@
 'use client';
+import { Grid } from '@/components/shared/Grid';
 import { Navbar } from '@/components/shared/Navbar';
 import { withTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
 
-const Home = () => (
-  <>
-    <Navbar.Root>
-      <Navbar.Link link="/">{commons.navbar.home}</Navbar.Link>
-      <Navbar.Link link="/">{commons.navbar.candidate}</Navbar.Link>
-      <Navbar.Link link="/">{commons.navbar.company}</Navbar.Link>
-    </Navbar.Root>
-  </>
-);
+const Home = withTheme(({ theme, variant = 'default' }) => {
+  return <Grid></Grid>;
+});
 
 export default withTheme(Home);
