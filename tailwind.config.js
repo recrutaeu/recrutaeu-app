@@ -15,6 +15,7 @@ module.exports = {
           15: '#D9D9D9',
           20: '#DADADA',
           40: '#6C6C6C',
+          60: '#B3B3B3',
           90: '#2A2A2D',
           100: '#000000',
           120: 'transparent',
