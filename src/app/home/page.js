@@ -42,7 +42,7 @@ const Home = withTheme(({ theme, variant = 'default' }) => {
   return (
     <div
       className={twMerge(
-        'w-screen h-screen px-8 py-10 md:px-12 md:py-8 flex flex-col',
+        'w-screen h-screen px-8 py-10 items-center justify-between md:justify-normal md:px-12 md:py-8 flex flex-col',
         style.background[theme],
       )}
     >
@@ -56,7 +56,7 @@ const Home = withTheme(({ theme, variant = 'default' }) => {
         />
 
         <div className="flex justify-between content-center items-center self-start">
-          <nav className="absolute bottom-16 left-0 right-0 px-8 lg:w-[520px] lg:mr-7 lg:self-start lg:relative lg:bottom-0 lg:px-0">
+          <div className="hidden lg:block lg:w-[520px] lg:mr-7 lg:self-start lg:relative lg:bottom-0 lg:px-0">
             <Navbar.Root>
               <Navbar.Link variant="inverse" link="/">
                 {commons.navbar.home}
@@ -68,22 +68,21 @@ const Home = withTheme(({ theme, variant = 'default' }) => {
                 {commons.navbar.company}
               </Navbar.Link>
             </Navbar.Root>
-          </nav>
+          </div>
           <div className="absolute right-5 lg:relative lg:right-0">
             <ButtonContrast variant="inverse"></ButtonContrast>
           </div>
         </div>
       </section>
 
-      <section className="flex justify-between relative lg:h-[100%]">
+      <section className="flex flex-col justify-between lg:justify-between lg:flex-row relative h-full">
         <p
           className={twMerge(
-            'text-center mt-20 text-2xl lg:text-left md:text-3xl lg:mt-16',
+            'text-center mt-16 text-2xl lg:text-left md:text-2xl lg:mt-16',
             style.text[theme],
           )}
         >
-          <b>Seja bem-vindo</b> a plataforma <b className={style.middleText[theme]}>recrutaeu.</b>
-          <br />
+          <b>Seja bem-vindo</b> a plataforma <b className={style.middleText[theme]}>recrutaeu. </b>
           Onde você candidato, consegue se candidatar a vagas exclusivas e direcionadas ao seu
           perfil. E você empresa, consegue gerenciar seus recrutadores, cadastrar vagas e passar
           feedbacks das candidaturas e muito mais.
@@ -92,20 +91,18 @@ const Home = withTheme(({ theme, variant = 'default' }) => {
         <Image
           className={twMerge('hidden lg:block ml-16', style.image[theme])}
           src={'/assets/images/image_home.png'}
-          width={420}
-          height={300}
+          width={320}
+          height={200}
           alt="logo recrutaeu"
         />
 
         <div className="hidden lg:flex absolute bottom-0 flex-col w-[100%]">
-          <p
-            className={twMerge('uppercase text-[110px] font-bold leading-none', style.text[theme])}
-          >
+          <p className={twMerge('uppercase text-[92px] font-bold leading-none', style.text[theme])}>
             AUTENTICIDADE
           </p>
           <p
             className={twMerge(
-              'uppercase text-[110px] font-bold leading-none ml-[40%] mr-10',
+              'uppercase text-[92px] font-bold leading-none ml-[40%] mr-10',
               style.middleText[theme],
             )}
           >
@@ -113,12 +110,26 @@ const Home = withTheme(({ theme, variant = 'default' }) => {
           </p>
           <p
             className={twMerge(
-              'uppercase text-[110px] font-bold leading-none ml-[5%]',
+              'uppercase text-[92px] font-bold leading-none ml-[5%]',
               style.text[theme],
             )}
           >
             empregabilidade
           </p>
+        </div>
+
+        <div className="lg:hidden">
+          <Navbar.Root>
+            <Navbar.Link variant="inverse" link="/">
+              {commons.navbar.home}
+            </Navbar.Link>
+            <Navbar.Link variant="inverse" link="/">
+              {commons.navbar.candidate}
+            </Navbar.Link>
+            <Navbar.Link variant="inverse" link="/">
+              {commons.navbar.company}
+            </Navbar.Link>
+          </Navbar.Root>
         </div>
       </section>
     </div>
