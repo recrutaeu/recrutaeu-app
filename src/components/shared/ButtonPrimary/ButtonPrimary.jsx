@@ -1,3 +1,4 @@
+import { twMerge } from 'tailwind-merge';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 
 const styles = {
@@ -13,12 +14,12 @@ const styles = {
   },
 };
 
-const ButtonPrimary = withTheme(({ children, theme, variant = 'default', ...props }) => {
+const ButtonPrimary = withTheme(({ children, theme, className, variant = 'default', ...props }) => {
   const style = styles[variant];
 
   return (
     <button
-      className={`${style[theme]} px-4 py-3 rounded-lg font-bold text-md w-full md:w-40`}
+      className={twMerge('px-4 py-3 rounded-lg font-bold text-md w-40', style[theme], className)}
       {...props}
     >
       {children}
