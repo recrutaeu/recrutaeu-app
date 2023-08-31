@@ -7,14 +7,14 @@ const styles = {
     div: {
       [themes.DEFAULT]: 'bg-neutral-15 text-primary-90 hover:bg-primary-90 hover:text-neutral-10',
       [themes.DARK]: 'bg-neutral-15 text-neutral-90 hover:bg-neutral-90 hover:text-neutral-0',
-      [themes.LIGHT]: 'bg-neutral-15 text-neutral-90 hover:bg-neutral-0',
+      [themes.LIGHT]: 'bg-neutral-0 text-neutral-90 hover:bg-neutral-15',
     },
   },
   inverse: {
     div: {
       [themes.DEFAULT]: 'bg-neutral-10 text-primary-90 hover:bg-primary-40',
       [themes.DARK]: 'bg-neutral-0 text-primary-15 hover:bg-neutral-15',
-      [themes.LIGHT]: 'bg-neutral-90 text-neutral-15 hover:bg-neutral-15 hover:text-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-90 text-neutral-0 hover:bg-neutral-15 hover:text-neutral-90',
     },
   },
 };
