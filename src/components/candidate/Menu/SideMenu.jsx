@@ -19,7 +19,7 @@ const CandidateSideMenu = withTheme(({ theme, variant = 'default' }) => {
         [themes.LIGHT]: 'text-neutral-90 hover:text-neutral-40',
       },
       logo: {
-        [themes.DEFAULT]: 'logo_default',
+        [themes.DEFAULT]: 'logo_recrutaeu_verde',
         [themes.DARK]: 'logo_white',
         [themes.LIGHT]: 'logo_black',
       },
