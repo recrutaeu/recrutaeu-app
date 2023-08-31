@@ -1,5 +1,5 @@
-import { icons } from 'lucide-react';
 import Link from 'next/link';
+import { icons } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 
