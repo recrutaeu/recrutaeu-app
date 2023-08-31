@@ -1,3 +1,4 @@
+import { twMerge } from 'tailwind-merge';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 
 const styles = {
@@ -15,12 +16,16 @@ const styles = {
   },
 };
 
-const InputRoot = withTheme(({ children, theme, variant = 'default' }) => {
+const InputRoot = withTheme(({ children, theme, className, variant = 'default' }) => {
   const style = styles[variant];
 
   return (
     <div
-      className={`flex items-center rounded-md justify-between px-4 gap-4 ${style.input[theme]}`}
+      className={twMerge(
+        'flex items-center rounded-md justify-between px-4 gap-4 w-full',
+        className,
+        style.input[theme],
+      )}
     >
       {children}
     </div>
