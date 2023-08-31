@@ -7,7 +7,7 @@ const Home = () => (
   <>
     <Navbar.Root>
       <Navbar.Link link="/">{commons.navbar.home}</Navbar.Link>
-      <Navbar.Link link="/">{commons.navbar.candidate}</Navbar.Link>
+      <Navbar.Link link="/">{commons.navbar.candidate} Teste</Navbar.Link>
       <Navbar.Link link="/">{commons.navbar.company}</Navbar.Link>
     </Navbar.Root>
   </>
