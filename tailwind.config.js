@@ -31,22 +31,6 @@ module.exports = {
       fontFamily: {
         sans: ['Archivo', 'sans-serif'],
       },
-      fontSize: {
-        xs: '12px',
-        sm: '14px',
-        md: '16px',
-        lg: '18px',
-        xl: '20px',
-        '2Xl': '22px',
-        '3Xl': '24px',
-        '4Xl': '28px',
-        '5Xl': '32px',
-        '6Xl': '36px',
-        '7Xl': '40px',
-        '8Xl': '48px',
-        '9Xl': '56px',
-        '10Xl': '72px',
-      },
       fontWeight: {
         light: '300',
         regular: '400',
