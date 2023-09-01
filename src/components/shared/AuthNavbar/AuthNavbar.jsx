@@ -1,12 +1,14 @@
+import { twMerge } from 'tailwind-merge';
 import { ButtonArrow } from '../ButtonArrow';
 import { ButtonContrast } from '../ButtonContrast';
 import { ButtonFontZoom } from '../ButtonFontZoom';
 import { Navbar } from '../Navbar';
+import { withTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
 
-const AuthNavbar = ({ variant }) => {
+const AuthNavbar = withTheme(({ variant, className }) => {
   return (
-    <div className="flex w-full">
+    <div className={twMerge('flex w-full', className)}>
       <div className="hidden lg:flex w-full justify-center">
         <Navbar.Root className="mr-7">
           <Navbar.Link variant={variant} link="/">
@@ -29,6 +31,6 @@ const AuthNavbar = ({ variant }) => {
       </div>
     </div>
   );
-};
+});
 
 export { AuthNavbar };
