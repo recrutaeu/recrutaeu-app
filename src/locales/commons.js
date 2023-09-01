@@ -11,6 +11,16 @@ const commons = {
       ligth: 'Alto constrate branco',
     },
   },
+  home: {
+    authenticity: 'autenticidade',
+    ease: 'Facilidade',
+    employability: 'empregabilidade',
+    description: {
+      partOne: '',
+      partTwo:
+        'Onde você candidato, consegue se candidatar a vagas exclusivas e direcionadas ao seu perfil. E você empresa, consegue gerenciar seus recrutadores, cadastrar vagas e passar feedbacks das candidaturas e muito mais.',
+    },
+  },
   signup: {
     title: 'Olá, seja bem-vindo!',
     form: {

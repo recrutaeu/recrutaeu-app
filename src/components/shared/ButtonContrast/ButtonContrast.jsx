@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { calculateSizeAdjustValues } from 'next/dist/server/font-utils';
 import { IoContrastOutline } from 'react-icons/io5';
 import { twMerge } from 'tailwind-merge';
 import { ButtonContrastMenu } from './ButtonContrastMenu';
 import { themes, withTheme } from '@/contexts/ThemeContext';
-import { commons } from '@/locales';
 
 const defaultStyle = {
   div: {
