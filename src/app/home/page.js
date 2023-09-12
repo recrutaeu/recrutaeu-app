@@ -58,7 +58,7 @@ const Home = withTheme(({ theme, variant = 'default' }) => {
               className="hidden lg:block"
             />
             <div className="w-full flex flex-col items-end">
-              <AuthNavbar variant="inverse" className="lg:w-[50%]" />
+              <AuthNavbar variant="inverse" className="lg:w-[50%] w-full" />
             </div>
           </div>
 

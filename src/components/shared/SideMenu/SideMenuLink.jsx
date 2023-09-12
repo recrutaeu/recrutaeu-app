@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { icons } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 
@@ -15,10 +14,9 @@ const styles = {
 
 const SideMenuLink = withTheme(({ href, icon, className, theme, variant = 'default' }) => {
   const style = styles[variant];
-  const Icon = icons[icon];
   return (
     <Link className={twMerge(style.icon[theme], className)} href={href}>
-      <Icon size={36} />
+      {icon}
     </Link>
   );
 });

@@ -1,3 +1,4 @@
+import { twMerge } from 'tailwind-merge';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 
 const styles = {
@@ -17,10 +18,10 @@ const styles = {
   },
 };
 
-const Divider = withTheme(({ theme, variant = 'default' }) => {
+const Divider = withTheme(({ theme, variant = 'default', className }) => {
   const style = styles[variant];
 
-  return <div className={`${style.div[theme]} h-0.5 w-full`}></div>;
+  return <div className={twMerge(style.div[theme], className, 'h-0.5 w-full')}></div>;
 });
 
 export { Divider };
