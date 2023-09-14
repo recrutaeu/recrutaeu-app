@@ -3,6 +3,7 @@ const commons = {
     home: 'home',
     candidate: 'candidato',
     company: 'empresa',
+    recruiter: 'recrutador',
   },
   button: {
     constrast: {
@@ -12,9 +13,9 @@ const commons = {
     },
   },
   home: {
-    authenticity: 'autenticidade',
+    authenticity: 'Autenticidade',
     ease: 'Facilidade',
-    employability: 'empregabilidade',
+    employability: 'Empregabilidade',
     description: {
       partOne: '',
       partTwo:
