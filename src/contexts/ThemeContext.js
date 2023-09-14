@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useRef, useState } from 'react';
 const ThemeContext = createContext();
 
 const themes = {
@@ -10,7 +10,19 @@ const themes = {
 };
 
 const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(themes.DEFAULT);
+  const [theme, setNewTheme] = useState(themes.DEFAULT);
+
+  const setTheme = (theme) => {
+    localStorage.setItem('theme', theme);
+    setNewTheme(theme);
+  };
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      setNewTheme(storedTheme);
+    }
+  });
 
   return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>;
 };

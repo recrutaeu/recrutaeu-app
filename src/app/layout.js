@@ -1,10 +1,10 @@
 'use client';
 import VLibras from '@djpfs/react-vlibras';
-import { Inter } from 'next/font/google';
+import { Archivo } from 'next/font/google';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Archivo({ subsets: ['latin'] });
 
 const RootLayout = ({ children }) => {
   return (

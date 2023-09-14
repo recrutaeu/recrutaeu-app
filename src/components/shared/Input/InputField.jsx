@@ -1,7 +1,7 @@
 import { twMerge } from 'tailwind-merge';
 import { withTheme } from '@/contexts/ThemeContext';
 
-const InputField = withTheme(({ label = '', type, id, className }) => {
+const InputField = withTheme(({ label = '', variant, type, id, className }) => {
   return (
     <div className="relative w-full">
       <input
@@ -12,6 +12,7 @@ const InputField = withTheme(({ label = '', type, id, className }) => {
           'bg-transparent text-md text-neutral-90 w-full h-16 pb-3 pt-6 rounded-md peer focus:outline-none',
           className,
         )}
+        variant={variant}
       />
       <label
         for={id}

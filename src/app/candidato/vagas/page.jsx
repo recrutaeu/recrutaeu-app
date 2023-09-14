@@ -1,5 +1,10 @@
 'use client';
-
+import { Fragment } from 'react';
+import { LuSearch } from 'react-icons/lu';
+import { MdOutlineFilterList } from 'react-icons/md';
+import { twMerge } from 'tailwind-merge';
+import { InformationJob } from './InformationJob';
+import { Job } from './Job';
 import { CandidateSideMenu } from '@/components/candidate/Menu';
 import { AccessibilityNavbar } from '@/components/shared/AccessibilityNavbar';
 import { Card } from '@/components/shared/Card';
@@ -7,12 +12,6 @@ import { InputSearch } from '@/components/shared/InputSearch';
 import { NumberPages } from '@/components/shared/NumberPages';
 import { Title } from '@/components/shared/Title';
 import { themes, withTheme } from '@/contexts/ThemeContext';
-import { Fragment } from 'react';
-import { LuSearch } from 'react-icons/lu';
-import { MdOutlineFilterList } from 'react-icons/md';
-import { twMerge } from 'tailwind-merge';
-import { InformationJob } from './InformationJob';
-import { Job } from './Job';
 
 const Jobs = withTheme(({ theme, variant = 'default' }) => {
   const styles = {
