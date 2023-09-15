@@ -45,6 +45,23 @@ const commons = {
         'Estamos muito felizes, por desejar fazer parte da nossa comunidade. Aqui vai conseguir criar um perfil, procurar por vagas mais próximas a sua localidade, se candidatar e acompanhar todos os status da sua candidatura.',
     },
   },
+  jobs: {
+    titlePage: 'Vagas',
+    descriptionJob: {
+      job: 'Vaga',
+      location: 'Localização',
+      remuneration: 'Remuneração',
+      contract: 'Contrato',
+    },
+    informationJob: {
+      title: 'Informações da vaga',
+      differential: 'Direfencial',
+    },
+    numberJobs: 'Foram encontradas {amount} vagas nessa categoria',
+    button: {
+      label: 'candidate-se',
+    },
+  },
 };
 
 export { commons };

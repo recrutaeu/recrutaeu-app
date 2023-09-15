@@ -12,6 +12,11 @@ const styles = {
     [themes.DARK]: 'text-neutral-90',
     [themes.LIGHT]: 'text-neutral-0',
   },
+  inverseSecundary: {
+    [themes.DEFAULT]: 'text-primary-90',
+    [themes.DARK]: 'text-neutral-0',
+    [themes.LIGHT]: 'text-neutral-90',
+  },
 };
 
 const Title = withTheme(({ children, theme, variant = 'default', className, ...props }) => {

@@ -9,7 +9,7 @@ const styles = {
   },
 };
 
-const SideMenuRoot = withTheme(({ children, theme, className, variant = 'default', ...props }) => {
+const MenuRoot = withTheme(({ children, theme, className, variant = 'default', ...props }) => {
   const style = styles[variant];
 
   return (
@@ -26,4 +26,4 @@ const SideMenuRoot = withTheme(({ children, theme, className, variant = 'default
   );
 });
 
-export { SideMenuRoot };
+export { MenuRoot };
