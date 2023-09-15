@@ -1,8 +1,8 @@
-'use client'
+'use client';
+import VLibras from '@djpfs/react-vlibras';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import './globals.css';
-import VLibras from '@djpfs/react-vlibras';
 
 const inter = Inter({ subsets: ['latin'] });
 

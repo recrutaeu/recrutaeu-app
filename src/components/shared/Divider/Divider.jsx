@@ -6,7 +6,7 @@ const styles = {
     div: {
       [themes.DEFAULT]: 'bg-neutral-15',
       [themes.DARK]: 'bg-neutral-0',
-      [themes.LIGHT]: 'bg-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-15',
     },
   },
   inverse: {
@@ -21,7 +21,7 @@ const styles = {
 const Divider = withTheme(({ theme, variant = 'default', className }) => {
   const style = styles[variant];
 
-  return <div className={twMerge(style.div[theme], className, 'h-0.5 w-full')}></div>;
+  return <div className={twMerge(style.div[theme], className, 'h-[1.5px] w-full')}></div>;
 });
 
 export { Divider };

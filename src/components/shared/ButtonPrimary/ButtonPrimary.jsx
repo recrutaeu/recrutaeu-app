@@ -12,6 +12,13 @@ const styles = {
     [themes.DARK]: 'bg-neutral-90 text-neutral-0 hover:bg-neutral-15 hover:text-neutral-90',
     [themes.LIGHT]: 'bg-neutral-0 text-neutral-90 hover:bg-neutral-15 hover:text-neutral-90',
   },
+  inverseSecundary: {
+    [themes.DEFAULT]: 'bg-primary-90 text-neutral-0 hover:bg-primary-100',
+    [themes.DARK]:
+      'border-2 border-neutral-0 text-neutral-0 hover:bg-neutral-0 hover:text-neutral-90',
+    [themes.LIGHT]:
+      'border-2 border-neutral-90 text-neutral-90 hover:bg-neutral-90 hover:text-neutral-0',
+  },
 };
 
 const ButtonPrimary = withTheme(({ children, theme, className, variant = 'default', ...props }) => {

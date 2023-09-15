@@ -1,0 +1,51 @@
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { LuLogOut } from 'react-icons/lu';
+import { Menu } from '@/components/shared/Menu';
+import { themes, withTheme } from '@/contexts/ThemeContext';
+
+const styles = {
+  default: {
+    icon: {
+      [themes.DEFAULT]: 'text-neutral-0 hover:text-primary-40',
+      [themes.DARK]: 'text-neutral-0 hover:text-neutral-40',
+      [themes.LIGHT]: 'text-neutral-90 hover:text-neutral-40',
+    },
+    logo: {
+      [themes.DEFAULT]: 'logo_recrutaeu_green',
+      [themes.DARK]: 'logo_recrutaeu_white',
+      [themes.LIGHT]: 'logo_recrutaeu_black',
+    },
+  },
+};
+
+const MenuDesk = withTheme(({ theme, variant = 'default', className, links }) => {
+  const pathname = usePathname();
+
+  const style = styles[variant];
+
+  return (
+    <>
+      <Menu.Root className={className}>
+        <Menu.Top>
+          <Image
+            src={`/assets/images/${style.logo[theme]}.png`}
+            width={60}
+            height={70}
+            alt="logo recrutaeu"
+          />
+        </Menu.Top>
+        <Menu.LinkGroup>
+          {links.map(({ href, icon }) => (
+            <Menu.Link key={icon} href={href} icon={icon} active={pathname.includes(href)} />
+          ))}
+        </Menu.LinkGroup>
+        <Menu.Bottom>
+          <Menu.Link href="/" icon={<LuLogOut size={36} />} className="-scale-x-100 block" />
+        </Menu.Bottom>
+      </Menu.Root>
+    </>
+  );
+});
+
+export { MenuDesk };

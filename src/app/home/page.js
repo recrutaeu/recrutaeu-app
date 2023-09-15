@@ -43,11 +43,11 @@ const Home = withTheme(({ theme, variant = 'default' }) => {
   return (
     <div
       className={twMerge(
-        'w-screen h-screen px-8 py-10 items-center justify-between md:justify-normal md:px-12 md:py-12 flex flex-col',
+        'overflow-auto w-screen h-screen px-8 py-10 items-center justify-between md:justify-normal md:px-12 md:py-12 flex flex-col',
         style.background[theme],
       )}
     >
-      <Container className="relative">
+      <Container className="relative lg:min-h-[900px]">
         <div className="grow flex w-full flex-col items-center lg:items-start lg:gap-3">
           <div className="w-full flex justify-between">
             <Image
