@@ -8,9 +8,12 @@ const styles = {
     [themes.LIGHT]: 'bg-neutral-0 text-neutral-90 hover:bg-neutral-15 hover:text-neutral-90',
   },
   inverse: {
-    [themes.DEFAULT]: 'bg-primary-40 text-primary-90 hover:bg-primary-90 hover:text-neutral-10',
-    [themes.DARK]: 'bg-neutral-90 text-neutral-0 hover:bg-neutral-15 hover:text-neutral-90',
-    [themes.LIGHT]: 'bg-neutral-0 text-neutral-90 hover:bg-neutral-15 hover:text-neutral-90',
+    [themes.DEFAULT]:
+      'hover:bg-primary-40 hover:text-primary-90 border-2 border-primary-40  text-primary-40',
+    [themes.DARK]:
+      'bg-neutral-90 text-neutral-0 border-2  border-neutral-0 hover:bg-neutral-0 hover:text-neutral-90',
+    [themes.LIGHT]:
+      'bg-neutral-0 text-neutral-90 border-2  border-neutral-90  hover:bg-neutral-90 hover:text-neutral-0',
   },
   inverseSecundary: {
     [themes.DEFAULT]: 'bg-primary-90 text-neutral-0 hover:bg-primary-100',

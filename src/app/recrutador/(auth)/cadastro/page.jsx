@@ -1,13 +1,13 @@
 'use client';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
-import { PersonalForm } from '@/components/candidate/SignupForm';
+import { SignupForm } from '@/components/recruiter/Signup';
 import { AuthNavbar } from '@/components/shared/AuthNavbar';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { Layout } from '@/components/shared/Layout';
 import { Title } from '@/components/shared/Title';
 import { themes, withTheme } from '@/contexts/ThemeContext';
-import { candidate } from '@/locales';
+import { recruiter } from '@/locales';
 
 const styles = {
   default: {
@@ -44,8 +44,8 @@ const SignUp = withTheme(({ theme, variant = 'default' }) => {
           />
         </div>
         <div className="flex flex-col  gap-4">
-          <Title>{candidate.signup.title}</Title>
-          <p className={twMerge('text-xl', style.text[theme])}>{candidate.signup.description}</p>
+          <Title>{recruiter.signup.title}</Title>
+          <p className={twMerge('text-xl', style.text[theme])}>{recruiter.signup.description}</p>
         </div>
       </Layout.Left>
 
@@ -53,17 +53,17 @@ const SignUp = withTheme(({ theme, variant = 'default' }) => {
         <AuthNavbar />
         <div className="w-full grow flex flex-col items-center justify-center gap-8">
           <Title variant="inverse" className="text-5xl">
-            {candidate.signup.form.title}
+            {recruiter.signup.form.title}
           </Title>
 
-          <PersonalForm />
+          <SignupForm />
         </div>
         <div className="w-full flex justify-center gap-2">
           <p className={twMerge('text-lg', style.description[theme])}>
-            {candidate.signup.buttonLink.description}
+            {recruiter.signup.buttonLink.description}
           </p>
-          <ButtonLink href="/candidato/login" className="text-lg">
-            {candidate.signup.buttonLink.label}
+          <ButtonLink href="/recrutador/login" className="text-lg">
+            {recruiter.signup.buttonLink.label}
           </ButtonLink>
         </div>
       </Layout.Right>

@@ -1,13 +1,13 @@
 'use client';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
-import { PersonalForm } from '@/components/candidate/SigninForm/SigninForm';
+import { SigninForm } from '@/components/company/Signin/SigninForm';
 import { AuthNavbar } from '@/components/shared/AuthNavbar';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { Layout } from '@/components/shared/Layout';
 import { Title } from '@/components/shared/Title';
 import { themes, withTheme } from '@/contexts/ThemeContext';
-import { candidate } from '@/locales/candidate';
+import { company } from '@/locales';
 
 const styles = {
   default: {
@@ -49,8 +49,8 @@ const SignIn = withTheme(({ theme, variant = 'default' }) => {
           />
         </div>
         <div className="flex flex-col  gap-4">
-          <Title variant="inverse">{candidate.signin.title}</Title>
-          <p className={twMerge('text-xl', style.text[theme])}>{candidate.signin.description}</p>
+          <Title variant="inverse">{company.signin.title}</Title>
+          <p className={twMerge('text-xl', style.text[theme])}>{company.signin.description}</p>
         </div>
       </Layout.Left>
 
@@ -58,21 +58,17 @@ const SignIn = withTheme(({ theme, variant = 'default' }) => {
         <AuthNavbar variant="inverse" />
         <div className="w-full grow flex flex-col items-center justify-center gap-8">
           <Title className={twMerge('text-5xl', style.titleForm[theme])}>
-            {candidate.signin.form.title}
+            {company.signin.form.title}
           </Title>
-          <p
-            className={twMerge('lg:hidden w-full text-base text-center', style.description[theme])}
-          >
-            {candidate.signin.form.description}
-          </p>
-          <PersonalForm variant="inverse" />
+
+          <SigninForm variant="inverse" />
         </div>
         <div className="w-full flex justify-center gap-2">
           <p className={twMerge('text-lg', style.description[theme])}>
-            {candidate.signin.buttonLink.description}
+            {company.signin.buttonLink.description}
           </p>
-          <ButtonLink href="/candidato/cadastro" variant="inverse" className="text-lg">
-            {candidate.signin.buttonLink.label}
+          <ButtonLink href="/empresa/cadastro" variant="inverse" className="text-lg">
+            {company.signin.buttonLink.label}
           </ButtonLink>
         </div>
       </Layout.Right>

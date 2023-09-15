@@ -53,7 +53,12 @@ const Jobs = withTheme(({ theme, variant = 'default' }) => {
             />
             <Filter />
           </div>
-          <p className={twMerge('text-sm font-medium mt-3', style.descriptionFilter[theme])}>
+          <p
+            className={twMerge(
+              'md:text-sm text-xs font-medium mt-3',
+              style.descriptionFilter[theme],
+            )}
+          >
             {commons.jobs.numberJobs}
           </p>
 

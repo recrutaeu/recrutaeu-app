@@ -1,13 +1,13 @@
 'use client';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
-import { PersonalForm } from '@/components/candidate/SignupForm';
+import { SignupForm } from '@/components/company/Signup';
 import { AuthNavbar } from '@/components/shared/AuthNavbar';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { Layout } from '@/components/shared/Layout';
 import { Title } from '@/components/shared/Title';
 import { themes, withTheme } from '@/contexts/ThemeContext';
-import { candidate } from '@/locales';
+import { company } from '@/locales';
 
 const styles = {
   default: {
@@ -44,8 +44,8 @@ const SignUp = withTheme(({ theme, variant = 'default' }) => {
           />
         </div>
         <div className="flex flex-col  gap-4">
-          <Title>{candidate.signup.title}</Title>
-          <p className={twMerge('text-xl', style.text[theme])}>{candidate.signup.description}</p>
+          <Title>{company.signup.title}</Title>
+          <p className={twMerge('text-xl', style.text[theme])}>{company.signup.description}</p>
         </div>
       </Layout.Left>
 
@@ -53,17 +53,17 @@ const SignUp = withTheme(({ theme, variant = 'default' }) => {
         <AuthNavbar />
         <div className="w-full grow flex flex-col items-center justify-center gap-8">
           <Title variant="inverse" className="text-5xl">
-            {candidate.signup.form.title}
+            {company.signup.form.title}
           </Title>
 
-          <PersonalForm />
+          <SignupForm />
         </div>
         <div className="w-full flex justify-center gap-2">
           <p className={twMerge('text-lg', style.description[theme])}>
-            {candidate.signup.buttonLink.description}
+            {company.signup.buttonLink.description}
           </p>
-          <ButtonLink href="/candidato/login" className="text-lg">
-            {candidate.signup.buttonLink.label}
+          <ButtonLink href="/empresa/login" className="text-lg">
+            {company.signup.buttonLink.label}
           </ButtonLink>
         </div>
       </Layout.Right>

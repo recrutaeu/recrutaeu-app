@@ -5,7 +5,7 @@ import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Input } from '@/components/shared/Input';
 import { InputPassword } from '@/components/shared/InputPassword';
 import { themes, withTheme } from '@/contexts/ThemeContext';
-import { candidate } from '@/locales';
+import { company } from '@/locales';
 
 const styles = {
   default: {
@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-const PersonalForm = withTheme(({ theme, variant = 'default' }) => {
+const SignupForm = withTheme(({ theme, variant = 'default' }) => {
   const style = styles[variant];
 
   const formSteps = {
@@ -34,15 +34,18 @@ const PersonalForm = withTheme(({ theme, variant = 'default' }) => {
           <p
             className={twMerge('lg:hidden w-full text-base text-center', style.description[theme])}
           >
-            {candidate.signup.form.description}
+            {company.signup.form.description}
           </p>
           <Input.Root>
-            <Input.Field type="text" label="nome" id="name" />
+            <Input.Field type="text" label="empresa" id="company" />
           </Input.Root>
           <Input.Root>
-            <Input.Field type="text" label="cpf" id="document" />
+            <Input.Field type="text" label="nome fantasia" id="companyFantasy" />
           </Input.Root>
-          <Input.Root type="emial" id="emial">
+          <Input.Root>
+            <Input.Field type="text" label="cnpj" id="cnpj" />
+          </Input.Root>
+          <Input.Root type="emial" label="email" id="emial">
             <Input.Field label="email" />
           </Input.Root>
 
@@ -51,7 +54,7 @@ const PersonalForm = withTheme(({ theme, variant = 'default' }) => {
             className="mt-5"
             onClick={() => setFormStep(formSteps.password)}
           >
-            {candidate.signup.form.buttonContinue.label}
+            {company.signup.form.buttonContinue.label}
           </ButtonPrimary>
         </>
       )}
@@ -61,17 +64,17 @@ const PersonalForm = withTheme(({ theme, variant = 'default' }) => {
           <p
             className={twMerge('lg:hidden w-full text-base text-center', style.description[theme])}
           >
-            {candidate.signup.form.descriptionPassword}
+            {company.signup.form.descriptionPassword}
           </p>
           <InputPassword label="senha" id="password" />
 
-          <InputPassword label="repitir senha" id="password" />
+          <InputPassword label="repetir senha" id="password" />
 
           <ButtonPrimary type="submit" className="mt-5" onClick={() => {}}>
-            {candidate.signup.form.buttonSubmit.label}
+            {company.signup.form.buttonSubmit.label}
           </ButtonPrimary>
           <ButtonLink onClick={() => setFormStep(formSteps.profile)}>
-            {candidate.signup.form.buttonBack.label}
+            {company.signup.form.buttonBack.label}
           </ButtonLink>
         </>
       )}
@@ -79,4 +82,4 @@ const PersonalForm = withTheme(({ theme, variant = 'default' }) => {
   );
 });
 
-export { PersonalForm };
+export { SignupForm };

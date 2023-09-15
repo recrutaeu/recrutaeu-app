@@ -3,6 +3,7 @@ const commons = {
     home: 'home',
     candidate: 'candidato',
     company: 'empresa',
+    recruiter: 'recrutador',
   },
   button: {
     constrast: {
@@ -12,37 +13,13 @@ const commons = {
     },
   },
   home: {
-    authenticity: 'autenticidade',
+    authenticity: 'Autenticidade',
     ease: 'Facilidade',
-    employability: 'empregabilidade',
+    employability: 'Empregabilidade',
     description: {
       partOne: '',
       partTwo:
         'Onde você candidato, consegue se candidatar a vagas exclusivas e direcionadas ao seu perfil. E você empresa, consegue gerenciar seus recrutadores, cadastrar vagas e passar feedbacks das candidaturas e muito mais.',
-    },
-  },
-  signup: {
-    title: 'Olá, seja bem-vindo!',
-    form: {
-      title: 'Cadastro',
-      description: 'Vamos iniciar seu cadastro para que você consiga ter acesso a plataforma.',
-      buttonContinue: {
-        label: 'continuar',
-      },
-      buttonSubmit: {
-        label: 'finalizar',
-      },
-      buttonBack: {
-        label: 'voltar',
-      },
-    },
-    buttonLink: {
-      description: 'Já tem uma conta?',
-      label: 'Login',
-    },
-    candidate: {
-      description:
-        'Estamos muito felizes, por desejar fazer parte da nossa comunidade. Aqui vai conseguir criar um perfil, procurar por vagas mais próximas a sua localidade, se candidatar e acompanhar todos os status da sua candidatura.',
     },
   },
   jobs: {
