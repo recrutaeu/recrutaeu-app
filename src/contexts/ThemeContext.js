@@ -22,7 +22,7 @@ const ThemeProvider = ({ children }) => {
     if (storedTheme) {
       setNewTheme(storedTheme);
     }
-  });
+  }, []);
 
   return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>;
 };
