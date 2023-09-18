@@ -1,8 +1,8 @@
-import { twMerge } from 'tailwind-merge';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Title } from '@/components/shared/Title';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
+import { twMerge } from 'tailwind-merge';
 
 const styles = {
   default: {
@@ -24,7 +24,7 @@ const styles = {
   },
 };
 
-const InformationJob = withTheme(
+const InformationJob = 
   ({
     company,
     job,
@@ -34,9 +34,10 @@ const InformationJob = withTheme(
     contract,
     differential,
     descriptionJob,
-    theme,
+   
     variant = 'default',
   }) => {
+    const {theme} = useTheme()
     const style = styles[variant];
 
     return (
@@ -79,7 +80,6 @@ const InformationJob = withTheme(
         </div>
       </>
     );
-  },
-);
+  };
 
 export { InformationJob };

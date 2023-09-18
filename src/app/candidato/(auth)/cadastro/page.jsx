@@ -1,13 +1,13 @@
 'use client';
-import Image from 'next/image';
-import { twMerge } from 'tailwind-merge';
 import { PersonalForm } from '@/components/candidate/SignupForm';
 import { AuthNavbar } from '@/components/shared/AuthNavbar';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { Layout } from '@/components/shared/Layout';
 import { Title } from '@/components/shared/Title';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import { candidate } from '@/locales';
+import Image from 'next/image';
+import { twMerge } from 'tailwind-merge';
 
 const styles = {
   default: {
@@ -29,7 +29,8 @@ const styles = {
   },
 };
 
-const SignUp = withTheme(({ theme, variant = 'default' }) => {
+const SignUp = ({ variant = 'default' }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
 
   return (
@@ -69,6 +70,6 @@ const SignUp = withTheme(({ theme, variant = 'default' }) => {
       </Layout.Right>
     </>
   );
-});
+};
 
 export default SignUp;

@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -14,7 +14,8 @@ const styles = {
   },
 };
 
-const LayoutLeft = withTheme(({ children, theme, className, variant = 'default', ...props }) => {
+const LayoutLeft = ({ children, className, variant = 'default', ...props }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
 
   return (
@@ -22,6 +23,6 @@ const LayoutLeft = withTheme(({ children, theme, className, variant = 'default',
       {children}
     </div>
   );
-});
+};
 
 export { LayoutLeft };

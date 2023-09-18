@@ -1,12 +1,12 @@
 'use client';
-import Image from 'next/image';
-import { twMerge } from 'tailwind-merge';
 import { SigninForm } from '@/components/admin/Signin/Signin';
 import { AccessibilityNavbar } from '@/components/shared/AccessibilityNavbar';
 import { Layout } from '@/components/shared/Layout';
 import { Title } from '@/components/shared/Title';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import { admin } from '@/locales';
+import Image from 'next/image';
+import { twMerge } from 'tailwind-merge';
 
 const styles = {
   default: {
@@ -28,7 +28,8 @@ const styles = {
   },
 };
 
-const SignIn = withTheme(({ theme, variant = 'default' }) => {
+const SignIn = ({ variant = 'default' }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
 
   return (
@@ -63,6 +64,6 @@ const SignIn = withTheme(({ theme, variant = 'default' }) => {
       </Layout.Right>
     </>
   );
-});
+};
 
 export default SignIn;

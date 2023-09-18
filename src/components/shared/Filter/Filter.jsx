@@ -1,6 +1,6 @@
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import { MdOutlineFilterList } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
-import { themes, withTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -12,7 +12,8 @@ const styles = {
   },
 };
 
-const Filter = withTheme(({ theme, variant = 'default' }) => {
+const Filter = ({ variant = 'default' }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
 
   return (
@@ -20,6 +21,6 @@ const Filter = withTheme(({ theme, variant = 'default' }) => {
       <MdOutlineFilterList size={40} className={twMerge(' ml-2', style.icon[theme])} />
     </button>
   );
-});
+};
 
 export { Filter };

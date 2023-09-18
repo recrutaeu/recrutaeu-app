@@ -1,14 +1,13 @@
 'use client';
+import { SigninForm } from '@/components/recruiter/Signin/Signin';
+import { AuthNavbar } from '@/components/shared/AuthNavbar';
+import { Layout } from '@/components/shared/Layout';
+import { Title } from '@/components/shared/Title';
+import { themes, useTheme } from '@/contexts/ThemeContext';
+import { recruiter } from '@/locales';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
-import { SigninForm } from '@/components/recruiter/Signin/Signin';
-import { AuthNavbar } from '@/components/shared/AuthNavbar';
-import { ButtonLink } from '@/components/shared/ButtonLink';
-import { Layout } from '@/components/shared/Layout';
-import { Title } from '@/components/shared/Title';
-import { themes, withTheme } from '@/contexts/ThemeContext';
-import { recruiter } from '@/locales';
 
 const styles = {
   default: {
@@ -30,7 +29,8 @@ const styles = {
   },
 };
 
-const SignIn = withTheme(({ theme, variant = 'default' }) => {
+const SignIn = ({ variant = 'default' }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
   const route = useRouter();
 
@@ -68,6 +68,6 @@ const SignIn = withTheme(({ theme, variant = 'default' }) => {
       </Layout.Right>
     </>
   );
-});
+};
 
 export default SignIn;

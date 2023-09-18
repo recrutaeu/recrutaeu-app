@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { IoContrastOutline } from 'react-icons/io5';
 import { twMerge } from 'tailwind-merge';
 import { ButtonContrastMenu } from './ButtonContrastMenu';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const defaultStyle = {
   div: {
@@ -44,7 +44,8 @@ const styles = {
   },
 };
 
-const ButtonContrast = withTheme(({ setTheme, className, theme, variant = 'default' }) => {
+const ButtonContrast = ({ className, variant = 'default' }) => {
+  const { theme, setTheme } = useTheme();
   const style = styles[variant];
   const [toggle, setToggle] = useState(false);
   const handleThemeChange = (theme) => {
@@ -63,6 +64,6 @@ const ButtonContrast = withTheme(({ setTheme, className, theme, variant = 'defau
       {toggle && <ButtonContrastMenu onChange={handleThemeChange} variant={variant} />}
     </div>
   );
-});
+};
 
 export { ButtonContrast };

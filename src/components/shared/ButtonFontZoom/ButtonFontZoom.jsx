@@ -1,6 +1,6 @@
 import { MdTextDecrease, MdTextIncrease } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -15,7 +15,8 @@ const styles = {
   },
 };
 
-const ButtonFontZoom = withTheme(({ theme, variant = 'default', className, ...props }) => {
+const ButtonFontZoom = ({ variant = 'default', className, ...props }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
 
   return (
@@ -28,6 +29,6 @@ const ButtonFontZoom = withTheme(({ theme, variant = 'default', className, ...pr
       </button>
     </div>
   );
-});
+};
 
 export { ButtonFontZoom };

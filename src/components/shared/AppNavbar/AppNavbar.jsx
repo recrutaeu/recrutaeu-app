@@ -1,10 +1,9 @@
 import { usePathname } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { Navbar } from '../Navbar';
-import { withTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
 
-const AppNavbar = withTheme(({ variant, className }) => {
+const AppNavbar = ({ variant, className }) => {
   const pathname = usePathname();
 
   return (
@@ -33,6 +32,6 @@ const AppNavbar = withTheme(({ variant, className }) => {
       </Navbar.Root>
     </div>
   );
-});
+};
 
 export { AppNavbar };

@@ -2,10 +2,9 @@ import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Input } from '@/components/shared/Input';
 import { InputPassword } from '@/components/shared/InputPassword';
-import { withTheme } from '@/contexts/ThemeContext';
 import { candidate } from '@/locales/candidate';
 
-const PersonalForm = withTheme(({ variant }) => {
+const PersonalForm = ({ variant }) => {
   return (
     <form className="w-full flex flex-col gap-6 items-center">
       <>
@@ -25,6 +24,6 @@ const PersonalForm = withTheme(({ variant }) => {
       </>
     </form>
   );
-});
+};
 
 export { PersonalForm };

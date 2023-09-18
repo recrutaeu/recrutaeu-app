@@ -1,6 +1,6 @@
-import { twMerge } from 'tailwind-merge';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
+import { twMerge } from 'tailwind-merge';
 
 const defaultStyle = {
   div: {
@@ -57,9 +57,8 @@ const styles = {
   },
 };
 
-const ButtonContrastMenu = withTheme(({ onChange, theme, variant = 'default' }) => {
-  console.log(variant);
-
+const ButtonContrastMenu = ({ onChange, variant = 'default' }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
   const handleChange = (theme) => () => {
     onChange(theme);
@@ -113,6 +112,6 @@ const ButtonContrastMenu = withTheme(({ onChange, theme, variant = 'default' }) 
       </button>
     </div>
   );
-});
+};
 
 export { ButtonContrastMenu };

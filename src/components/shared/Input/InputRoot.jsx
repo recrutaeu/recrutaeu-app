@@ -1,5 +1,5 @@
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import { twMerge } from 'tailwind-merge';
-import { themes, withTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -18,7 +18,8 @@ const styles = {
   },
 };
 
-const InputRoot = withTheme(({ children, theme, className, variant = 'default' }) => {
+const InputRoot = ({ children, className, variant = 'default' }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
   return (
     <div
@@ -32,6 +33,6 @@ const InputRoot = withTheme(({ children, theme, className, variant = 'default' }
       {children}
     </div>
   );
-});
+};
 
 export { InputRoot };

@@ -1,5 +1,5 @@
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import { twMerge } from 'tailwind-merge';
-import { themes, withTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -9,7 +9,8 @@ const styles = {
   },
 };
 
-const MenuRoot = withTheme(({ children, theme, className, variant = 'default', ...props }) => {
+const MenuRoot = ({ children, className, variant = 'default', ...props }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
 
   return (
@@ -24,6 +25,6 @@ const MenuRoot = withTheme(({ children, theme, className, variant = 'default', .
       {children}
     </nav>
   );
-});
+};
 
 export { MenuRoot };

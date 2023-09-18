@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -19,7 +19,8 @@ const styles = {
   },
 };
 
-const Title = withTheme(({ children, theme, variant = 'default', className, ...props }) => {
+const Title = ({ children, variant = 'default', className, ...props }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
 
   return (
@@ -27,6 +28,6 @@ const Title = withTheme(({ children, theme, variant = 'default', className, ...p
       {children}
     </p>
   );
-});
+};
 
 export { Title };

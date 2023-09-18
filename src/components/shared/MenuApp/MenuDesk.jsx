@@ -1,8 +1,8 @@
+import { Menu } from '@/components/shared/Menu';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { LuLogOut } from 'react-icons/lu';
-import { Menu } from '@/components/shared/Menu';
-import { themes, withTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -19,7 +19,8 @@ const styles = {
   },
 };
 
-const MenuDesk = withTheme(({ theme, variant = 'default', className, links }) => {
+const MenuDesk = ({ variant = 'default', className, links }) => {
+  const { theme } = useTheme();
   const pathname = usePathname();
 
   const style = styles[variant];
@@ -37,7 +38,7 @@ const MenuDesk = withTheme(({ theme, variant = 'default', className, links }) =>
         </Menu.Top>
         <Menu.LinkGroup>
           {links.map(({ href, icon }) => (
-            <Menu.Link key={icon} href={href} icon={icon} active={pathname.includes(href)} />
+            <Menu.Link key={href} href={href} icon={icon} active={pathname.includes(href)} />
           ))}
         </Menu.LinkGroup>
         <Menu.Bottom>
@@ -46,6 +47,6 @@ const MenuDesk = withTheme(({ theme, variant = 'default', className, links }) =>
       </Menu.Root>
     </>
   );
-});
+};
 
 export { MenuDesk };

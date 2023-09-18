@@ -1,6 +1,6 @@
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
-import { themes, withTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -15,16 +15,14 @@ const styles = {
   },
 };
 
-const ButtonLink = withTheme(
-  ({ children, className, href = '', theme, variant = 'default', ...props }) => {
-    const style = styles[variant];
+const ButtonLink = ({ children, className, href = '', variant = 'default', ...props }) => {
+  const style = styles[variant];
+  const { theme } = useTheme();
 
-    return (
-      <Link href={href} className={twMerge('font-bold', style[theme], className)} {...props}>
-        {children}
-      </Link>
-    );
-  },
-);
-
+  return (
+    <Link href={href} className={twMerge('font-bold', style[theme], className)} {...props}>
+      {children}
+    </Link>
+  );
+};
 export { ButtonLink };

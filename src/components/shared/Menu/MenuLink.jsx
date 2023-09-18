@@ -1,6 +1,6 @@
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
-import { themes, withTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -17,18 +17,17 @@ const styles = {
   },
 };
 
-const MenuLink = withTheme(
-  ({ href, icon, className, theme, variant = 'default', active = false }) => {
-    const style = styles[variant];
-    return (
-      <Link
-        className={twMerge(style.icon[theme], className, active && style.active[theme])}
-        href={href}
-      >
-        {icon}
-      </Link>
-    );
-  },
-);
+const MenuLink = ({ href, icon, className, variant = 'default', active = false }) => {
+  const { theme } = useTheme();
+  const style = styles[variant];
+  return (
+    <Link
+      className={twMerge(style.icon[theme], className, active && style.active[theme])}
+      href={href}
+    >
+      {icon}
+    </Link>
+  );
+};
 
 export { MenuLink };
