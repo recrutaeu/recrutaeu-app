@@ -1,7 +1,7 @@
-import { withTheme } from '@/contexts/ThemeContext';
 import { twMerge } from 'tailwind-merge';
 import { AccessibilityNavbar } from '../AccessibilityNavbar';
 import { AppNavbar } from '../AppNavbar';
+import { withTheme } from '@/contexts/ThemeContext';
 
 const AuthNavbar = withTheme(({ variant, onBack, className }) => {
   return (

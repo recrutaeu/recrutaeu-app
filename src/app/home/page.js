@@ -1,11 +1,11 @@
 'use client';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
+import { AppNavbar } from '@/components/shared/AppNavbar';
 import { AuthNavbar } from '@/components/shared/AuthNavbar';
 import { Container } from '@/components/shared/Container';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
-import { AppNavbar } from '@/components/shared/AppNavbar';
 
 const Home = withTheme(({ theme, variant = 'default' }) => {
   const styles = {
@@ -86,7 +86,7 @@ const Home = withTheme(({ theme, variant = 'default' }) => {
             <p className="leading-10 text-xl">{commons.home.description.partTwo}</p>
           </div>
 
-          <AppNavbar variant="inverse" className="lg:hidden"/>
+          <AppNavbar variant="inverse" className="lg:hidden" />
         </div>
         <div className="hidden lg:flex lg:absolute z-10 top-[60%] left-0 flex-col w-full gap-3 ">
           <p className={twMerge('uppercase text-[92px] font-bold leading-none', style.text[theme])}>
