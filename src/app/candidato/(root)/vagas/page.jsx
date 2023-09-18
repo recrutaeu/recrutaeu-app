@@ -1,5 +1,9 @@
 'use client';
 
+import { Fragment } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { InformationJob } from './InformationJob';
+import { Job } from './Job';
 import { Card } from '@/components/shared/Card';
 import { Filter } from '@/components/shared/Filter';
 import { InputSearch } from '@/components/shared/InputSearch';
@@ -7,10 +11,6 @@ import { NumberPages } from '@/components/shared/NumberPages';
 import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
-import { Fragment } from 'react';
-import { twMerge } from 'tailwind-merge';
-import { InformationJob } from './InformationJob';
-import { Job } from './Job';
 
 const styles = {
   default: {

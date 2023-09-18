@@ -1,6 +1,6 @@
+import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
-import { twMerge } from 'tailwind-merge';
 
 const defaultStyle = {
   div: {

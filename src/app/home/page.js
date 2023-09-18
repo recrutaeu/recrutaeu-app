@@ -1,13 +1,13 @@
 'use client';
+import Image from 'next/image';
+import { twMerge } from 'tailwind-merge';
 import { AppNavbar } from '@/components/shared/AppNavbar';
 import { AuthNavbar } from '@/components/shared/AuthNavbar';
 import { Container } from '@/components/shared/Container';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
-import Image from 'next/image';
-import { twMerge } from 'tailwind-merge';
 
-const Home = ({  variant = 'default' }) => {
+const Home = ({ variant = 'default' }) => {
   const styles = {
     default: {
       logo: {
@@ -38,7 +38,7 @@ const Home = ({  variant = 'default' }) => {
     },
   };
 
-  const {theme} = useTheme()
+  const { theme } = useTheme();
   const style = styles[variant];
 
   return (

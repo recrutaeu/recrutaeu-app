@@ -1,8 +1,8 @@
-import { Menu } from '@/components/shared/Menu';
-import { themes, useTheme } from '@/contexts/ThemeContext';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { LuLogOut } from 'react-icons/lu';
+import { Menu } from '@/components/shared/Menu';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {

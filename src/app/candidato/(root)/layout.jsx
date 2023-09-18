@@ -1,7 +1,4 @@
 'use client';
-import { AccessibilityNavbar } from '@/components/shared/AccessibilityNavbar';
-import { MenuDesk, MenuMobile } from '@/components/shared/MenuApp';
-import { themes, useTheme } from '@/contexts/ThemeContext';
 import {
   LuBriefcase,
   LuClipboardSignature,
@@ -10,6 +7,9 @@ import {
   LuUser,
 } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
+import { AccessibilityNavbar } from '@/components/shared/AccessibilityNavbar';
+import { MenuDesk, MenuMobile } from '@/components/shared/MenuApp';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const links = [
   { href: '/candidato/dashboard', icon: <LuLayoutDashboard size={36} /> },

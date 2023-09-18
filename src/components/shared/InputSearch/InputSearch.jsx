@@ -1,6 +1,6 @@
-import { themes, useTheme } from '@/contexts/ThemeContext';
 import { LuSearch } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {

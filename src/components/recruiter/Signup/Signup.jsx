@@ -1,11 +1,11 @@
+import { useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Input } from '@/components/shared/Input';
 import { InputPassword } from '@/components/shared/InputPassword';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { recruiter } from '@/locales';
-import { useState } from 'react';
-import { twMerge } from 'tailwind-merge';
 
 const styles = {
   default: {

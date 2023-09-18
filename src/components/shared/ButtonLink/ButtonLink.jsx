@@ -1,6 +1,6 @@
-import { themes, useTheme } from '@/contexts/ThemeContext';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {

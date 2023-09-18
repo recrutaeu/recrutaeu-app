@@ -1,8 +1,8 @@
+import { LuChevronRight } from 'react-icons/lu';
+import { twMerge } from 'tailwind-merge';
 import { Divider } from '@/components/shared/Divider';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
-import { LuChevronRight } from 'react-icons/lu';
-import { twMerge } from 'tailwind-merge';
 
 const styles = {
   default: {

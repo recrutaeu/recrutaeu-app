@@ -1,12 +1,12 @@
 'use client';
+import Image from 'next/image';
+import { twMerge } from 'tailwind-merge';
 import { SigninForm } from '@/components/admin/Signin/Signin';
 import { AccessibilityNavbar } from '@/components/shared/AccessibilityNavbar';
 import { Layout } from '@/components/shared/Layout';
 import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { admin } from '@/locales';
-import Image from 'next/image';
-import { twMerge } from 'tailwind-merge';
 
 const styles = {
   default: {

@@ -32,7 +32,7 @@ const withTheme = (Child) => (props) => (
 );
 
 const useTheme = () => {
-  return useContext(ThemeContext)
-}
+  return useContext(ThemeContext);
+};
 
 export { themes, withTheme, ThemeProvider, useTheme };
