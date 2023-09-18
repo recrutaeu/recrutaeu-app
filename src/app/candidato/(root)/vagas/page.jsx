@@ -9,7 +9,7 @@ import { Filter } from '@/components/shared/Filter';
 import { InputSearch } from '@/components/shared/InputSearch';
 import { NumberPages } from '@/components/shared/NumberPages';
 import { Title } from '@/components/shared/Title';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
 
 const styles = {
@@ -22,7 +22,8 @@ const styles = {
   },
 };
 
-const Jobs = withTheme(({ theme, variant = 'default' }) => {
+const Jobs = ({ variant = 'default' }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
 
   const repeatedJob = Array.from({ length: 4 }, (index) => (
@@ -86,6 +87,6 @@ const Jobs = withTheme(({ theme, variant = 'default' }) => {
       </div>
     </>
   );
-});
+};
 
 export default Jobs;

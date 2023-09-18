@@ -1,12 +1,13 @@
 'use client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { PersonalForm } from '@/components/candidate/SigninForm/SigninForm';
 import { AuthNavbar } from '@/components/shared/AuthNavbar';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { Layout } from '@/components/shared/Layout';
 import { Title } from '@/components/shared/Title';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import { candidate } from '@/locales/candidate';
 
 const styles = {
@@ -34,8 +35,10 @@ const styles = {
   },
 };
 
-const SignIn = withTheme(({ theme, variant = 'default' }) => {
+const SignIn = ({ variant = 'default' }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
+  const route = useRouter();
 
   return (
     <>
@@ -55,7 +58,12 @@ const SignIn = withTheme(({ theme, variant = 'default' }) => {
       </Layout.Left>
 
       <Layout.Right className="flex flex-col items-center" variant="inverse">
-        <AuthNavbar variant="inverse" />
+        <AuthNavbar
+          variant="inverse"
+          onBack={() => {
+            route.push('/');
+          }}
+        />
         <div className="w-full grow flex flex-col items-center justify-center gap-8">
           <Title className={twMerge('text-5xl', style.titleForm[theme])}>
             {candidate.signin.form.title}
@@ -78,6 +86,6 @@ const SignIn = withTheme(({ theme, variant = 'default' }) => {
       </Layout.Right>
     </>
   );
-});
+};
 
 export default SignIn;

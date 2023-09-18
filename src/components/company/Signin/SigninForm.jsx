@@ -3,7 +3,7 @@ import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Input } from '@/components/shared/Input';
 import { InputPassword } from '@/components/shared/InputPassword';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import { company } from '@/locales';
 
 const styles = {
@@ -16,7 +16,8 @@ const styles = {
   },
 };
 
-const SigninForm = withTheme(({ theme, variant = 'default' }) => {
+const SigninForm = ({ variant = 'default' }) => {
+  const { theme } = useTheme();
   const style = styles['default'];
 
   return (
@@ -41,6 +42,6 @@ const SigninForm = withTheme(({ theme, variant = 'default' }) => {
       </>
     </form>
   );
-});
+};
 
 export { SigninForm };

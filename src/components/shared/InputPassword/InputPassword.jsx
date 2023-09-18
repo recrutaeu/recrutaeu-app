@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
 import { Input } from '../Input';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -14,7 +14,8 @@ const styles = {
   },
 };
 
-const InputPassword = withTheme(({ theme, className, variant = 'default', label }) => {
+const InputPassword = ({ className, variant = 'default', label }) => {
+  const { theme } = useTheme();
   const [inputType, setInputType] = useState('password');
   const style = styles['default'];
 
@@ -35,6 +36,6 @@ const InputPassword = withTheme(({ theme, className, variant = 'default', label 
       </Input.Root>
     </>
   );
-});
+};
 
 export { InputPassword };

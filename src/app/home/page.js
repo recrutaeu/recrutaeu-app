@@ -1,13 +1,13 @@
 'use client';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
+import { AppNavbar } from '@/components/shared/AppNavbar';
 import { AuthNavbar } from '@/components/shared/AuthNavbar';
 import { Container } from '@/components/shared/Container';
-import { Navbar } from '@/components/shared/Navbar';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
 
-const Home = withTheme(({ theme, variant = 'default' }) => {
+const Home = ({ variant = 'default' }) => {
   const styles = {
     default: {
       logo: {
@@ -38,6 +38,7 @@ const Home = withTheme(({ theme, variant = 'default' }) => {
     },
   };
 
+  const { theme } = useTheme();
   const style = styles[variant];
 
   return (
@@ -86,17 +87,7 @@ const Home = withTheme(({ theme, variant = 'default' }) => {
             <p className="leading-10 text-xl">{commons.home.description.partTwo}</p>
           </div>
 
-          <Navbar.Root className="lg:hidden">
-            <Navbar.Link variant="inverse" link="/">
-              {commons.navbar.home}
-            </Navbar.Link>
-            <Navbar.Link variant="inverse" href="/candidato/cadastro">
-              {commons.navbar.candidate}
-            </Navbar.Link>
-            <Navbar.Link variant="inverse" link="/">
-              {commons.navbar.company}
-            </Navbar.Link>
-          </Navbar.Root>
+          <AppNavbar variant="inverse" className="lg:hidden" />
         </div>
         <div className="hidden lg:flex lg:absolute z-10 top-[60%] left-0 flex-col w-full gap-3 ">
           <p className={twMerge('uppercase text-[92px] font-bold leading-none', style.text[theme])}>
@@ -132,6 +123,6 @@ const Home = withTheme(({ theme, variant = 'default' }) => {
       </Container>
     </div>
   );
-});
+};
 
-export default withTheme(Home);
+export default Home;

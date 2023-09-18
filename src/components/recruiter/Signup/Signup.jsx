@@ -4,7 +4,7 @@ import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Input } from '@/components/shared/Input';
 import { InputPassword } from '@/components/shared/InputPassword';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import { recruiter } from '@/locales';
 
 const styles = {
@@ -17,7 +17,8 @@ const styles = {
   },
 };
 
-const SignupForm = withTheme(({ theme, variant = 'default' }) => {
+const SignupForm = ({ variant = 'default' }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
 
   const formSteps = {
@@ -77,6 +78,6 @@ const SignupForm = withTheme(({ theme, variant = 'default' }) => {
       )}
     </form>
   );
-});
+};
 
 export { SignupForm };

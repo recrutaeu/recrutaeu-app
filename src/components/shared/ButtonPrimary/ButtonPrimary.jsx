@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -24,8 +24,9 @@ const styles = {
   },
 };
 
-const ButtonPrimary = withTheme(({ children, theme, className, variant = 'default', ...props }) => {
+const ButtonPrimary = ({ children, className, variant = 'default', ...props }) => {
   const style = styles[variant];
+  const { theme } = useTheme();
 
   return (
     <button
@@ -35,6 +36,6 @@ const ButtonPrimary = withTheme(({ children, theme, className, variant = 'defaul
       {children}
     </button>
   );
-});
+};
 
 export { ButtonPrimary };

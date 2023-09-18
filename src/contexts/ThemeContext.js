@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 const ThemeContext = createContext();
 
 const themes = {
@@ -31,4 +31,8 @@ const withTheme = (Child) => (props) => (
   <ThemeContext.Consumer>{(context) => <Child {...props} {...context} />}</ThemeContext.Consumer>
 );
 
-export { themes, withTheme, ThemeProvider };
+const useTheme = () => {
+  return useContext(ThemeContext);
+};
+
+export { themes, withTheme, ThemeProvider, useTheme };

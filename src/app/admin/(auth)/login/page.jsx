@@ -5,7 +5,7 @@ import { SigninForm } from '@/components/admin/Signin/Signin';
 import { AccessibilityNavbar } from '@/components/shared/AccessibilityNavbar';
 import { Layout } from '@/components/shared/Layout';
 import { Title } from '@/components/shared/Title';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import { admin } from '@/locales';
 
 const styles = {
@@ -28,7 +28,8 @@ const styles = {
   },
 };
 
-const SignIn = withTheme(({ theme, variant = 'default' }) => {
+const SignIn = ({ variant = 'default' }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
 
   return (
@@ -63,6 +64,6 @@ const SignIn = withTheme(({ theme, variant = 'default' }) => {
       </Layout.Right>
     </>
   );
-});
+};
 
 export default SignIn;

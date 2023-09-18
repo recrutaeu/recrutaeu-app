@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -18,7 +18,8 @@ const styles = {
   },
 };
 
-const Card = withTheme(({ children, className, theme, variant = 'default', ...props }) => {
+const Card = ({ children, className, variant = 'default', ...props }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
 
   return (
@@ -29,6 +30,6 @@ const Card = withTheme(({ children, className, theme, variant = 'default', ...pr
       {children}
     </div>
   );
-});
+};
 
 export { Card };

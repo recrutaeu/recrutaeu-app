@@ -1,6 +1,6 @@
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -12,7 +12,8 @@ const styles = {
   },
 };
 
-const NumberPages = withTheme(({ currentPage, totalPage, theme, variant = 'default' }) => {
+const NumberPages = ({ currentPage, totalPage, variant = 'default' }) => {
+  const { theme } = useTheme();
   const style = styles[variant];
 
   return (
@@ -28,6 +29,6 @@ const NumberPages = withTheme(({ currentPage, totalPage, theme, variant = 'defau
       </button>
     </div>
   );
-});
+};
 
 export { NumberPages };

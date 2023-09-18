@@ -1,6 +1,6 @@
 import { LuArrowLeft } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -15,14 +15,15 @@ const styles = {
   },
 };
 
-const ButtonArrow = withTheme(({ className, theme, variant = 'default', ...props }) => {
+const ButtonArrow = ({ className, onBack, variant = 'default', ...props }) => {
   const style = styles[variant];
+  const { theme } = useTheme();
 
   return (
-    <button {...props}>
+    <button onClick={onBack} type="button" {...props}>
       <LuArrowLeft className={twMerge('', className, style[theme])} size={32} />
     </button>
   );
-});
+};
 
 export { ButtonArrow };

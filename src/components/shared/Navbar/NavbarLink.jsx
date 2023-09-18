@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
-import { themes, withTheme } from '@/contexts/ThemeContext';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -29,26 +29,32 @@ const styles = {
   },
 };
 
-const NavbarLink = withTheme(
-  ({ children, className, active = false, href = '', theme, variant = 'default', ...props }) => {
-    const style = styles[variant];
+const NavbarLink = ({
+  children,
+  className,
+  active = false,
+  href = '',
+  variant = 'default',
+  ...props
+}) => {
+  const { theme } = useTheme();
+  const style = styles[variant];
 
-    return (
-      <div
-        className={twMerge(
-          'py-2 px-4 w-full font-semibold text-lg',
-          style.div[theme],
-          className,
-          active && style.active[theme],
-        )}
-        {...props}
-      >
-        <Link href={href} className="flex w-full justify-center">
-          {children}
-        </Link>
-      </div>
-    );
-  },
-);
+  return (
+    <div
+      className={twMerge(
+        'py-2 px-4 w-full font-semibold text-lg',
+        style.div[theme],
+        className,
+        active && style.active[theme],
+      )}
+      {...props}
+    >
+      <Link href={href} className="flex w-full justify-center">
+        {children}
+      </Link>
+    </div>
+  );
+};
 
 export { NavbarLink };
