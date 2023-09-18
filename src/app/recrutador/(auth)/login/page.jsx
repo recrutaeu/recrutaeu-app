@@ -8,6 +8,7 @@ import { Layout } from '@/components/shared/Layout';
 import { Title } from '@/components/shared/Title';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 import { recruiter } from '@/locales';
+import { useRouter } from 'next/navigation';
 
 const styles = {
   default: {
@@ -31,6 +32,7 @@ const styles = {
 
 const SignIn = withTheme(({ theme, variant = 'default' }) => {
   const style = styles[variant];
+  const route = useRouter();
 
   return (
     <>
@@ -50,7 +52,12 @@ const SignIn = withTheme(({ theme, variant = 'default' }) => {
       </Layout.Left>
 
       <Layout.Right className="flex flex-col items-center" variant="inverse">
-        <AuthNavbar variant="inverse" />
+        <AuthNavbar
+          variant="inverse"
+          onBack={() => {
+            route.push('/');
+          }}
+        />
         <div className="w-full grow flex flex-col items-center justify-center gap-8">
           <Title className={twMerge('text-5xl', style.titleForm[theme])}>
             {recruiter.signin.form.title}
