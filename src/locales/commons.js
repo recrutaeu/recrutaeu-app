@@ -39,6 +39,14 @@ const commons = {
       label: 'candidate-se',
     },
   },
+  tableJobs:{
+    jobs: 'Vagas',
+    sector: 'Setor',
+    numberJobs: 'N° de Vagas',
+    initialDate: 'Data inicial',
+    finalDate: 'Data final',
+    details: 'Detalhes'
+  }
 };
 
 export { commons };
