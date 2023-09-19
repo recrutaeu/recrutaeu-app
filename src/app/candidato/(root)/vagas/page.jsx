@@ -49,10 +49,11 @@ const Jobs = ({ variant = 'default' }) => {
             <InputSearch
               type="text"
               id="search"
+              size={20}
               placeholder="pesquisar por vagas"
               className="w-full"
             />
-            <Filter />
+            <Filter size={40} />
           </div>
           <p
             className={twMerge(
