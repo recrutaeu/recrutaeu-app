@@ -37,6 +37,11 @@ const recruiter = {
       },
     },
   },
+  jobs: {
+    title: 'Vagas',
+    description:
+      'Nesse espaço você consegue visualizar, adicionar e deletar  vagas cadastradas na plataforma.',
+  },
 };
 
 export { recruiter };

@@ -1,4 +1,5 @@
-import { LuSearch } from 'react-icons/lu';
+'use client';
+import { MdSearch } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 
@@ -21,6 +22,23 @@ const styles = {
       [themes.DARK]: 'bg-neutral-0',
       [themes.LIGHT]: 'bg-transparent border border-neutral-90',
     },
+    icon: {
+      [themes.DEFAULT]: 'text-primary-90',
+      [themes.DARK]: 'text-neutral-90',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
+  },
+  inverseSecundary: {
+    input: {
+      [themes.DEFAULT]: 'bg-neutral-0',
+      [themes.DARK]: 'border-2 border-neutral-90 bg-neutral-0',
+      [themes.LIGHT]: 'bg-neutral-0',
+    },
+    icon: {
+      [themes.DEFAULT]: 'text-primary-90',
+      [themes.DARK]: 'text-neutral-90',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
   },
 };
 
@@ -28,6 +46,7 @@ const InputSearch = ({
   type,
   id,
   children,
+  size,
   placeholder,
   className,
   variant = 'default',
@@ -44,7 +63,7 @@ const InputSearch = ({
             'absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none',
           )}
         >
-          <LuSearch size={20} className={style.icon[theme]} />
+          <MdSearch size={size} className={twMerge(style.icon[theme], className)} />
         </div>
         <input
           type={type}
