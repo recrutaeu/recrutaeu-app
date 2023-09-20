@@ -2,7 +2,9 @@ import { twMerge } from 'tailwind-merge';
 
 const TableCells = ({ children, className }) => {
   return (
-    <td className={twMerge('w-full flex items-center text-left px-5', className)}>{children}</td>
+    <td className={twMerge('text-left first:rounded-md last:rounded-md py-2', className)}>
+      {children}
+    </td>
   );
 };
 

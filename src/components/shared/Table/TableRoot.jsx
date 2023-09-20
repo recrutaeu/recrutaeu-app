@@ -1,5 +1,7 @@
 const TableRoot = ({ children }) => {
-  return <table className="w-full flex flex-col overflow-auto">{children}</table>;
+  return (
+    <table className="w-full border-separate border-spacing-y-2 overflow-auto">{children}</table>
+  );
 };
 
 export { TableRoot };

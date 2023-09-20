@@ -10,31 +10,41 @@ const JobTable = ({ jobs }) => {
   const [checked, setChecked] = useState(false);
   return (
     <Table.Root>
-      <Table.Row className={'justify-between lg:pr-3 lg:pl-5'}>
-        <Table.Header className={'w-[70px]'}>
-          <ButtonSelectAll onChange={setChecked} />
+      <Table.Row>
+        <Table.Header>
+          <div className="flex items-center justify-center">
+            <ButtonSelectAll onChange={setChecked} />
+          </div>
         </Table.Header>
-        <Table.Header className={'lg:w-[calc(100% / 6)]'}>
-          {commons.tableJobs.jobs}
-          <Filter size={20} variant="inverse" />
+        <Table.Header>
+          <div className="flex items-center">
+            {commons.tableJobs.jobs}
+            <Filter size={20} variant="inverse" />
+          </div>
         </Table.Header>
-        <Table.Header className={'lg:w-[calc(100% / 6)]'}>
-          {commons.tableJobs.sector}
-          <Filter size={20} variant="inverse" />
+        <Table.Header>
+          <div className="flex items-center">
+            {commons.tableJobs.sector}
+            <Filter size={20} variant="inverse" />
+          </div>
         </Table.Header>
-        <Table.Header
-          className={'hidden lg:flex  lg:w-[calc(100% / 6)] justify-center text-center'}
-        >
-          {commons.tableJobs.numberJobs}
-          <Filter size={20} variant="inverse" />
+        <Table.Header className={'hidden lg:table-cell'}>
+          <div className="flex items-center justify-center">
+            {commons.tableJobs.numberJobs}
+            <Filter size={20} variant="inverse" />
+          </div>
         </Table.Header>
-        <Table.Header className={'hidden lg:flex lg:w-[calc(100% / 6)] justify-center text-center'}>
-          {commons.tableJobs.initialDate}
-          <Filter size={20} variant="inverse" />
+        <Table.Header className={'hidden lg:table-cell'}>
+          <div className="flex items-center justify-center">
+            {commons.tableJobs.initialDate}
+            <Filter size={20} variant="inverse" />
+          </div>
         </Table.Header>
-        <Table.Header className={'hidden lg:flex lg:w-[calc(100% / 6)] justify-center text-center'}>
-          {commons.tableJobs.finalDate}
-          <Filter size={20} variant="inverse" />
+        <Table.Header className={'hidden lg:table-cell'}>
+          <div className="flex items-center justify-center">
+            {commons.tableJobs.finalDate}
+            <Filter size={20} variant="inverse" />
+          </div>
         </Table.Header>
         <Table.Header className={'justify-center text-center'}>
           {commons.tableJobs.details}
