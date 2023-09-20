@@ -34,6 +34,7 @@ const JobTableContext = ({ job, expiresAt, publishedAt, quantity, sector, checkA
     setChecked(checkAll);
   }, [checkAll]);
 
+
   const CustomCell = ({ children, className }) => (
     <Table.Cells className={twMerge(style.background[theme], className)}>{children}</Table.Cells>
   );
