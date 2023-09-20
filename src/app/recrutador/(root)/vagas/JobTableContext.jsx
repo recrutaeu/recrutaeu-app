@@ -9,7 +9,7 @@ const styles = {
   default: {
     background: {
       [themes.DEFAULT]: 'bg-neutral-0',
-      [themes.DARK]: 'border-2 border-neutral-90 bg-neutral-0',
+      [themes.DARK]: 'border-neutral-90 bg-neutral-0',
       [themes.LIGHT]: 'bg-neutral-0',
     },
     details: {
@@ -34,10 +34,14 @@ const JobTableContext = ({ job, expiresAt, publishedAt, quantity, sector, checkA
     setChecked(checkAll);
   }, [checkAll]);
 
+  const CustomCell = ({ children }) => (
+    <Table.Cells className={style.background[theme]}>{children}</Table.Cells>
+  );
+
   return (
     <>
-      <Table.Row className={twMerge('rounded-md', style.background[theme])}>
-        <Table.Cells>
+      <Table.Row>
+        <CustomCell>
           <div className="flex items-center justify-center">
             <input
               type="checkbox"
@@ -48,20 +52,20 @@ const JobTableContext = ({ job, expiresAt, publishedAt, quantity, sector, checkA
               className={twMerge('cursor-pointer', style.checkbox[theme])}
             />
           </div>
-        </Table.Cells>
-        <Table.Cells>{job}</Table.Cells>
-        <Table.Cells>{sector}</Table.Cells>
-        <Table.Cells className="hidden lg:table-cell text-center">{quantity}</Table.Cells>
-        <Table.Cells className="hidden lg:table-cell text-center">{publishedAt}</Table.Cells>
-        <Table.Cells className="hidden lg:table-cell text-center">{expiresAt}</Table.Cells>
+        </CustomCell>
+        <CustomCell>{job}</CustomCell>
+        <CustomCell>{sector}</CustomCell>
+        <CustomCell className="hidden lg:table-cell text-center">{quantity}</CustomCell>
+        <CustomCell className="hidden lg:table-cell text-center">{publishedAt}</CustomCell>
+        <CustomCell className="hidden lg:table-cell text-center">{expiresAt}</CustomCell>
 
-        <Table.Cells>
+        <CustomCell>
           <button className="w-full flex items-center justify-center cursor-pointer">
             <MdFiberManualRecord size={12} className={style.details[theme]} />
             <MdFiberManualRecord size={12} className={style.details[theme]} />
             <MdFiberManualRecord size={12} className={style.details[theme]} />
           </button>
-        </Table.Cells>
+        </CustomCell>
       </Table.Row>
     </>
   );
