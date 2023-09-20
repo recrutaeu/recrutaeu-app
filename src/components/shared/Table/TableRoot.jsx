@@ -1,6 +1,5 @@
-'use client';
 const TableRoot = ({ children }) => {
-  <table className="w-full">{children}</table>;
+  return <table className="w-full flex flex-col overflow-auto">{children}</table>;
 };
 
 export { TableRoot };

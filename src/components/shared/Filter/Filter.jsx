@@ -11,6 +11,13 @@ const styles = {
       [themes.LIGHT]: 'text-neutral-90',
     },
   },
+  inverse: {
+    icon: {
+      [themes.DEFAULT]: 'text-primary-90',
+      [themes.DARK]: 'text-neutral-90',
+      [themes.LIGHT]: 'text-neutral-0',
+    },
+  },
 };
 
 const Filter = ({ variant = 'default', size, className }) => {

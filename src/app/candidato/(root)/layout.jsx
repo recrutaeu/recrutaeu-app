@@ -36,11 +36,11 @@ const Layout = ({ children, variant = 'default' }) => {
   return (
     <div className={twMerge('w-full h-screen flex flex-col md:flex-row', style.background[theme])}>
       <MenuDesk className="hidden md:flex" links={links} />
-      <div className="w-full grow overflow-auto flex flex-col px-7">
+      <div className="w-full grow overflow-auto flex flex-col px-5">
         <AccessibilityNavbar className="w-full flex items-center justify-end py-4" />
         {children}
       </div>
-      <MenuMobile links={links} />
+      <MenuMobile links={links} className="px-4" />
     </div>
   );
 };
