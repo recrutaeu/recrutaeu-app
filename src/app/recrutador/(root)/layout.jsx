@@ -13,12 +13,24 @@ import { MenuDesk, MenuMobile } from '@/components/shared/MenuApp';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const links = [
-  { href: '/recrutador/dashboard', icon: <LuLayoutDashboard size={36} /> },
-  { href: '/recrutador/vagas', icon: <LuBriefcase size={36} /> },
-  { href: '/recrutador/buscar-candidato', icon: <RiUserSearchLine size={36} /> },
-  { href: '/recrutador/processo-em-andamento', icon: <LuHourglass size={36} /> },
-  { href: '/recrutador/programacao-da-semana', icon: <LuCalendarDays size={36} /> },
-  { href: '/recrutador/configuracoes', icon: <LuSettings size={36} /> },
+  {
+    href: '/recrutador/dashboard',
+    icon: <LuLayoutDashboard className="md:w-9 md:h-9 w-7 h-7" />,
+  },
+  { href: '/recrutador/vagas', icon: <LuBriefcase className="md:w-9 md:h-9 w-7 h-7" /> },
+  {
+    href: '/recrutador/buscar-candidato',
+    icon: <RiUserSearchLine className="md:w-9 md:h-9 w-7 h-7" />,
+  },
+  {
+    href: '/recrutador/processo-em-andamento',
+    icon: <LuHourglass className="md:w-9 md:h-9 w-7 h-7" />,
+  },
+  {
+    href: '/recrutador/programacao-da-semana',
+    icon: <LuCalendarDays className="md:w-9 md:h-9 w-7 h-7" />,
+  },
+  { href: '/recrutador/configuracoes', icon: <LuSettings className="md:w-9 md:h-9 w-7 h-7" /> },
 ];
 
 const styles = {
@@ -36,7 +48,12 @@ const Layout = ({ children, variant = 'default' }) => {
   const style = styles[variant];
 
   return (
-    <div className={twMerge('w-full h-screen flex flex-col md:flex-row', style.background[theme])}>
+    <div
+      className={twMerge(
+        'w-full h-[calc(100vh-80px)] md:h-screen flex flex-col md:flex-row',
+        style.background[theme],
+      )}
+    >
       <MenuDesk className="hidden md:flex" links={links} />
       <div className="w-full grow overflow-auto flex flex-col lg:px-7 px-5">
         <AccessibilityNavbar className="w-full flex items-center justify-end py-4" />

@@ -6,7 +6,7 @@ const MenuMobile = ({ links, className }) => {
   const pathname = usePathname();
 
   return (
-    <Menu.Root className={twMerge('w-full h-auto md:hidden', className)}>
+    <Menu.Root className={twMerge('fixed bottom-0 w-full h-20 md:hidden', className)}>
       <Menu.LinkGroup className={twMerge('w-full flex-row justify-between', className)}>
         {links.map((link) => {
           return (
