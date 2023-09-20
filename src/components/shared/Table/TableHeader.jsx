@@ -17,11 +17,7 @@ const TableHeader = ({ children, className }) => {
   const style = styles['default'];
 
   return (
-    <th
-      className={twMerge('w-full flex items-center text-left px-4', style.text[theme], className)}
-    >
-      {children}
-    </th>
+    <th className={twMerge('items-center text-left', style.text[theme], className)}>{children}</th>
   );
 };
 

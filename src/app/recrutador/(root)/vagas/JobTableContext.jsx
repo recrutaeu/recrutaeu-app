@@ -36,38 +36,27 @@ const JobTableContext = ({ job, expiresAt, publishedAt, quantity, sector, checkA
 
   return (
     <>
-      <Table.Row
-        className={twMerge(
-          'flex justify-between rounded-md mt-2 py-2 lg:px-6',
-          style.background[theme],
-        )}
-      >
-        <Table.Cells className="w-fit justify-center lg:flex items-center">
-          <input
-            type="checkbox"
-            name=""
-            id="checkbox"
-            checked={checked}
-            onClick={() => setChecked(!checked)}
-            className={twMerge('cursor-pointer', style.checkbox[theme])}
-          />
+      <Table.Row className={twMerge('rounded-md', style.background[theme])}>
+        <Table.Cells>
+          <div className="flex items-center justify-center">
+            <input
+              type="checkbox"
+              name=""
+              id="checkbox"
+              checked={checked}
+              onClick={() => setChecked(!checked)}
+              className={twMerge('cursor-pointer', style.checkbox[theme])}
+            />
+          </div>
         </Table.Cells>
-        <Table.Cells className="w-[calc(100% / 2] lg:w-[calc(100% / 6] lg:flex">{job}</Table.Cells>
-        <Table.Cells className="w-[calc(100% / 2] lg:w-[calc(100% / 6] lg:flex ">
-          {sector}
-        </Table.Cells>
-        <Table.Cells className="w-[calc(100% / 6] hidden lg:flex justify-center text-center">
-          {quantity}
-        </Table.Cells>
-        <Table.Cells className="w-[calc(100% / 6] hidden  justify-center lg:flex text-center ">
-          {publishedAt}
-        </Table.Cells>
-        <Table.Cells className="w-[calc(100% / 6] hidden lg:flex justify-center text-center">
-          {expiresAt}
-        </Table.Cells>
+        <Table.Cells>{job}</Table.Cells>
+        <Table.Cells>{sector}</Table.Cells>
+        <Table.Cells className="hidden lg:table-cell text-center">{quantity}</Table.Cells>
+        <Table.Cells className="hidden lg:table-cell text-center">{publishedAt}</Table.Cells>
+        <Table.Cells className="hidden lg:table-cell text-center">{expiresAt}</Table.Cells>
 
-        <Table.Cells className={'flex'}>
-          <button className="w-full flex justify-center cursor-pointer">
+        <Table.Cells>
+          <button className="w-full flex items-center justify-center cursor-pointer">
             <MdFiberManualRecord size={12} className={style.details[theme]} />
             <MdFiberManualRecord size={12} className={style.details[theme]} />
             <MdFiberManualRecord size={12} className={style.details[theme]} />
