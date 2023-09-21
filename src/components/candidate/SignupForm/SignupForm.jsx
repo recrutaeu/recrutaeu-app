@@ -28,6 +28,10 @@ const PersonalForm = ({ variant = 'default' }) => {
   const [password, setPassword] = useState()
   const [nome, setNome] = useState()
   const [cpf, setCpf] = useState()
+
+  const [mensagem, setMensagem] = React.useState(false)
+  const [mensagemErro, setMensagemErro] = React.useState('')
+
   const router = useRouter()
   const formSteps = {
     profile: 'profile',
@@ -42,19 +46,14 @@ const PersonalForm = ({ variant = 'default' }) => {
 
   const handleForm = async (event) => {
     event.preventDefault()
-
     const { result, error } = await signUp(email, password);
 
-    
-    console.log(email)
-    console.log(password)
-    console.log("--------- caiu aqui tbm")
     if (error) {
-        return console.log("ERRO -------- \n"+error)
+      setMensagem(true)
+      setMensagemErro(error)
+      return console.log("ERRO -------- \n"+error)
     }
 
-    // else successful
-    console.log("CERTO -------- \n"+result)
     handleFormFirestore(result.user.uid)
   }
 
@@ -112,6 +111,7 @@ const PersonalForm = ({ variant = 'default' }) => {
           <InputPassword label="senha" id="password"/>
 
           <InputPassword label="repitir senha" id="password" setInputPassword={setPassword}/>
+          {mensagem? <p>{mensagemErro}</p> : null}
 
           <ButtonPrimary type="submit" className="mt-5">
             {candidate.signup.form.buttonSubmit.label}
