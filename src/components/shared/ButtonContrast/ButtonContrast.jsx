@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import { IoContrastOutline } from 'react-icons/io5';
 import { twMerge } from 'tailwind-merge';

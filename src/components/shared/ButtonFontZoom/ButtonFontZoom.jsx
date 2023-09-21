@@ -1,3 +1,4 @@
+'use client';
 import { MdTextDecrease, MdTextIncrease } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';

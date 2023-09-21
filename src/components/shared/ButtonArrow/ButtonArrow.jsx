@@ -1,3 +1,4 @@
+'use client';
 import { LuArrowLeft } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
