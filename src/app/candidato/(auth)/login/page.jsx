@@ -64,7 +64,7 @@ const SignIn = ({ variant = 'default' }) => {
             onBack={() => {
               route.push('/');
             }}
-            className='w-fit'
+            className="w-fit"
           />
         </div>
         <div className="w-full grow flex flex-col items-center justify-center gap-8">
@@ -76,7 +76,7 @@ const SignIn = ({ variant = 'default' }) => {
           >
             {candidate.signin.form.description}
           </p>
-          <PersonalForm variant="inverse" className="w-3/4"/>
+          <PersonalForm variant="inverse" className="w-3/4" />
         </div>
         <div className="w-full flex justify-center gap-2">
           <p className={twMerge('text-lg', style.description[theme])}>
