@@ -1,4 +1,7 @@
 'use client';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { twMerge } from 'tailwind-merge';
 import { AuthNavbar } from '@/components/shared/AuthNavbar';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { InputPassword } from '@/components/shared/InputPassword';
@@ -6,9 +9,6 @@ import { Layout } from '@/components/shared/Layout';
 import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { twMerge } from 'tailwind-merge';
 
 const styles = {
   default: {

@@ -47,13 +47,13 @@ const commons = {
     finalDate: 'Data final',
     details: 'Detalhes',
   },
-  newPassword:{
+  newPassword: {
     titleForm: 'Criar nova senha',
     description: 'a senha deve conter no mínimo 6 caracteres com números e letras',
-    buttonForm:{
-      label:'salvar'
-    }
-  }
+    buttonForm: {
+      label: 'salvar',
+    },
+  },
 };
 
 export { commons };
