@@ -8,6 +8,7 @@ import { InputSearch } from '@/components/shared/InputSearch';
 import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { recruiter } from '@/locales';
+import { JobPoup } from './JobPoup';
 
 const jobs = [
   {
@@ -56,18 +57,19 @@ const Jobs = ({}) => {
 
   return (
     <>
+      <JobPoup isOpen={true} />
       <div className="w-full">
-        <Title className="text-3xl" variant="inverse">
+        <Title className="text-2xl lg:text-4xl" variant="inverse">
           {recruiter.jobs.title}
         </Title>
-        <p className={twMerge('mt-2 w-full', style.description[theme])}>
+        <p className={twMerge('mt-2 w-full text-sm lg:text-base', style.description[theme])}>
           {recruiter.jobs.description}
         </p>
 
         <div className="flex mt-4 mb-7 lg:w-1/2 w-full">
           <InputSearch variant="inverseSecundary" size={24} />
           <div className="ml-4 gap-3 flex">
-            <ButtonIcon>
+            <ButtonIcon onClick={() => {}}>
               <MdAddBox size={30} />
             </ButtonIcon>
             <ButtonIcon disabled={true}>

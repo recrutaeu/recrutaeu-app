@@ -53,11 +53,11 @@ const JobTableContext = ({ job, expiresAt, publishedAt, quantity, sector, checkA
             />
           </div>
         </CustomCell>
-        <CustomCell>{job}</CustomCell>
-        <CustomCell>{sector}</CustomCell>
-        <CustomCell className="hidden lg:table-cell text-center">{quantity}</CustomCell>
-        <CustomCell className="hidden lg:table-cell text-center">{publishedAt}</CustomCell>
-        <CustomCell className="hidden lg:table-cell text-center">{expiresAt}</CustomCell>
+        <CustomCell className='text-sm lg:text-base'>{job}</CustomCell>
+        <CustomCell className='text-sm lg:text-base' >{sector}</CustomCell>
+        <CustomCell className="hidden text-center text-sm lg:text-base lg:table-cell">{quantity}</CustomCell>
+        <CustomCell className="hidden text-center text-sm lg:text-base lg:table-cell">{publishedAt}</CustomCell>
+        <CustomCell className="hidden text-center text-sm lg:text-base lg:table-cell">{expiresAt}</CustomCell>
 
         <CustomCell>
           <button className="w-full flex items-center justify-center cursor-pointer">
