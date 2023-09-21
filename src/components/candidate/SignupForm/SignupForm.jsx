@@ -38,10 +38,6 @@ const PersonalForm = ({ variant = 'default' }) => {
     password: 'password',
   };
 
-  useEffect(()=>{
-    console.log(password)
-  }, [password])
-
   const [formStep, setFormStep] = useState(formSteps.profile);
 
   const handleForm = async (event) => {
