@@ -5,11 +5,9 @@ import { Title } from '@/components/shared/Title';
 import { withTheme, themes } from '@/contexts/ThemeContext';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { LuPencil } from 'react-icons/lu';
-import { useContext } from 'react';
-import PopupContext from './PopupContext';
 
-const DescriptionSection = withTheme(({ userData, theme, variant='default' }) => {
-  const { togglePopup } = useContext(PopupContext)
+const DescriptionSection = withTheme(({ userData, theme, variant='default', onEdit }) => {
+
   const styles = {
     default: {
       text: {
@@ -33,7 +31,7 @@ const DescriptionSection = withTheme(({ userData, theme, variant='default' }) =>
               <Title variant="inverse2" className="text-base mb-2">
                   Descrição
               </Title>
-              <ButtonLink onClick={togglePopup}>
+              <ButtonLink onClick={onEdit}>
                   <LuPencil size={20} className={style.icon[theme]} />
               </ButtonLink>
             </div>

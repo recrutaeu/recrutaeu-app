@@ -6,11 +6,9 @@ import { Title } from '@/components/shared/Title';
 import { LuPencil } from 'react-icons/lu';
 import { withTheme, themes } from '@/contexts/ThemeContext';
 import { ButtonLink } from '@/components/shared/ButtonLink';
-import PopupContext from './PopupContext';
-import { useContext } from 'react';
 
-const ProfileQuotes = withTheme(({ items, theme, variant='default' }) => {
-  const { togglePopup } = useContext(PopupContext)
+const ProfileQuotes = withTheme(({ items, theme, onEdit, variant='default' }) => {
+
   const styles = {
     default: {
       text: {
@@ -38,7 +36,7 @@ const ProfileQuotes = withTheme(({ items, theme, variant='default' }) => {
 
       <div className="flex justify-between">
         <Title variant="inverse2" className="text-sm"> {i.title} </Title>
-        <ButtonLink onClick={togglePopup}> <LuPencil size={20} className={style.icon[theme]} /> </ButtonLink>
+        <ButtonLink onClick={onEdit}> <LuPencil size={20} className={style.icon[theme]} /> </ButtonLink>
       </div>
 
       <p className={twMerge('text-sm', style.text[theme])}> {i.subtitle} </p>

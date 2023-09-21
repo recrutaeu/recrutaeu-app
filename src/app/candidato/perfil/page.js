@@ -12,14 +12,17 @@ import { ProfileSection } from './ProfileSection';
 import { useState } from 'react';
 import { UserInfo } from './UserInfo';
 import { DescriptionSection } from './DescriptionSection';
-import PopupContext from './PopupContext';
-import { EditPopup } from './EditPopup';
+import { Popup } from '@/components/shared/Popup';
+import { PopupDescription } from '@/components/candidate/Popups/PopupDescription';
+import { PopupEducation } from '@/components/candidate/Popups/PopupEducation';
+import { PopupExperiences } from '@/components/candidate/Popups/PopupExperiences';
+import { PopupExtras } from '@/components/candidate/Popups/PopupExtras';
 
 const Profile = withTheme(({ theme, variant = 'default' }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [currentItem, setCurrentItem] = useState(null);
-
-  const togglePopup = () => setIsOpen(!isOpen);
+  const [isOpenDescription, setIsOpenDescription] = useState(false);
+  const [isOpenEducation, setIsOpenEducation] = useState(false);
+  const [isOpenExperiences, setIsOpenExperiences] = useState(false);
+  const [isOpenExtras, setIsOpenExtras] = useState(false);
 
   const styles = {
     default: {
@@ -66,14 +69,23 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         end: '20/04/22',
       },
     ],
-    education: [],
+    education: [
+      {
+        id: 1,
+        title: 'Fiap LTDA',
+        subtitle: 'UI Design',
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat',
+        start: '20/04/2020',
+        end: '20/04/22',
+      },
+    ],
     extras: [],
   };
 
   return (
-    <PopupContext.Provider value={{ isOpen, togglePopup }}>
+    <>
       <div className="flex flex-row">
-        {isOpen && <EditPopup type={2} onSave={() => console.log(isOpen)} />}
         <CandidateSideMenu className="hidden lg:flex" />
         <div
           className={twMerge(
@@ -104,18 +116,42 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
 
             <div>
               <UserInfo userData={userData} />
-              <DescriptionSection userData={userData} />
-              <ProfileSection title={'Ultimas Empresas'} content={userData.work_experience} />
+              <DescriptionSection userData={userData} onEdit={() => setIsOpenDescription(true)} />
+              <ProfileSection
+                title={'Ultimas Empresas'}
+                content={userData.work_experience}
+                onAdd={() => setIsOpenExperiences(true)}
+              />
             </div>
 
             <div>
-              <ProfileSection title={'Escolaridade'} content={userData.education} />
-              <ProfileSection title={'Cursos e idiomas'} content={userData.extras} />
+              <ProfileSection
+                title={'Escolaridade'}
+                content={userData.education}
+                onAdd={() => setIsOpenEducation(true)}
+              />
+              <ProfileSection
+                title={'Cursos e idiomas'}
+                content={userData.extras}
+                onAdd={() => setIsOpenExtras(true)}
+              />
             </div>
           </Card>
         </div>
       </div>
-    </PopupContext.Provider>
+      <Popup title={'Descrição'} isOpen={isOpenDescription} setIsOpen={setIsOpenDescription}>
+        <PopupDescription />
+      </Popup>
+      <Popup title={'Ultimas Empresas'} isOpen={isOpenExperiences} setIsOpen={setIsOpenExperiences}>
+        <PopupExperiences />
+      </Popup>
+      <Popup title={'Escolaridade'} isOpen={isOpenEducation} setIsOpen={setIsOpenEducation}>
+        <PopupEducation />
+      </Popup>
+      <Popup title={'Cursos e Idiomas'} isOpen={isOpenExtras} setIsOpen={setIsOpenExtras}>
+        <PopupExtras />
+      </Popup>
+    </>
   );
 });
 

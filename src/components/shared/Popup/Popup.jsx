@@ -1,6 +1,9 @@
 import { twMerge } from 'tailwind-merge';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 import { AuthNavbar } from '../AuthNavbar';
+import { Fragment } from 'react';
+import { Title } from '../Title';
+import { ButtonPrimary } from '../ButtonPrimary';
 
 const styles = {
   default: {
@@ -19,21 +22,31 @@ const styles = {
   },
 };
 
-const Popup = withTheme(({ children, className, theme, onSave, variant = 'default', ...props }) => {
+const Popup = withTheme(({ children, className, theme, onSave, isOpen, setIsOpen, title, variant = 'default', ...props }) => {
   const style = styles[variant];
 
-  return (
-    <div
-      className={twMerge('w-full h-full px-6 py-7 lg:rounded-3xl', style.div[theme], className)}
-      {...props}
-    >
-        <div className="block lg:hidden">
-            <AuthNavbar variant='inverse'/>
-        </div>
-      {children}
+  if(isOpen) {
+      return (
+        <div className='fixed top-0 w-screen h-full bg-black/80 z-10 flex justify-end items-center'>
+          <div
+            className={twMerge('w-full h-[100%] px-5 py-7 lg:px-8 lg:w-[40%] overflow-auto', style.div[theme], className)}
+            {...props}
+          >
+              <div className="block lg:hidden">
+                  <AuthNavbar variant='inverse' className={'mb-4'}/>
+              </div>
 
-    </div>
-  );
+              <Title className='text-2xl font-semibold'>{title}</Title>
+              {children}
+              <div className='w-full flex justify-between'>
+                <ButtonPrimary variant='inverse' onClick={() => setIsOpen(false)}> Salvar </ButtonPrimary>
+              </div>
+
+          </div>
+      </div>
+    );
+  }
+
 });
 
 export { Popup };
