@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
