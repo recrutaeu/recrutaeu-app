@@ -19,7 +19,7 @@ const LayoutLeft = ({ children, className, variant = 'default', ...props }) => {
   const style = styles[variant];
 
   return (
-    <div className={twMerge('w-full pl-20 pr-40 py-12', style[theme], className)} {...props}>
+    <div className={twMerge('w-full py-10 pl-10', style[theme], className)} {...props}>
       {children}
     </div>
   );

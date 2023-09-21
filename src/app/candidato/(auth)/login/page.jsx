@@ -51,19 +51,22 @@ const SignIn = ({ variant = 'default' }) => {
             alt="logo recrutaeu"
           />
         </div>
-        <div className="flex flex-col  gap-4">
+        <div className="flex flex-col w-3/4 gap-4">
           <Title variant="inverse">{candidate.signin.title}</Title>
           <p className={twMerge('text-xl', style.text[theme])}>{candidate.signin.description}</p>
         </div>
       </Layout.Left>
 
       <Layout.Right className="flex flex-col items-center" variant="inverse">
-        <AuthNavbar
-          variant="inverse"
-          onBack={() => {
-            route.push('/');
-          }}
-        />
+        <div className="w-full flex justify-end">
+          <AuthNavbar
+            variant="inverse"
+            onBack={() => {
+              route.push('/');
+            }}
+            className='w-fit'
+          />
+        </div>
         <div className="w-full grow flex flex-col items-center justify-center gap-8">
           <Title className={twMerge('text-5xl', style.titleForm[theme])}>
             {candidate.signin.form.title}
@@ -73,7 +76,7 @@ const SignIn = ({ variant = 'default' }) => {
           >
             {candidate.signin.form.description}
           </p>
-          <PersonalForm variant="inverse" />
+          <PersonalForm variant="inverse" className="w-3/4"/>
         </div>
         <div className="w-full flex justify-center gap-2">
           <p className={twMerge('text-lg', style.description[theme])}>

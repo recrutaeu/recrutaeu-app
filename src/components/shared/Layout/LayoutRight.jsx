@@ -20,7 +20,7 @@ const LayoutRight = ({ children, className, variant = 'default', ...props }) => 
 
   return (
     <div
-      className={twMerge('w-full lg:pl-40 lg:pr-20 lg:py-12 px-7 py-8', style[theme], className)}
+      className={twMerge('w-full px-6 py-7 lg:py-10 lg:pr-10 ', style[theme], className)}
       {...props}
     >
       {children}
