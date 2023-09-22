@@ -1,22 +1,22 @@
 'use client';
 
-import { twMerge } from 'tailwind-merge';
-import { CandidateSideMenu } from '@/components/candidate/Menu';
-import { AuthNavbar } from '@/components/shared/AuthNavbar';
-import { ButtonContrast } from '@/components/shared/ButtonContrast';
-import { ButtonFontZoom } from '@/components/shared/ButtonFontZoom';
-import { Card } from '@/components/shared/Card';
-import { Title } from '@/components/shared/Title';
-import { themes, withTheme } from '@/contexts/ThemeContext';
-import { ProfileSection } from './ProfileSection';
 import { useState } from 'react';
-import { UserInfo } from './UserInfo';
+import { twMerge } from 'tailwind-merge';
 import { DescriptionSection } from './DescriptionSection';
-import { Popup } from '@/components/shared/Popup';
+import { ProfileSection } from './ProfileSection';
+import { UserInfo } from './UserInfo';
+import { CandidateSideMenu } from '@/components/candidate/Menu';
 import { PopupDescription } from '@/components/candidate/Popups/PopupDescription';
 import { PopupEducation } from '@/components/candidate/Popups/PopupEducation';
 import { PopupExperiences } from '@/components/candidate/Popups/PopupExperiences';
 import { PopupExtras } from '@/components/candidate/Popups/PopupExtras';
+import { AuthNavbar } from '@/components/shared/AuthNavbar';
+import { ButtonContrast } from '@/components/shared/ButtonContrast';
+import { ButtonFontZoom } from '@/components/shared/ButtonFontZoom';
+import { Card } from '@/components/shared/Card';
+import { Popup } from '@/components/shared/Popup';
+import { Title } from '@/components/shared/Title';
+import { themes, withTheme } from '@/contexts/ThemeContext';
 
 const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [isOpenDescription, setIsOpenDescription] = useState(false);

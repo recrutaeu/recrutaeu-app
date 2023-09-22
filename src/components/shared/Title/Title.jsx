@@ -27,7 +27,7 @@ const styles = {
     [themes.DEFAULT]: 'text-primary-90',
     [themes.DARK]: 'text-neutral-0',
     [themes.LIGHT]: 'text-neutral-90',
-  }
+  },
 };
 
 const Title = ({ children, variant = 'default', className, ...props }) => {
