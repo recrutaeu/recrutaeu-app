@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge';
 import { DescriptionSection } from './DescriptionSection';
 import { ProfileSection } from './ProfileSection';
 import { UserInfo } from './UserInfo';
-import { CandidateSideMenu } from '@/components/candidate/Menu';
+// import { CandidateSideMenu } from '@/components/candidate/Menu';
 import { PopupDescription } from '@/components/candidate/Popups/PopupDescription';
 import { PopupEducation } from '@/components/candidate/Popups/PopupEducation';
 import { PopupExperiences } from '@/components/candidate/Popups/PopupExperiences';
@@ -86,7 +86,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   return (
     <>
       <div className="flex flex-row">
-        <CandidateSideMenu className="hidden lg:flex" />
+        {/* <CandidateSideMenu className="hidden lg:flex" /> */}
         <div
           className={twMerge(
             'w-full h-full p-0 lg:px-7 lg:pb-14 lg:pt-0 lg:h-screen',
