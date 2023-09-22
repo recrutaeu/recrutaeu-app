@@ -16,7 +16,8 @@ const styles = {
       'bg-neutral-0 text-neutral-90 border-2  border-neutral-90  hover:bg-neutral-90 hover:text-neutral-0',
   },
   inverseSecundary: {
-    [themes.DEFAULT]: 'bg-primary-90 text-neutral-0 hover:bg-primary-100',
+    [themes.DEFAULT]:
+      'bg-neutral-10 text-primary-90 border-2 border-primary-90 hover:bg-primary-90 hover:text-neutral-0',
     [themes.DARK]:
       'border-2 border-neutral-0 text-neutral-0 hover:bg-neutral-0 hover:text-neutral-90',
     [themes.LIGHT]:

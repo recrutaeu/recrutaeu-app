@@ -15,22 +15,22 @@ import { themes, useTheme } from '@/contexts/ThemeContext';
 const links = [
   {
     href: '/recrutador/dashboard',
-    icon: <LuLayoutDashboard className="md:w-9 md:h-9 w-7 h-7" />,
+    icon: <LuLayoutDashboard className="md:w-7 md:h-7 w-6 h-6" />,
   },
-  { href: '/recrutador/vagas', icon: <LuBriefcase className="md:w-9 md:h-9 w-7 h-7" /> },
+  { href: '/recrutador/vagas', icon: <LuBriefcase className="md:w-7 md:h-7 w-6 h-6" /> },
   {
     href: '/recrutador/buscar-candidato',
-    icon: <RiUserSearchLine className="md:w-9 md:h-9 w-7 h-7" />,
+    icon: <RiUserSearchLine className="md:w-7 md:h-7 w-6 h-6" />,
   },
   {
     href: '/recrutador/processo-em-andamento',
-    icon: <LuHourglass className="md:w-9 md:h-9 w-7 h-7" />,
+    icon: <LuHourglass className="md:w-7 md:h-7 w-6 h-6" />,
   },
   {
     href: '/recrutador/programacao-da-semana',
-    icon: <LuCalendarDays className="md:w-9 md:h-9 w-7 h-7" />,
+    icon: <LuCalendarDays className="md:w-7 md:h-7 w-6 h-6" />,
   },
-  { href: '/recrutador/configuracoes', icon: <LuSettings className="md:w-9 md:h-9 w-7 h-7" /> },
+  { href: '/recrutador/configuracoes', icon: <LuSettings className="md:w-7 md:h-7 w-6 h-6" /> },
 ];
 
 const styles = {
@@ -50,7 +50,7 @@ const Layout = ({ children, variant = 'default' }) => {
   return (
     <div
       className={twMerge(
-        'w-full h-[calc(100vh-80px)] md:h-screen flex flex-col md:flex-row',
+        'w-full h-[calc(100vh-64px)] md:h-screen flex flex-col md:flex-row',
         style.background[theme],
       )}
     >
@@ -59,7 +59,7 @@ const Layout = ({ children, variant = 'default' }) => {
         <AccessibilityNavbar className="w-full flex items-center justify-end py-4" />
         {children}
       </div>
-      <MenuMobile links={links} className="px-3" />
+      <MenuMobile links={links} />
     </div>
   );
 };

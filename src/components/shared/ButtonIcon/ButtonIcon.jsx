@@ -11,12 +11,12 @@ const styles = {
   },
 };
 
-const ButtonIcon = ({ children, disabled = false, type }) => {
+const ButtonIcon = ({ children, disabled = false, type, onClick }) => {
   const { theme } = useTheme();
   const style = styles['default'];
 
   return (
-    <button className={style.icon[theme]} type={type} disabled={disabled}>
+    <button className={style.icon[theme]} type={type} disabled={disabled} onClick={onClick}>
       {children}
     </button>
   );

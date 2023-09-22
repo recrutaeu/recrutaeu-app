@@ -46,6 +46,9 @@ const commons = {
     initialDate: 'Data inicial',
     finalDate: 'Data final',
     details: 'Detalhes',
+    button: {
+      label: 'salvar',
+    },
   },
   newPassword: {
     titleForm: 'Criar nova senha',

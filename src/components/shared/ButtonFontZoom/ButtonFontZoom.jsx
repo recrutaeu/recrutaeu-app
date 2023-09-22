@@ -22,11 +22,11 @@ const ButtonFontZoom = ({ variant = 'default', className, ...props }) => {
 
   return (
     <div className="flex">
-      <button className={twMerge('text-3xl mr-2', style[theme], className)} {...props}>
-        <MdTextIncrease />
+      <button className={twMerge('mr-1', style[theme], className)} {...props}>
+        <MdTextIncrease size={24} />
       </button>
-      <button className={twMerge('text-primary-90 text-3xl', style[theme], className)} {...props}>
-        <MdTextDecrease />
+      <button className={twMerge('text-primary-90', style[theme], className)} {...props}>
+        <MdTextDecrease size={24} />
       </button>
     </div>
   );
