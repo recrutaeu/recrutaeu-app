@@ -59,7 +59,7 @@ const SigninForm = ({ variant = 'default' }) => {
           <Input.Field type="email" label="email" id="email" required setInputValue={setEmail}/>
         </Input.Root>
         <InputPassword variant={variant} label="senha" setInputPassword={setPassword}/>
-        {mensagem? <p>{mensagemErro}</p> : null}
+        {mensagem? <p className={twMerge('w-full pl-4', style.description[theme])}>{mensagemErro}</p> : null}
         <div className="w-full">
           <ButtonLink variant={variant} className="flex justify-end text-sm lg:text-base">
             {company.signin.form.forgotPassword.label}

@@ -3,11 +3,25 @@ import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Input } from '@/components/shared/Input';
 import { InputPassword } from '@/components/shared/InputPassword';
 import signIn from '@/firebase/auth/signin';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import { candidate } from '@/locales/candidate';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
+
+const styles = {
+  default: {
+    description: {
+      [themes.DEFAULT]: 'text-neutral-0',
+      [themes.DARK]: 'text-neutral-0',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
+  },
+};
 
 const PersonalForm = ({ variant }) => {
+  const style = styles['default'];
+  const { theme } = useTheme();
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [mensagem, setMensagem] = React.useState(false)
@@ -41,7 +55,7 @@ const PersonalForm = ({ variant }) => {
 
         
         <InputPassword variant={variant} label="password" id="password" setInputPassword={setPassword}/>
-        {mensagem? <p>{mensagemErro}</p> : null}
+        {mensagem? <p className={twMerge('w-full pl-4', style.description[theme])}>{mensagemErro}</p> : null}
         <div className="w-full">
           <ButtonLink variant={variant} className="flex justify-end text-sm lg:text-base">
             {candidate.signin.form.forgotPassword.label}

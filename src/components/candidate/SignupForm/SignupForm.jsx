@@ -9,6 +9,8 @@ import { candidate } from '@/locales';
 import signUp from '@/firebase/auth/signup';
 import { useRouter } from 'next/navigation';
 import addData from '@/firebase/firestore/addData';
+import { Title } from '@/components/shared/Title';
+import { Quote } from '@/components/shared/Quote';
 
 const styles = {
   default: {
@@ -107,7 +109,7 @@ const PersonalForm = ({ variant = 'default' }) => {
           <InputPassword label="senha" id="password"/>
 
           <InputPassword label="repitir senha" id="password" setInputPassword={setPassword}/>
-          {mensagem? <p>{mensagemErro}</p> : null}
+          {mensagem? <p className={twMerge('w-full pl-4', style.description[theme])}>{mensagemErro}</p> : null}
 
           <ButtonPrimary type="submit" className="mt-5">
             {candidate.signup.form.buttonSubmit.label}

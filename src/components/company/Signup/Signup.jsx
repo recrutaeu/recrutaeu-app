@@ -116,7 +116,7 @@ const SignupForm = ({ variant = 'default' }) => {
           <InputPassword label="senha" id="password" setInputPassword={setPassword} />
 
           <InputPassword label="repetir senha" id="password" />
-          {mensagem? <p>{mensagemErro}</p> : null}
+          {mensagem? <p className={twMerge('w-full pl-4', style.description[theme])}>{mensagemErro}</p> : null}
 
           <ButtonPrimary type="submit" className="mt-5" onClick={() => {}}>
             {company.signup.form.buttonSubmit.label}
