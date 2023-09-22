@@ -46,7 +46,6 @@ const InputSearch = ({
   type,
   id,
   children,
-  size,
   placeholder,
   className,
   variant = 'default',
@@ -60,16 +59,16 @@ const InputSearch = ({
       <div className="relative w-full">
         <div
           className={twMerge(
-            'absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none',
+            'absolute inset-y-0 left-0 flex items-center justify-center pointer-events-none px-2',
           )}
         >
-          <MdSearch size={size} className={twMerge(style.icon[theme], className)} />
+          <MdSearch className={twMerge('w-5 h-5 lg:w-6 lg:h-6', style.icon[theme], className)} />
         </div>
         <input
           type={type}
           id={id}
           className={twMerge(
-            'p-3 pl-12 w-full outline-none rounded-md',
+            'w-full outline-none rounded-md text-neutral-90 font-light text-sm p-2 pl-8 lg:p-2.5 lg:pl-10 lg:text-base',
             className,
             style.input[theme],
           )}

@@ -1,10 +1,39 @@
 'use client';
 import { useState } from 'react';
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowDown } from 'react-icons/md';
+import { twMerge } from 'tailwind-merge';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
-const Select = ({ label, options, onChange }) => {
+const styles = {
+  default: {
+    label: {
+      [themes.DEFAULT]: 'text-primary-90',
+      [themes.DARK]: 'text-neutral-0',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
+    buttonLabel: {
+      [themes.DEFAULT]: 'bg-neutral-0',
+      [themes.DARK]: 'bg-neutral-0',
+      [themes.LIGHT]: 'bg-neutral-0 border-2 border-neutral-90',
+    },
+    ul: {
+      [themes.DEFAULT]: 'bg-neutral-0',
+      [themes.DARK]: 'bg-neutral-0',
+      [themes.LIGHT]: 'bg-neutral-90',
+    },
+    li: {
+      [themes.DEFAULT]: 'bg-neutral-0 hover:bg-primary-90 hover:text-neutral-0 hover:font-medium',
+      [themes.DARK]: 'text-neutral-90 hover:bg-neutral-30 hover:font-medium',
+      [themes.LIGHT]: 'text-neutral-0 hover:bg-neutral-30 hover:text-neutral-90 hover:font-medium',
+    },
+  },
+};
+
+const Select = ({ titleLabel, label, options, onChange, className }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [currentLabel, setCurrentLabel] = useState(label);
+  const { theme } = useTheme();
+  const style = styles['default'];
 
   const handleChange = (option) => {
     onChange(option.value);
@@ -13,14 +42,19 @@ const Select = ({ label, options, onChange }) => {
   };
 
   return (
-    <div className="relative">
-      <p className="mb-1 w-full text-base lg:text-lg">{label}</p>
+    <div className={twMerge('relative w-full', className)}>
+      <p className={twMerge('mb-1 w-full font-semibold text-sm lg:text-base', style.label[theme])}>
+        {titleLabel}
+      </p>
       <button
-        className="bg-neutral-0 w-full flex justify-between items-center rounded-md text-sm lg:text-base p-2.5 mb-1"
+        className={twMerge(
+          'w-full flex justify-between items-center rounded-md text-sm lg:text-base p-2 mb-1',
+          style.buttonLabel[theme],
+        )}
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         type="button"
       >
-        <p>{currentLabel}</p>
+        <p className="text-sm lg:text-base">{currentLabel}</p>
         {isDropdownOpen ? (
           <MdOutlineKeyboardArrowDown size={24} />
         ) : (
@@ -28,14 +62,23 @@ const Select = ({ label, options, onChange }) => {
         )}
       </button>
       {isDropdownOpen && (
-        <ul className="bg-neutral-0  rounded-md absolute w-full max-h-[200px] overflow-auto no-scrollbar">
-          {options.map((option) => {
+        <ul
+          className={twMerge(
+            'z-50 rounded-md absolute w-full drop-shadow-md max-h-[200px] overflow-auto no-scrollbar',
+            className,
+            style.ul[theme],
+          )}
+        >
+          {options.map((option, id) => {
             return (
-              <li>
+              <li key={id}>
                 <button
                   type="button"
                   onClick={() => handleChange(option)}
-                  className="w-full text-start hover:bg-neutral-10 p-2.5"
+                  className={twMerge(
+                    'w-full text-start font-light text-sm lg:text-base p-2',
+                    style.li[theme],
+                  )}
                 >
                   {option.label}
                 </button>

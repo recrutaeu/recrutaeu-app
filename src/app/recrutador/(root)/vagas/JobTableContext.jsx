@@ -53,17 +53,23 @@ const JobTableContext = ({ job, expiresAt, publishedAt, quantity, sector, checkA
             />
           </div>
         </CustomCell>
-        <CustomCell className='text-sm lg:text-base'>{job}</CustomCell>
-        <CustomCell className='text-sm lg:text-base' >{sector}</CustomCell>
-        <CustomCell className="hidden text-center text-sm lg:text-base lg:table-cell">{quantity}</CustomCell>
-        <CustomCell className="hidden text-center text-sm lg:text-base lg:table-cell">{publishedAt}</CustomCell>
-        <CustomCell className="hidden text-center text-sm lg:text-base lg:table-cell">{expiresAt}</CustomCell>
+        <CustomCell className="text-xs font-light lg:text-sm">{job}</CustomCell>
+        <CustomCell className="text-xs font-light lg:text-sm">{sector}</CustomCell>
+        <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
+          {quantity}
+        </CustomCell>
+        <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
+          {publishedAt}
+        </CustomCell>
+        <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
+          {expiresAt}
+        </CustomCell>
 
         <CustomCell>
           <button className="w-full flex items-center justify-center cursor-pointer">
-            <MdFiberManualRecord size={12} className={style.details[theme]} />
-            <MdFiberManualRecord size={12} className={style.details[theme]} />
-            <MdFiberManualRecord size={12} className={style.details[theme]} />
+            <MdFiberManualRecord size={10} className={style.details[theme]} />
+            <MdFiberManualRecord size={10} className={style.details[theme]} />
+            <MdFiberManualRecord size={10} className={style.details[theme]} />
           </button>
         </CustomCell>
       </Table.Row>

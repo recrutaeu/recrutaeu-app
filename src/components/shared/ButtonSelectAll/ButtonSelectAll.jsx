@@ -27,9 +27,9 @@ const ButtonSelectAll = ({ onChange }) => {
   return (
     <button type="button" className={twMerge('cursor-pointer', style.icon[theme])}>
       {checked ? (
-        <PiSelectionAllFill size={24} onClick={handleCheck} />
+        <PiSelectionAllFill size={20} onClick={handleCheck} />
       ) : (
-        <PiSelectionAll size={24} onClick={handleCheck} />
+        <PiSelectionAll size={20} onClick={handleCheck} />
       )}
     </button>
   );

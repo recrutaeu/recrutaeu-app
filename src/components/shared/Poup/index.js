@@ -1,1 +1,1 @@
-export * from './Poup'
+export * from './Poup';

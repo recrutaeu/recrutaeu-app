@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { JobTableContext } from './JobTableContext';
 import { ButtonSelectAll } from '@/components/shared/ButtonSelectAll';
 import { Filter } from '@/components/shared/Filter';
+import { NumberPages } from '@/components/shared/NumberPages';
 import { Table } from '@/components/shared/Table';
 import { commons } from '@/locales';
 
