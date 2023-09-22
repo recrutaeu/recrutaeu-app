@@ -7,10 +7,10 @@ import { NumberPages } from '@/components/shared/NumberPages';
 import { Table } from '@/components/shared/Table';
 import { commons } from '@/locales';
 
-const JobTable = ({ jobs }) => {
+const JobTable = ({ jobs, className }) => {
   const [checked, setChecked] = useState(false);
   return (
-    <Table.Root>
+    <Table.Root className={className}>
       <Table.Row>
         <Table.Header>
           <div className="flex items-center justify-center">

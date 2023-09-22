@@ -1,6 +1,12 @@
-const TableRoot = ({ children }) => {
+import { twMerge } from 'tailwind-merge';
+
+const TableRoot = ({ children, className }) => {
   return (
-    <table className="w-full border-separate border-spacing-y-2 overflow-auto">{children}</table>
+    <table
+      className={twMerge('w-full border-separate border-spacing-y-2 overflow-auto', className)}
+    >
+      {children}
+    </table>
   );
 };
 

@@ -41,6 +41,20 @@ const jobs = [
     publishedAt: '15/12/2023',
     expiresAt: '15/12/2023',
   },
+  {
+    job: 'nanana',
+    sector: 'sadsafsdas',
+    quantity: 4,
+    publishedAt: '15/12/2023',
+    expiresAt: '15/12/2023',
+  },
+  {
+    job: 'nanana',
+    sector: 'sadsafsdas',
+    quantity: 4,
+    publishedAt: '15/12/2023',
+    expiresAt: '15/12/2023',
+  },
 ];
 
 const styles = {
@@ -67,7 +81,7 @@ const Jobs = ({}) => {
         </Title>
         <p
           className={twMerge(
-            'w-full text-xs font-light mt-2 lg:text-base',
+            'w-full text-sm font-light mt-2 lg:text-base',
             style.description[theme],
           )}
         >
@@ -90,9 +104,11 @@ const Jobs = ({}) => {
           </div>
         </div>
       </div>
-      <JobTable jobs={jobs} />
-      <div className="w-full flex justify-center items-center">
-        <NumberPages currentPage={1} totalPage={10} variant="inverse" />
+      <div className="flex flex-col h-full justify-between pb-3">
+        <JobTable jobs={jobs} />
+        <div className="w-full flex justify-center items-center">
+          <NumberPages currentPage={1} totalPage={10} variant="inverse" />
+        </div>
       </div>
     </>
   );

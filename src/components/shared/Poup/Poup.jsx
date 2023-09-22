@@ -34,7 +34,7 @@ const Poup = ({ children, isOpen, setIsOpen, title, className, variant }) => {
           style.background[theme],
         )}
       >
-        <div className="h-16">
+        <div className="max-h-[64px]">
           <div className="w-full flex justify-end">
             <ButtonIcon onClick={() => setIsOpen(false)}>
               <MdClose size={24} className={twMerge(style.icon[theme])} />
@@ -45,10 +45,8 @@ const Poup = ({ children, isOpen, setIsOpen, title, className, variant }) => {
           </Title>
         </div>
 
-        <div className="h-[calc(100%-64px)] mt-1">
-          <div className="h-full">
-            <div className="w-full overflow-auto h-full no-scrollbar">{children}</div>
-          </div>
+        <div className="max-h-[calc(100%-64px)] w-full mt-1 overflow-auto no-scrollbar">
+          <div className="w-full overflow-hidden h-full">{children}</div>
         </div>
       </div>
     </div>
