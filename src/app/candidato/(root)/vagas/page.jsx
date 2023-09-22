@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { InformationJob } from './InformationJob';
 import { Job } from './Job';
@@ -11,6 +11,8 @@ import { NumberPages } from '@/components/shared/NumberPages';
 import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
 
 const styles = {
   default: {
@@ -25,6 +27,13 @@ const styles = {
 const Jobs = ({ variant = 'default' }) => {
   const { theme } = useTheme();
   const style = styles[variant];
+  const { user } = useAuthContext()
+  const router = useRouter()
+
+  React.useEffect(() => {
+    console.log(user)
+    if (user == null) router.push("/candidato/login")
+  }, [user])
 
   const repeatedJob = Array.from({ length: 4 }, (index) => (
     <Job

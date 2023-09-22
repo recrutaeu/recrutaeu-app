@@ -17,11 +17,12 @@ const styles = {
   },
 };
 
-const MenuLink = ({ href, icon, className, variant = 'default', active = false }) => {
+const MenuLink = ({ href, icon, className, variant = 'default', active = false, functionSignOut = ()=>{} }) => {
   const { theme } = useTheme();
   const style = styles[variant];
   return (
     <Link
+      onClick={functionSignOut}
       className={twMerge(style.icon[theme], className, active && style.active[theme])}
       href={href}
     >
