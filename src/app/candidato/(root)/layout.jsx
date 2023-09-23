@@ -39,7 +39,7 @@ const Layout = ({ children, variant = 'default' }) => {
   return (
     <div
       className={twMerge(
-        'w-full h-[calc(100vh-80px)] md:h-screen flex flex-col md:flex-row',
+        'w-full h-[calc(100vh-80px)] md:h-[calc(100dvh)] flex flex-col md:flex-row',
         style.background[theme],
       )}
     >

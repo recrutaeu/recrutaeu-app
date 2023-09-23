@@ -39,7 +39,7 @@ const JobTableContext = ({ job, expiresAt, publishedAt, quantity, sector, checkA
   );
 
   return (
-    <>
+    <tbody>
       <Table.Row>
         <CustomCell>
           <div className="flex items-center justify-center">
@@ -48,7 +48,7 @@ const JobTableContext = ({ job, expiresAt, publishedAt, quantity, sector, checkA
               name=""
               id="checkbox"
               checked={checked}
-              onClick={() => setChecked(!checked)}
+              onChange={() => setChecked(!checked)}
               className={twMerge('cursor-pointer', style.checkbox[theme])}
             />
           </div>
@@ -73,7 +73,7 @@ const JobTableContext = ({ job, expiresAt, publishedAt, quantity, sector, checkA
           </button>
         </CustomCell>
       </Table.Row>
-    </>
+    </tbody>
   );
 };
 
