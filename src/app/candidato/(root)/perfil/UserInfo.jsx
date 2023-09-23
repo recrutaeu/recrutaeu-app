@@ -29,7 +29,7 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
   const style = styles[variant];
 
   return (
-    <div className="flex flex-col justify-center items-center my-5 relative lg:flex-row lg:justify-start lg:mt-0">
+    <div className="flex flex-col justify-center items-center mb-5 lg:my-5 relative lg:flex-row lg:justify-start lg:mt-0">
       <Image
         src={userData.profile_img}
         width={100}
@@ -40,10 +40,10 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
 
       <div>
         <div className="flex flex-col items-center lg:items-start">
-          <Title variant="inverse2" className="text-base lg:text-xl">
+          <Title variant="bgTransform" className="text-base lg:text-xl">
             {userData.name}
           </Title>
-          <Title variant="inverse2" className="text-sm lg:text-base">
+          <Title variant="bgTransform" className="text-sm lg:text-base">
             {userData.subtitle}
           </Title>
         </div>

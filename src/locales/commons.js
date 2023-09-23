@@ -67,6 +67,9 @@ const commons = {
       },
     },
   },
+  profile: {
+    titlePage: 'Perfil',
+  },
 };
 
 export { commons };

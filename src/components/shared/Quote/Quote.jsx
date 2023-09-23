@@ -10,6 +10,13 @@ const styles = {
       [themes.LIGHT]: 'border-neutral-90',
     },
   },
+  bgTransform: {
+    div: {
+      [themes.DEFAULT]: 'border-primary-90',
+      [themes.DARK]: 'border-neutral-90 md:border-neutral-0',
+      [themes.LIGHT]: 'border-neutral-0 md:border-neutral-90',
+    },
+  },
 };
 
 const Quote = ({ children, className, variant = 'default', ...props }) => {

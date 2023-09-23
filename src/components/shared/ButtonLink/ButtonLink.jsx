@@ -13,6 +13,11 @@ const styles = {
     [themes.DARK]: 'text-neutral-0',
     [themes.LIGHT]: 'text-neutral-90',
   },
+  bgTransform: {
+    [themes.DEFAULT]: 'text-primary-90',
+    [themes.DARK]: 'text-neutral-90 md:text-neutral-0',
+    [themes.LIGHT]: 'text-neutral-0 md:text-neutral-90',
+  },
 };
 
 const ButtonLink = ({ children, className, href = '', variant = 'default', ...props }) => {
