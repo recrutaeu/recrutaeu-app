@@ -44,7 +44,7 @@ const Home = ({ variant = 'default' }) => {
   return (
     <div
       className={twMerge(
-        'overflow-auto w-screen h-screen px-8 py-10 items-center justify-between md:justify-normal md:px-12 md:py-12 flex flex-col',
+        'overflow-auto w-screen h-[calc(100dvh)] px-8 py-10 items-center justify-between md:justify-normal md:px-12 md:py-12 flex flex-col',
         style.background[theme],
       )}
     >

@@ -16,6 +16,13 @@ const styles = {
       [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
     },
   },
+  inverseSecundary: {
+    input: {
+      [themes.DEFAULT]: 'bg-neutral-0',
+      [themes.DARK]: 'bg-neutral-0 border border-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0 ',
+    },
+  },
 };
 
 const InputRoot = ({ children, className, variant = 'default' }) => {

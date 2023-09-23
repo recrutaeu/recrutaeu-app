@@ -1,3 +1,4 @@
+'use client';
 import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 
@@ -19,7 +20,10 @@ const LayoutLeft = ({ children, className, variant = 'default', ...props }) => {
   const style = styles[variant];
 
   return (
-    <div className={twMerge('w-full pl-20 pr-40 py-12', style[theme], className)} {...props}>
+    <div
+      className={twMerge('w-full px-5 py-4 lg:py-10 lg:pl-10', style[theme], className)}
+      {...props}
+    >
       {children}
     </div>
   );

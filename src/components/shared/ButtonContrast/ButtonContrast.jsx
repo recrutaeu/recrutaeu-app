@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import { IoContrastOutline } from 'react-icons/io5';
 import { twMerge } from 'tailwind-merge';
@@ -59,7 +60,7 @@ const ButtonContrast = ({ className, variant = 'default' }) => {
         className={twMerge('flex items-center', style.div[theme])}
         onClick={() => setToggle(!toggle)}
       >
-        <IoContrastOutline size={26} className="text-inherit" />
+        <IoContrastOutline size={24} className="text-inherit" />
       </button>
       {toggle && <ButtonContrastMenu onChange={handleThemeChange} variant={variant} />}
     </div>

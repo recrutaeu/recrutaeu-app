@@ -39,6 +39,34 @@ const commons = {
       label: 'candidate-se',
     },
   },
+  tableJobs: {
+    jobs: 'Vagas',
+    sector: 'Setor',
+    numberJobs: 'N° de Vagas',
+    initialDate: 'Data inicial',
+    finalDate: 'Data final',
+    details: 'Detalhes',
+    button: {
+      label: 'salvar',
+    },
+  },
+  newPassword: {
+    titleForm: 'Criar nova senha',
+    description: 'a senha deve conter no mínimo 6 caracteres com números e letras',
+    buttonForm: {
+      label: 'salvar',
+    },
+  },
+  settings: {
+    title: 'Configurações',
+    form: {
+      titleDocument: 'Dados obrigatórios',
+      titlePassword: 'Senha',
+      button: {
+        label: 'salvar alterações',
+      },
+    },
+  },
 };
 
 export { commons };

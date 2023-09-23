@@ -44,8 +44,8 @@ const MenuDesk = ({ variant = 'default', className, links }) => {
         <Menu.Top>
           <Image
             src={`/assets/images/${style.logo[theme]}.png`}
-            width={60}
-            height={70}
+            width={50}
+            height={50}
             alt="logo recrutaeu"
           />
         </Menu.Top>
@@ -55,7 +55,7 @@ const MenuDesk = ({ variant = 'default', className, links }) => {
           ))}
         </Menu.LinkGroup>
         <Menu.Bottom>
-          <Menu.Link functionSignOut={signOutFunction} href='/candidato/login' icon={<LuLogOut size={36} />} className="-scale-x-100 block" />
+          <Menu.Link functionSignOut={signOutFunction} href='/candidato/login' icon={<LuLogOut size={28} />} className="-scale-x-100 block" />
         </Menu.Bottom>
       </Menu.Root>
     </>

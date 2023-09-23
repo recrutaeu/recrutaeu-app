@@ -16,7 +16,7 @@ const MenuRoot = ({ children, className, variant = 'default', ...props }) => {
   return (
     <nav
       className={twMerge(
-        'p-[25px] w-[100px] h-screen flex flex-col items-center',
+        'py-6 w-[80px] h-[calc(100dvh)] flex flex-col items-center',
         style[theme],
         className,
       )}

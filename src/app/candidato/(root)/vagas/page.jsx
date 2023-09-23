@@ -87,16 +87,17 @@ const Jobs = ({ variant = 'default' }) => {
       <Title className="text-3xl" variant="inverse">
         {commons.jobs.titlePage}
       </Title>
-      <div className="flex flex-col my-10 lg:flex-row gap-4 w-full h-full lg:justify-center overflow-hidden">
+      <div className="flex flex-col my-10 lg:flex-row gap-4 w-full max-h-auto h-[calc(100dvh)] lg:justify-center overflow-auto">
         <Card className="flex flex-col lg:w-1/3 lg:min-w-[500px] h-full">
           <div className="flex">
             <InputSearch
               type="text"
               id="search"
+              size={20}
               placeholder="pesquisar por vagas"
               className="w-full"
             />
-            <Filter />
+            <Filter size={40} />
           </div>
           <p
             className={twMerge(

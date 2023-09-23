@@ -1,12 +1,13 @@
 import { usePathname } from 'next/navigation';
+import { twMerge } from 'tailwind-merge';
 import { Menu } from '../Menu';
 
-const MenuMobile = ({ links }) => {
+const MenuMobile = ({ links, className }) => {
   const pathname = usePathname();
 
   return (
-    <Menu.Root className="w-full h-auto md:hidden ">
-      <Menu.LinkGroup className="w-full px-10 flex-row justify-between">
+    <Menu.Root className={twMerge('fixed bottom-0 w-full h-16 md:hidden px-5', className)}>
+      <Menu.LinkGroup className={twMerge('w-full flex-row justify-between', className)}>
         {links.map((link) => {
           return (
             <Menu.Link
