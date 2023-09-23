@@ -44,7 +44,7 @@ const Layout = ({ children, variant = 'default' }) => {
       )}
     >
       <MenuDesk className="hidden md:flex" links={links} />
-      <div className="w-full grow overflow-auto flex flex-col px-5">
+      <div className="w-full grow flex flex-col px-5">
         <AccessibilityNavbar className="w-full flex items-center justify-end py-4" />
         {children}
       </div>

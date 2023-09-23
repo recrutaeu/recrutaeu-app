@@ -1,3 +1,4 @@
+'use client';
 import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 
@@ -14,11 +15,23 @@ const styles = {
       [themes.LIGHT]: 'bg-neutral-0 border-2 border-neutral-90',
     },
   },
+  inverse: {
+    label: {
+      [themes.DEFAULT]: 'text-primary-90',
+      [themes.DARK]: 'text-neutral-90',
+      [themes.LIGHT]: 'text-neutral-0',
+    },
+    input: {
+      [themes.DEFAULT]: 'bg-neutral-0',
+      [themes.DARK]: 'bg-neutral-0 border border-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0',
+    },
+  },
 };
 
-const InputLabel = ({ label, placeholder, type, id, className }) => {
+const InputLabel = ({ label, placeholder, variant = 'default', type, id, className }) => {
   const { theme } = useTheme();
-  const style = styles['default'];
+  const style = styles[variant];
 
   return (
     <div className={twMerge('w-ful', className)}>
