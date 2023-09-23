@@ -3,7 +3,7 @@ import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { Poup } from '@/components/shared/Poup';
 import { Select } from '@/components/shared/Select';
-import { TextArea } from '@/components/shared/TextArea';
+import { TextArea } from '@/components/shared/Textarea';
 import { commons } from '@/locales';
 
 const JobPoup = ({ isOpen, setIsOpen }) => {

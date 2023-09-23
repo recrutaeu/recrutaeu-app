@@ -61,6 +61,7 @@ const commons = {
     title: 'Configurações',
     form: {
       titleDocument: 'Dados obrigatórios',
+      titleDocumentSecundary: 'Dados não obrigatórios',
       titlePassword: 'Senha',
       button: {
         label: 'salvar alterações',
