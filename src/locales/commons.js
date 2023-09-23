@@ -58,6 +58,7 @@ const commons = {
     },
   },
   settings: {
+    title: 'Configurações',
     form: {
       titleDocument: 'Dados obrigatórios',
       titlePassword: 'Senha',

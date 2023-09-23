@@ -5,13 +5,11 @@ import {
   LuCalendarDays,
   LuHourglass,
   LuLayoutDashboard,
-  LuLogOut,
   LuSettings,
 } from 'react-icons/lu';
 import { RiUserSearchLine } from 'react-icons/ri';
 import { twMerge } from 'tailwind-merge';
 import { AccessibilityNavbar } from '@/components/shared/AccessibilityNavbar';
-import { ButtonLink } from '@/components/shared/ButtonLink';
 import { MenuDesk, MenuMobile } from '@/components/shared/MenuApp';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 

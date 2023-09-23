@@ -1,4 +1,5 @@
 'use client';
+import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
@@ -11,12 +12,17 @@ const styles = {
   },
 };
 
-const ButtonIcon = ({ children, disabled = false, type, onClick }) => {
+const ButtonIcon = ({ children, disabled = false, type, className, onClick }) => {
   const { theme } = useTheme();
   const style = styles['default'];
 
   return (
-    <button className={style.icon[theme]} type={type} disabled={disabled} onClick={onClick}>
+    <button
+      className={twMerge(style.icon[theme], className)}
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {children}
     </button>
   );
