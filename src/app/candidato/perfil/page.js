@@ -89,7 +89,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         {/* <CandidateSideMenu className="hidden lg:flex" /> */}
         <div
           className={twMerge(
-            'w-full h-full p-0 lg:px-7 lg:pb-14 lg:pt-0 lg:h-screen',
+            'w-full h-full p-0 lg:px-7 lg:pb-14 lg:pt-0 lg:h-[calc(100dvh)]',
             style.background[theme],
           )}
         >
