@@ -76,6 +76,9 @@ const commons = {
       },
     },
   },
+  weeksSchedule: {
+    title: 'Programação da semana',
+  },
 };
 
 export { commons };
