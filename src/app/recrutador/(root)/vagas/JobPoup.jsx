@@ -84,7 +84,7 @@ const JobPoup = ({ isOpen, setIsOpen }) => {
           <DataPicker label="Prazo" variant="inverse" />
 
           <InputLabel placeholder="ex: 10" label="N° de vagas:" />
-          
+
           <TextArea label="Descrição:" rows={14} />
 
           <div className="w-full flex justify-center items-center pb-5 lg:pb-7">
