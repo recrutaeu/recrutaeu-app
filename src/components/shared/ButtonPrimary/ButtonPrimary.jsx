@@ -23,6 +23,11 @@ const styles = {
     [themes.LIGHT]:
       'border-2 border-neutral-90 text-neutral-90 hover:bg-neutral-90 hover:text-neutral-0',
   },
+  inverseTertiary: {
+    [themes.DEFAULT]: 'bg-primary-90 text-neutral-0 hover:bg-primary-100',
+    [themes.DARK]: 'bg-neutral-0 text-neutral-90 hover:bg-neutral-30 hover:text-neutral-90',
+    [themes.LIGHT]: 'bg-neutral-90 text-neutral-0 hover:bg-neutral-30 hover:text-neutral-90',
+  },
 };
 
 const ButtonPrimary = ({ children, className, variant = 'default', ...props }) => {
