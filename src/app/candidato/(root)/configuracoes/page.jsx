@@ -31,9 +31,10 @@ const Settings = () => {
         <div className="h-full lg:overflow-auto flex flex-col lg:gap-8 lg:w-1/2 lg:px-7 px-5 pt-5 pb-5 lg:pb-20 ">
           <form className="flex w-full flex-col gap-2">
             <p className={style.title[theme]}>{commons.settings.form.titleDocument}</p>
-            <InputLabel label="Empresa" variant="inverse" />
             <InputLabel label="Nome completo" variant="inverse" />
-            <InputLabel label="Email" variant="inverse" />
+            <InputLabel label="Data de nascimento" type={'date'} variant="inverse" />
+            <InputLabel label="CPF" variant="inverse" />
+            <InputLabel label="E-mail" type={"e-mail"} variant="inverse" />
             <InputLabel label="Celular" variant="inverse" />
 
             <div className="w-full flex justify-center mt-3">
