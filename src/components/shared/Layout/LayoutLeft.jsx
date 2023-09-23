@@ -1,3 +1,4 @@
+'use client';
 import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 

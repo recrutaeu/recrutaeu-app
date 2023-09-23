@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowDown } from 'react-icons/md';
+import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 
@@ -62,30 +62,32 @@ const Select = ({ titleLabel, label, options, onChange, className }) => {
         )}
       </button>
       {isDropdownOpen && (
-        <ul
-          className={twMerge(
-            'z-50 rounded-md absolute w-full drop-shadow-md max-h-[200px] overflow-auto no-scrollbar',
-            className,
-            style.ul[theme],
-          )}
-        >
-          {options.map((option, id) => {
-            return (
-              <li key={id}>
-                <button
-                  type="button"
-                  onClick={() => handleChange(option)}
-                  className={twMerge(
-                    'w-full text-start font-light text-sm lg:text-base p-2',
-                    style.li[theme],
-                  )}
-                >
-                  {option.label}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="overflow-auto w-full max-h-[200px] z-50 absolute">
+          <ul
+            className={twMerge(
+              'rounded-md w-full h-full drop-shadow-md',
+              className,
+              style.ul[theme],
+            )}
+          >
+            {options.map((option, id) => {
+              return (
+                <li key={id}>
+                  <button
+                    type="button"
+                    onClick={() => handleChange(option)}
+                    className={twMerge(
+                      'w-full text-start font-light text-sm lg:text-base p-2',
+                      style.li[theme],
+                    )}
+                  >
+                    {option.label}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       )}
     </div>
   );
