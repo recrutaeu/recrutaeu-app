@@ -55,6 +55,48 @@ const jobs = [
     publishedAt: '15/12/2023',
     expiresAt: '15/12/2023',
   },
+  {
+    job: 'nanana',
+    sector: 'sadsafsdas',
+    quantity: 4,
+    publishedAt: '15/12/2023',
+    expiresAt: '15/12/2023',
+  },
+  {
+    job: 'nanana',
+    sector: 'sadsafsdas',
+    quantity: 4,
+    publishedAt: '15/12/2023',
+    expiresAt: '15/12/2023',
+  },
+  {
+    job: 'nanana',
+    sector: 'sadsafsdas',
+    quantity: 4,
+    publishedAt: '15/12/2023',
+    expiresAt: '15/12/2023',
+  },
+  {
+    job: 'nanana',
+    sector: 'sadsafsdas',
+    quantity: 4,
+    publishedAt: '15/12/2023',
+    expiresAt: '15/12/2023',
+  },
+  {
+    job: 'nanana',
+    sector: 'sadsafsdas',
+    quantity: 4,
+    publishedAt: '15/12/2023',
+    expiresAt: '15/12/2023',
+  },
+  {
+    job: 'nanana',
+    sector: 'sadsafsdas',
+    quantity: 4,
+    publishedAt: '15/12/2023',
+    expiresAt: '15/12/2023',
+  },
 ];
 
 const styles = {
@@ -73,9 +115,9 @@ const Jobs = ({}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
+    <div className="h-full overflow-auto lg:px-7 px-5 py-5">
       <JobPoup isOpen={isOpen} setIsOpen={setIsOpen} />
-      <div className="w-full">
+      <div>
         <Title className="text-xl lg:text-3xl" variant="inverse">
           {recruiter.jobs.title}
         </Title>
@@ -104,13 +146,11 @@ const Jobs = ({}) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col h-full justify-between pb-3">
-        <JobTable jobs={jobs} />
-        <div className="w-full flex justify-center items-center">
-          <NumberPages currentPage={1} totalPage={10} variant="inverse" />
-        </div>
+      <JobTable jobs={jobs} />
+      <div className="w-full flex justify-center items-center">
+        <NumberPages currentPage={1} totalPage={10} variant="inverse" />
       </div>
-    </>
+    </div>
   );
 };
 

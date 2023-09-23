@@ -57,6 +57,16 @@ const commons = {
       label: 'salvar',
     },
   },
+  settings: {
+    title: 'Configurações',
+    form: {
+      titleDocument: 'Dados obrigatórios',
+      titlePassword: 'Senha',
+      button: {
+        label: 'salvar alterações',
+      },
+    },
+  },
 };
 
 export { commons };
