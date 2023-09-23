@@ -1,10 +1,9 @@
+import { signOut, getAuth } from 'firebase/auth';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { LuLogOut } from 'react-icons/lu';
 import { Menu } from '@/components/shared/Menu';
 import { themes, useTheme } from '@/contexts/ThemeContext';
-import { signOut, getAuth } from "firebase/auth";
-
 
 const styles = {
   default: {
@@ -26,17 +25,18 @@ const MenuDesk = ({ variant = 'default', className, links }) => {
   const pathname = usePathname();
   const style = styles[variant];
 
-  const router = useRouter()
+  const router = useRouter();
 
   const signOutFunction = async (event) => {
     const auth = getAuth();
-    signOut(auth).then(() => {
-      router.push("/")
-    }).catch((error) => {
-      console.log(error)
-    });
-    
-  }
+    signOut(auth)
+      .then(() => {
+        router.push('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -55,7 +55,12 @@ const MenuDesk = ({ variant = 'default', className, links }) => {
           ))}
         </Menu.LinkGroup>
         <Menu.Bottom>
-          <Menu.Link functionSignOut={signOutFunction} href='/candidato/login' icon={<LuLogOut size={28} />} className="-scale-x-100 block" />
+          <Menu.Link
+            functionSignOut={signOutFunction}
+            href="/candidato/login"
+            icon={<LuLogOut size={28} />}
+            className="-scale-x-100 block"
+          />
         </Menu.Bottom>
       </Menu.Root>
     </>

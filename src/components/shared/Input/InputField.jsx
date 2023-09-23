@@ -1,15 +1,22 @@
 import { twMerge } from 'tailwind-merge';
 
-
-const InputField = ({ label = '', variant, type, id, className,  valueInput, setInputValue=()=>{}},) => {
+const InputField = ({
+  label = '',
+  variant,
+  type,
+  id,
+  className,
+  valueInput,
+  setInputValue = () => {},
+}) => {
   return (
     <div className="relative w-full py-1 lg:py-0">
       <input
         onChange={(e) => setInputValue(e.target.value)}
         type={type}
         id={id}
-        disabled={valueInput? true : false}
-        value= {valueInput}
+        disabled={valueInput ? true : false}
+        value={valueInput}
         className={twMerge(
           'bg-transparent text-md text-neutral-90 w-full h-10 lg:h-16 pb-3 pt-6 rounded-md peer focus:outline-none',
           className,

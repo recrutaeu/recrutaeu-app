@@ -23,7 +23,13 @@ const InputPassword = ({ className, variant = 'default', label, setInputPassword
   return (
     <>
       <Input.Root variant={variant} className="h-0 py-6">
-        <Input.Field type={inputType} label={label} id="password" required setInputValue={setInputPassword}/>
+        <Input.Field
+          type={inputType}
+          label={label}
+          id="password"
+          required
+          setInputValue={setInputPassword}
+        />
 
         {inputType === 'password' ? (
           <button type="button" onClick={() => setInputType('text')}>

@@ -1,6 +1,8 @@
 'use client';
 
 import React, { Fragment, useState } from 'react';
+import { getDoc } from 'firebase/firestore';
+import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { InformationJob } from './InformationJob';
 import { Job } from './Job';
@@ -9,12 +11,10 @@ import { Filter } from '@/components/shared/Filter';
 import { InputSearch } from '@/components/shared/InputSearch';
 import { NumberPages } from '@/components/shared/NumberPages';
 import { Title } from '@/components/shared/Title';
-import { themes, useTheme } from '@/contexts/ThemeContext';
-import { commons } from '@/locales';
 import { useAuthContext } from '@/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
-import { getDoc } from 'firebase/firestore';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 import getData from '@/firebase/firestore/getData';
+import { commons } from '@/locales';
 
 const styles = {
   default: {
@@ -29,10 +29,10 @@ const styles = {
 const Jobs = ({ variant = 'default' }) => {
   const { theme } = useTheme();
   const style = styles[variant];
-  const { user } = useAuthContext()
-  const router = useRouter()
+  const { user } = useAuthContext();
+  const router = useRouter();
 
-  const [ vagas, setVagas ] = useState([])
+  const [vagas, setVagas] = useState([]);
 
   const [refreshComponente, setRefreshComponente] = useState(false);
 
@@ -42,26 +42,26 @@ const Jobs = ({ variant = 'default' }) => {
   };
 
   setTimeout(() => {
-    handleReloadComponente()
+    handleReloadComponente();
   }, 200);
 
   React.useEffect(async () => {
-    const { result, error } = await getData('vagas')
-    setVagas([])
+    const { result, error } = await getData('vagas');
+    setVagas([]);
     result.forEach((doc) => {
-      var arrayNovo = vagas
-      arrayNovo.push(doc.data())
-      setVagas(arrayNovo)
-      console.log(vagas)
+      var arrayNovo = vagas;
+      arrayNovo.push(doc.data());
+      setVagas(arrayNovo);
+      console.log(vagas);
     });
 
-    console.log(vagas)
-  }, [vagas])
+    console.log(vagas);
+  }, [vagas]);
 
   React.useEffect(() => {
-    console.log(user)
-    if (user == null) router.push("/candidato/login")
-  }, [user])
+    console.log(user);
+    if (user == null) router.push('/candidato/login');
+  }, [user]);
 
   // function retornarJobs(){
   //   if(vagas != null && vagas != undefined){
@@ -109,7 +109,7 @@ const Jobs = ({ variant = 'default' }) => {
           </p>
 
           <div className="overflow-auto no-scrollbar my-4 h-full">
-          {vagas.map((vaga, index) => (
+            {vagas.map((vaga, index) => (
               <Job
                 key={index}
                 title={vaga.titulo}

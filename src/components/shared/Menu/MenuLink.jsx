@@ -17,7 +17,14 @@ const styles = {
   },
 };
 
-const MenuLink = ({ href, icon, className, variant = 'default', active = false, functionSignOut = ()=>{} }) => {
+const MenuLink = ({
+  href,
+  icon,
+  className,
+  variant = 'default',
+  active = false,
+  functionSignOut = () => {},
+}) => {
   const { theme } = useTheme();
   const style = styles[variant];
   return (
