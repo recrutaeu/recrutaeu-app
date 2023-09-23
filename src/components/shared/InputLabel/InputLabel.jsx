@@ -33,7 +33,7 @@ const InputLabel = ({ label, placeholder, type, id, className }) => {
         placeholder={placeholder}
         id={id}
         className={twMerge(
-          'w-full rounded-md outline-none text-xs font-light p-2 px-4 mt-1 lg:text-base',
+          'w-full rounded-md outline-none text-xs font-light h-10 px-4 mt-1 lg:text-base',
           style.input[theme],
         )}
       />
