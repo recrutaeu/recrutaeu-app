@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { InformationJob } from './InformationJob';
 import { Job } from './Job';
@@ -13,6 +13,8 @@ import { themes, useTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
+import { getDoc } from 'firebase/firestore';
+import getData from '@/firebase/firestore/getData';
 
 const styles = {
   default: {
@@ -30,22 +32,55 @@ const Jobs = ({ variant = 'default' }) => {
   const { user } = useAuthContext()
   const router = useRouter()
 
+  const [ vagas, setVagas ] = useState([])
+
+  const [refreshComponente, setRefreshComponente] = useState(false);
+
+  const handleReloadComponente = () => {
+    // Altere o valor do estado refresh para forçar a recarga do componente específico
+    setRefreshComponente(!refreshComponente);
+  };
+
+  setTimeout(() => {
+    handleReloadComponente()
+  }, 200);
+
+  React.useEffect(async () => {
+    const { result, error } = await getData('vagas')
+    setVagas([])
+    result.forEach((doc) => {
+      var arrayNovo = vagas
+      arrayNovo.push(doc.data())
+      setVagas(arrayNovo)
+      console.log(vagas)
+    });
+
+    console.log(vagas)
+  }, [vagas])
+
   React.useEffect(() => {
     console.log(user)
     if (user == null) router.push("/candidato/login")
   }, [user])
 
-  const repeatedJob = Array.from({ length: 4 }, (index) => (
-    <Job
-      key={index}
-      title="Fiap"
-      profession="design"
-      city="São Paulo"
-      state="SP"
-      remuneration={5000}
-      contract="clt"
-    />
-  ));
+  // function retornarJobs(){
+  //   if(vagas != null && vagas != undefined){
+  //     console.log("aqui")
+  //     vagas.forEach((vaga)=>{
+  //       return(
+  //         <Job
+  //         key={index}
+  //         title={vaga.titulo}
+  //         profession="design"
+  //         city="São Paulo"
+  //         state="SP"
+  //         remuneration={5000}
+  //         contract="clt"
+  //       />
+  //       )})
+  //   }
+  //   return null
+  //   }
 
   return (
     <>
@@ -73,12 +108,20 @@ const Jobs = ({ variant = 'default' }) => {
           </p>
 
           <div className="overflow-auto no-scrollbar my-4 h-full">
-            {repeatedJob?.map((div, index) => (
-              <Fragment key={index}>{div}</Fragment>
+          {vagas.map((vaga, index) => (
+              <Job
+                key={index}
+                title={vaga.titulo}
+                profession={vaga.vaga}
+                city={vaga.cidade}
+                state={vaga.estado}
+                remuneration={vaga.remuneracao}
+                contract={vaga.contrato}
+              />
             ))}
           </div>
 
-          <NumberPages currentPage={3} totalPage={10} />
+          <NumberPages currentPage={1} totalPage={1} />
         </Card>
 
         <Card className="lg:flex flex-col p-8 lg:w-2/3 hidden">
