@@ -1,6 +1,6 @@
 import { DataPicker } from '@/components/shared/DataPicker/DataPicker';
 import { InputPopup } from '@/components/shared/InputPopup';
-import { Textarea } from '@/components/shared/Textarea/Textarea';
+import { TextArea } from '@/components/shared/TextArea/TextArea';
 import { withTheme } from '@/contexts/ThemeContext';
 
 const PopupExperiences = withTheme(({ className, variant = 'default', ...props }) => {
@@ -9,7 +9,7 @@ const PopupExperiences = withTheme(({ className, variant = 'default', ...props }
       <InputPopup type={'text'} placeholder={'Nome'} id={'name'} label={'Nome'} />
       <InputPopup type={'text'} placeholder={'Cargo'} id={'work'} label={'Cargo'} />
       <DataPicker />
-      <Textarea id={'description'} label={'Descrição'} placeholder={'Descreva algo...'} />
+      <TextArea id={'description'} label={'Descrição'} placeholder={'Descreva algo...'} />
     </div>
   );
 });
