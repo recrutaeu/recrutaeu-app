@@ -1,9 +1,10 @@
 'use client';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
+import { DataPicker } from '@/components/shared/DataPicker';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { Poup } from '@/components/shared/Poup';
 import { Select } from '@/components/shared/Select';
-import { TextArea } from '@/components/shared/TextArea';
+import { TextArea } from '@/components/shared/Textarea';
 import { commons } from '@/locales';
 
 const JobPoup = ({ isOpen, setIsOpen }) => {
@@ -65,6 +66,7 @@ const JobPoup = ({ isOpen, setIsOpen }) => {
           </div>
           <InputLabel placeholder="ex: R$ 3.500 a R$ 5.000" label="Faixa Salarial:" />
           <InputLabel placeholder="ex: curso de dws" label="Beneficios:" />
+          <DataPicker label="Prazo" variant="inverse" />
           <Select
             titleLabel="N° de vagas:"
             label="---"

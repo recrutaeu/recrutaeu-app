@@ -29,14 +29,23 @@ const commons = {
       location: 'Localização',
       remuneration: 'Remuneração',
       contract: 'Contrato',
+      benefits: 'Beneficios',
     },
     informationJob: {
       title: 'Informações da vaga',
-      differential: 'Direfencial',
     },
     numberJobs: 'Foram encontradas {amount} vagas nessa categoria',
     button: {
       label: 'candidate-se',
+    },
+    details: {
+      title: 'Detalhes da vagas',
+      buttonDelet: {
+        label: 'Deletar',
+      },
+      buttonEdit: {
+        label: 'Editar',
+      },
     },
   },
   tableJobs: {
