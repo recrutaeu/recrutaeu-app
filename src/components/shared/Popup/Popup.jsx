@@ -36,7 +36,7 @@ const Popup = ({ children, isOpen, setIsOpen, title, className, variant }) => {
         <div className="w-full h-full flex flex-col">
           <div className="flex flex-col w-full border-b ">
             <div className="w-full flex justify-between px-5 py-5 items-center">
-              <Title variant='inverseForm' className="text-lg lg:text-2xl">
+              <Title variant="inverseForm" className="text-lg lg:text-2xl">
                 {title}
               </Title>
               <ButtonIcon onClick={() => setIsOpen(false)}>

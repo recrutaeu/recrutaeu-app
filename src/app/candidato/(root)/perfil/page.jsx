@@ -65,7 +65,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         start: '20/04/2020',
         end: '20/04/22',
       },
-            {
+      {
         id: 1,
         title: 'Fiap LTDA',
         subtitle: 'UI Design',
@@ -90,7 +90,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   };
 
   return (
-    <div className='h-full overflow-auto '>
+    <div className="h-full overflow-auto ">
       <Title className="text-3xl mb-2" variant="inverse">
         {commons.profile.titlePage}
       </Title>
@@ -135,7 +135,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
       <Popup title={'Cursos e Idiomas'} isOpen={isOpenExtras} setIsOpen={setIsOpenExtras}>
         <PopupExtras />
       </Popup>
-     </div>
+    </div>
   );
 });
 

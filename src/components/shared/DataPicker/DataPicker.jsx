@@ -1,7 +1,7 @@
 import { twMerge } from 'tailwind-merge';
+import { InputLabel } from '../InputLabel';
 import { InputPopup } from '../InputPopup';
 import { themes, withTheme } from '@/contexts/ThemeContext';
-import { InputLabel } from '../InputLabel';
 
 const DataPicker = withTheme(
   ({ theme, label, type, id, className, placeholder, variant = 'default' }) => {

@@ -10,7 +10,7 @@ const ProfileSection = withTheme(({ title, content, onAdd }) => {
         {title}
       </Title>
       <ProfileQuotes items={content} onEdit={onAdd} />
-      <ButtonLink variant='bgTransform' className="self-center" onClick={onAdd}>
+      <ButtonLink variant="bgTransform" className="self-center" onClick={onAdd}>
         Adicionar
       </ButtonLink>
     </section>
