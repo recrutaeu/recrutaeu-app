@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { DescriptionSection } from './DescriptionSection';
 import { ProfileSection } from './ProfileSection';
@@ -12,10 +13,9 @@ import { PopupExtras } from '@/components/candidate/Popups/PopupExtras';
 import { Card } from '@/components/shared/Card';
 import { Popup } from '@/components/shared/Popup';
 import { Title } from '@/components/shared/Title';
+import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 import getDataUser from '@/firebase/firestore/getDataUser';
-import { useAuthContext } from '@/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
 import { commons } from '@/locales';
 
 const Profile = withTheme(({ theme, variant = 'default' }) => {
@@ -23,8 +23,6 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [isOpenEducation, setIsOpenEducation] = useState(false);
   const [isOpenExperiences, setIsOpenExperiences] = useState(false);
   const [isOpenExtras, setIsOpenExtras] = useState(false);
-
-  
 
   const { user } = useAuthContext();
   const router = useRouter();
@@ -41,10 +39,10 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   };
 
   React.useEffect(() => {
-    if (user == null){
+    if (user == null) {
       router.push('/candidato/login');
-    }else{
-      useEffectFunction()
+    } else {
+      useEffectFunction();
     }
   }, [user]);
 
@@ -52,48 +50,47 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
     handleReloadComponente();
   }, 200);
 
-  async function useEffectFunction(){
-    console.log("aqui");
+  async function useEffectFunction() {
+    console.log('aqui');
     const { result, error } = await getDataUser('users', user.uid);
-    result.forEach(((doc)=>{
-      setUserLogged(doc.data())
-    }))
-    buscarEscolaridade()
-    buscarExperiencia()
-    buscarCursos()
+    result.forEach((doc) => {
+      setUserLogged(doc.data());
+    });
+    buscarEscolaridade();
+    buscarExperiencia();
+    buscarCursos();
     handleReloadComponente();
   }
 
-  async function buscarEscolaridade(){
+  async function buscarEscolaridade() {
     const { result, error } = await getDataUser('escolaridade', user.uid);
-    setEscolaridade([])
-    result.forEach(((doc)=>{
-      const arrayNovo = escolaridade
-      arrayNovo.push(doc.data())
-      setEscolaridade(arrayNovo)
-    }))
+    setEscolaridade([]);
+    result.forEach((doc) => {
+      const arrayNovo = escolaridade;
+      arrayNovo.push(doc.data());
+      setEscolaridade(arrayNovo);
+    });
   }
 
-  async function buscarExperiencia(){
+  async function buscarExperiencia() {
     const { result, error } = await getDataUser('emprego', user.uid);
-    setExperiencia([])
-    result.forEach(((doc)=>{
-      const arrayNovo = experiencia
-      arrayNovo.push(doc.data())
-      setExperiencia(arrayNovo)
-    }))
+    setExperiencia([]);
+    result.forEach((doc) => {
+      const arrayNovo = experiencia;
+      arrayNovo.push(doc.data());
+      setExperiencia(arrayNovo);
+    });
   }
 
-  async function buscarCursos(){
+  async function buscarCursos() {
     const { result, error } = await getDataUser('cursos', user.uid);
-    setCursos([])
-    result.forEach(((doc)=>{
-      const arrayNovo = cursos
-      arrayNovo.push(doc.data())
-      setCursos(arrayNovo)
-    }))
+    setCursos([]);
+    result.forEach((doc) => {
+      const arrayNovo = cursos;
+      arrayNovo.push(doc.data());
+      setCursos(arrayNovo);
+    });
   }
-
 
   const styles = {
     default: {
@@ -198,7 +195,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         </div>
       </Card>
       <Popup title={'Descrição'} isOpen={isOpenDescription} setIsOpen={setIsOpenDescription}>
-        <PopupDescription user={userLogged}/>
+        <PopupDescription user={userLogged} />
       </Popup>
       <Popup title={'Ultimas Empresas'} isOpen={isOpenExperiences} setIsOpen={setIsOpenExperiences}>
         <PopupExperiences />

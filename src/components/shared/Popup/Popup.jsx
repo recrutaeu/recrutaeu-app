@@ -1,4 +1,3 @@
-
 'use client';
 import { Fragment, useState } from 'react';
 import { MdClose } from 'react-icons/md';
@@ -26,7 +25,7 @@ const Popup = ({ children, isOpen, setIsOpen, title, className, variant }) => {
   const { theme } = useTheme();
   const style = styles['default'];
 
-    const [description, setDescription] = useState('')
+  const [description, setDescription] = useState('');
 
   return isOpen ? (
     <div

@@ -63,7 +63,7 @@ const PersonalForm = ({ variant = 'default' }) => {
       tipo: 1,
       email: email,
       cargo: '',
-      descricao:''
+      descricao: '',
     };
     const { result, error } = await addData('users', uid, data);
 

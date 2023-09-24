@@ -29,7 +29,7 @@ const MenuDesk = ({ variant = 'default', className, links }) => {
 
   async function signOutFunction() {
     const auth = getAuth();
-    console.log("foi")
+    console.log('foi');
     signOut(auth)
       .then(() => {
         router.push('/');
@@ -37,7 +37,7 @@ const MenuDesk = ({ variant = 'default', className, links }) => {
       .catch((error) => {
         console.log(error);
       });
-  };
+  }
 
   return (
     <>

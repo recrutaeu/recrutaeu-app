@@ -28,12 +28,9 @@ const ProfileQuotes = withTheme(({ items, theme, onEdit, variant = 'default' }) 
   if (items.length < 1)
     return <p className={twMerge('text-sm mb-3 mt-1', style.text[theme])}>Dados não informados</p>;
 
-
-  
   return items.map((i) => (
     <Quote key={i} variant="bgTransform">
       <div className="flex justify-between">
-
         <Title variant="bgTransform" className="text-sm">
           {i.nome}
         </Title>
