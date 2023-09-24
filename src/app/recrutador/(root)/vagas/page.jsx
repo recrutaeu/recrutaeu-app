@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { MdAddBox } from 'react-icons/md';
 import { PiTrashSimpleFill } from 'react-icons/pi';
 import { twMerge } from 'tailwind-merge';
+import JobDetails from './JobDetails';
 import { JobPoup } from './JobPoup';
 import { JobTable } from './JobTable';
 import { ButtonIcon } from '@/components/shared/ButtonIcon';
@@ -14,8 +15,16 @@ import { recruiter } from '@/locales';
 
 const jobs = [
   {
-    job: 'nanana',
-    sector: 'sadsafsdas',
+    company: 'Fiap',
+    job: 'Desenvolvedor',
+    sector: 'Tecnologia',
+    city: 'São Paulo',
+    state: 'São Paulo',
+    remuneration: '5.000',
+    contract: 'CLT',
+    benefits: 'convenio médico',
+    description:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
     quantity: 4,
     publishedAt: '15/12/2023',
     expiresAt: '15/12/2023',
@@ -70,6 +79,7 @@ const jobs = [
     expiresAt: '15/12/2023',
   },
   {
+    company: 'Fiap',
     job: 'nanana',
     sector: 'sadsafsdas',
     quantity: 4,
@@ -113,10 +123,14 @@ const Jobs = ({}) => {
   const { theme } = useTheme();
   const style = styles['default'];
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenDetails, setIsOpenDetails] = useState(false);
+  const [selectJob, setSelectJob] = useState(undefined);
 
   return (
-    <div className="h-full overflow-auto lg:px-7 px-5 py-5">
+    <div className="h-full lg:px-7 px-5 py-5 overflow-auto">
       <JobPoup isOpen={isOpen} setIsOpen={setIsOpen} />
+      <JobDetails isOpen={isOpenDetails} setIsOpen={setIsOpenDetails} job={selectJob} />
+
       <div>
         <Title className="text-xl lg:text-3xl" variant="inverse">
           {recruiter.jobs.title}
@@ -146,7 +160,13 @@ const Jobs = ({}) => {
           </div>
         </div>
       </div>
-      <JobTable jobs={jobs} />
+      <JobTable
+        jobs={jobs}
+        onDetails={(job) => {
+          setIsOpenDetails(true);
+          setSelectJob(job);
+        }}
+      />
       <div className="w-full flex justify-center items-center">
         <NumberPages currentPage={1} totalPage={10} variant="inverse" />
       </div>

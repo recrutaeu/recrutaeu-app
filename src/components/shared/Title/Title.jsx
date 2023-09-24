@@ -23,10 +23,10 @@ const styles = {
     [themes.DARK]: 'text-neutral-0',
     [themes.LIGHT]: 'text-neutral-90',
   },
-  inverse2: {
+  bgTransform: {
     [themes.DEFAULT]: 'text-primary-90',
-    [themes.DARK]: 'text-neutral-0',
-    [themes.LIGHT]: 'text-neutral-90',
+    [themes.DARK]: 'text-neutral-90 md:text-neutral-0',
+    [themes.LIGHT]: 'text-neutral-0 md:text-neutral-90',
   },
 };
 

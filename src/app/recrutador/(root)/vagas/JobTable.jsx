@@ -6,7 +6,7 @@ import { Filter } from '@/components/shared/Filter';
 import { Table } from '@/components/shared/Table';
 import { commons } from '@/locales';
 
-const JobTable = ({ jobs, className }) => {
+const JobTable = ({ jobs, className, onDetails }) => {
   const [checked, setChecked] = useState(false);
   return (
     <Table.Root className={className}>
@@ -57,12 +57,9 @@ const JobTable = ({ jobs, className }) => {
           <JobTableContext
             // alterar key para id quando integrar com backend
             key={index}
-            job={job.job}
-            sector={job.sector}
-            quantity={job.quantity}
-            publishedAt={job.publishedAt}
-            expiresAt={job.expiresAt}
+            job={job}
             checkAll={checked}
+            onDetails={onDetails}
           />
         );
       })}

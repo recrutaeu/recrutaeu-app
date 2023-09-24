@@ -12,14 +12,14 @@ import { MenuDesk, MenuMobile } from '@/components/shared/MenuApp';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const links = [
-  { href: '/candidato/dashboard', icon: <LuLayoutDashboard className="md:w-9 md:h-9 w-7 h-7" /> },
-  { href: '/candidato/profile', icon: <LuUser className="md:w-9 md:h-9 w-7 h-7" /> },
-  { href: '/candidato/vagas', icon: <LuBriefcase className="md:w-9 md:h-9 w-7 h-7" /> },
+  { href: '/candidato/dashboard', icon: <LuLayoutDashboard className="md:w-7 md:h-7 w-6 h-6" /> },
+  { href: '/candidato/perfil', icon: <LuUser className="md:w-7 md:h-7 w-6 h-6" /> },
+  { href: '/candidato/vagas', icon: <LuBriefcase className="md:w-7 md:h-7 w-6 h-6" /> },
   {
     href: '/candidato/candidaturas',
-    icon: <LuClipboardSignature className="md:w-9 md:h-9 w-7 h-7" />,
+    icon: <LuClipboardSignature className="md:w-7 md:h-7 w-6 h-6" />,
   },
-  { href: '/candidato/configuracoes', icon: <LuSettings className="md:w-9 md:h-9 w-7 h-7" /> },
+  { href: '/candidato/configuracoes', icon: <LuSettings className="md:w-7 md:h-7 w-6 h-6" /> },
 ];
 
 const styles = {
@@ -39,7 +39,7 @@ const Layout = ({ children, variant = 'default' }) => {
   return (
     <div
       className={twMerge(
-        'w-full h-[calc(100vh-80px)] md:h-[calc(100dvh)] flex flex-col md:flex-row',
+        'w-full h-full md:h-[calc(100dvh)] flex flex-col md:flex-row mb-9 md:mb-0',
         style.background[theme],
       )}
     >

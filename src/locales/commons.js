@@ -29,14 +29,23 @@ const commons = {
       location: 'Localização',
       remuneration: 'Remuneração',
       contract: 'Contrato',
+      benefits: 'Beneficios',
     },
     informationJob: {
       title: 'Informações da vaga',
-      differential: 'Direfencial',
     },
     numberJobs: 'Foram encontradas {amount} vagas nessa categoria',
     button: {
       label: 'candidate-se',
+    },
+    details: {
+      title: 'Detalhes da vagas',
+      buttonDelet: {
+        label: 'Deletar',
+      },
+      buttonEdit: {
+        label: 'Editar',
+      },
     },
   },
   tableJobs: {
@@ -61,10 +70,24 @@ const commons = {
     title: 'Configurações',
     form: {
       titleDocument: 'Dados obrigatórios',
+      titleDocumentSecundary: 'Dados não obrigatórios',
       titlePassword: 'Senha',
       button: {
         label: 'salvar alterações',
       },
+    },
+  },
+  profile: {
+    titlePage: 'Perfil',
+  },
+  weeksSchedule: {
+    title: 'Programação da semana',
+    description: {
+      title: 'Entrevista',
+      candidate: 'candidato',
+      area: 'Area',
+      date: 'Data',
+      hour: 'hora',
     },
   },
 };
