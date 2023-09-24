@@ -78,6 +78,13 @@ const commons = {
   },
   weeksSchedule: {
     title: 'Programação da semana',
+    description:{
+      title: "Entrevista",
+      candidate: "candidato",
+      area: 'Area',
+      date: 'Data',
+      hour: 'hora'
+    }
   },
 };
 
