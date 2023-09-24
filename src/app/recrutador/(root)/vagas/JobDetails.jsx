@@ -33,35 +33,35 @@ const JobDetails = ({ isOpen, setIsOpen, job }) => {
 
         <div className={twMerge(style.text[theme], 'mt-3')}>
           <p className="mr-1 capitalize font-bold">{`${commons.jobs.descriptionJob.job}:`}</p>
-          <p className="capitalize">{job?.job}</p>
+          <p className="capitalize">{job?.vaga}</p>
         </div>
 
         <div className={twMerge(style.text[theme])}>
           <p className="mr-1 capitalize font-bold">setor:</p>
-          <p className="capitalize">{job?.sector}</p>
+          <p className="capitalize">{job?.setor}</p>
         </div>
 
         <div className={style.text[theme]}>
           <p className="mr-1 capitalize font-bold">{`${commons.jobs.descriptionJob.location}:`}</p>
-          <p className="capitalize">{`${job?.city} - ${job?.state}`}</p>
+          <p className="capitalize">{`${job?.cidade} - ${job?.estado}`}</p>
         </div>
 
         <div className={style.text[theme]}>
           <p className="mr-1 capitalize font-bold">{`${commons.jobs.descriptionJob.remuneration}:`}</p>
-          <p className="capitalize">{`R$ ${job?.remuneration}`}</p>
+          <p className="capitalize">{`R$ ${job?.remuneracao}`}</p>
         </div>
 
         <div className={style.text[theme]}>
           <p className="mr-1 capitalize font-bold">{`${commons.jobs.descriptionJob.contract}:`}</p>
-          <p className="lowercase">{job?.contract}</p>
+          <p className="lowercase">{job?.contrato}</p>
         </div>
 
         <div className={style.text[theme]}>
           <p className="mr-1 capitalize font-bold">{`${commons.jobs.descriptionJob.benefits}:`}</p>
-          <p className="capitalize">{job?.benefits}</p>
+          <p className="capitalize">{job?.beneficios}</p>
         </div>
 
-        <p className={twMerge(' mt-4 mb-2', style.text[theme])}>{job?.description}</p>
+        <p className={twMerge(' mt-4 mb-2', style.text[theme])}>{job?.descricao}</p>
       </div>
       <div className="max-w-[100%] flex justify-between gap-5 lg:justify-center">
         <ButtonPrimary variant="inverseSecundary">

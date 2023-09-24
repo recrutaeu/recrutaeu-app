@@ -54,16 +54,16 @@ const JobTableContext = ({ job, onDetails, checkAll }) => {
             />
           </div>
         </CustomCell>
-        <CustomCell className="text-xs font-light lg:text-sm">{job.job}</CustomCell>
-        <CustomCell className="text-xs font-light lg:text-sm">{job.sector}</CustomCell>
+        <CustomCell className="text-xs font-light lg:text-sm">{job.vaga}</CustomCell>
+        <CustomCell className="text-xs font-light lg:text-sm">{job.setor}</CustomCell>
         <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
-          {job.quantity}
+          {job.qtdVagas}
         </CustomCell>
         <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
-          {job.publishedAt}
+          {job.dataInicial}
         </CustomCell>
         <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
-          {job.expiresAt}
+          {job.dataFinal}
         </CustomCell>
 
         <CustomCell>

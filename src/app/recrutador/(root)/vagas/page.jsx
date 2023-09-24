@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { MdAddBox } from 'react-icons/md';
 import { PiTrashSimpleFill } from 'react-icons/pi';
 import { twMerge } from 'tailwind-merge';
@@ -12,6 +12,9 @@ import { NumberPages } from '@/components/shared/NumberPages';
 import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { recruiter } from '@/locales';
+import { useRouter } from 'next/navigation';
+import { useAuthContext } from '@/contexts/AuthContext';
+import getData from '@/firebase/firestore/getData';
 
 const jobs = [
   {
@@ -126,6 +129,42 @@ const Jobs = ({}) => {
   const [isOpenDetails, setIsOpenDetails] = useState(false);
   const [selectJob, setSelectJob] = useState(undefined);
 
+  const { user } = useAuthContext();
+  const router = useRouter();
+
+  const [vagas, setVagas] = useState([]);
+
+  const [refreshComponente, setRefreshComponente] = useState(false);
+
+  const handleReloadComponente = () => {
+    // Altere o valor do estado refresh para forçar a recarga do componente específico
+    setRefreshComponente(!refreshComponente);
+  };
+
+  React.useEffect(() => {
+    if (user == null){
+      router.push('/candidato/login');
+    }else{
+      useEffectFunction()
+    }
+  }, [user]);
+
+  setTimeout(() => {
+    handleReloadComponente();
+  }, 200);
+
+  async function useEffectFunction(){
+    const { result, error } = await getData('vagas');
+    setVagas([]);
+    result.forEach((doc) => {
+      var arrayNovo = vagas;
+      arrayNovo.push(doc.data());
+      setVagas(arrayNovo);
+    });
+  }
+
+
+
   return (
     <div className="h-full lg:px-7 px-5 py-5">
       <JobPoup isOpen={isOpen} setIsOpen={setIsOpen} />
@@ -161,7 +200,7 @@ const Jobs = ({}) => {
         </div>
       </div>
       <JobTable
-        jobs={jobs}
+        jobs={vagas}
         onDetails={(job) => {
           setIsOpenDetails(true);
           setSelectJob(job);
