@@ -17,3 +17,19 @@ export default async function addData(colllection, id, data) {
 
   return { result, error };
 }
+
+export const createOrUpdateFactory = (collection) => async (id, data) => {
+  try {
+    const response = await setDoc(doc(db, collection, id), data, {
+      merge: true,
+    });
+    return { response, error: null };
+  } catch (e) {
+    return {
+      response: null,
+      error: e,
+    };
+  }
+};
+
+export const createOrUpdateUser = createOrUpdateFactory('users');
