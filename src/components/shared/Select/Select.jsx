@@ -27,13 +27,36 @@ const styles = {
       [themes.LIGHT]: 'text-neutral-0 hover:bg-neutral-30 hover:text-neutral-90 hover:font-medium',
     },
   },
+  inverse: {
+    label: {
+      [themes.DEFAULT]: 'text-neutral-90 lg:text-sm font-medium',
+      [themes.DARK]: 'text-neutral-90 lg:text-sm font-medium',
+      [themes.LIGHT]: 'text-neutral-0 lg:text-sm font-medium',
+    },
+    buttonLabel: {
+      [themes.DEFAULT]: 'bg-neutral-0',
+      [themes.DARK]: 'bg-neutral-0 border border-neutral-90 l',
+      [themes.LIGHT]: 'bg-neutral-0',
+    },
+    ul: {
+      [themes.DEFAULT]: 'bg-neutral-0 lg:text-sm lg:font-medium',
+      [themes.DARK]: 'bg-neutral-90 lg:text-sm lg:font-medium',
+      [themes.LIGHT]: 'bg-neutral-0 lg:text-sm lg:font-medium',
+    },
+    li: {
+      [themes.DEFAULT]: 'bg-neutral-0 hover:bg-primary-90 hover:text-neutral-0 hover:font-medium',
+      [themes.DARK]: 'text-neutral-0 hover:bg-neutral-30 hover:text-neutral-90 hover:font-medium',
+      [themes.LIGHT]:
+        'text-neutral-90 lg:text-sm lg:font-medium hover:bg-neutral-30 hover:text-neutral-90 hover:font-medium',
+    },
+  },
 };
 
-const Select = ({ titleLabel, label, options, onChange, className }) => {
+const Select = ({ titleLabel, label, options, onChange, className, variant = 'default' }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [currentLabel, setCurrentLabel] = useState(label);
   const { theme } = useTheme();
-  const style = styles['default'];
+  const style = styles[variant];
 
   const handleChange = (option) => {
     onChange(option.value);
