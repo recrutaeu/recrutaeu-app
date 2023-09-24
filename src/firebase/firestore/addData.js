@@ -33,3 +33,4 @@ export const createOrUpdateFactory = (collection) => async (id, data) => {
 };
 
 export const createOrUpdateUser = createOrUpdateFactory('users');
+export const createOrUpdateVacancy = createOrUpdateFactory('vacancies');

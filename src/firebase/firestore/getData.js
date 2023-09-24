@@ -1,4 +1,4 @@
-import { collection, getDocs, getFirestore, query } from 'firebase/firestore';
+import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import { app } from '../config';
 
 const db = getFirestore(app);
@@ -16,3 +16,18 @@ export default async function getData(collectionInput) {
 
   return { result, error };
 }
+
+const makeFindOneWhere = (collection, field) => async (value) => {
+  try {
+    const query = query(collection(db, collection), where(field, value));
+    const docs = await getDocs(query);
+    return { response: docs.docs[0].data, error: null };
+  } catch (e) {
+    return {
+      response: null,
+      error: e,
+    };
+  }
+};
+
+export const findUserById = makeFindOneWhere('users', 'userId');

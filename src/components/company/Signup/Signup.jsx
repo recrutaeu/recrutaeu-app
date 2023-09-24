@@ -74,7 +74,10 @@ const SignupForm = ({ variant = 'default' }) => {
     }
 
     const userId = response.user.uid;
+    const id = uuid();
+
     const data = {
+      id,
       userId,
       document: formData.document,
       name: formData.name,
@@ -82,7 +85,7 @@ const SignupForm = ({ variant = 'default' }) => {
       roles: ['company'],
       email: formData.email,
     };
-    const { error: createError } = await createOrUpdateUser(userId, data);
+    const { error: createError } = await createOrUpdateUser(id, data);
     if (createError) {
       setError(createError.message);
       return;

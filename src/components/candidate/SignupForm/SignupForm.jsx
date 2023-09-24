@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
+import { v4 as uuid } from 'uuid';
 import { z } from 'zod';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
@@ -12,6 +13,7 @@ import { themes, useTheme } from '@/contexts/ThemeContext';
 import signUp from '@/firebase/auth/signup';
 import { createOrUpdateUser } from '@/firebase/firestore/addData';
 import { candidate } from '@/locales';
+
 const styles = {
   default: {
     description: {
@@ -65,14 +67,17 @@ const PersonalForm = ({ variant = 'default' }) => {
     }
 
     const userId = result.user.uid;
+    const id = uuid();
+
     const data = {
+      id,
       userId,
       document: formData.document,
       name: formData.name,
       roles: ['candidate'],
       email: formData.email,
     };
-    const { error: createError } = await createOrUpdateUser(userId, data);
+    const { error: createError } = await createOrUpdateUser(id, data);
     if (createError) {
       setError(createError.message);
       return;

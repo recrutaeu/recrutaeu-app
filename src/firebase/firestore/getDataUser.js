@@ -3,13 +3,10 @@ import { app } from '../config';
 
 const db = getFirestore(app);
 export default async function getDataUser(collectionInput, userId) {
-  let docRef = query(collection(db, collectionInput), where('idUser', '==', userId));
-
-  let result = null;
-  let error = null;
-
+  const docRef = query(collection(db, collectionInput), where('userId', '==', userId));
   try {
-    result = await getDocs(docRef);
+    const user = await getDocs(docRef);
+    return { response: user, error: null };
   } catch (e) {
     error = e;
   }

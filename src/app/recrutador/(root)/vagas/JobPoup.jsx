@@ -1,91 +1,172 @@
 'use client';
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { DataPicker } from '@/components/shared/DataPicker';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { Poup } from '@/components/shared/Poup';
 import { Select } from '@/components/shared/Select';
 import { TextArea } from '@/components/shared/TextArea';
+import { useAuthContext } from '@/contexts/AuthContext';
 import { commons } from '@/locales';
 
+const sectorOptions = [
+  { value: 'technology', label: 'tecnologia' },
+  { value: 'people', label: 'RH' },
+];
+
+const contractOptions = [
+  { value: 'CLT', label: 'CLT' },
+  { value: 'PJ', label: 'PJ' },
+  { value: 'temporary', label: 'temporário' },
+];
+
 const JobPoup = ({ isOpen, setIsOpen }) => {
+  const [error, setError] = useState(undefined);
+  const { user } = useAuthContext();
+
+  const formSchema = z.object({
+    title: z.string().min(1, 'O nome da vaga é obrigatória'),
+    sector: z.string().min(1, 'O setor é obrigatório'),
+    contractType: z.string().min(1, 'O contrato é obrigatório'),
+    city: z.string().min(1, 'A cidade é obrigatória'),
+    state: z.string().min(1, 'O estado é obrigatório'),
+    salaryRange: z.string().min(1, 'O faixa salarial é obrigatório'),
+    benefits: z.string().min(1, 'Os benefícios é obrigatório'),
+    startAt: z.string().min(1, 'A data de inicio do prazo é obrigatório'),
+    endAt: z.string().min(1, 'A data de termino do prazo é obrigatório'),
+    quantity: z.string().min(1, 'A quantidade de vagas é obrigatória'),
+    description: z.string().min(200, 'A descrição da vaga é obrigatória'),
+  });
+
+  const { register, handleSubmit, control } = useForm({
+    defaultValues: {
+      title: '',
+      sector: '',
+      contractType: '',
+      city: '',
+      state: '',
+      salaryRange: '',
+      benefits: '',
+      startAt: '',
+      endAt: '',
+      quantity: '',
+      description: '',
+    },
+    resolver: zodResolver(formSchema),
+  });
+
+  const handleForm = async (formData) => {
+    const data = {
+      ...formData,
+      userId: user.id,
+      startAt: new Date(formData.startAt).toUTCString(),
+      endAt: new Date(formData.endAt).toUTCString(),
+    };
+    const { error: createError } = await createOrUpdateVacancy(user.id, data);
+    if (createError) {
+      setError(createError.message);
+      return;
+    }
+  };
+
+  const handleFormError = (errors) => {
+    console.log(errors);
+    setError(Object.values(errors).find((error) => error.message)?.message);
+  };
+
   return (
     <Poup
       isOpen={isOpen}
       setIsOpen={setIsOpen}
-      title="Cadastar nova vaga"
+      title="Cadastrar nova vaga"
       variant="inverseSecundary"
     >
-      <form className="w-full h-full flex flex-col">
+      <form
+        className="w-full h-full flex flex-col"
+        onSubmit={handleSubmit(handleForm, handleFormError)}
+      >
         <div className="w-full flex flex-col grow gap-3 lg:gap-5">
-          <InputLabel placeholder="ex: programador front-end" label="Vagas:" className="" />
-          <Select
-            titleLabel="Setor:"
-            label="---"
-            options={[
-              { value: 'asdasdasd', label: 'tecnologia' },
-              { value: 'asdasdasd', label: 'RH' },
-              { value: 'asdasdasd', label: 'tbasasas' },
-              { value: 'asdasdasd', label: 'sSASAD' },
-              { value: 'asdasdasd', label: 'Salvador' },
-              { value: 'asdasdasd', label: 'temporário' },
-              { value: 'asdasdasd', label: 'hibrido' },
-              { value: 'asdasdasd', label: 'Salvador' },
-            ]}
-            onChange={console.log}
+          <InputLabel
+            placeholder="ex: programador front-end"
+            label="Vaga:"
+            id="title"
+            register={register('title')}
           />
-          <Select
-            titleLabel="Contrato:"
-            label="---"
-            options={[
-              { value: 'asdasdasd', label: 'clt' },
-              { value: 'asdasdasd', label: 'pj' },
-              { value: 'asdasdasd', label: 'temporário' },
-              { value: 'asdasdasd', label: 'hibrido' },
-              { value: 'asdasdasd', label: 'Salvador' },
-              { value: 'asdasdasd', label: 'temporário' },
-              { value: 'asdasdasd', label: 'hibrido' },
-              { value: 'asdasdasd', label: 'Salvador' },
-            ]}
-            onChange={console.log}
+          <Controller
+            control={control}
+            name="sector"
+            render={({ field: { onChange, value } }) => {
+              return (
+                <Select
+                  titleLabel="Setor:"
+                  label="---"
+                  options={sectorOptions}
+                  onChange={onChange}
+                  value={value}
+                />
+              );
+            }}
+          />
+          <Controller
+            control={control}
+            name="contractType"
+            render={({ field: { onChange, value } }) => {
+              return (
+                <Select
+                  titleLabel="Contrato:"
+                  label="---"
+                  options={contractOptions}
+                  onChange={onChange}
+                  value={value}
+                />
+              );
+            }}
           />
 
           <div className="w-full flex justify-between gap-5">
-            <Select
-              titleLabel="Cidade:"
-              label="---"
-              options={[
-                { value: 'asdasdasd', label: 'São Paulo' },
-                { value: 'asdasdasd', label: 'Rio de Janeiro' },
-                { value: 'asdasdasd', label: 'Salvador' },
-                { value: 'asdasdasd', label: 'Pernambuco' },
-                { value: 'asdasdasd', label: 'Bahia' },
-                { value: 'asdasdasd', label: 'Esperito Santo' },
-              ]}
-              onChange={console.log}
+            <InputLabel
+              label="Cidade:"
+              className="w-full"
+              id="city"
+              placeholder="---"
+              register={register('city')}
             />
-
-            <Select
-              titleLabel="Estado:"
-              label="---"
-              options={[
-                { value: 'asdasdasd', label: 'São Paulo' },
-                { value: 'asdasdasd', label: 'Rio de Janeiro' },
-                { value: 'asdasdasd', label: 'Salvador' },
-                { value: 'asdasdasd', label: 'Pernambuco' },
-                { value: 'asdasdasd', label: 'Bahia' },
-                { value: 'asdasdasd', label: 'Esperito Santo' },
-                { value: 'asdasdasd', label: 'Salvador' },
-              ]}
-              onChange={console.log}
-            />
+            <InputLabel label="Estado:" id="state" placeholder="---" register={register('state')} />
           </div>
-          <InputLabel placeholder="ex: R$ 3.500 a R$ 5.000" label="Faixa Salarial:" />
-          <InputLabel placeholder="ex: curso de dws" label="Beneficios:" />
-          <DataPicker label="Prazo" variant="inverse" />
+          <InputLabel
+            placeholder="ex: R$ 3.500 a R$ 5.000"
+            label="Faixa Salarial:"
+            id="salaryRange"
+            register={register('salaryRange')}
+          />
+          <InputLabel
+            placeholder="ex: curso de dws"
+            label="Beneficios:"
+            id="benefits"
+            register={register('benefits')}
+          />
+          <DataPicker
+            label="Prazo"
+            variant="inverse"
+            registerStart={register('startAt')}
+            registerEnd={register('endAt')}
+          />
+          <InputLabel
+            placeholder="ex: 10"
+            id="quantity"
+            label="N° de vagas:"
+            register={register('quantity')}
+          />
 
-          <InputLabel placeholder="ex: 10" label="N° de vagas:" />
-
-          <TextArea label="Descrição:" rows={14} />
+          <TextArea
+            label="Descrição:"
+            id="description"
+            rows={14}
+            register={register('description')}
+          />
 
           <div className="w-full flex justify-center items-center pb-5 lg:pb-7">
             <ButtonPrimary type="submit" variant="inverseSecundary">
