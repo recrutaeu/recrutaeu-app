@@ -1,5 +1,5 @@
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
-import { TextArea } from '@/components/company/TextArea';
+import { TextArea } from '@/components/shared/TextArea';
 import { withTheme } from '@/contexts/ThemeContext';
 
 const PopupDescription = withTheme(({ className, variant = 'default', ...props }) => {

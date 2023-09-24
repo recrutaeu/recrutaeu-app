@@ -1,7 +1,7 @@
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { DataPicker } from '@/components/shared/DataPicker';
 import { InputLabel } from '@/components/shared/InputLabel';
-import { TextArea } from '@/components/company/TextArea';
+import { TextArea } from '@/components/shared/TextArea';
 import { withTheme } from '@/contexts/ThemeContext';
 
 const PopupExtras = withTheme(({ className, variant = 'default', editItem, ...props }) => {
