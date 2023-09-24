@@ -44,7 +44,7 @@ const SigninForm = ({ variant = 'default' }) => {
 
     // else successful
     console.log(result);
-    return router.push('/recrutador/profile');
+    return router.push('/recrutador/perfil');
   };
 
   return (

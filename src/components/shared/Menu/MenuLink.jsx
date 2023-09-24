@@ -23,7 +23,7 @@ const MenuLink = ({
   className,
   variant = 'default',
   active = false,
-  functionSignOut = () => {},
+  functionSignOut = null,
 }) => {
   const { theme } = useTheme();
   const style = styles[variant];

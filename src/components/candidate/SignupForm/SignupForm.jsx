@@ -57,9 +57,13 @@ const PersonalForm = ({ variant = 'default' }) => {
 
   const handleFormFirestore = async (uid) => {
     const data = {
+      idUser: uid,
       cpf: cpf,
       nome: nome,
       tipo: 1,
+      email: email,
+      cargo: '',
+      descricao:''
     };
     const { result, error } = await addData('users', uid, data);
 

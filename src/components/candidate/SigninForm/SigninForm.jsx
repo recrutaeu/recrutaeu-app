@@ -42,7 +42,7 @@ const PersonalForm = ({ variant }) => {
 
     // else successful
     console.log(result);
-    return router.push('/candidato/profile');
+    return router.push('/candidato/perfil');
   };
 
   return (

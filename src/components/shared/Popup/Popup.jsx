@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { AuthNavbar } from '../AuthNavbar';
 import { ButtonPrimary } from '../ButtonPrimary';
@@ -35,6 +35,10 @@ const Popup = withTheme(
     ...props
   }) => {
     const style = styles[variant];
+
+
+    const [description, setDescription] = useState('')
+
 
     if (isOpen) {
       return (

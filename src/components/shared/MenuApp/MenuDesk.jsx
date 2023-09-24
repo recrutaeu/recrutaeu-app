@@ -27,8 +27,9 @@ const MenuDesk = ({ variant = 'default', className, links }) => {
 
   const router = useRouter();
 
-  const signOutFunction = async (event) => {
+  async function signOutFunction() {
     const auth = getAuth();
+    console.log("foi")
     signOut(auth)
       .then(() => {
         router.push('/');

@@ -41,11 +41,19 @@ const Jobs = ({ variant = 'default' }) => {
     setRefreshComponente(!refreshComponente);
   };
 
+  React.useEffect(() => {
+    if (user == null){
+      router.push('/candidato/login');
+    }else{
+      useEffectFunction()
+    }
+  }, [user]);
+
   setTimeout(() => {
     handleReloadComponente();
   }, 200);
 
-  React.useEffect(async () => {
+  async function useEffectFunction(){
     const { result, error } = await getData('vagas');
     setVagas([]);
     result.forEach((doc) => {
@@ -54,34 +62,8 @@ const Jobs = ({ variant = 'default' }) => {
       setVagas(arrayNovo);
       console.log(vagas);
     });
-
-    console.log(vagas);
-  }, [vagas]);
-
-  React.useEffect(() => {
-    console.log(user);
-    if (user == null) router.push('/candidato/login');
-  }, [user]);
-
-  // function retornarJobs(){
-  //   if(vagas != null && vagas != undefined){
-  //     console.log("aqui")
-  //     vagas.forEach((vaga)=>{
-  //       return(
-  //         <Job
-  //         key={index}
-  //         title={vaga.titulo}
-  //         profession="design"
-  //         city="São Paulo"
-  //         state="SP"
-  //         remuneration={5000}
-  //         contract="clt"
-  //       />
-  //       )})
-  //   }
-  //   return null
-  //   }
-
+  }
+  
   return (
     <>
       <Title className="text-3xl" variant="inverse">
