@@ -1,6 +1,9 @@
-import React from 'react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
+import { z } from 'zod';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Input } from '@/components/shared/Input';
@@ -22,45 +25,53 @@ const styles = {
 const PersonalForm = ({ variant }) => {
   const style = styles['default'];
   const { theme } = useTheme();
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [mensagem, setMensagem] = React.useState(false);
-  const [mensagemErro, setMensagemErro] = React.useState('');
   const router = useRouter();
+  const [error, setError] = useState(undefined);
 
-  const handleForm = async (event) => {
-    console.log('aqui');
-    event.preventDefault();
+  const formSchema = z.object({
+    email: z.string().email('Email invalido').min(1, 'o email é obrigatório'),
+    password: z
+      .string()
+      .min(1, 'A senha é  obrigatória')
+      .min(6, 'A senha precisa ter pelo menos 6 caracteres'),
+  });
 
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    resolver: zodResolver(formSchema),
+  });
+
+  const handleForm = async (data) => {
+    const { email, password } = data;
     const { result, error } = await signIn(email, password);
 
     if (error) {
-      setMensagem(true);
-      setMensagemErro(error);
-      return console.log(error);
+      setError(error.mensagem);
+      return;
     }
 
-    // else successful
-    console.log(result);
-    return router.push('/candidato/perfil');
+    return router.push('/candidato/dashboard');
+  };
+
+  const handleFormError = (errors) => {
+    setError(Object.values(errors).find((error) => error.message)?.message);
   };
 
   return (
-    <form className="w-full flex flex-col gap-6 items-center" onSubmit={handleForm}>
+    <form
+      className="w-full flex flex-col gap-6 items-center"
+      onSubmit={handleSubmit(handleForm, handleFormError)}
+    >
       <>
         <Input.Root variant={variant}>
-          <Input.Field type="email" label="email" id="email" required setInputValue={setEmail} />
+          <Input.Field type="email" label="email" register={register('email')} />
         </Input.Root>
 
-        <InputPassword
-          variant={variant}
-          label="password"
-          id="password"
-          setInputPassword={setPassword}
-        />
-        {mensagem ? (
-          <p className={twMerge('w-full pl-4', style.description[theme])}>{mensagemErro}</p>
-        ) : null}
+        <InputPassword variant={variant} label="senha" register={register('password')} />
+        {error ? <p className={twMerge('w-full pl-4', style.description[theme])}>{error}</p> : null}
         <div className="w-full">
           <ButtonLink variant={variant} className="flex justify-end text-sm lg:text-base">
             {candidate.signin.form.forgotPassword.label}
