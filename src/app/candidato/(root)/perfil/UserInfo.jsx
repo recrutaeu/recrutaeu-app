@@ -31,7 +31,7 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
   return (
     <div className="flex flex-col justify-center items-center mb-5 lg:my-5 relative lg:flex-row lg:justify-start lg:mt-0">
       <Image
-        src={userData.profile_img}
+        src="/assets/images/img_profile.png"
         width={100}
         height={100}
         alt="profile"
@@ -41,10 +41,10 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
       <div>
         <div className="flex flex-col items-center lg:items-start">
           <Title variant="bgTransform" className="text-base lg:text-xl">
-            {userData.name}
+            {userData.nome}
           </Title>
           <Title variant="bgTransform" className="text-sm lg:text-base">
-            {userData.subtitle}
+            {userData.cargo}
           </Title>
         </div>
       </div>

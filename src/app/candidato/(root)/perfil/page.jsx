@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { DescriptionSection } from './DescriptionSection';
 import { ProfileSection } from './ProfileSection';
@@ -12,7 +13,9 @@ import { PopupExtras } from '@/components/candidate/Popups/PopupExtras';
 import { Card } from '@/components/shared/Card';
 import { Popup } from '@/components/shared/Popup';
 import { Title } from '@/components/shared/Title';
+import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, withTheme } from '@/contexts/ThemeContext';
+import getDataUser from '@/firebase/firestore/getDataUser';
 import { commons } from '@/locales';
 
 const Profile = withTheme(({ theme, variant = 'default' }) => {
@@ -20,6 +23,74 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [isOpenEducation, setIsOpenEducation] = useState(false);
   const [isOpenExperiences, setIsOpenExperiences] = useState(false);
   const [isOpenExtras, setIsOpenExtras] = useState(false);
+
+  const { user } = useAuthContext();
+  const router = useRouter();
+
+  const [userLogged, setUserLogged] = useState('');
+  const [escolaridade, setEscolaridade] = useState([]);
+  const [experiencia, setExperiencia] = useState([]);
+  const [cursos, setCursos] = useState([]);
+
+  const [refreshComponente, setRefreshComponente] = useState(false);
+
+  const handleReloadComponente = () => {
+    setRefreshComponente(!refreshComponente);
+  };
+
+  React.useEffect(() => {
+    if (user == null) {
+      router.push('/candidato/login');
+    } else {
+      useEffectFunction();
+    }
+  }, [user]);
+
+  setTimeout(() => {
+    handleReloadComponente();
+  }, 200);
+
+  async function useEffectFunction() {
+    console.log('aqui');
+    const { result, error } = await getDataUser('users', user.uid);
+    result.forEach((doc) => {
+      setUserLogged(doc.data());
+    });
+    buscarEscolaridade();
+    buscarExperiencia();
+    buscarCursos();
+    handleReloadComponente();
+  }
+
+  async function buscarEscolaridade() {
+    const { result, error } = await getDataUser('escolaridade', user.uid);
+    setEscolaridade([]);
+    result.forEach((doc) => {
+      const arrayNovo = escolaridade;
+      arrayNovo.push(doc.data());
+      setEscolaridade(arrayNovo);
+    });
+  }
+
+  async function buscarExperiencia() {
+    const { result, error } = await getDataUser('emprego', user.uid);
+    setExperiencia([]);
+    result.forEach((doc) => {
+      const arrayNovo = experiencia;
+      arrayNovo.push(doc.data());
+      setExperiencia(arrayNovo);
+    });
+  }
+
+  async function buscarCursos() {
+    const { result, error } = await getDataUser('cursos', user.uid);
+    setCursos([]);
+    result.forEach((doc) => {
+      const arrayNovo = cursos;
+      arrayNovo.push(doc.data());
+      setCursos(arrayNovo);
+    });
+  }
 
   const styles = {
     default: {
@@ -49,7 +120,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   const style = styles[variant];
 
   const userData = {
-    name: 'Helena Bartone',
+    name: userLogged.nome,
     subtitle: 'UI Designer',
     profile_img: '/assets/images/img_profile.png',
     contact: '+55 11 98977-3645',
@@ -101,11 +172,11 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         )}
       >
         <div>
-          <UserInfo userData={userData} />
-          <DescriptionSection userData={userData} onEdit={() => setIsOpenDescription(true)} />
+          <UserInfo userData={userLogged} />
+          <DescriptionSection userData={userLogged} onEdit={() => setIsOpenDescription(true)} />
           <ProfileSection
             title={'Ultimas Empresas'}
-            content={userData.work_experience}
+            content={experiencia}
             onAdd={() => setIsOpenExperiences(true)}
           />
         </div>
@@ -113,18 +184,18 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         <div>
           <ProfileSection
             title={'Escolaridade'}
-            content={userData.education}
+            content={escolaridade}
             onAdd={() => setIsOpenEducation(true)}
           />
           <ProfileSection
             title={'Cursos e idiomas'}
-            content={userData.extras}
+            content={cursos}
             onAdd={() => setIsOpenExtras(true)}
           />
         </div>
       </Card>
       <Popup title={'Descrição'} isOpen={isOpenDescription} setIsOpen={setIsOpenDescription}>
-        <PopupDescription />
+        <PopupDescription user={userLogged} />
       </Popup>
       <Popup title={'Ultimas Empresas'} isOpen={isOpenExperiences} setIsOpen={setIsOpenExperiences}>
         <PopupExperiences />

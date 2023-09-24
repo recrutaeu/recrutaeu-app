@@ -32,17 +32,17 @@ const ProfileQuotes = withTheme(({ items, theme, onEdit, variant = 'default' }) 
     <Quote key={i} variant="bgTransform">
       <div className="flex justify-between">
         <Title variant="bgTransform" className="text-sm">
-          {i.title}
+          {i.nome}
         </Title>
         <ButtonLink onClick={onEdit}>
           <LuPencil size={20} className={style.icon[theme]} />
         </ButtonLink>
       </div>
 
-      <p className={twMerge('text-sm', style.text[theme])}> {i.subtitle} </p>
-      <p className={twMerge('my-3 text-sm', style.text[theme])}> {i.description} </p>
+      <p className={twMerge('text-sm', style.text[theme])}> {i.cargo || i.curso} </p>
+      <p className={twMerge('my-3 text-sm', style.text[theme])}> {i.descricao} </p>
       <p className={twMerge('text-sm', style.text[theme])}>
-        {i.start} a {i.end}
+        {i.dataInicial} a {i.dataFinal}
       </p>
     </Quote>
   ));

@@ -1,4 +1,5 @@
 'use client';
+import { Fragment, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
 import { ButtonIcon } from '../ButtonIcon';
@@ -23,6 +24,8 @@ const styles = {
 const Popup = ({ children, isOpen, setIsOpen, title, className, variant }) => {
   const { theme } = useTheme();
   const style = styles['default'];
+
+  const [description, setDescription] = useState('');
 
   return isOpen ? (
     <div
