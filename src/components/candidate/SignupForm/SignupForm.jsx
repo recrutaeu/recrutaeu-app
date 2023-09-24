@@ -11,7 +11,9 @@ import { InputPassword } from '@/components/shared/InputPassword';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import signUp from '@/firebase/auth/signup';
 import { createOrUpdateUser } from '@/firebase/firestore/addData';
+import { uuid } from '@/firebase/uuid';
 import { candidate } from '@/locales';
+
 const styles = {
   default: {
     description: {
@@ -23,6 +25,11 @@ const styles = {
 };
 
 const PersonalForm = ({ variant = 'default' }) => {
+  const formSteps = {
+    profile: 'profile',
+    password: 'password',
+  };
+
   const { theme } = useTheme();
   const style = styles[variant];
   const router = useRouter();
@@ -64,15 +71,18 @@ const PersonalForm = ({ variant = 'default' }) => {
       return;
     }
 
-    const userId = result.user.uid;
+    const authId = response.user.uid;
+    const id = uuid();
+
     const data = {
-      userId,
+      id,
+      authId,
       document: formData.document,
       name: formData.name,
       roles: ['candidate'],
       email: formData.email,
     };
-    const { error: createError } = await createOrUpdateUser(userId, data);
+    const { error: createError } = await createOrUpdateUser(id, data);
     if (createError) {
       setError(createError.message);
       return;
@@ -83,11 +93,6 @@ const PersonalForm = ({ variant = 'default' }) => {
 
   const handleFormError = (errors) => {
     setError(Object.values(errors).find((error) => error.message)?.message);
-  };
-
-  const formSteps = {
-    profile: 'profile',
-    password: 'password',
   };
 
   return (

@@ -52,15 +52,23 @@ const styles = {
   },
 };
 
-const Select = ({ titleLabel, label, options, onChange, className, variant = 'default' }) => {
+const Select = ({
+  titleLabel,
+  label,
+  options,
+  onChange,
+  className,
+  value,
+  variant = 'default',
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [currentLabel, setCurrentLabel] = useState(label);
+  const [currentOption, setCurrentOption] = useState({ label, value });
   const { theme } = useTheme();
   const style = styles[variant];
 
   const handleChange = (option) => {
     onChange(option.value);
-    setCurrentLabel(option.label);
+    setCurrentOption(option);
     setIsDropdownOpen(false);
   };
 
@@ -77,7 +85,7 @@ const Select = ({ titleLabel, label, options, onChange, className, variant = 'de
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         type="button"
       >
-        <p className="text-sm lg:text-base">{currentLabel}</p>
+        <p className="text-sm lg:text-base">{currentOption.label}</p>
         {isDropdownOpen ? (
           <MdOutlineKeyboardArrowDown size={24} />
         ) : (

@@ -28,7 +28,7 @@ const styles = {
   },
 };
 
-const TextArea = ({ text, label, className, variant = 'default', ...props }) => {
+const TextArea = ({ text, label, className, variant = 'default', register, ...props }) => {
   const { theme } = useTheme();
   const style = styles[variant];
 
@@ -50,6 +50,7 @@ const TextArea = ({ text, label, className, variant = 'default', ...props }) => 
           style.textArea[theme],
         )}
         {...props}
+        {...register}
       ></textarea>
     </div>
   );

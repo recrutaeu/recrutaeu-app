@@ -27,7 +27,7 @@ const styles = {
   },
 };
 
-const DataPicker = ({ variant = 'default', className, label }) => {
+const DataPicker = ({ variant = 'default', label, className, registerStart, registerEnd }) => {
   const { theme } = useTheme();
   const style = styles[variant];
 
@@ -44,6 +44,7 @@ const DataPicker = ({ variant = 'default', className, label }) => {
           id={'start'}
           className={twMerge('w-full text-xs lg:text-base', className)}
           variant={variant}
+          register={registerStart}
         />
         <p className={twMerge('text-sm lg:text-base', style.text[theme], className)}>à</p>
         <InputLabel
@@ -51,6 +52,7 @@ const DataPicker = ({ variant = 'default', className, label }) => {
           id={'end'}
           className={twMerge('w-full text-xs lg:text-base', className)}
           variant={variant}
+          register={registerEnd}
         />
       </div>
     </div>
