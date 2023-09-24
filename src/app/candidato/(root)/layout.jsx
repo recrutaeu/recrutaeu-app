@@ -37,18 +37,21 @@ const Layout = ({ children, variant = 'default' }) => {
   const style = styles[variant];
 
   return (
-    <div
-      className={twMerge(
-        'w-full h-full md:h-[calc(100dvh)] flex flex-col md:flex-row mb-9 md:mb-0',
-        style.background[theme],
-      )}
-    >
+    <div className={twMerge('w-full  flex flex-col md:flex-row', style.background[theme])}>
       <MenuDesk className="hidden md:flex" links={links} />
-      <div className="w-full grow flex flex-col px-5">
-        <AccessibilityNavbar className="w-full flex items-center justify-end py-4" />
+      <div className="h-[calc(100dvh-64px)] md:h-[calc(100dvh)] overflow-hidden w-full grow flex flex-col">
+        <AccessibilityNavbar
+          onBack={() => {
+            route.pop();
+          }}
+          onLogout={() => {
+            route.push('/');
+          }}
+          className="w-full flex items-center justify-end p-4"
+        />
         {children}
       </div>
-      <MenuMobile links={links} className="px-4" />
+      <MenuMobile links={links} />
     </div>
   );
 };

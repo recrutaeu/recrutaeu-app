@@ -127,7 +127,7 @@ const Jobs = ({}) => {
   const [selectJob, setSelectJob] = useState(undefined);
 
   return (
-    <div className="h-full lg:px-7 px-5 py-5 overflow-auto">
+    <div className="h-full lg:px-7 px-5 py-5">
       <JobPoup isOpen={isOpen} setIsOpen={setIsOpen} />
       <JobDetails isOpen={isOpenDetails} setIsOpen={setIsOpenDetails} job={selectJob} />
 

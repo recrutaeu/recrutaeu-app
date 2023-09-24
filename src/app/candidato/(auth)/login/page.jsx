@@ -58,13 +58,13 @@ const SignIn = ({ variant = 'default' }) => {
       </Layout.Left>
 
       <Layout.Right className="flex flex-col items-center" variant="inverse">
-        <div className="w-full flex justify-end">
+        <div className="w-full flex">
           <AuthNavbar
             variant="inverse"
             onBack={() => {
               route.push('/');
             }}
-            className="w-fit"
+            className="w-full"
           />
         </div>
         <div className="w-full grow flex flex-col items-center justify-center gap-8">
