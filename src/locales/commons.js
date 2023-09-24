@@ -80,6 +80,12 @@ const commons = {
   profile: {
     titlePage: 'Perfil',
   },
+  applications: {
+    titlePage: 'Suas candidaturas',
+    button: {
+      label: 'cancelar candidatura',
+    },
+  },
   weeksSchedule: {
     title: 'Programação da semana',
     description: {
