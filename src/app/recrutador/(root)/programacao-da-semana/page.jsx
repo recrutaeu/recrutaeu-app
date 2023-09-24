@@ -23,13 +23,7 @@ const weeks = [
     date: '15/10/2023',
     hour: '10:00',
   },
-  {
-    candidate: 'Isabela',
-    area: 'Tecnologia',
-    sector: 'Tecnologia',
-    date: '15/10/2023',
-    hour: '10:00',
-  },
+ 
 ];
 
 const styles = {
