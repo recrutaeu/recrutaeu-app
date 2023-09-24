@@ -78,17 +78,17 @@ const commons = {
     },
   },
   profile: {
-    titlePage: 'Perfil'
+    titlePage: 'Perfil',
   },
   weeksSchedule: {
     title: 'Programação da semana',
-    description:{
-      title: "Entrevista",
-      candidate: "candidato",
+    description: {
+      title: 'Entrevista',
+      candidate: 'candidato',
       area: 'Area',
       date: 'Data',
-      hour: 'hora'
-    }
+      hour: 'hora',
+    },
   },
 };
 

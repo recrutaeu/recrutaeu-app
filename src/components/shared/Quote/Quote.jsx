@@ -18,12 +18,12 @@ const styles = {
     },
   },
   inverse: {
-    div:{
+    div: {
       [themes.DEFAULT]: 'border-primary-90',
       [themes.DARK]: 'border-neutral-90',
       [themes.LIGHT]: 'border-neutral-0',
-    }
-  }
+    },
+  },
 };
 
 const Quote = ({ children, className, variant = 'default', ...props }) => {
