@@ -3,7 +3,11 @@ import React from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { app } from '@/firebase/config';
+<<<<<<< HEAD
 import { findUserByAuthId } from '@/firebase/firestore/getData';
+=======
+import { findUserById } from '@/firebase/firestore/getData';
+>>>>>>> 0c5178a (Crud vagas)
 
 const auth = getAuth(app);
 
