@@ -47,7 +47,7 @@ const styles = {
   },
 };
 
-const weeksSchedule = ({}) => {
+const WeeksSchedule = ({}) => {
   const { theme } = useTheme();
   const style = styles['default'];
 
@@ -151,4 +151,4 @@ const weeksSchedule = ({}) => {
   );
 };
 
-export default weeksSchedule;
+export default WeeksSchedule;
