@@ -1,13 +1,9 @@
 'use client';
-import React from 'react';
+import { app } from '@/firebase/config';
+import { findUserByAuthId } from '@/firebase/firestore/getData';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-import { app } from '@/firebase/config';
-<<<<<<< HEAD
-import { findUserByAuthId } from '@/firebase/firestore/getData';
-=======
-import { findUserById } from '@/firebase/firestore/getData';
->>>>>>> 0c5178a (Crud vagas)
+import React from 'react';
 
 const auth = getAuth(app);
 
