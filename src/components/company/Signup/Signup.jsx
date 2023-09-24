@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
+import { z } from 'zod';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Input } from '@/components/shared/Input';
 import { InputPassword } from '@/components/shared/InputPassword';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import signUp from '@/firebase/auth/signup';
-import addData from '@/firebase/firestore/addData';
+import { createOrUpdateUser } from '@/firebase/firestore/addData';
 import { company } from '@/locales';
 
 const styles = {
@@ -23,16 +26,6 @@ const styles = {
 const SignupForm = ({ variant = 'default' }) => {
   const { theme } = useTheme();
   const style = styles[variant];
-
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [empresa, setEmpresa] = useState();
-  const [nomeFantasia, setNomeFantasia] = useState();
-  const [cnpj, setCnpj] = useState();
-
-  const [mensagem, setMensagem] = React.useState(false);
-  const [mensagemErro, setMensagemErro] = React.useState('');
-
   const router = useRouter();
 
   const formSteps = {
@@ -41,37 +34,72 @@ const SignupForm = ({ variant = 'default' }) => {
   };
 
   const [formStep, setFormStep] = useState(formSteps.profile);
+  const [error, setError] = React.useState(undefined);
 
-  const handleForm = async (event) => {
-    event.preventDefault();
-    const { result, error } = await signUp(email, password);
+  const formSchema = z
+    .object({
+      email: z.string().email('Email invalido').min(1, 'o email é obrigatório'),
+      password: z
+        .string()
+        .min(1, 'A senha é  obrigatória')
+        .min(6, 'A senha precisa ter pelo menos 6 caracteres'),
+      confirmPassword: z.string().min(1, 'Confirmação de senha é obrigatório'),
+      document: z.string().min(1, 'O CNPJ é obrigatório'),
+      name: z.string().min(1, 'A razão social é obrigatória'),
+      nickname: z.string().min(1, 'O nome fantasia é obrigatório'),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      path: ['confirmPassword'],
+      message: 'As senhas não iguais',
+    });
 
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
+      name: '',
+      nickname: '',
+      document: '',
+    },
+    resolver: zodResolver(formSchema),
+  });
+
+  const handleForm = async (formData) => {
+    const { email, password } = formData;
+    const { response, error } = await signUp(email, password);
     if (error) {
-      setMensagem(true);
-      setMensagemErro(error);
-      return console.log('ERRO -------- \n' + error);
+      setError(error);
+      return;
     }
 
-    handleFormFirestore(result.user.uid);
+    const userId = response.user.uid;
+    const data = {
+      userId,
+      document: formData.document,
+      name: formData.name,
+      nickname: formData.nickname,
+      roles: ['company'],
+      email: formData.email,
+    };
+    const { error: createError } = await createOrUpdateUser(userId, data);
+    if (createError) {
+      setError(createError.message);
+      return;
+    }
+
+    router.push('/empresa/dashboard');
   };
 
-  const handleFormFirestore = async (uid) => {
-    const data = {
-      cnpj: cnpj,
-      empresa: empresa,
-      nomeFantasia: nomeFantasia,
-      tipo: 2,
-    };
-    const { result, error } = await addData('users', uid, data);
-
-    if (error) {
-      return console.log(error);
-    }
-    return router.push('/home');
+  const handleFormError = (errors) => {
+    setError(Object.values(errors).find((error) => error.message)?.message);
   };
 
   return (
-    <form className="w-full flex flex-col gap-6 items-center" onSubmit={handleForm}>
+    <form
+      className="w-full flex flex-col gap-6 items-center"
+      onSubmit={handleSubmit(handleForm, handleFormError)}
+    >
       {formStep === formSteps.profile && (
         <>
           <p
@@ -80,21 +108,16 @@ const SignupForm = ({ variant = 'default' }) => {
             {company.signup.form.description}
           </p>
           <Input.Root>
-            <Input.Field type="text" label="empresa" id="company" setInputValue={setEmpresa} />
+            <Input.Field type="text" label="razão social" register={register('name')} />
           </Input.Root>
           <Input.Root>
-            <Input.Field
-              type="text"
-              label="nome fantasia"
-              id="companyFantasy"
-              setInputValue={setNomeFantasia}
-            />
+            <Input.Field type="text" label="nome fantasia" register={register('nickname')} />
           </Input.Root>
           <Input.Root>
-            <Input.Field type="text" label="cnpj" id="cnpj" setInputValue={setCnpj} />
+            <Input.Field type="text" label="cnpj" register={register('document')} />
           </Input.Root>
-          <Input.Root type="emial" label="email" id="emial">
-            <Input.Field label="email" setInputValue={setEmail} />
+          <Input.Root>
+            <Input.Field label="email" register={register('email')} />
           </Input.Root>
 
           <ButtonPrimary
@@ -114,11 +137,11 @@ const SignupForm = ({ variant = 'default' }) => {
           >
             {company.signup.form.descriptionPassword}
           </p>
-          <InputPassword label="senha" id="password" setInputPassword={setPassword} />
+          <InputPassword label="senha" register={register('password')} />
 
-          <InputPassword label="repetir senha" id="password" />
-          {mensagem ? (
-            <p className={twMerge('w-full pl-4', style.description[theme])}>{mensagemErro}</p>
+          <InputPassword label="repetir senha" register={register('confirmPassword')} />
+          {error ? (
+            <p className={twMerge('w-full pl-4', style.description[theme])}>{error}</p>
           ) : null}
 
           <ButtonPrimary type="submit" className="mt-5" onClick={() => {}}>

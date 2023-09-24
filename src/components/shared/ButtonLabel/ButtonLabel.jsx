@@ -1,3 +1,4 @@
+'use client';
 import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 
@@ -10,6 +11,12 @@ const styles = {
   inverse: {
     [themes.DEFAULT]: 'text-primary-40',
     [themes.DARK]: 'text-neutral-0',
+    [themes.LIGHT]: 'text-neutral-90',
+  },
+
+  inverseSecundary: {
+    [themes.DEFAULT]: 'text-primary-90',
+    [themes.DARK]: 'text-neutral-90',
     [themes.LIGHT]: 'text-neutral-90',
   },
 };

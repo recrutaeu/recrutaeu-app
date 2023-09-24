@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { InformationJob } from './InformationJob';
 import { Job } from './Job';
@@ -11,7 +10,6 @@ import { InputSearch } from '@/components/shared/InputSearch';
 import { NumberPages } from '@/components/shared/NumberPages';
 import { Popup } from '@/components/shared/Popup';
 import { Title } from '@/components/shared/Title';
-import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import getData from '@/firebase/firestore/getData';
 import { commons } from '@/locales';
@@ -29,8 +27,6 @@ const styles = {
 const Jobs = ({ variant = 'default' }) => {
   const { theme } = useTheme();
   const style = styles[variant];
-  const { user } = useAuthContext();
-  const router = useRouter();
 
   const [vacancies, setVacancies] = useState([]);
   const [isVacancyOpen, setIsVacancyOpen] = useState(false);
@@ -46,17 +42,13 @@ const Jobs = ({ variant = 'default' }) => {
     fetchVacancies().then();
   }, [vacancies]);
 
-  React.useEffect(() => {
-    if (user == null) router.push('/candidato/login');
-  }, [router, user]);
-
   return (
     <>
       <Title className="text-3xl px-5" variant="inverse">
         {commons.jobs.titlePage}
       </Title>
-      <div className="flex flex-col my-10 lg:flex-row gap-4 w-full max-h-auto h-[calc(100dvh)] lg:justify-center overflow-auto px-5">
-        <Card className="flex flex-col lg:w-1/3 lg:min-w-[500px] h-full">
+      <div className="flex flex-col my-10 lg:flex-row gap-4 w-full h-full lg:justify-center overflow-auto px-5">
+        <Card className="flex flex-col lg:w-1/3 lg:min-w-[500px] grow">
           <div className="flex">
             <InputSearch
               type="text"
@@ -76,7 +68,7 @@ const Jobs = ({ variant = 'default' }) => {
             {commons.jobs.numberJobs.replace('{amount}', vacancies.length)}
           </p>
 
-          <div className="overflow-auto no-scrollbar my-4 h-full">
+          <div className="my-4 h-full">
             {vacancies.map((vacancy) => (
               <Job
                 key={vacancy.id}
@@ -100,7 +92,7 @@ const Jobs = ({ variant = 'default' }) => {
         isOpen={isVacancyOpen}
         setIsOpen={setIsVacancyOpen}
         className="lg:hidden"
-        title={common.jobs.informationJob.title}
+        title={commons.jobs.informationJob.title}
       >
         <InformationJob vacancy={selectedVacancy} />
       </Popup>
