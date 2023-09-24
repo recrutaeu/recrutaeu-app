@@ -1,7 +1,6 @@
 'use client';
 
-import React, { Fragment, useState } from 'react';
-import { getDoc } from 'firebase/firestore';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { InformationJob } from './InformationJob';
@@ -10,6 +9,7 @@ import { Card } from '@/components/shared/Card';
 import { Filter } from '@/components/shared/Filter';
 import { InputSearch } from '@/components/shared/InputSearch';
 import { NumberPages } from '@/components/shared/NumberPages';
+import { Popup } from '@/components/shared/Popup';
 import { Title } from '@/components/shared/Title';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
@@ -32,44 +32,30 @@ const Jobs = ({ variant = 'default' }) => {
   const { user } = useAuthContext();
   const router = useRouter();
 
-  const [vagas, setVagas] = useState([]);
+  const [vacancies, setVacancies] = useState([]);
+  const [isVacancyOpen, setIsVacancyOpen] = useState(false);
+  const [selectedVacancy, setSelectedVacancy] = useState(undefined);
 
-  const [refreshComponente, setRefreshComponente] = useState(false);
-
-  const handleReloadComponente = () => {
-    // Altere o valor do estado refresh para forçar a recarga do componente específico
-    setRefreshComponente(!refreshComponente);
+  const fetchVacancies = async () => {
+    const { result, error } = await getData('vagas');
+    const resultData = result?.docs?.map((doc) => doc.data());
+    setVacancies(resultData);
   };
 
   React.useEffect(() => {
-    if (user == null){
-      router.push('/candidato/login');
-    }else{
-      useEffectFunction()
-    }
-  }, [user]);
+    fetchVacancies().then();
+  }, [vacancies]);
 
-  setTimeout(() => {
-    handleReloadComponente();
-  }, 200);
+  React.useEffect(() => {
+    if (user == null) router.push('/candidato/login');
+  }, [router, user]);
 
-  async function useEffectFunction(){
-    const { result, error } = await getData('vagas');
-    setVagas([]);
-    result.forEach((doc) => {
-      var arrayNovo = vagas;
-      arrayNovo.push(doc.data());
-      setVagas(arrayNovo);
-      console.log(vagas);
-    });
-  }
-  
   return (
     <>
-      <Title className="text-3xl" variant="inverse">
+      <Title className="text-3xl px-5" variant="inverse">
         {commons.jobs.titlePage}
       </Title>
-      <div className="flex flex-col my-10 lg:flex-row gap-4 w-full max-h-auto h-[calc(100dvh)] lg:justify-center overflow-auto">
+      <div className="flex flex-col my-10 lg:flex-row gap-4 w-full max-h-auto h-[calc(100dvh)] lg:justify-center overflow-auto px-5">
         <Card className="flex flex-col lg:w-1/3 lg:min-w-[500px] h-full">
           <div className="flex">
             <InputSearch
@@ -87,19 +73,18 @@ const Jobs = ({ variant = 'default' }) => {
               style.descriptionFilter[theme],
             )}
           >
-            {commons.jobs.numberJobs}
+            {commons.jobs.numberJobs.replace('{amount}', vacancies.length)}
           </p>
 
           <div className="overflow-auto no-scrollbar my-4 h-full">
-            {vagas.map((vaga, index) => (
+            {vacancies.map((vacancy) => (
               <Job
-                key={index}
-                title={vaga.titulo}
-                profession={vaga.vaga}
-                city={vaga.cidade}
-                state={vaga.estado}
-                remuneration={vaga.remuneracao}
-                contract={vaga.contrato}
+                key={vacancy.id}
+                vacancy={vacancy}
+                onClick={(vacancy) => {
+                  setSelectedVacancy(vacancy);
+                  setIsVacancyOpen(true);
+                }}
               />
             ))}
           </div>
@@ -108,18 +93,17 @@ const Jobs = ({ variant = 'default' }) => {
         </Card>
 
         <Card className="lg:flex flex-col p-8 lg:w-2/3 hidden">
-          <InformationJob
-            company="Fiap Ltda"
-            job="design"
-            city="São Paulo"
-            state="SP"
-            remuneration={5000}
-            contract="clt"
-            differential="Excel, Javascript, Java, React"
-            descriptionJob="Mussum Ipsum, cacilds vidis litro abertis.  Cevadis im ampola pa arma uma pindureta. Quem manda na minha terra sou euzis! Ô gente finis, pode baixar uma ampolis que hoje é sexta-feris! Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.Mussum Ipsum, cacilds vidis litro abertis.  Cevadis im ampola pa arma uma pindureta. Quem manda na minha terra sou euzis! Ô gente finis, pode baixar uma ampolis que hoje é sexta-feris! Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.Mussum Ipsum, cacilds vidis litro abertis.  Cevadis im ampola pa arma uma pindureta. Quem manda na minha terra sou euzis! Ô gente finis, pode baixar uma ampolis que hoje é sexta-feris! Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.Mussum Ipsum, cacilds vidis litro abertis.  Cevadis im ampola pa arma uma pindureta. Quem manda na minha terra sou euzis! Ô gente finis, pode baixar uma ampolis que hoje é sexta-feris! Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.Mussum Ipsum, cacilds vidis litro abertis.  Cevadis im ampola pa arma uma pindureta. Quem manda na minha terra sou euzis! Ô gente finis, pode baixar uma ampolis que hoje é sexta-feris! Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.Mussum Ipsum, cacilds vidis litro abertis.  Cevadis im ampola pa arma uma pindureta. Quem manda na minha terra sou euzis! Ô gente finis, pode baixar uma ampolis que hoje é sexta-feris! Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.Mussum Ipsum, cacilds vidis litro abertis.  Cevadis im ampola pa arma uma pindureta. Quem manda na minha terra sou euzis! Ô gente finis, pode baixar uma ampolis que hoje é sexta-feris! Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.Mussum Ipsum, cacilds vidis litro abertis.  Cevadis im ampola pa arma uma pindureta. Quem manda na minha terra sou euzis! Ô gente finis, pode baixar uma ampolis que hoje é sexta-feris! Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.Mussum Ipsum, cacilds vidis litro abertis.  Cevadis im ampola pa arma uma pindureta. Quem manda na minha terra sou euzis! Ô gente finis, pode baixar uma ampolis que hoje é sexta-feris! Admodum accumsan disputationi eu sit. Vide electram sadipscing et per."
-          />
+          <InformationJob vacancy={selectedVacancy} />
         </Card>
       </div>
+      <Popup
+        isOpen={isVacancyOpen}
+        setIsOpen={setIsVacancyOpen}
+        className="lg:hidden"
+        title={common.jobs.informationJob.title}
+      >
+        <InformationJob vacancy={selectedVacancy} />
+      </Popup>
     </>
   );
 };
