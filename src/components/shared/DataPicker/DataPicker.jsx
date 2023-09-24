@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge';
-import { InputPopup } from '../InputPopup';
+import { InputLabel } from '../InputLabel';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
@@ -27,15 +27,15 @@ const DataPicker = ({ variant, label }) => {
     <div className={twMerge('w-full flex flex-col gap-1 cursor-pointer')}>
       <label className={twMerge('text-base font-semibold', style.text[theme])}>{label}</label>
       <div className="flex items-center justify-between">
-        <InputPopup
-          type={'date'}
+        <InputLabel
+          type="date"
           id={'start'}
           className={twMerge('w-[45%] text-xs lg:text-base')}
           variant={variant}
         />
         <p className={twMerge('text-sm lg:text-base', style.text[theme])}>à</p>
-        <InputPopup
-          type={'date'}
+        <InputLabel
+          type="date"
           id={'end'}
           className={twMerge('w-[45%] text-xs lg:text-base')}
           variant={variant}

@@ -1,11 +1,13 @@
-import { TextArea } from '@/components/shared/TextArea/TextArea';
+import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
+import { TextArea } from '@/components/shared/TextArea';
 import { withTheme } from '@/contexts/ThemeContext';
 
 const PopupDescription = withTheme(({ className, variant = 'default', ...props }) => {
   return (
-    <div className="py-7 flex flex-col gap-4">
-      <TextArea id={'description'} placeholder={'Descreva algo...'} />
-    </div>
+    <form className="flex flex-col justify-center items-center gap-6">
+      <TextArea id={'description'} placeholder={'Descreva algo...'} rows={14} />
+      <ButtonPrimary variant="inverse">Salvar</ButtonPrimary>
+    </form>
   );
 });
 

@@ -1,4 +1,5 @@
 'use client';
+import { twMerge } from 'tailwind-merge';
 import { Filter } from '@/components/shared/Filter';
 import { InputSearch } from '@/components/shared/InputSearch';
 import { NumberPages } from '@/components/shared/NumberPages';
@@ -6,7 +7,6 @@ import { Quote } from '@/components/shared/Quote';
 import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
-import { twMerge } from 'tailwind-merge';
 
 const weeks = [
   {

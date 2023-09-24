@@ -5,18 +5,15 @@ import { twMerge } from 'tailwind-merge';
 import { DescriptionSection } from './DescriptionSection';
 import { ProfileSection } from './ProfileSection';
 import { UserInfo } from './UserInfo';
-// import { CandidateSideMenu } from '@/components/candidate/Menu';
 import { PopupDescription } from '@/components/candidate/Popups/PopupDescription';
 import { PopupEducation } from '@/components/candidate/Popups/PopupEducation';
 import { PopupExperiences } from '@/components/candidate/Popups/PopupExperiences';
 import { PopupExtras } from '@/components/candidate/Popups/PopupExtras';
-import { AuthNavbar } from '@/components/shared/AuthNavbar';
-import { ButtonContrast } from '@/components/shared/ButtonContrast';
-import { ButtonFontZoom } from '@/components/shared/ButtonFontZoom';
 import { Card } from '@/components/shared/Card';
 import { Popup } from '@/components/shared/Popup';
 import { Title } from '@/components/shared/Title';
 import { themes, withTheme } from '@/contexts/ThemeContext';
+import { commons } from '@/locales';
 
 const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [isOpenDescription, setIsOpenDescription] = useState(false);
@@ -37,9 +34,9 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         [themes.LIGHT]: 'text-neutral-90',
       },
       card: {
-        [themes.DEFAULT]: 'lg:bg-neutral-0',
-        [themes.DARK]: 'lg:bg-neutral-90',
-        [themes.LIGHT]: 'lg:bg-neutral-0',
+        [themes.DEFAULT]: 'md:bg-neutral-0',
+        [themes.DARK]: 'md:bg-neutral-90',
+        [themes.LIGHT]: 'md:bg-neutral-0',
       },
       icon: {
         [themes.DEFAULT]: 'text-primary-90',
@@ -68,6 +65,15 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         start: '20/04/2020',
         end: '20/04/22',
       },
+      {
+        id: 1,
+        title: 'Fiap LTDA',
+        subtitle: 'UI Design',
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat',
+        start: '20/04/2020',
+        end: '20/04/22',
+      },
     ],
     education: [
       {
@@ -84,61 +90,39 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   };
 
   return (
-    <>
-      <div className="flex flex-row">
-        {/* <CandidateSideMenu className="hidden lg:flex" /> */}
-        <div
-          className={twMerge(
-            'w-full h-full p-0 lg:px-7 lg:pb-14 lg:pt-0 lg:h-[calc(100dvh)]',
-            style.background[theme],
-          )}
-        >
-          <div className="hidden lg:flex lg:py-5 justify-end">
-            <div className="flex">
-              <ButtonContrast className="mr-5" />
-              <ButtonFontZoom />
-            </div>
-          </div>
-
-          <Title variant="inverse" className="hidden mb-3 lg:block lg:text-2xl lg:mb-5">
-            Perfil
-          </Title>
-
-          <Card
-            className={twMerge(
-              'h-full rounded-none flex flex-col lg:overflow-auto lg:h-[85%] lg:p-8 lg:grid grid-cols-[1.3fr_1fr] lg:gap-10 grid-rows-none lg:rounded-3xl',
-              style.card[theme],
-            )}
-          >
-            <div className="block lg:hidden">
-              <AuthNavbar />
-            </div>
-
-            <div>
-              <UserInfo userData={userData} />
-              <DescriptionSection userData={userData} onEdit={() => setIsOpenDescription(true)} />
-              <ProfileSection
-                title={'Ultimas Empresas'}
-                content={userData.work_experience}
-                onAdd={() => setIsOpenExperiences(true)}
-              />
-            </div>
-
-            <div>
-              <ProfileSection
-                title={'Escolaridade'}
-                content={userData.education}
-                onAdd={() => setIsOpenEducation(true)}
-              />
-              <ProfileSection
-                title={'Cursos e idiomas'}
-                content={userData.extras}
-                onAdd={() => setIsOpenExtras(true)}
-              />
-            </div>
-          </Card>
+    <div className="h-full overflow-auto ">
+      <Title className="text-3xl mb-2" variant="inverse">
+        {commons.profile.titlePage}
+      </Title>
+      <Card
+        className={twMerge(
+          'h-full md:h-[90%] bg-neutral-120 p-0 flex flex-col md:overflow-auto md:p-8 lg:grid grid-cols-[1.3fr_1fr] md:gap-10  md:rounded-3xl',
+          style.card[theme],
+        )}
+      >
+        <div>
+          <UserInfo userData={userData} />
+          <DescriptionSection userData={userData} onEdit={() => setIsOpenDescription(true)} />
+          <ProfileSection
+            title={'Ultimas Empresas'}
+            content={userData.work_experience}
+            onAdd={() => setIsOpenExperiences(true)}
+          />
         </div>
-      </div>
+
+        <div>
+          <ProfileSection
+            title={'Escolaridade'}
+            content={userData.education}
+            onAdd={() => setIsOpenEducation(true)}
+          />
+          <ProfileSection
+            title={'Cursos e idiomas'}
+            content={userData.extras}
+            onAdd={() => setIsOpenExtras(true)}
+          />
+        </div>
+      </Card>
       <Popup title={'Descrição'} isOpen={isOpenDescription} setIsOpen={setIsOpenDescription}>
         <PopupDescription />
       </Popup>
@@ -151,7 +135,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
       <Popup title={'Cursos e Idiomas'} isOpen={isOpenExtras} setIsOpen={setIsOpenExtras}>
         <PopupExtras />
       </Popup>
-    </>
+    </div>
   );
 });
 
