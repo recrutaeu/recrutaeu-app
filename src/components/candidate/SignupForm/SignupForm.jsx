@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
-import { v4 as uuid } from 'uuid';
 import { z } from 'zod';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
@@ -12,6 +11,7 @@ import { InputPassword } from '@/components/shared/InputPassword';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import signUp from '@/firebase/auth/signup';
 import { createOrUpdateUser } from '@/firebase/firestore/addData';
+import { uuid } from '@/firebase/uuid';
 import { candidate } from '@/locales';
 
 const styles = {
@@ -25,6 +25,11 @@ const styles = {
 };
 
 const PersonalForm = ({ variant = 'default' }) => {
+  const formSteps = {
+    profile: 'profile',
+    password: 'password',
+  };
+
   const { theme } = useTheme();
   const style = styles[variant];
   const router = useRouter();
@@ -66,12 +71,12 @@ const PersonalForm = ({ variant = 'default' }) => {
       return;
     }
 
-    const userId = result.user.uid;
+    const authId = response.user.uid;
     const id = uuid();
 
     const data = {
       id,
-      userId,
+      authId,
       document: formData.document,
       name: formData.name,
       roles: ['candidate'],
@@ -88,11 +93,6 @@ const PersonalForm = ({ variant = 'default' }) => {
 
   const handleFormError = (errors) => {
     setError(Object.values(errors).find((error) => error.message)?.message);
-  };
-
-  const formSteps = {
-    profile: 'profile',
-    password: 'password',
   };
 
   return (

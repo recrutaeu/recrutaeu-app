@@ -6,7 +6,7 @@ import { Filter } from '@/components/shared/Filter';
 import { Table } from '@/components/shared/Table';
 import { commons } from '@/locales';
 
-const JobTable = ({ jobs, className, onDetails }) => {
+const JobTable = ({ vacancies, className, onDetails }) => {
   const [checked, setChecked] = useState(false);
   return (
     <Table.Root className={className}>
@@ -52,12 +52,12 @@ const JobTable = ({ jobs, className, onDetails }) => {
           </Table.Header>
         </Table.Row>
       </thead>
-      {jobs.map((job, index) => {
+      {vacancies?.map((vacancy, index) => {
         return (
           <JobTableContext
             // alterar key para id quando integrar com backend
             key={index}
-            job={job}
+            vacancy={vacancy}
             checkAll={checked}
             onDetails={onDetails}
           />

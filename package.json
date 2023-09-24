@@ -14,6 +14,7 @@
   "dependencies": {
     "@djpfs/react-vlibras": "^2.0.2",
     "@hookform/resolvers": "^3.3.1",
+    "@tanstack/react-query": "^4.35.3",
     "autoprefixer": "10.4.14",
     "encoding": "^0.1.13",
     "eslint": "^8.45.0",

@@ -11,6 +11,7 @@ import { InputPassword } from '@/components/shared/InputPassword';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import signUp from '@/firebase/auth/signup';
 import { createOrUpdateUser } from '@/firebase/firestore/addData';
+import { uuid } from '@/firebase/uuid';
 import { company } from '@/locales';
 
 const styles = {
@@ -73,12 +74,12 @@ const SignupForm = ({ variant = 'default' }) => {
       return;
     }
 
-    const userId = response.user.uid;
+    const authId = response.user.uid;
     const id = uuid();
 
     const data = {
       id,
-      userId,
+      authId,
       document: formData.document,
       name: formData.name,
       nickname: formData.nickname,

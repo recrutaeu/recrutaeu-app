@@ -10,21 +10,25 @@ import { Poup } from '@/components/shared/Poup';
 import { Select } from '@/components/shared/Select';
 import { TextArea } from '@/components/shared/TextArea';
 import { useAuthContext } from '@/contexts/AuthContext';
+import { useCreateOrUpdateVacancy } from '@/firebase/firestore/addData';
+import { uuid } from '@/firebase/uuid';
 import { commons } from '@/locales';
 
 const sectorOptions = [
-  { value: 'technology', label: 'tecnologia' },
-  { value: 'people', label: 'RH' },
+  { value: 'tecnologia', label: 'tecnologia' },
+  { value: 'RH', label: 'RH' },
 ];
 
 const contractOptions = [
   { value: 'CLT', label: 'CLT' },
   { value: 'PJ', label: 'PJ' },
-  { value: 'temporary', label: 'temporário' },
+  { value: 'temporário', label: 'temporário' },
 ];
 
 const JobPoup = ({ isOpen, setIsOpen }) => {
   const [error, setError] = useState(undefined);
+  const { error: createError, mutate: createVacancy } = useCreateOrUpdateVacancy();
+
   const { user } = useAuthContext();
 
   const formSchema = z.object({
@@ -61,19 +65,21 @@ const JobPoup = ({ isOpen, setIsOpen }) => {
   const handleForm = async (formData) => {
     const data = {
       ...formData,
+      id: uuid(),
       userId: user.id,
       startAt: new Date(formData.startAt).toUTCString(),
       endAt: new Date(formData.endAt).toUTCString(),
     };
-    const { error: createError } = await createOrUpdateVacancy(user.id, data);
+
+    await createVacancy(data);
     if (createError) {
-      setError(createError.message);
+      setError(error.message);
       return;
     }
+    setIsOpen(false);
   };
 
   const handleFormError = (errors) => {
-    console.log(errors);
     setError(Object.values(errors).find((error) => error.message)?.message);
   };
 

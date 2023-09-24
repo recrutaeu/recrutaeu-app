@@ -3,7 +3,7 @@ import React from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { app } from '@/firebase/config';
-import { findUserById } from '@/firebase/firestore/getData';
+import { findUserByAuthId } from '@/firebase/firestore/getData';
 
 const auth = getAuth(app);
 
@@ -19,8 +19,7 @@ export const AuthContextProvider = ({ children, callbackUrl }) => {
   React.useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const { response, error } = await findUserById(user.uid);
-
+        const { response, error } = await findUserByAuthId(user.uid);
         if (error) {
           route.push(callbackUrl);
           return;
