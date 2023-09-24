@@ -24,39 +24,36 @@ const styles = {
   },
 };
 
-const Job = ({
-  title,
-  profession,
-  city,
-  state,
-  remuneration,
-  contract,
-  variant = 'default',
-  ...props
-}) => {
+const Job = ({ vacancy, variant = 'default', onClick, ...props }) => {
   const { theme } = useTheme();
   const style = styles[variant];
 
   return (
-    <button className="mt-3 flex flex-col w-full cursor-pointer" {...props}>
+    <button
+      className="mt-3 flex flex-col w-full cursor-pointer"
+      onClick={() => onClick(vacancy)}
+      {...props}
+    >
       <div className="flex items-center w-full">
         <div className="w-full text-start">
-          <p className={twMerge('text-base font-bold leading-6', style.title[theme])}>{title}</p>
+          <p className={twMerge('text-base font-bold leading-6', style.title[theme])}>
+            {vacancy?.titulo}
+          </p>
           <div className={style.text[theme]}>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.job}:`}</p>
-            <p className="capitalize font-light">{profession}</p>
+            <p className="capitalize font-light">{vacancy?.vaga}</p>
           </div>
           <div className={style.text[theme]}>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.location}:`}</p>
-            <p className="capitalize font-light">{`${city} - ${state}`}</p>
+            <p className="capitalize font-light">{`${vacancy?.cidade} - ${vacancy?.estado}`}</p>
           </div>
           <div className={style.text[theme]}>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.remuneration}:`}</p>
-            <p className="capitalize font-light">{`R$ ${remuneration}`}</p>
+            <p className="capitalize font-light">{`R$ ${vacancy?.remuneracao}`}</p>
           </div>
           <div className={style.text[theme]}>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.contract}:`}</p>
-            <p className="lowercase font-light">{contract}</p>
+            <p className="lowercase font-light">{vacancy?.contrato}</p>
           </div>
           <Divider className="mt-3" />
         </div>
