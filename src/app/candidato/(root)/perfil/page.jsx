@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useCallback, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { DescriptionSection } from './DescriptionSection';
 import { ProfileSection } from './ProfileSection';
@@ -25,72 +24,38 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [isOpenExtras, setIsOpenExtras] = useState(false);
 
   const { user } = useAuthContext();
-  const router = useRouter();
 
   const [userLogged, setUserLogged] = useState('');
   const [escolaridade, setEscolaridade] = useState([]);
   const [experiencia, setExperiencia] = useState([]);
   const [cursos, setCursos] = useState([]);
 
-  const [refreshComponente, setRefreshComponente] = useState(false);
+  const buscarEscolaridade = useCallback(async () => {
+    const { result } = await getDataUser('escolaridade', user.uid);
+    setEscolaridade(result.docs.map((doc) => doc.data()));
+  }, [user?.uid]);
 
-  const handleReloadComponente = () => {
-    setRefreshComponente(!refreshComponente);
-  };
+  const buscarExperiencia = useCallback(async () => {
+    const { result } = await getDataUser('emprego', user.uid);
+    setExperiencia(result.docs.map((doc) => doc.data()));
+  }, [user?.uid]);
 
-  React.useEffect(() => {
-    if (user == null) {
-      router.push('/candidato/login');
-    } else {
-      useEffectFunction();
-    }
-  }, [user]);
+  const buscarCursos = useCallback(async () => {
+    const { result } = await getDataUser('cursos', user.uid);
+    setCursos(result.docs.map((doc) => doc.data()));
+  }, [user?.uid]);
 
-  setTimeout(() => {
-    handleReloadComponente();
-  }, 200);
-
-  async function useEffectFunction() {
-    console.log('aqui');
-    const { result, error } = await getDataUser('users', user.uid);
+  const buscarDados = useCallback(async () => {
+    const { result } = await getDataUser('users', user.uid);
     result.forEach((doc) => {
       setUserLogged(doc.data());
     });
-    buscarEscolaridade();
-    buscarExperiencia();
-    buscarCursos();
-    handleReloadComponente();
-  }
+    await Promise.all([buscarEscolaridade(), buscarExperiencia(), buscarCursos()]);
+  }, [buscarCursos, buscarEscolaridade, buscarExperiencia, user?.uid]);
 
-  async function buscarEscolaridade() {
-    const { result, error } = await getDataUser('escolaridade', user.uid);
-    setEscolaridade([]);
-    result.forEach((doc) => {
-      const arrayNovo = escolaridade;
-      arrayNovo.push(doc.data());
-      setEscolaridade(arrayNovo);
-    });
-  }
-
-  async function buscarExperiencia() {
-    const { result, error } = await getDataUser('emprego', user.uid);
-    setExperiencia([]);
-    result.forEach((doc) => {
-      const arrayNovo = experiencia;
-      arrayNovo.push(doc.data());
-      setExperiencia(arrayNovo);
-    });
-  }
-
-  async function buscarCursos() {
-    const { result, error } = await getDataUser('cursos', user.uid);
-    setCursos([]);
-    result.forEach((doc) => {
-      const arrayNovo = cursos;
-      arrayNovo.push(doc.data());
-      setCursos(arrayNovo);
-    });
-  }
+  React.useEffect(() => {
+    buscarDados().then();
+  }, [buscarDados]);
 
   const styles = {
     default: {
@@ -161,7 +126,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   };
 
   return (
-    <div className="h-full overflow-auto ">
+    <div className="h-full overflow-auto px-5">
       <Title className="text-3xl mb-2" variant="inverse">
         {commons.profile.titlePage}
       </Title>
