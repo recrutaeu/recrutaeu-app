@@ -23,7 +23,6 @@ const weeks = [
     date: '15/10/2023',
     hour: '10:00',
   },
- 
 ];
 
 const styles = {

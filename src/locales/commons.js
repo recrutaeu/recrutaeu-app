@@ -90,9 +90,9 @@ const commons = {
       hour: 'hora',
     },
   },
-  process:{
-    title: 'Processo em andamento'
-  }
+  process: {
+    title: 'Processo em andamento',
+  },
 };
 
 export { commons };
