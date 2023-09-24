@@ -11,6 +11,7 @@ import { RiUserSearchLine } from 'react-icons/ri';
 import { twMerge } from 'tailwind-merge';
 import { AccessibilityNavbar } from '@/components/shared/AccessibilityNavbar';
 import { MenuDesk, MenuMobile } from '@/components/shared/MenuApp';
+import { AuthContextProvider } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const links = [
@@ -50,22 +51,24 @@ const Layout = ({ children, variant = 'default' }) => {
   const style = styles[variant];
 
   return (
-    <div className={twMerge('w-full  flex flex-col md:flex-row', style.background[theme])}>
-      <MenuDesk className="hidden md:flex" links={links} />
-      <div className="h-[calc(100dvh-64px)] md:h-[calc(100dvh)] overflow-hidden w-full grow flex flex-col">
-        <AccessibilityNavbar
-          onBack={() => {
-            route.pop();
-          }}
-          onLogout={() => {
-            route.push('/');
-          }}
-          className="w-full flex items-center justify-end p-4"
-        />
-        {children}
+    <AuthContextProvider callbackUrl={'/recrutador/login'}>
+      <div className={twMerge('w-full  flex flex-col md:flex-row', style.background[theme])}>
+        <MenuDesk className="hidden md:flex" links={links} />
+        <div className="h-[calc(100dvh-64px)] md:h-[calc(100dvh)] overflow-hidden w-full grow flex flex-col">
+          <AccessibilityNavbar
+            onBack={() => {
+              route.pop();
+            }}
+            onLogout={() => {
+              route.push('/');
+            }}
+            className="w-full flex items-center justify-end p-4"
+          />
+          {children}
+        </div>
+        <MenuMobile links={links} />
       </div>
-      <MenuMobile links={links} />
-    </div>
+    </AuthContextProvider>
   );
 };
 

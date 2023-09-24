@@ -1,7 +1,7 @@
-import { getFirestore, doc, getDoc, getDocs, query, collection, where } from 'firebase/firestore';
-import firebase_app from '../config';
+import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import { app } from '../config';
 
-const db = getFirestore(firebase_app);
+const db = getFirestore(app);
 export default async function getDataUser(collectionInput, userId) {
   let docRef = query(collection(db, collectionInput), where('idUser', '==', userId));
 
@@ -10,10 +10,6 @@ export default async function getDataUser(collectionInput, userId) {
 
   try {
     result = await getDocs(docRef);
-    console.log(userId);
-    result.forEach((doc) => {
-      console.log(doc.data());
-    });
   } catch (e) {
     error = e;
   }

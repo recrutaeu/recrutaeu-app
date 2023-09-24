@@ -1,7 +1,7 @@
 import { collection, getDocs, getFirestore, query } from 'firebase/firestore';
-import firebase_app from '../config';
+import { app } from '../config';
 
-const db = getFirestore(firebase_app);
+const db = getFirestore(app);
 export default async function getData(collectionInput) {
   let docRef = query(collection(db, collectionInput));
 
