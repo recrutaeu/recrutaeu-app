@@ -66,7 +66,9 @@ const InformationApplication = ({ application, variant = 'default' }) => {
         <p className={twMerge(' mt-8 mb-4', style.text[theme])}>{application?.descricao}</p>
       </div>
       <div className="max-w-[100%] flex justify-center">
-        <ButtonPrimary variant="inverseSecundary" className='w-auto'>{commons.applications.button.label}</ButtonPrimary>
+        <ButtonPrimary variant="inverseSecundary" className="w-auto">
+          {commons.applications.button.label}
+        </ButtonPrimary>
       </div>
     </>
   );
