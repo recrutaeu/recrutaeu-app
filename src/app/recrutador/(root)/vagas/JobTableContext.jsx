@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { MdFiberManualRecord } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
-import JobDetails from './JobDetails';
 import { Table } from '@/components/shared/Table';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 
@@ -26,7 +25,7 @@ const styles = {
   },
 };
 
-const JobTableContext = ({ job, onDetails, checkAll }) => {
+const JobTableContext = ({ vacancy, onDetails, checkAll }) => {
   const { theme } = useTheme();
   const style = styles['default'];
   const [checked, setChecked] = useState(false);
@@ -54,23 +53,23 @@ const JobTableContext = ({ job, onDetails, checkAll }) => {
             />
           </div>
         </CustomCell>
-        <CustomCell className="text-xs font-light lg:text-sm">{job.job}</CustomCell>
-        <CustomCell className="text-xs font-light lg:text-sm">{job.sector}</CustomCell>
+        <CustomCell className="text-xs font-light lg:text-sm">{vacancy.title}</CustomCell>
+        <CustomCell className="text-xs font-light lg:text-sm">{vacancy.sector}</CustomCell>
         <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
-          {job.quantity}
+          {vacancy.quantity}
         </CustomCell>
         <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
-          {job.publishedAt}
+          {vacancy.startAt}
         </CustomCell>
         <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
-          {job.expiresAt}
+          {vacancy.endAt}
         </CustomCell>
 
         <CustomCell>
           <button
             type="button"
             className="w-full flex items-center justify-center cursor-pointer"
-            onClick={() => onDetails(job)}
+            onClick={() => onDetails(vacancy)}
           >
             <MdFiberManualRecord size={10} className={style.details[theme]} />
             <MdFiberManualRecord size={10} className={style.details[theme]} />

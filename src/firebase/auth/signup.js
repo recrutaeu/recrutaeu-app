@@ -4,19 +4,16 @@ import { app } from '../config';
 const auth = getAuth(app);
 
 export default async function signUp(email, password) {
-  let result = null,
-    error = null;
   try {
-    result = await createUserWithEmailAndPassword(auth, email, password);
-    console.log(result);
+    const response = await createUserWithEmailAndPassword(auth, email, password);
+    return { response, error: null };
   } catch (e) {
-    error = retornarErro(e.code);
+    const error = parseError(e.code);
+    return { response: null, error };
   }
-
-  return { result, error };
 }
 
-async function retornarErro(error) {
+function parseError(error) {
   switch (error) {
     case 'auth/admin-restricted-operation':
       return 'Verifique os dados inseridos para realizar o cadastro.';

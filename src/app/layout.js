@@ -1,5 +1,5 @@
 import { Archivo } from 'next/font/google';
-import { ThemeProvider } from '@/contexts/ThemeContext';
+import { Providers } from '@/contexts/Providers';
 import './globals.css';
 const inter = Archivo({ subsets: ['latin'] });
 
@@ -7,7 +7,7 @@ const RootLayout = ({ children }) => {
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
