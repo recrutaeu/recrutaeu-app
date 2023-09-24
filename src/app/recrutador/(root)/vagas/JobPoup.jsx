@@ -4,7 +4,7 @@ import { DataPicker } from '@/components/shared/DataPicker';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { Poup } from '@/components/shared/Poup';
 import { Select } from '@/components/shared/Select';
-import { TextArea } from '@/components/shared/TextArea';
+import { TextArea } from '@/components/company/TextArea';
 import { commons } from '@/locales';
 
 const JobPoup = ({ isOpen, setIsOpen }) => {

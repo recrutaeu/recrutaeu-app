@@ -14,11 +14,23 @@ const styles = {
       [themes.LIGHT]: 'bg-neutral-0 border-2 border-neutral-90',
     },
   },
+  inverse: {
+    label: {
+      [themes.DEFAULT]: 'text-neutral-0',
+      [themes.DARK]: 'text-neutral-0',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
+    areaText: {
+      [themes.DEFAULT]: 'bg-neutral-0',
+      [themes.DARK]: 'bg-neutral-0',
+      [themes.LIGHT]: 'bg-neutral-0 border-2 border-neutral-90',
+    },
+  },
 };
 
-const TextArea = ({ text, label, className, ...props }) => {
+const TextArea = ({ text, label, className, variant = 'default', ...props }) => {
   const { theme } = useTheme();
-  const style = styles['default'];
+  const style = styles[variant];
 
   return (
     <div className={twMerge('w-full')}>
@@ -35,7 +47,7 @@ const TextArea = ({ text, label, className, ...props }) => {
       <textarea
         className={twMerge(
           'p-2.5 w-full text-sm font-light rounded-md lg:text-sm outline-none no-scrollbar resize-none',
-          style.textArea[theme],
+          style.areaText[theme],
         )}
         {...props}
       ></textarea>
