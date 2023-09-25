@@ -9,7 +9,7 @@ const InterviewPopup = ({ isOpen, setIsOpen }) => {
       <div className="h-full overflow-hidden">
         <div className="h-full overflow-auto flex flex-col">
           <form className="flex flex-col gap-5 py-5">
-            <InputLabel label="Responsável:" variant="inverseTertiary" />
+            <InputLabel label="Responsável:" variant="inverseSecundary" />
             <InputLabel label="Link:" variant="inverseTertiary" />
             <InputLabel label="Endereço:" variant="inverseTertiary" />
             <InputLabel type="time" label="Horário:" variant="inverseTertiary" />

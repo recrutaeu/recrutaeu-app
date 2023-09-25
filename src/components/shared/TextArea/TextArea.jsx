@@ -11,7 +11,7 @@ const styles = {
     textArea: {
       [themes.DEFAULT]: 'bg-neutral-0',
       [themes.DARK]: 'bg-neutral-0',
-      [themes.LIGHT]: 'bg-neutral-0 border-2 border-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
     },
   },
   inverse: {
@@ -23,7 +23,7 @@ const styles = {
     textArea: {
       [themes.DEFAULT]: 'bg-neutral-0',
       [themes.DARK]: 'bg-neutral-0',
-      [themes.LIGHT]: 'bg-neutral-0 border-2 border-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
     },
   },
 };

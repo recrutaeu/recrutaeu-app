@@ -7,7 +7,7 @@ const ProcessPopup = ({ isOpen, setIsOpen }) => {
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       title="Etapas do processo"
-      variant="inverseSecundary"
+      variant="inverseTertiary"
     >
       <div className="h-full overflow-hidden">
         <div className="h-full overflow-auto flex flex-col gap-3 ">

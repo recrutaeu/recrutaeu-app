@@ -22,7 +22,7 @@ const InputPassword = ({ className, variant = 'default', label, ...props }) => {
 
   return (
     <>
-      <Input.Root variant={variant} className="h-0 py-6">
+      <Input.Root variant={variant} className="h-12 lg:h-14 py-6">
         <Input.Field type={inputType} label={label} {...props} />
 
         {inputType === 'password' ? (
