@@ -1,17 +1,20 @@
 'use client';
 
+import { ShortVacancy } from './ShortVacancy';
+import { ButtonLabel } from '@/components/shared/ButtonLabel';
+import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Title } from '@/components/shared/Title';
 import { withTheme } from '@/contexts/ThemeContext';
-import { ShortVacancy } from './ShortVacancy';
 
 const SuggestedVacancy = withTheme(({ applications }) => {
-
   return (
     <div className="flex flex-col px-7 lg:px-0">
-        <div>
-        <Title variant='bgTransformTertiary' className='text-xl mb-5'>Vagas sugeridas</Title>
-        <div className='grid grid-cols-2 lg:grid-cols-3 gap-3'>
-            {/* {applications.map((appli) => {
+      <div>
+        <Title variant="bgTransformTertiary" className="text-xl mb-5">
+          Vagas sugeridas
+        </Title>
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+          {/* {applications.map((appli) => {
                 return (
                     <Application
                     variant='inverse'
@@ -22,16 +25,91 @@ const SuggestedVacancy = withTheme(({ applications }) => {
                     setisApplicationOpen(true);
                 }}/>)
             })} */}
-            <ShortVacancy vacancy={{titulo: 'Banco itau', vaga: 'Design Gráfico', cidade: 'São Paulo', estado: 'SP', }}/>
-            <ShortVacancy vacancy={{titulo: 'Banco itau', vaga: 'Design Gráfico', cidade: 'São Paulo', estado: 'SP', }}/>
-            <ShortVacancy vacancy={{titulo: 'Banco itau', vaga: 'Design Gráfico', cidade: 'São Paulo', estado: 'SP', }}/>
-            <ShortVacancy vacancy={{titulo: 'Banco itau', vaga: 'Design Gráfico', cidade: 'São Paulo', estado: 'SP', }}/>
-            <ShortVacancy vacancy={{titulo: 'Banco itau', vaga: 'Design Gráfico', cidade: 'São Paulo', estado: 'SP', }}/>
-            <ShortVacancy vacancy={{titulo: 'Banco itau', vaga: 'Design Gráfico', cidade: 'São Paulo', estado: 'SP', }}/>
-
+          <ShortVacancy
+            vacancy={{
+              titulo: 'Banco itau',
+              vaga: 'Design Gráfico',
+              cidade: 'São Paulo',
+              estado: 'SP',
+            }}
+          />
+          <ShortVacancy
+            vacancy={{
+              titulo: 'Banco itau',
+              vaga: 'Design Gráfico',
+              cidade: 'São Paulo',
+              estado: 'SP',
+            }}
+          />
+          <ShortVacancy
+            vacancy={{
+              titulo: 'Banco itau',
+              vaga: 'Design Gráfico',
+              cidade: 'São Paulo',
+              estado: 'SP',
+            }}
+          />
+          <ShortVacancy
+            vacancy={{
+              titulo: 'Banco itau',
+              vaga: 'Design Gráfico',
+              cidade: 'São Paulo',
+              estado: 'SP',
+            }}
+          />
+          <ShortVacancy
+            vacancy={{
+              titulo: 'Banco itau',
+              vaga: 'Design Gráfico',
+              cidade: 'São Paulo',
+              estado: 'SP',
+            }}
+          />
+          <ShortVacancy
+            vacancy={{
+              titulo: 'Banco itau',
+              vaga: 'Design Gráfico',
+              cidade: 'São Paulo',
+              estado: 'SP',
+            }}
+          />
+          <ShortVacancy
+            vacancy={{
+              titulo: 'Banco itau',
+              vaga: 'Design Gráfico',
+              cidade: 'São Paulo',
+              estado: 'SP',
+            }}
+          />
+          <ShortVacancy
+            vacancy={{
+              titulo: 'Banco itau',
+              vaga: 'Design Gráfico',
+              cidade: 'São Paulo',
+              estado: 'SP',
+            }}
+          />
+          <div className="hidden lg:flex md:w-full">
+            <ShortVacancy
+              className="w-full"
+              vacancy={{
+                titulo: 'Banco itau',
+                vaga: 'Design Gráfico',
+                cidade: 'São Paulo',
+                estado: 'SP',
+              }}
+            />
+          </div>
         </div>
+        <div className="hidden w-full items-center lg:flex justify-center py-6">
+          <ButtonLabel type="button">veja mais</ButtonLabel>
         </div>
-
+        <div className="w-full items-center flex justify-center py-4 lg:hidden">
+          <ButtonLabel variant="inverseTertiary" type="button">
+            veja mais
+          </ButtonLabel>
+        </div>
+      </div>
     </div>
   );
 });
