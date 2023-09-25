@@ -28,10 +28,25 @@ const styles = {
     [themes.DARK]: 'text-neutral-0',
     [themes.LIGHT]: 'text-neutral-90',
   },
+  inverseFormSecondary: {
+    [themes.DEFAULT]: 'text-primary-40',
+    [themes.DARK]: 'text-neutral-90',
+    [themes.LIGHT]: 'text-neutral-0',
+  },
   bgTransform: {
     [themes.DEFAULT]: 'text-primary-90',
     [themes.DARK]: 'text-neutral-90 md:text-neutral-0',
     [themes.LIGHT]: 'text-neutral-0 md:text-neutral-90',
+  },
+  bgTransformSecundary: {
+    [themes.DEFAULT]: 'text-primary-40',
+    [themes.DARK]: 'text-neutral-90 md:text-neutral-0',
+    [themes.LIGHT]: 'text-neutral-0 md:text-neutral-90',
+  },
+  bgTransformTertiary: {
+    [themes.DEFAULT]: 'text-primary-40 md:text-primary-90',
+    [themes.DARK]: 'text-neutral-90',
+    [themes.LIGHT]: 'text-neutral-0',
   },
 };
 
