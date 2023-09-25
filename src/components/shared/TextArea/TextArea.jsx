@@ -11,7 +11,7 @@ const styles = {
     textArea: {
       [themes.DEFAULT]: 'bg-neutral-0',
       [themes.DARK]: 'bg-neutral-0',
-      [themes.LIGHT]: 'bg-neutral-0 border-2 border-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
     },
   },
   inverse: {
@@ -23,12 +23,12 @@ const styles = {
     textArea: {
       [themes.DEFAULT]: 'bg-neutral-0',
       [themes.DARK]: 'bg-neutral-0',
-      [themes.LIGHT]: 'bg-neutral-0 border-2 border-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
     },
   },
 };
 
-const TextArea = ({ text, label, className, variant = 'default', ...props }) => {
+const TextArea = ({ text, label, className, variant = 'default', register, ...props }) => {
   const { theme } = useTheme();
   const style = styles[variant];
 
@@ -50,6 +50,7 @@ const TextArea = ({ text, label, className, variant = 'default', ...props }) => 
           style.textArea[theme],
         )}
         {...props}
+        {...register}
       ></textarea>
     </div>
   );

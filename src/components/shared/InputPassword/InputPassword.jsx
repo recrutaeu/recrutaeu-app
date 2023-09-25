@@ -15,21 +15,15 @@ const styles = {
   },
 };
 
-const InputPassword = ({ className, variant = 'default', label, setInputPassword }) => {
+const InputPassword = ({ className, variant = 'default', label, ...props }) => {
   const { theme } = useTheme();
   const [inputType, setInputType] = useState('password');
   const style = styles['default'];
 
   return (
     <>
-      <Input.Root variant={variant} className="h-0 py-6">
-        <Input.Field
-          type={inputType}
-          label={label}
-          id="password"
-          required
-          setInputValue={setInputPassword}
-        />
+      <Input.Root variant={variant} className="h-12 lg:h-14 py-6">
+        <Input.Field type={inputType} label={label} {...props} />
 
         {inputType === 'password' ? (
           <button type="button" onClick={() => setInputType('text')}>

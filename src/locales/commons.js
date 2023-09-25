@@ -92,6 +92,12 @@ const commons = {
     titlePage: 'Vagas Aplicadas',
     subtitle: 'Essa análise é baseada nas candidaturas totais da sua empresa.'
   },
+  applications: {
+    titlePage: 'Suas candidaturas',
+    button: {
+      label: 'cancelar candidatura',
+    }
+  },
   weeksSchedule: {
     title: 'Programação da semana',
     description: {
@@ -101,6 +107,9 @@ const commons = {
       date: 'Data',
       hour: 'hora',
     },
+  },
+  process: {
+    title: 'Processo em andamento',
   },
 };
 

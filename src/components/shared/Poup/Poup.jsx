@@ -18,11 +18,59 @@ const styles = {
       [themes.LIGHT]: 'text-neutral-90',
     },
   },
+  inverseSecundary: {
+    background: {
+      [themes.DEFAULT]: 'bg-neutral-10',
+      [themes.DARK]: 'bg-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0',
+    },
+    icon: {
+      [themes.DEFAULT]: 'text-primary-90',
+      [themes.DARK]: 'text-neutral-0',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
+  },
+  inverseForm: {
+    background: {
+      [themes.DEFAULT]: 'bg-primary-90',
+      [themes.DARK]: 'bg-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0',
+    },
+    icon: {
+      [themes.DEFAULT]: 'text-primary-40',
+      [themes.DARK]: 'text-neutral-0',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
+  },
+  inverseTertiary: {
+    background: {
+      [themes.DEFAULT]: 'bg-neutral-0',
+      [themes.DARK]: 'bg-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0',
+    },
+    icon: {
+      [themes.DEFAULT]: 'text-primary-90',
+      [themes.DARK]: 'text-neutral-0',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
+  },
+  inverseForm: {
+    background: {
+      [themes.DEFAULT]: 'bg-primary-90',
+      [themes.DARK]: 'bg-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0',
+    },
+    icon: {
+      [themes.DEFAULT]: 'text-primary-40',
+      [themes.DARK]: 'text-neutral-0',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
+  },
 };
 
-const Poup = ({ children, isOpen, setIsOpen, title, className, variant }) => {
+const Poup = ({ children, isOpen, setIsOpen, title, className, variant = 'default' }) => {
   const { theme } = useTheme();
-  const style = styles['default'];
+  const style = styles[variant];
 
   return isOpen ? (
     <div className="bg-neutral-90 bg-opacity-50 w-screen h-[calc(100dvh)] absolute z-50 top-0 left-0">

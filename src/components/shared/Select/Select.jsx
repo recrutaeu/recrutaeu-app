@@ -14,7 +14,7 @@ const styles = {
     buttonLabel: {
       [themes.DEFAULT]: 'bg-neutral-0',
       [themes.DARK]: 'bg-neutral-0',
-      [themes.LIGHT]: 'bg-neutral-0 border-2 border-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
     },
     ul: {
       [themes.DEFAULT]: 'bg-neutral-0',
@@ -27,17 +27,48 @@ const styles = {
       [themes.LIGHT]: 'text-neutral-0 hover:bg-neutral-30 hover:text-neutral-90 hover:font-medium',
     },
   },
+  inverse: {
+    label: {
+      [themes.DEFAULT]: 'text-neutral-90 lg:text-sm font-medium',
+      [themes.DARK]: 'text-neutral-90 lg:text-sm font-medium',
+      [themes.LIGHT]: 'text-neutral-0 lg:text-sm font-medium',
+    },
+    buttonLabel: {
+      [themes.DEFAULT]: 'bg-neutral-0',
+      [themes.DARK]: 'bg-neutral-0 border border-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0',
+    },
+    ul: {
+      [themes.DEFAULT]: 'bg-neutral-0 lg:text-sm lg:font-medium',
+      [themes.DARK]: 'bg-neutral-90 lg:text-sm lg:font-medium',
+      [themes.LIGHT]: 'bg-neutral-0 lg:text-sm lg:font-medium',
+    },
+    li: {
+      [themes.DEFAULT]: 'bg-neutral-0 hover:bg-primary-90 hover:text-neutral-0 hover:font-medium',
+      [themes.DARK]: 'text-neutral-0 hover:bg-neutral-30 hover:text-neutral-90 hover:font-medium',
+      [themes.LIGHT]:
+        'text-neutral-90 lg:text-sm lg:font-medium hover:bg-neutral-30 hover:text-neutral-90 hover:font-medium',
+    },
+  },
 };
 
-const Select = ({ titleLabel, label, options, onChange, className }) => {
+const Select = ({
+  titleLabel,
+  label,
+  options,
+  onChange,
+  className,
+  value,
+  variant = 'default',
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [currentLabel, setCurrentLabel] = useState(label);
+  const [currentOption, setCurrentOption] = useState({ label, value });
   const { theme } = useTheme();
-  const style = styles['default'];
+  const style = styles[variant];
 
   const handleChange = (option) => {
     onChange(option.value);
-    setCurrentLabel(option.label);
+    setCurrentOption(option);
     setIsDropdownOpen(false);
   };
 
@@ -54,7 +85,7 @@ const Select = ({ titleLabel, label, options, onChange, className }) => {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         type="button"
       >
-        <p className="text-sm lg:text-base">{currentLabel}</p>
+        <p className="text-sm lg:text-base">{currentOption.label}</p>
         {isDropdownOpen ? (
           <MdOutlineKeyboardArrowDown size={24} />
         ) : (
