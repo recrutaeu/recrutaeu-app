@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MdTextDecrease, MdTextIncrease } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
@@ -18,11 +18,14 @@ const styles = {
 };
 
 const ButtonFontZoom = ({ variant = 'default', className, ...props }) => {
-  const root = document.getElementsByTagName('html')[0];
-
   const { theme } = useTheme();
   const style = styles[variant];
-  const [isZoom, setIsZoom] = useState(root.classList.contains('text-zoom-in'));
+  const [isZoom, setIsZoom] = useState(false);
+
+  useEffect(() => {
+    const root = document?.getElementsByTagName('html')?.[0];
+    setIsZoom(root?.classList?.contains('text-zoom-in'));
+  }, []);
 
   return (
     <div className="flex">
@@ -31,6 +34,7 @@ const ButtonFontZoom = ({ variant = 'default', className, ...props }) => {
         disabled={isZoom}
         {...props}
         onClick={() => {
+          const root = document?.getElementsByTagName('html')?.[0];
           if (!root.classList.contains('text-zoom-in')) {
             root.classList.add('text-zoom-in');
             setIsZoom(true);
