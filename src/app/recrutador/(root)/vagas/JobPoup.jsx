@@ -156,7 +156,7 @@ const JobPoup = ({ isOpen, setIsOpen }) => {
           />
           <DataPicker
             label="Prazo"
-            variant="inverse"
+            variant="inverseSecundary"
             registerStart={register('startAt')}
             registerEnd={register('endAt')}
           />

@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import CardProcess from './CardProcess';
-import InterviewPopup from './InterviewPopup';
+import TestPopup from './TestPoup';
 import { ButtonLabel } from '@/components/shared/ButtonLabel';
 import { DataPicker } from '@/components/shared/DataPicker';
 import { Select } from '@/components/shared/Select';
@@ -26,7 +26,7 @@ const CardProcessContext = ({}) => {
 
   return (
     <>
-      <InterviewPopup isOpen={isOpen} setIsOpen={setIsOpen} />
+      <TestPopup isOpen={isOpen} setIsOpen={setIsOpen} />
 
       <CardProcess title="Inscrição">
         <div className="flex gap-2 text-sm leading-7">

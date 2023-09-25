@@ -18,6 +18,13 @@ const styles = {
       [themes.LIGHT]: 'text-neutral-90',
     },
   },
+  inverseSecundary: {
+    text: {
+      [themes.DEFAULT]: 'text-primary-90',
+      [themes.DARK]: 'text-neutral-0',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
+  },
   inverseTertiary: {
     text: {
       [themes.DEFAULT]: 'text-neutral-90',

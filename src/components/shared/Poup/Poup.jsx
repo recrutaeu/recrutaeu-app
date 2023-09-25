@@ -20,6 +20,30 @@ const styles = {
   },
   inverseSecundary: {
     background: {
+      [themes.DEFAULT]: 'bg-neutral-10',
+      [themes.DARK]: 'bg-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0',
+    },
+    icon: {
+      [themes.DEFAULT]: 'text-primary-90',
+      [themes.DARK]: 'text-neutral-0',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
+  },
+  inverseForm: {
+    background: {
+      [themes.DEFAULT]: 'bg-primary-90',
+      [themes.DARK]: 'bg-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0',
+    },
+    icon: {
+      [themes.DEFAULT]: 'text-primary-40',
+      [themes.DARK]: 'text-neutral-0',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
+  },
+  inverseTertiary: {
+    background: {
       [themes.DEFAULT]: 'bg-neutral-0',
       [themes.DARK]: 'bg-neutral-90',
       [themes.LIGHT]: 'bg-neutral-0',
