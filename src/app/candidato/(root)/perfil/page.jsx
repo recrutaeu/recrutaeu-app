@@ -14,7 +14,7 @@ import { Popup } from '@/components/shared/Popup';
 import { Title } from '@/components/shared/Title';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, withTheme } from '@/contexts/ThemeContext';
-import getDataUser from '@/firebase/firestore/getDataUser';
+import getDataUser from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
 
 const Profile = withTheme(({ theme, variant = 'default' }) => {

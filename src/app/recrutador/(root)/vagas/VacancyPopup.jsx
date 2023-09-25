@@ -10,7 +10,7 @@ import { Poup } from '@/components/shared/Poup';
 import { Select } from '@/components/shared/Select';
 import { TextArea } from '@/components/shared/TextArea';
 import { useAuthContext } from '@/contexts/AuthContext';
-import { useCreateOrUpdateVacancy } from '@/firebase/firestore/addData';
+import { useCreateOrUpdateVacancy } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
 import { commons } from '@/locales';
 
@@ -25,10 +25,8 @@ const contractOptions = [
   { value: 'temporário', label: 'temporário' },
 ];
 
-const JobPoup = ({ isOpen, setIsOpen }) => {
+const VacancyPopup = ({ isOpen, setIsOpen, vacancy }) => {
   const [error, setError] = useState(undefined);
-  const { error: createError, mutate: createVacancy } = useCreateOrUpdateVacancy();
-
   const { user } = useAuthContext();
 
   const formSchema = z.object({
@@ -44,39 +42,35 @@ const JobPoup = ({ isOpen, setIsOpen }) => {
     quantity: z.string().min(1, 'A quantidade de vagas é obrigatória'),
     description: z.string().min(200, 'A descrição da vaga é obrigatória'),
   });
-
-  const { register, handleSubmit, control } = useForm({
+  const { register, handleSubmit, control, reset } = useForm({
     defaultValues: {
-      title: '',
-      sector: '',
-      contractType: '',
-      city: '',
-      state: '',
-      salaryRange: '',
-      benefits: '',
-      startAt: '',
-      endAt: '',
-      quantity: '',
-      description: '',
+      ...vacancy,
+      startAt: vacancy?.startAt.split('T')[0],
+      endAt: vacancy?.endAt.split('T')[0],
     },
     resolver: zodResolver(formSchema),
+  });
+
+  const { mutate: createVacancy } = useCreateOrUpdateVacancy({
+    onSuccess: () => {
+      reset();
+      setIsOpen(false);
+    },
+    onError: (e) => {
+      setError(e.message);
+    },
   });
 
   const handleForm = async (formData) => {
     const data = {
       ...formData,
-      id: uuid(),
+      id: vacancy?.id || uuid(),
       userId: user.id,
-      startAt: new Date(formData.startAt).toUTCString(),
-      endAt: new Date(formData.endAt).toUTCString(),
+      startAt: new Date(formData.startAt).toISOString(),
+      endAt: new Date(formData.endAt).toISOString(),
     };
 
-    await createVacancy(data);
-    if (createError) {
-      setError(error.message);
-      return;
-    }
-    setIsOpen(false);
+    createVacancy(data);
   };
 
   const handleFormError = (errors) => {
@@ -185,4 +179,4 @@ const JobPoup = ({ isOpen, setIsOpen }) => {
   );
 };
 
-export { JobPoup };
+export { VacancyPopup };

@@ -1,13 +1,14 @@
 'use client';
 import { useState } from 'react';
-import { JobTableContext } from './JobTableContext';
+import { VacancyTableContext } from './VacancyTableContext';
 import { ButtonSelectAll } from '@/components/shared/ButtonSelectAll';
 import { Filter } from '@/components/shared/Filter';
 import { Table } from '@/components/shared/Table';
 import { commons } from '@/locales';
 
-const JobTable = ({ vacancies, className, onDetails }) => {
+const VacancyTable = ({ vacancies, className, onDetails, selectedRows, setSelectedRows }) => {
   const [checked, setChecked] = useState(false);
+
   return (
     <Table.Root className={className}>
       <thead>
@@ -52,14 +53,15 @@ const JobTable = ({ vacancies, className, onDetails }) => {
           </Table.Header>
         </Table.Row>
       </thead>
-      {vacancies?.map((vacancy, index) => {
+      {vacancies?.map((vacancy) => {
         return (
-          <JobTableContext
-            // alterar key para id quando integrar com backend
-            key={index}
+          <VacancyTableContext
+            key={vacancy.id}
             vacancy={vacancy}
             checkAll={checked}
             onDetails={onDetails}
+            selectedRows={selectedRows}
+            setSelectedRows={setSelectedRows}
           />
         );
       })}
@@ -67,4 +69,4 @@ const JobTable = ({ vacancies, className, onDetails }) => {
   );
 };
 
-export { JobTable };
+export { VacancyTable };
