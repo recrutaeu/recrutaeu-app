@@ -10,7 +10,7 @@ import { Input } from '@/components/shared/Input';
 import { InputPassword } from '@/components/shared/InputPassword';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import signUp from '@/firebase/auth/signup';
-import { createOrUpdateUser } from '@/firebase/firestore/mutations';
+import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
 import { candidate } from '@/locales';
 
@@ -63,6 +63,15 @@ const PersonalForm = ({ variant = 'default' }) => {
     resolver: zodResolver(formSchema),
   });
 
+  const { mutate: createOrUpdateUser } = useCreateOrUpdateUser({
+    onSuccess: () => {
+      router.push('/candidato/dashboard');
+    },
+    onError: (e) => {
+      setError(e.message);
+    },
+  });
+
   const handleForm = async (formData) => {
     const { email, password } = formData;
     const { response, error } = await signUp(email, password);
@@ -72,23 +81,16 @@ const PersonalForm = ({ variant = 'default' }) => {
     }
 
     const authId = response.user.uid;
-    const id = uuid();
 
     const data = {
-      id,
+      id: uuid(),
       authId,
       document: formData.document,
       name: formData.name,
       roles: ['candidate'],
       email: formData.email,
     };
-    const { error: createError } = await createOrUpdateUser(id, data);
-    if (createError) {
-      setError(createError.message);
-      return;
-    }
-
-    router.push('/candidato/dashboard');
+    createOrUpdateUser(data);
   };
 
   const handleFormError = (errors) => {
