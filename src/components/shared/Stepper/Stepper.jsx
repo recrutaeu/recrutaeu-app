@@ -39,14 +39,14 @@ const styles = {
       [themes.LIGHT]: 'text-neutral-90 border-neutral-90 bg-neutral-0',
     },
     doneStep: {
-      [themes.DEFAULT]: 'text-neutral-90 border-primary-40 bg-neutral-10',
-      [themes.DARK]: 'text-neutral-90 border-neutral-0 bg-neutral-0',
-      [themes.LIGHT]: 'text-neutral-0 border-neutral-90 bg-neutral-90',
+      [themes.DEFAULT]: 'text-neutral-90 border-primary-40 bg-primary-40',
+      [themes.DARK]: 'text-neutral-90 border-neutral-90 bg-neutral-0',
+      [themes.LIGHT]: 'text-neutral-0 border-neutral-0 bg-neutral-90',
     },
     text: {
-      [themes.DEFAULT]: 'text-neutral-90',
-      [themes.DARK]: 'text-neutral-0',
-      [themes.LIGHT]: 'text-neutral-90',
+      [themes.DEFAULT]: 'text-neutral-0',
+      [themes.DARK]: 'text-neutral-90',
+      [themes.LIGHT]: 'text-neutral-0',
     },
     boldText: {
       [themes.DEFAULT]: 'text-primary-40',

@@ -69,7 +69,7 @@ const InputLabel = ({
     <div className={twMerge('w-ful', className)}>
       <label
         htmlFor={props.id}
-        className={twMerge('w-full font-semibold text-sm lg:text-base', style.label[theme])}
+        className={twMerge('w-full font-medium text-sm lg:text-base', style.label[theme])}
       >
         {label}
       </label>
@@ -77,7 +77,7 @@ const InputLabel = ({
         type={type}
         placeholder={placeholder}
         className={twMerge(
-          'w-full rounded-md outline-none text-xs font-light h-12 lg:h-14 px-4 mt-1 lg:text-base',
+          'w-full rounded-md outline-none text-xs font-light h-12 lg:h-13 px-4 mt-1 lg:text-base',
           style.input[theme],
         )}
         {...props}

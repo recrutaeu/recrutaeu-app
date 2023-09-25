@@ -19,6 +19,11 @@ const styles = {
     [themes.DARK]: 'text-neutral-90',
     [themes.LIGHT]: 'text-neutral-90',
   },
+  inverseTertiary: {
+    [themes.DEFAULT]: 'text-primary-40',
+    [themes.DARK]: 'text-neutral-90',
+    [themes.LIGHT]: 'text-neutral-0',
+  },
 };
 
 const ButtonLabel = ({ children, className, type, variant = 'default', ...props }) => {

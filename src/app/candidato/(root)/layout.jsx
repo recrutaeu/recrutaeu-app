@@ -49,7 +49,7 @@ const Layout = ({ children, variant = 'default' }) => {
             onLogout={() => {
               route.push('/');
             }}
-            className="w-full flex items-center justify-end p-5"
+            className="w-full flex items-center justify-end p-4"
           />
           {children}
         </div>

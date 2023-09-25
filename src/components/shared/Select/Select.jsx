@@ -29,9 +29,9 @@ const styles = {
   },
   inverse: {
     label: {
-      [themes.DEFAULT]: 'text-neutral-90 lg:text-sm font-medium',
-      [themes.DARK]: 'text-neutral-90 lg:text-sm font-medium',
-      [themes.LIGHT]: 'text-neutral-0 lg:text-sm font-medium',
+      [themes.DEFAULT]: 'text-neutral-90 lg:text-base font-medium',
+      [themes.DARK]: 'text-neutral-90 lg:text-base font-medium',
+      [themes.LIGHT]: 'text-neutral-0 lg:text-base font-medium',
     },
     buttonLabel: {
       [themes.DEFAULT]: 'bg-neutral-0',
@@ -75,12 +75,12 @@ const Select = ({
 
   return (
     <div className={twMerge('relative w-full', className)}>
-      <p className={twMerge('mb-1 w-full font-semibold text-sm lg:text-base', style.label[theme])}>
+      <p className={twMerge('mb-1 w-full font-semibold text-sm', style.label[theme])}>
         {titleLabel}
       </p>
       <button
         className={twMerge(
-          'w-full flex justify-between items-center rounded-md text-sm lg:text-base p-2 mb-1',
+          'w-full flex justify-between items-center rounded-md text-sm lg:text-base h-12 lg:h-13 pl-2 mb-1',
           style.buttonLabel[theme],
         )}
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
