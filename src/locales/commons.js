@@ -59,6 +59,14 @@ const commons = {
       label: 'salvar',
     },
   },
+  tableRecruiters: {
+    name: 'Nome',
+    email: 'Email',
+    details: 'Detalhes',
+    button: {
+      label: 'salvar',
+    },
+  },
   newPassword: {
     titleForm: 'Criar nova senha',
     description: 'a senha deve conter no mínimo 6 caracteres com números e letras',
@@ -79,6 +87,10 @@ const commons = {
   },
   profile: {
     titlePage: 'Perfil',
+  },
+  dash: {
+    titlePage: 'Vagas Aplicadas',
+    subtitle: 'Essa análise é baseada nas candidaturas totais da sua empresa.',
   },
   applications: {
     titlePage: 'Suas candidaturas',

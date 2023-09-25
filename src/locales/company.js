@@ -41,6 +41,11 @@ const company = {
       label: 'Cadastre-se',
     },
   },
+  recruiters: {
+    title: 'Colaboradores',
+    description:
+      'Nesse espaço você consegue visualizar, adicionar e deletar  colaboradores cadastrados na plataforma.',
+  },
 };
 
 export { company };
