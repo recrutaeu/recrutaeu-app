@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Application } from './Application';
 import { InformationApplication } from './InformationApplication';
@@ -8,7 +8,9 @@ import { Card } from '@/components/shared/Card';
 import { NumberPages } from '@/components/shared/NumberPages';
 import { Popup } from '@/components/shared/Popup';
 import { Title } from '@/components/shared/Title';
+import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
+import { useFindAllApplicationByUserId } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
 
 const styles = {
@@ -33,9 +35,15 @@ const appli = {
 const Applications = ({ variant = 'default' }) => {
   const { theme } = useTheme();
   const style = styles[variant];
-
-  const [isApplicationOpen, setisApplicationOpen] = useState(false);
-  const [selectedApplication, setselectedApplication] = useState(undefined);
+  const [isApplicationOpen, setIsApplicationOpen] = useState(false);
+  const [selectedApplication, setSelectedApplication] = useState(undefined);
+  const { user } = useAuthContext();
+  const { data: applications } = useFindAllApplicationByUserId({
+    userId: user.id,
+    onSuccess: (data) => {
+      setSelectedApplication(data?.[0]);
+    },
+  });
 
   return (
     <>
@@ -50,24 +58,18 @@ const Applications = ({ variant = 'default' }) => {
           )}
         >
           <div className="sm:overflow-auto no-scrollbar h-auto">
-            {/* {vacancies.map((vacancy) => (
-              <Job
-                key={vacancy.id}
-                vacancy={vacancy}
-                onClick={(vacancy) => {
-                  setselectedApplication(vacancy);
-                  setisApplicationOpen(true);
-                }}
-              />
-            ))} */}
-            <Application
-              key={1}
-              application={appli}
-              onClick={(appli) => {
-                setselectedApplication(appli);
-                setisApplicationOpen(true);
-              }}
-            />
+            {applications?.map((application) => {
+              return (
+                <Application
+                  key={application.id}
+                  application={application}
+                  onClick={(application) => {
+                    setSelectedApplication(application);
+                    setIsApplicationOpen(true);
+                  }}
+                />
+              );
+            })}
           </div>
 
           <NumberPages currentPage={1} totalPage={1} />
@@ -79,7 +81,7 @@ const Applications = ({ variant = 'default' }) => {
       </div>
       <Popup
         isOpen={isApplicationOpen}
-        setIsOpen={setisApplicationOpen}
+        setIsOpen={setIsApplicationOpen}
         className="lg:hidden"
         title={commons.jobs.informationJob.title}
       >

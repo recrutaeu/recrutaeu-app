@@ -18,30 +18,70 @@ export default async function getData(collectionInput) {
   return { result, error };
 }
 
-const makeFindAllWhere = (coll, field) => async (value) => {
-  const q = query(collection(db, coll), where(field, '==', value));
+const makeFindAll = (coll, field) => async (value) => {
+  const q = query(collection(db, coll));
   const snapshot = await getDocs(q);
   return snapshot.docs.map((doc) => doc.data());
 };
 
-const makeFindOneWhere = (coll, field) => async (value) => {
-  try {
-    const q = query(collection(db, coll), where(field, '==', value));
+const makeFindAllWhere =
+  (coll, field, operator = '==') =>
+  async (value) => {
+    const q = query(collection(db, coll), where(field, operator, value));
     const snapshot = await getDocs(q);
-    return { response: snapshot.docs[0].data(), error: null };
-  } catch (e) {
-    return {
-      response: null,
-      error: e,
-    };
+    return snapshot?.docs?.map((doc) => doc.data()) || [];
+  };
+
+const makeFindOneWhere = (coll, field) => async (value) => {
+  const q = query(collection(db, coll), where(field, '==', value));
+  const snapshot = await getDocs(q);
+  const data = snapshot?.docs?.[0]?.data();
+  if (!data) {
+    throw new Error(`${field} with ${value} not found in ${coll}`);
   }
+  return data;
 };
 
 export const findUserByAuthId = makeFindOneWhere('users', 'authId');
-export const findAllVacanciesByUserId = makeFindAllWhere('vacancies', 'userId');
+const findAllVacanciesByUserId = makeFindAllWhere('vacancies', 'userId');
+const findAllVacanciesByIds = makeFindAllWhere('vacancies', 'id', 'in');
+const findAllVacancies = makeFindAll('vacancies');
+const findApplicationByVacancyId = makeFindOneWhere('applications', 'vacancyId');
+const findAllApplicationByUserId = makeFindAllWhere('applications', 'userId');
+
+const findAllApplicationByUserIdHydrated = async (userId) => {
+  const applications = await findAllApplicationByUserId(userId);
+  const vacancyIds = applications.map((application) => application.vacancyId);
+  const vacancies = await findAllVacanciesByIds(vacancyIds);
+  const vacanciesById = vacancies.reduce((acc, item) => {
+    return { ...acc, [item.id]: item };
+  }, {});
+  return applications.map((item) => ({ ...item, vacancy: vacanciesById[item.vacancyId] }));
+};
+
+export const useFindAllApplicationByUserId = ({ userId, ...props }) =>
+  useQuery({
+    queryKey: ['applications', userId],
+    queryFn: () => findAllApplicationByUserIdHydrated(userId),
+    ...props,
+  });
+
+export const useFindApplicationByVacancyId = ({ vacancyId, ...props }) =>
+  useQuery({
+    queryKey: ['applications', vacancyId],
+    queryFn: () => findApplicationByVacancyId(vacancyId),
+    ...props,
+  });
 
 export const useFindAllVacanciesByUserId = ({ userId }) =>
   useQuery({
     queryKey: ['vacancies', userId],
     queryFn: () => findAllVacanciesByUserId(userId),
+  });
+
+export const useFindAllVacancies = ({ onSuccess }) =>
+  useQuery({
+    queryKey: ['vacancies'],
+    queryFn: () => findAllVacancies(),
+    onSuccess: onSuccess,
   });

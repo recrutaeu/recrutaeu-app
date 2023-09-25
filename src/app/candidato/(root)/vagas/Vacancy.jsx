@@ -24,7 +24,7 @@ const styles = {
   },
 };
 
-const Job = ({ vacancy, variant = 'default', onClick, ...props }) => {
+const Vacancy = ({ vacancy, variant = 'default', onClick, ...props }) => {
   const { theme } = useTheme();
   const style = styles[variant];
 
@@ -37,23 +37,23 @@ const Job = ({ vacancy, variant = 'default', onClick, ...props }) => {
       <div className="flex items-center w-full">
         <div className="w-full text-start">
           <p className={twMerge('text-base font-bold leading-6', style.title[theme])}>
-            {vacancy?.titulo}
+            {vacancy?.title}
           </p>
           <div className={style.text[theme]}>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.job}:`}</p>
-            <p className="capitalize font-light">{vacancy?.vaga}</p>
+            <p className="capitalize font-light">{vacancy?.title}</p>
           </div>
           <div className={style.text[theme]}>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.location}:`}</p>
-            <p className="capitalize font-light">{`${vacancy?.cidade} - ${vacancy?.estado}`}</p>
+            <p className="capitalize font-light">{`${vacancy?.city} - ${vacancy?.state}`}</p>
           </div>
           <div className={style.text[theme]}>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.remuneration}:`}</p>
-            <p className="capitalize font-light">{`R$ ${vacancy?.remuneracao}`}</p>
+            <p className="capitalize font-light">{`R$ ${vacancy?.salaryRange}`}</p>
           </div>
           <div className={style.text[theme]}>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.contract}:`}</p>
-            <p className="lowercase font-light">{vacancy?.contrato}</p>
+            <p className="lowercase font-light">{vacancy?.contractType}</p>
           </div>
           <Divider className="mt-3" />
         </div>
@@ -64,4 +64,4 @@ const Job = ({ vacancy, variant = 'default', onClick, ...props }) => {
   );
 };
 
-export { Job };
+export { Vacancy };

@@ -38,6 +38,9 @@ const commons = {
     button: {
       label: 'candidate-se',
     },
+    buttonUndo: {
+      label: 'cancelar',
+    },
     details: {
       title: 'Detalhes da vagas',
       buttonDelet: {
