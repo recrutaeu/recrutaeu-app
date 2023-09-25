@@ -73,11 +73,15 @@ const Poup = ({ children, isOpen, setIsOpen, title, className, variant = 'defaul
   const style = styles[variant];
 
   return isOpen ? (
-    <div className="bg-neutral-90 bg-opacity-50 w-screen h-[calc(100dvh)] absolute z-50 top-0 left-0">
+    <div
+      className={twMerge(
+        'bg-neutral-90 bg-opacity-50 w-screen h-[calc(100dvh)] absolute z-50 top-0 left-0',
+        className,
+      )}
+    >
       <div
         className={twMerge(
           'w-full h-full lg:w-1/2 absolute top-0 right-0',
-          className,
           style.background[theme],
         )}
       >

@@ -42,6 +42,10 @@ module.exports = {
         semibold: '600',
         bold: '700',
       },
+      fontSize:{
+        'zoom-in': '20px',
+        'zoom-out': '16px'
+      }
     },
   },
 };

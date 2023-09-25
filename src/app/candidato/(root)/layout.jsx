@@ -38,7 +38,7 @@ const Layout = ({ children, variant = 'default' }) => {
   const style = styles[variant];
 
   return (
-    <AuthContextProvider callbackUrl={'/candidato/login'}>
+    <AuthContextProvider callbackUrl={'/candidato/login'} role="candidate">
       <div className={twMerge('w-full  flex flex-col md:flex-row', style.background[theme])}>
         <MenuDesk className="hidden md:flex" links={links} />
         <div className="h-[calc(100dvh-64px)] md:h-[calc(100dvh)] overflow-hidden w-full grow flex flex-col">

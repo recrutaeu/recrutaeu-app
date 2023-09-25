@@ -1,11 +1,23 @@
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
-import { app } from '../config';
+import { app, appSecondary } from '../config';
 
 const auth = getAuth(app);
 
 export default async function signUp(email, password) {
   try {
     const response = await createUserWithEmailAndPassword(auth, email, password);
+    return { response, error: null };
+  } catch (e) {
+    const error = parseError(e.code);
+    return { response: null, error };
+  }
+}
+
+const authSecondary = getAuth(appSecondary);
+
+export async function signUpWithoutLogin(email, password) {
+  try {
+    const response = await createUserWithEmailAndPassword(authSecondary, email, password);
     return { response, error: null };
   } catch (e) {
     const error = parseError(e.code);

@@ -11,7 +11,7 @@ export const AuthContext = React.createContext({});
 
 export const useAuthContext = () => React.useContext(AuthContext);
 
-export const AuthContextProvider = ({ children, callbackUrl }) => {
+export const AuthContextProvider = ({ children, callbackUrl, role }) => {
   const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
   const route = useRouter();
@@ -21,6 +21,12 @@ export const AuthContextProvider = ({ children, callbackUrl }) => {
       if (user) {
         try {
           const response = await findUserByAuthId(user.uid);
+
+          if (!response.roles.includes(role)) {
+            route.push(callbackUrl);
+            return;
+          }
+
           setUser({ ...response, ...user });
         } catch (e) {
           route.push(callbackUrl);

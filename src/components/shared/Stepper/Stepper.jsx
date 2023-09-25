@@ -64,18 +64,37 @@ const styles = {
 const Stepper = ({ steps, currentStep, variant = 'default', className, ...props }) => {
   const { theme } = useTheme();
   const style = styles[variant];
+  const nextStep =
+    steps[currentStep.index + 1] && currentStep.status === 'approved'
+      ? steps[currentStep.index + 1]
+      : currentStep;
+
+  const titles = {
+    subscribed: 'Inscrição',
+    test: 'Teste',
+    interview: 'Entrevista',
+    feedback: 'Feedback',
+  };
 
   return (
     <div className={twMerge('flex flex-col', className)}>
       <div className="flex gap-1 items-end mb-2 flex-wrap">
         <p className={twMerge('w-auto', style.text[theme])}>Status da candidatura:</p>
-        <p className={twMerge('font-semibold', style.boldText[theme])}>{currentStep.title}</p>
+        <p className={twMerge('font-semibold', style.boldText[theme])}>{titles[nextStep?.type]}</p>
       </div>
 
       <div className="flex items-center">
         {steps.map((s, i) => {
-          const stepDoneStyle = s.stepIndex < currentStep.stepIndex ? style.doneStep[theme] : null;
-          const stepContent = s.stepIndex < currentStep.stepIndex ? <LuCheck size={15} /> : i + 1;
+          const stepDoneStyle =
+            s.index <= currentStep?.index && currentStep?.status === 'approved'
+              ? style.doneStep[theme]
+              : null;
+          const stepContent =
+            s.index <= currentStep?.index && currentStep?.status === 'approved' ? (
+              <LuCheck size={15} />
+            ) : (
+              i + 1
+            );
 
           return (
             <>

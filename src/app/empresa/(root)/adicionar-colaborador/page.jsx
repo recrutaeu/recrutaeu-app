@@ -10,33 +10,10 @@ import { ButtonIcon } from '@/components/shared/ButtonIcon';
 import { InputSearch } from '@/components/shared/InputSearch';
 import { NumberPages } from '@/components/shared/NumberPages';
 import { Title } from '@/components/shared/Title';
+import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
+import { useFindAllUsersByCompanyId } from '@/firebase/firestore/queries';
 import { company } from '@/locales';
-
-const recruiters = [
-  {
-    name: 'Fiap',
-    email: 'Desenvolvedor',
-    sector: 'Tecnologia',
-    city: 'São Paulo',
-    state: 'São Paulo',
-    remuneration: '5.000',
-    contract: 'CLT',
-    benefits: 'convenio médico',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-    quantity: 4,
-    publishedAt: '15/12/2023',
-    expiresAt: '15/12/2023',
-  },
-  {
-    name: 'nanana',
-    email: 'sadsafsdas',
-    quantity: 4,
-    publishedAt: '15/12/2023',
-    expiresAt: '15/12/2023',
-  },
-];
 
 const styles = {
   default: {
@@ -54,6 +31,8 @@ const Recruiters = ({}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenDetails, setIsOpenDetails] = useState(false);
   const [selectRecruiter, setSelectRecruiter] = useState(undefined);
+  const { user } = useAuthContext();
+  const { data: recruiters } = useFindAllUsersByCompanyId({ id: user.id });
 
   return (
     <div className="h-full lg:px-7 px-5 py-5">

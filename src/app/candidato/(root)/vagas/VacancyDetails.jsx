@@ -57,6 +57,31 @@ const VacancyDetails = ({ vacancy, variant = 'default' }) => {
       id: uuid(),
       vacancyId: vacancy.id,
       userId: user.id,
+      steps: [
+        {
+          index: 0,
+          type: 'subscribed',
+          status: 'pending',
+          data: {
+            date: new Date().toISOString(),
+          },
+        },
+        {
+          index: 1,
+          type: 'test',
+          status: 'pending',
+        },
+        {
+          index: 2,
+          type: 'interview',
+          status: 'pending',
+        },
+        {
+          index: 3,
+          type: 'feedback',
+          status: 'pending',
+        },
+      ],
     };
     createOrUpdateApplication(data);
     refetch();

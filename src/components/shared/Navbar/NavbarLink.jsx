@@ -44,14 +44,14 @@ const NavbarLink = ({
   return (
     <div
       className={twMerge(
-        'py-2 px-4 w-full font-semibold text-lg',
+        'py-2 lg:px-4 w-full font-semibold px-2 text-sm lg:text-lg',
         style.div[theme],
         className,
         active && style.active[theme],
       )}
       {...props}
     >
-      <Link href={href} className="flex w-full justify-center">
+      <Link href={href} className={twMerge('flex w-full justify-center', className)}>
         {children}
       </Link>
     </div>

@@ -43,11 +43,15 @@ const makeFindOneWhere = (coll, field) => async (value) => {
 };
 
 export const findUserByAuthId = makeFindOneWhere('users', 'authId');
+const findUserById = makeFindOneWhere('users', 'id');
+const findAllUsersByCompanyId = makeFindAllWhere('users', 'companyId');
 const findAllVacanciesByUserId = makeFindAllWhere('vacancies', 'userId');
 const findAllVacanciesByIds = makeFindAllWhere('vacancies', 'id', 'in');
 const findAllVacancies = makeFindAll('vacancies');
 const findApplicationByVacancyId = makeFindOneWhere('applications', 'vacancyId');
 const findAllApplicationByUserId = makeFindAllWhere('applications', 'userId');
+const findApplicationById = makeFindOneWhere('applications', 'id');
+const findAllApplicationsByVancancyIds = makeFindAllWhere('applications', 'vacancyId', 'in');
 
 const findAllApplicationByUserIdHydrated = async (userId) => {
   const applications = await findAllApplicationByUserId(userId);
@@ -56,8 +60,53 @@ const findAllApplicationByUserIdHydrated = async (userId) => {
   const vacanciesById = vacancies.reduce((acc, item) => {
     return { ...acc, [item.id]: item };
   }, {});
+
   return applications.map((item) => ({ ...item, vacancy: vacanciesById[item.vacancyId] }));
 };
+
+const findAllApplicationByRecruiterIdHydrated = async (userId) => {
+  const vacancies = await findAllVacanciesByUserId(userId);
+  const vacancyIds = vacancies.map((item) => item.id);
+  const applications = await findAllApplicationsByVancancyIds(vacancyIds);
+  const vacanciesById = vacancies.reduce((acc, item) => {
+    return { ...acc, [item.id]: item };
+  }, {});
+
+  const applicationUserIds = new Set(applications.map((application) => application.userId));
+  const applicationUsers = await Promise.all(
+    [...applicationUserIds].map((userId) => findUserById(userId)),
+  );
+  const userById = applicationUsers.reduce((acc, item) => {
+    return { ...acc, [item.id]: item };
+  }, {});
+
+  return applications.map((item) => ({
+    ...item,
+    vacancy: vacanciesById[item.vacancyId],
+    candidate: userById[item.userId],
+  }));
+};
+
+export const useFindAllUsersByCompanyId = ({ id, ...props }) =>
+  useQuery({
+    queryKey: ['users', id],
+    queryFn: () => findAllUsersByCompanyId(id),
+    ...props,
+  });
+
+export const useFindApplicationById = ({ id, ...props }) =>
+  useQuery({
+    queryKey: ['applications', id],
+    queryFn: () => findApplicationById(id),
+    ...props,
+  });
+
+export const useFindAllApplicationByRecruiterIdHydrated = ({ userId, ...props }) =>
+  useQuery({
+    queryKey: ['applications', userId],
+    queryFn: () => findAllApplicationByRecruiterIdHydrated(userId),
+    ...props,
+  });
 
 export const useFindAllApplicationByUserId = ({ userId, ...props }) =>
   useQuery({

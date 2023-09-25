@@ -37,6 +37,11 @@ const Application = ({ application, variant = 'default', onClick, ...props }) =>
   const { theme } = useTheme();
   const style = styles[variant];
   const { vacancy } = application;
+  const currentStep = application.steps.reduce(
+    (last, item) => (item.index > last.index && item.status === 'approved' ? item : last),
+    application.steps[0],
+  );
+
   return (
     <button
       className="mt-3 flex flex-col w-full cursor-pointer"
@@ -60,7 +65,7 @@ const Application = ({ application, variant = 'default', onClick, ...props }) =>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.remuneration}:`}</p>
             <p className="capitalize font-light">{`R$ ${vacancy?.salaryRange}`}</p>
           </div>
-          <Stepper steps={steps} currentStep={steps[1]} className={'mt-2'} />
+          <Stepper steps={application.steps} currentStep={currentStep} className={'mt-2'} />
           <Divider className="mt-3" />
         </div>
 
