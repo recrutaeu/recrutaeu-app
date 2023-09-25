@@ -2,12 +2,10 @@
 
 import React, { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { recruiter } from '@/locales';
 import { Card } from '@/components/shared/Card';
 import { Title } from '@/components/shared/Title';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 import { UserInfo } from './UserInfo';
-import { AlertHome } from './AlertHome';
 import WeeksSchedule from './WeekSchedule';
 import Graph from './Graph';
 

@@ -45,7 +45,7 @@ const WeeksSchedule = ({}) => {
   return (
     <div className="h-full flex flex-col gap-7 overflow-auto">
       <div className="w-full flex flex-col gap-3">
-        <Title className="text-lg lg:text-xl" variant="inverse">
+        <Title className="text-lg lg:text-xl" variant="inverseSecundary">
           {commons.weeksSchedule.title}
         </Title>
       </div>
