@@ -7,7 +7,7 @@ import { Divider } from '@/components/shared/Divider';
 import { InputSearch } from '@/components/shared/InputSearch';
 import { Title } from '@/components/shared/Title';
 
-const searchCandidate = () => {
+const SearchCandidate = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -48,4 +48,4 @@ const searchCandidate = () => {
   );
 };
 
-export default searchCandidate;
+export default SearchCandidate;
