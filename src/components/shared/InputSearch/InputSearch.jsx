@@ -68,7 +68,7 @@ const InputSearch = ({
           type={type}
           id={id}
           className={twMerge(
-            'w-full outline-none rounded-md text-neutral-90 font-light text-sm p-2 pl-8 lg:p-2.5 lg:pl-10 lg:text-base',
+            'w-full outline-none rounded-md text-neutral-90 font-light text-sm pl-8 h-12 lg:h-14 lg:pl-10 lg:text-base',
             className,
             style.input[theme],
           )}
