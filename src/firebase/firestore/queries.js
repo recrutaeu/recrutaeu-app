@@ -30,7 +30,6 @@ const makeFindOneWhere = (coll, field) => async (value) => {
     const snapshot = await getDocs(q);
     return { response: snapshot.docs[0].data(), error: null };
   } catch (e) {
-    console.log(e);
     return {
       response: null,
       error: e,

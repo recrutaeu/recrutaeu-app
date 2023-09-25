@@ -11,7 +11,7 @@ import { NumberPages } from '@/components/shared/NumberPages';
 import { Popup } from '@/components/shared/Popup';
 import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
-import getData from '@/firebase/firestore/getData';
+import getData from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
 
 const styles = {

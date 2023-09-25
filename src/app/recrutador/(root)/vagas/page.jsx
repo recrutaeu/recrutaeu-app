@@ -3,16 +3,17 @@ import { useState } from 'react';
 import { MdAddBox } from 'react-icons/md';
 import { PiTrashSimpleFill } from 'react-icons/pi';
 import { twMerge } from 'tailwind-merge';
-import JobDetails from './JobDetails';
-import { JobPoup } from './JobPoup';
-import { JobTable } from './JobTable';
+import { VacancyDetails } from './VacancyDetails';
+import { VacancyPopup } from './VacancyPopup';
+import { VacancyTable } from './VacancyTable';
 import { ButtonIcon } from '@/components/shared/ButtonIcon';
 import { InputSearch } from '@/components/shared/InputSearch';
 import { NumberPages } from '@/components/shared/NumberPages';
 import { Title } from '@/components/shared/Title';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
-import { useFindAllVacanciesByUserId } from '@/firebase/firestore/getData';
+import { useDeleteVacancyByIds } from '@/firebase/firestore/mutations';
+import { useFindAllVacanciesByUserId } from '@/firebase/firestore/queries';
 import { recruiter } from '@/locales';
 
 const styles = {
@@ -25,20 +26,22 @@ const styles = {
   },
 };
 
-const Jobs = ({}) => {
+const Vacancy = ({}) => {
   const { theme } = useTheme();
   const style = styles['default'];
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenDetails, setIsOpenDetails] = useState(false);
   const [vacancy, setSelectVacancy] = useState(undefined);
   const { user } = useAuthContext();
+  const [selectedRows, setSelectedRows] = useState(new Set());
 
   const { data: vacancies } = useFindAllVacanciesByUserId({ userId: user.id });
+  const { mutate: deleteSelectedVacancies } = useDeleteVacancyByIds();
 
   return (
     <div className="h-full lg:px-7 px-5 py-5">
-      <JobPoup isOpen={isOpen} setIsOpen={setIsOpen} />
-      <JobDetails isOpen={isOpenDetails} setIsOpen={setIsOpenDetails} vacancy={vacancy} />
+      <VacancyPopup isOpen={isOpen} setIsOpen={setIsOpen} />
+      <VacancyDetails isOpen={isOpenDetails} setIsOpen={setIsOpenDetails} vacancy={vacancy} />
 
       <div>
         <Title className="text-xl lg:text-3xl" variant="inverse">
@@ -63,24 +66,32 @@ const Jobs = ({}) => {
             >
               <MdAddBox className="w-6 h-6 lg:w-7 lg:h-7" />
             </ButtonIcon>
-            <ButtonIcon disabled={true}>
+            <ButtonIcon
+              disabled={selectedRows.size === 0}
+              onClick={() => {
+                deleteSelectedVacancies([...selectedRows]);
+                setSelectedRows(new Set());
+              }}
+            >
               <PiTrashSimpleFill className="w-6 h-6 lg:w-7 lg:h-7" />
             </ButtonIcon>
           </div>
         </div>
       </div>
-      <JobTable
+      <VacancyTable
         vacancies={vacancies}
         onDetails={(vacancy) => {
           setIsOpenDetails(true);
           setSelectVacancy(vacancy);
         }}
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
       />
       <div className="w-full flex justify-center items-center">
-        <NumberPages currentPage={1} totalPage={10} variant="inverse" />
+        <NumberPages currentPage={1} totalPage={1} variant="inverse" />
       </div>
     </div>
   );
 };
 
-export default Jobs;
+export default Vacancy;

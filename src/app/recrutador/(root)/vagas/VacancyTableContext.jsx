@@ -25,13 +25,19 @@ const styles = {
   },
 };
 
-const JobTableContext = ({ vacancy, onDetails, checkAll }) => {
+const VacancyTableContext = ({ vacancy, onDetails, checkAll, selectedRows, setSelectedRows }) => {
   const { theme } = useTheme();
   const style = styles['default'];
   const [checked, setChecked] = useState(false);
-
   useEffect(() => {
     setChecked(checkAll);
+    if (checkAll) {
+      selectedRows.add(vacancy.id);
+      setSelectedRows(new Set([...selectedRows]));
+    } else {
+      setSelectedRows(new Set());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkAll]);
 
   const CustomCell = ({ children, className }) => (
@@ -47,8 +53,18 @@ const JobTableContext = ({ vacancy, onDetails, checkAll }) => {
               type="checkbox"
               name=""
               id="checkbox"
+              value={vacancy?.id}
               checked={checked}
-              onChange={() => setChecked(!checked)}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (selectedRows.has(value)) {
+                  selectedRows.delete(value);
+                } else {
+                  selectedRows.add(value);
+                }
+                setSelectedRows(new Set([...selectedRows]));
+                setChecked(!checked);
+              }}
               className={twMerge('cursor-pointer', style.checkbox[theme])}
             />
           </div>
@@ -59,10 +75,10 @@ const JobTableContext = ({ vacancy, onDetails, checkAll }) => {
           {vacancy.quantity}
         </CustomCell>
         <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
-          {vacancy.startAt}
+          {new Date(vacancy.startAt).toLocaleDateString('pt-BR')}
         </CustomCell>
         <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
-          {vacancy.endAt}
+          {new Date(vacancy.endAt).toLocaleDateString('pt-BR')}
         </CustomCell>
 
         <CustomCell>
@@ -81,4 +97,4 @@ const JobTableContext = ({ vacancy, onDetails, checkAll }) => {
   );
 };
 
-export { JobTableContext };
+export { VacancyTableContext };

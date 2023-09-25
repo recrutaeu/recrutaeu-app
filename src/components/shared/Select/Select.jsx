@@ -61,8 +61,9 @@ const Select = ({
   value,
   variant = 'default',
 }) => {
+  const firstOption = options.find((option) => option.value === value) || { label, value };
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [currentOption, setCurrentOption] = useState({ label, value });
+  const [currentOption, setCurrentOption] = useState(firstOption);
   const { theme } = useTheme();
   const style = styles[variant];
 
