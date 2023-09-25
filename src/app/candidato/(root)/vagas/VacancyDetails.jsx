@@ -1,7 +1,15 @@
+import { useEffect } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Title } from '@/components/shared/Title';
+import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
+import {
+  useCreateOrUpdateApplication,
+  useDeleteApplicationById,
+} from '@/firebase/firestore/mutations';
+import { useFindApplicationByVacancyId } from '@/firebase/firestore/queries';
+import { uuid } from '@/firebase/uuid';
 import { commons } from '@/locales';
 
 const styles = {
@@ -24,9 +32,40 @@ const styles = {
   },
 };
 
-const InformationJob = ({ vacancy, variant = 'default' }) => {
+const VacancyDetails = ({ vacancy, variant = 'default' }) => {
   const { theme } = useTheme();
   const style = styles[variant];
+
+  const { mutate: createOrUpdateApplication } = useCreateOrUpdateApplication();
+  const { mutate: deleteApplicationById } = useDeleteApplicationById();
+  const {
+    data: application,
+    error,
+    refetch,
+  } = useFindApplicationByVacancyId({
+    vacancyId: vacancy?.id,
+    retry: false,
+  });
+  const { user } = useAuthContext();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch, vacancy?.id]);
+
+  const handleApplication = () => {
+    const data = {
+      id: uuid(),
+      vacancyId: vacancy.id,
+      userId: user.id,
+    };
+    createOrUpdateApplication(data);
+    refetch();
+  };
+
+  const handleRemoveApplication = () => {
+    deleteApplicationById(application.id);
+    refetch();
+  };
 
   return (
     <>
@@ -35,41 +74,49 @@ const InformationJob = ({ vacancy, variant = 'default' }) => {
       </Title>
       <div className="grow overflow-auto no-scrollbar mb-10">
         <p className={twMerge('text-lg  font-bold leading-7 ', style.title[theme])}>
-          {vacancy?.empresa}
+          {vacancy?.company}
         </p>
 
         <div className={twMerge(style.text[theme], 'mt-3')}>
           <p className="mr-1 capitalize font-bold">{`${commons.jobs.descriptionJob.job}:`}</p>
-          <p className="capitalize">{vacancy?.vaga}</p>
+          <p className="capitalize">{vacancy?.title}</p>
         </div>
 
         <div className={style.text[theme]}>
           <p className="mr-1 capitalize font-bold">{`${commons.jobs.descriptionJob.location}:`}</p>
-          <p className="capitalize">{`${vacancy?.cidade} - ${vacancy?.estado}`}</p>
+          <p className="capitalize">{`${vacancy?.city} - ${vacancy?.state}`}</p>
         </div>
 
         <div className={style.text[theme]}>
           <p className="mr-1 capitalize font-bold">{`${commons.jobs.descriptionJob.remuneration}:`}</p>
-          <p className="capitalize">{`R$ ${vacancy?.remuneracao}`}</p>
+          <p className="capitalize">{`R$ ${vacancy?.salaryRange}`}</p>
         </div>
 
         <div className={style.text[theme]}>
           <p className="mr-1 capitalize font-bold">{`${commons.jobs.descriptionJob.contract}:`}</p>
-          <p className="lowercase">{vacancy?.contrato}</p>
+          <p className="lowercase">{vacancy?.contractType}</p>
         </div>
 
         <div className={style.text[theme]}>
           <p className="mr-1 capitalize font-bold">{`${commons.jobs.descriptionJob.benefits}:`}</p>
-          <p className="capitalize">{vacancy?.beneficios}</p>
+          <p className="capitalize">{vacancy?.benefits}</p>
         </div>
 
-        <p className={twMerge(' mt-8 mb-4', style.text[theme])}>{vacancy?.descricao}</p>
+        <p className={twMerge(' mt-8 mb-4', style.text[theme])}>{vacancy?.description}</p>
       </div>
       <div className="max-w-[100%] flex justify-center">
-        <ButtonPrimary variant="inverseSecundary">{commons.jobs.button.label}</ButtonPrimary>
+        {application && !error ? (
+          <ButtonPrimary variant="inverseSecundary" onClick={handleRemoveApplication}>
+            {commons.jobs.buttonUndo.label}
+          </ButtonPrimary>
+        ) : (
+          <ButtonPrimary variant="inverseSecundary" onClick={handleApplication}>
+            {commons.jobs.button.label}
+          </ButtonPrimary>
+        )}
       </div>
     </>
   );
 };
 
-export { InformationJob };
+export { VacancyDetails };

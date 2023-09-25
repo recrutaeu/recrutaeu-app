@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { InformationJob } from './InformationJob';
-import { Job } from './Job';
+import { Vacancy } from './Vacancy';
+import { VacancyDetails } from './VacancyDetails';
 import { Card } from '@/components/shared/Card';
 import { Filter } from '@/components/shared/Filter';
 import { InputSearch } from '@/components/shared/InputSearch';
@@ -11,7 +11,7 @@ import { NumberPages } from '@/components/shared/NumberPages';
 import { Popup } from '@/components/shared/Popup';
 import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
-import getData from '@/firebase/firestore/queries';
+import { useFindAllVacancies } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
 
 const styles = {
@@ -24,23 +24,17 @@ const styles = {
   },
 };
 
-const Jobs = ({ variant = 'default' }) => {
+const VacancyList = ({ variant = 'default' }) => {
   const { theme } = useTheme();
   const style = styles[variant];
 
-  const [vacancies, setVacancies] = useState([]);
   const [isVacancyOpen, setIsVacancyOpen] = useState(false);
   const [selectedVacancy, setSelectedVacancy] = useState(undefined);
-
-  const fetchVacancies = async () => {
-    const { result, error } = await getData('vagas');
-    const resultData = result?.docs?.map((doc) => doc.data());
-    setVacancies(resultData);
-  };
-
-  React.useEffect(() => {
-    fetchVacancies().then();
-  }, [vacancies]);
+  const { data: vacancies } = useFindAllVacancies({
+    onSuccess: (vacancies) => {
+      setSelectedVacancy(vacancies[0]);
+    },
+  });
 
   return (
     <>
@@ -65,13 +59,13 @@ const Jobs = ({ variant = 'default' }) => {
               style.descriptionFilter[theme],
             )}
           >
-            {commons.jobs.numberJobs.replace('{amount}', vacancies.length)}
+            {commons.jobs.numberJobs.replace('{amount}', vacancies?.length || 0)}
           </p>
 
           <div className="my-4 h-full">
-            {vacancies.map((vacancy) => (
-              <Job
-                key={vacancy.id}
+            {vacancies?.map((vacancy) => (
+              <Vacancy
+                key={vacancy?.id}
                 vacancy={vacancy}
                 onClick={(vacancy) => {
                   setSelectedVacancy(vacancy);
@@ -85,7 +79,7 @@ const Jobs = ({ variant = 'default' }) => {
         </Card>
 
         <Card className="lg:flex flex-col p-8 lg:w-2/3 hidden">
-          <InformationJob vacancy={selectedVacancy} />
+          <VacancyDetails vacancy={selectedVacancy} />
         </Card>
       </div>
       <Popup
@@ -94,10 +88,10 @@ const Jobs = ({ variant = 'default' }) => {
         className="lg:hidden"
         title={commons.jobs.informationJob.title}
       >
-        <InformationJob vacancy={selectedVacancy} />
+        <VacancyDetails vacancy={selectedVacancy} />
       </Popup>
     </>
   );
 };
 
-export default Jobs;
+export default VacancyList;

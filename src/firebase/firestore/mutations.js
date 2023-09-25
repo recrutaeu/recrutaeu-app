@@ -49,9 +49,12 @@ export const deleteManyByIdFactory = (coll) => async (ids) => {
   );
 };
 
-const createOrUpdateUser = createOrUpdateFactory('users');
+export const createOrUpdateUser = createOrUpdateFactory('users');
 const createOrUpdateVacancy = createOrUpdateFactory('vacancies');
+const createOrUpdateApplication = createOrUpdateFactory('applications');
+
 const deleteVacancyById = deleteByIdFactory('vacancies');
+const deleteApplicationById = deleteByIdFactory('applications');
 const deleteManyByIds = deleteManyByIdFactory('vacancies');
 
 export const useCreateOrUpdateUser = ({ onSuccess, onError }) => {
@@ -60,6 +63,18 @@ export const useCreateOrUpdateUser = ({ onSuccess, onError }) => {
     mutationFn: (data) => createOrUpdateUser(data.id, data),
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
+      onSuccess?.(data);
+    },
+    onError,
+  });
+};
+
+export const useCreateOrUpdateApplication = ({ onSuccess, onError } = {}) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => createOrUpdateApplication(data.id, data),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['applications'] });
       onSuccess?.(data);
     },
     onError,
@@ -75,6 +90,16 @@ export const useCreateOrUpdateVacancy = ({ onSuccess, onError }) => {
       onSuccess?.(data);
     },
     onError,
+  });
+};
+
+export const useDeleteApplicationById = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id) => deleteApplicationById(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['applications'] });
+    },
   });
 };
 

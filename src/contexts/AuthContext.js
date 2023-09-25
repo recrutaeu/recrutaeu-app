@@ -19,13 +19,12 @@ export const AuthContextProvider = ({ children, callbackUrl }) => {
   React.useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const { response, error } = await findUserByAuthId(user.uid);
-        if (error) {
+        try {
+          const response = await findUserByAuthId(user.uid);
+          setUser({ ...response, ...user });
+        } catch (e) {
           route.push(callbackUrl);
-          return;
         }
-
-        setUser({ ...response, ...user });
       } else {
         route.push(callbackUrl);
       }

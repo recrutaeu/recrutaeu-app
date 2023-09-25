@@ -36,7 +36,7 @@ const steps = [
 const Application = ({ application, variant = 'default', onClick, ...props }) => {
   const { theme } = useTheme();
   const style = styles[variant];
-
+  const { vacancy } = application;
   return (
     <button
       className="mt-3 flex flex-col w-full cursor-pointer"
@@ -46,19 +46,19 @@ const Application = ({ application, variant = 'default', onClick, ...props }) =>
       <div className="flex items-center w-full">
         <div className="w-full text-start">
           <p className={twMerge('text-base font-bold leading-6', style.title[theme])}>
-            {application?.titulo}
+            {vacancy?.title}
           </p>
           <div className={style.text[theme]}>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.job}:`}</p>
-            <p className="capitalize font-light">{application?.vaga}</p>
+            <p className="capitalize font-light">{vacancy?.title}</p>
           </div>
           <div className={style.text[theme]}>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.location}:`}</p>
-            <p className="capitalize font-light">{`${application?.cidade} - ${application?.estado}`}</p>
+            <p className="capitalize font-light">{`${vacancy?.city} - ${vacancy?.state}`}</p>
           </div>
           <div className={style.text[theme]}>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.remuneration}:`}</p>
-            <p className="capitalize font-light">{`R$ ${application?.remuneracao}`}</p>
+            <p className="capitalize font-light">{`R$ ${vacancy?.salaryRange}`}</p>
           </div>
           <Stepper steps={steps} currentStep={steps[1]} className={'mt-2'} />
           <Divider className="mt-3" />
