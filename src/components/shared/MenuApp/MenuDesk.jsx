@@ -1,4 +1,4 @@
-import { signOut, getAuth } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { LuLogOut } from 'react-icons/lu';
@@ -29,7 +29,6 @@ const MenuDesk = ({ variant = 'default', className, links }) => {
 
   async function signOutFunction() {
     const auth = getAuth();
-    console.log('foi');
     signOut(auth)
       .then(() => {
         router.push('/');

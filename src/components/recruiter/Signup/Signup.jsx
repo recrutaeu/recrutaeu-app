@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
@@ -8,7 +7,7 @@ import { Input } from '@/components/shared/Input';
 import { InputPassword } from '@/components/shared/InputPassword';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import signUp from '@/firebase/auth/signup';
-import addData from '@/firebase/firestore/addData';
+import addData from '@/firebase/firestore/mutations';
 import { recruiter } from '@/locales';
 
 const styles = {

@@ -16,6 +16,13 @@ const styles = {
       [themes.LIGHT]: 'bg-neutral-90',
     },
   },
+  inverseSecundary: {
+    div: {
+      [themes.DEFAULT]: 'bg-neutral-15',
+      [themes.DARK]: 'bg-neutral-15',
+      [themes.LIGHT]: 'bg-neutral-0',
+    },
+  },
 };
 
 const Divider = ({ variant = 'default', className }) => {

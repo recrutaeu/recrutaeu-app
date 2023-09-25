@@ -3,7 +3,7 @@ import React from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { app } from '@/firebase/config';
-import { findUserByAuthId } from '@/firebase/firestore/getData';
+import { findUserByAuthId } from '@/firebase/firestore/queries';
 
 const auth = getAuth(app);
 

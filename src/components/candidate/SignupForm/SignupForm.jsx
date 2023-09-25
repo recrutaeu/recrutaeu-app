@@ -10,7 +10,7 @@ import { Input } from '@/components/shared/Input';
 import { InputPassword } from '@/components/shared/InputPassword';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import signUp from '@/firebase/auth/signup';
-import { createOrUpdateUser } from '@/firebase/firestore/addData';
+import { createOrUpdateUser } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
 import { candidate } from '@/locales';
 
