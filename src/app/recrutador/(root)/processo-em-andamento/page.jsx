@@ -8,7 +8,9 @@ import { ButtonLabel } from '@/components/shared/ButtonLabel';
 import { Card } from '@/components/shared/Card';
 import { NumberPages } from '@/components/shared/NumberPages';
 import { Title } from '@/components/shared/Title';
+import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
+import { useFindAllApplicationByRecruiterIdHydrated } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
 
 const processJobs = [
@@ -83,10 +85,13 @@ const JobProcess = () => {
   const { theme } = useTheme();
   const style = styles['default'];
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedApplication, setSelectedApplication] = useState(false);
+  const { user } = useAuthContext();
+  const { data: applications } = useFindAllApplicationByRecruiterIdHydrated({ userId: user.id });
 
   return (
     <>
-      <ProcessPopup isOpen={isOpen} setIsOpen={setIsOpen} />
+      <ProcessPopup isOpen={isOpen} setIsOpen={setIsOpen} application={selectedApplication} />
 
       <Title className="text-xl lg:text-3xl px-5 lg:px-7" variant="inverse">
         {commons.process.title}
@@ -94,9 +99,9 @@ const JobProcess = () => {
 
       <div className="h-full overflow-hidden flex">
         <div className="h-full overflow-auto no-scrollbar w-full flex flex-col lg:gap-8 lg:w-1/2 lg:px-7 px-5 py-5 gap-5">
-          {processJobs.map((item, id) => (
+          {applications?.map((item) => (
             <div
-              key={id}
+              key={item.id}
               className={twMerge(
                 'w-full px-5 py-3 rounded-md flex flex-col gap-[0.5px]',
                 style.card[theme],
@@ -104,11 +109,11 @@ const JobProcess = () => {
             >
               <div className="flex gap-1 items-center">
                 <p className={style.title[theme]}>candidato:</p>
-                <p className={style.description[theme]}>{item.candidate}</p>
+                <p className={style.description[theme]}>{item.candidate.name}</p>
               </div>
               <div className="flex gap-1 items-center">
                 <p className={style.title[theme]}>vaga:</p>
-                <p className={style.description[theme]}>{item.candidate}</p>
+                <p className={style.description[theme]}>{item.vacancy.title}</p>
               </div>
               <div className="flex gap-1 items-center">
                 <p className={style.title[theme]}>Status da candidatura:</p>
@@ -132,6 +137,7 @@ const JobProcess = () => {
                   variant="inverseSecundary"
                   onClick={() => {
                     setIsOpen(true);
+                    setSelectedApplication(item);
                   }}
                 >
                   visualizar candidatura
@@ -149,7 +155,7 @@ const JobProcess = () => {
               Etapas do Processo
             </Title>
             <div className="h-full w-full overflow-auto no-scrollbar flex flex-col gap-5">
-              <CardProcessContext />
+              <CardProcessContext application={selectedApplication} />
             </div>
           </Card>
         </div>

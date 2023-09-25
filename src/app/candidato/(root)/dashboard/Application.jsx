@@ -54,6 +54,10 @@ const Application = ({ application, variant = 'default', onClick, ...props }) =>
   const { theme } = useTheme();
   const style = styles[variant];
 
+  application.steps.sort(function (a, b) {
+    return a.index - b.index;
+  });
+
   return (
     <button
       className="mt-3 flex flex-col w-full cursor-pointer"

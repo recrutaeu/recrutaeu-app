@@ -4,11 +4,13 @@ import { AppNavbar } from '../AppNavbar';
 
 const AuthNavbar = ({ variant, onBack, className }) => {
   return (
-    <div className={twMerge('flex w-full items-center', className)}>
-      <div className="hidden lg:flex w-full justify-center">
+    <div className={twMerge('flex w-full items-center justify-end', className)}>
+      <div className="hidden lg:flex w-full lg:w-2/3 justify-end">
         <AppNavbar className="mr-7" variant={variant} />
       </div>
-      <AccessibilityNavbar onBack={onBack} variant={variant} />
+      <div className="flex items-center w-full justify-end">
+        <AccessibilityNavbar onBack={onBack} variant={variant} className="" />
+      </div>
     </div>
   );
 };

@@ -31,7 +31,7 @@ const RecruiterTable = ({ recruiters, className, onDetails }) => {
           </Table.Header>
         </Table.Row>
       </thead>
-      {recruiters.map((recruiter, index) => {
+      {recruiters?.map((recruiter, index) => {
         return (
           <RecruiterTableContext
             // alterar key para id quando integrar com backend

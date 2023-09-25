@@ -23,7 +23,7 @@ const styles = {
   },
 };
 
-const CardProcess = ({ title, children, onEdit, onClick, className }) => {
+const CardProcess = ({ title, children, onEdit, className }) => {
   const { theme } = useTheme();
   const style = styles['default'];
 
@@ -35,7 +35,7 @@ const CardProcess = ({ title, children, onEdit, onClick, className }) => {
             {title}
           </p>
           {onEdit && (
-            <ButtonIcon onClick={onClick} className={style.icon[theme]}>
+            <ButtonIcon onClick={onEdit} className={style.icon[theme]}>
               <MdEdit size={20} />
             </ButtonIcon>
           )}
