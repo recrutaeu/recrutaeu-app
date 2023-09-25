@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { MdFiberManualRecord } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
-import JobDetails from './JobDetails';
 import { Table } from '@/components/shared/Table';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 

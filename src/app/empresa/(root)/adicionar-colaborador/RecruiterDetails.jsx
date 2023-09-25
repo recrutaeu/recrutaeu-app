@@ -25,7 +25,12 @@ const RecruiterDetails = ({ isOpen, setIsOpen, recruiter }) => {
   const style = styles['default'];
 
   return (
-    <Poup isOpen={isOpen} setIsOpen={setIsOpen} title="Detalhes do colaborador" variant="inverseSecundary">
+    <Poup
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      title="Detalhes do colaborador"
+      variant="inverseSecundary"
+    >
       <div className="grow overflow-auto no-scrollbar mb-10">
         <p className={twMerge('text-lg  font-bold leading-7 ', style.title[theme])}>
           {recruiter?.name}

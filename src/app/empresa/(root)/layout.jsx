@@ -7,7 +7,7 @@ import {
   LuLayoutDashboard,
   LuSettings,
 } from 'react-icons/lu';
-import { RiUserSearchLine } from 'react-icons/ri';
+import { RiUserAddLine } from 'react-icons/ri';
 import { twMerge } from 'tailwind-merge';
 import { AccessibilityNavbar } from '@/components/shared/AccessibilityNavbar';
 import { MenuDesk, MenuMobile } from '@/components/shared/MenuApp';
@@ -16,23 +16,19 @@ import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const links = [
   {
-    href: '/recrutador/dashboard',
+    href: '/empresa/dashboard',
     icon: <LuLayoutDashboard className="md:w-7 md:h-7 w-6 h-6" />,
   },
-  { href: '/recrutador/vagas', icon: <LuBriefcase className="md:w-7 md:h-7 w-6 h-6" /> },
+  { href: '/empresa/vagas', icon: <LuBriefcase className="md:w-7 md:h-7 w-6 h-6" /> },
   {
-    href: '/recrutador/buscar-candidato',
-    icon: <RiUserSearchLine className="md:w-7 md:h-7 w-6 h-6" />,
+    href: '/empresa/adicionar-colaborador',
+    icon: <RiUserAddLine className="md:w-7 md:h-7 w-6 h-6" />,
   },
   {
-    href: '/recrutador/processo-em-andamento',
-    icon: <LuHourglass className="md:w-7 md:h-7 w-6 h-6" />,
-  },
-  {
-    href: '/recrutador/programacao-da-semana',
+    href: '/empresa/programacao-da-semana',
     icon: <LuCalendarDays className="md:w-7 md:h-7 w-6 h-6" />,
   },
-  { href: '/recrutador/configuracoes', icon: <LuSettings className="md:w-7 md:h-7 w-6 h-6" /> },
+  { href: '/empresa/configuracoes', icon: <LuSettings className="md:w-7 md:h-7 w-6 h-6" /> },
 ];
 
 const styles = {

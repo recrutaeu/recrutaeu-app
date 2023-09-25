@@ -28,7 +28,7 @@ const Settings = () => {
 
       <div className="h-full overflow-hidden">
         <div className="h-full overflow-auto flex flex-col lg:gap-8 lg:w-1/2 lg:px-7 px-5 py-5">
-          <form className="flex w-full flex-col gap-2">
+          <form className="flex w-full flex-col gap-3 lg:gap-5">
             <p className={style.title[theme]}>{commons.settings.form.titleDocument}</p>
             <InputLabel label="Nome da empresa" variant="inverse" />
             <InputLabel label="Email" variant="inverse" />
@@ -39,7 +39,7 @@ const Settings = () => {
               </ButtonLabel>
             </div>
           </form>
-          <form className="flex w-full flex-col gap-4 mt-8 lg:mt-0">
+          <form className="flex w-full flex-col gap-4 lg:gap-6 mt-8 lg:mt-0">
             <p className={style.title[theme]}>{commons.settings.form.titlePassword}</p>
             <InputPassword label="senha atual" variant="inverseSecundary" />
             <InputPassword label="nova senha" variant="inverseSecundary" />

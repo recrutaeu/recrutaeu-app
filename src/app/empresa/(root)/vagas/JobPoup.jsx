@@ -81,7 +81,7 @@ const JobPoup = ({ isOpen, setIsOpen }) => {
           </div>
           <InputLabel placeholder="ex: R$ 3.500 a R$ 5.000" label="Faixa Salarial:" />
           <InputLabel placeholder="ex: curso de dws" label="Beneficios:" />
-          <DataPicker label="Prazo" variant="inverse" />
+          <DataPicker label="Prazo" variant="inverseSecundary" />
 
           <InputLabel placeholder="ex: 10" label="N° de vagas:" />
 

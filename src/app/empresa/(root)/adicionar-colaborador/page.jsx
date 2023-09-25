@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { MdAddBox } from 'react-icons/md';
 import { PiTrashSimpleFill } from 'react-icons/pi';
 import { twMerge } from 'tailwind-merge';
+import RecruiterDetails from './RecruiterDetails';
 import { RecruiterPoup } from './RecruiterPoup';
 import { JobTable, RecruiterTable } from './RecruiterTable';
 import { ButtonIcon } from '@/components/shared/ButtonIcon';
@@ -11,7 +12,6 @@ import { NumberPages } from '@/components/shared/NumberPages';
 import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { company } from '@/locales';
-import RecruiterDetails from './RecruiterDetails';
 
 const recruiters = [
   {
@@ -35,7 +35,7 @@ const recruiters = [
     quantity: 4,
     publishedAt: '15/12/2023',
     expiresAt: '15/12/2023',
-  }
+  },
 ];
 
 const styles = {

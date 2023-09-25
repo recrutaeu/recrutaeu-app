@@ -90,13 +90,13 @@ const commons = {
   },
   dash: {
     titlePage: 'Vagas Aplicadas',
-    subtitle: 'Essa análise é baseada nas candidaturas totais da sua empresa.'
+    subtitle: 'Essa análise é baseada nas candidaturas totais da sua empresa.',
   },
   applications: {
     titlePage: 'Suas candidaturas',
     button: {
       label: 'cancelar candidatura',
-    }
+    },
   },
   weeksSchedule: {
     title: 'Programação da semana',
