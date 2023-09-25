@@ -49,11 +49,22 @@ export const deleteManyByIdFactory = (coll) => async (ids) => {
   );
 };
 
-export const createOrUpdateUser = createOrUpdateFactory('users');
-export const createOrUpdateVacancy = createOrUpdateFactory('vacancies');
-
+const createOrUpdateUser = createOrUpdateFactory('users');
+const createOrUpdateVacancy = createOrUpdateFactory('vacancies');
 const deleteVacancyById = deleteByIdFactory('vacancies');
 const deleteManyByIds = deleteManyByIdFactory('vacancies');
+
+export const useCreateOrUpdateUser = ({ onSuccess, onError }) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => createOrUpdateUser(data.id, data),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+      onSuccess?.(data);
+    },
+    onError,
+  });
+};
 
 export const useCreateOrUpdateVacancy = ({ onSuccess, onError }) => {
   const queryClient = useQueryClient();
