@@ -88,6 +88,10 @@ const commons = {
   profile: {
     titlePage: 'Perfil',
   },
+  dash: {
+    titlePage: 'Vagas Aplicadas',
+    subtitle: 'Essa análise é baseada nas candidaturas totais da sua empresa.'
+  },
   weeksSchedule: {
     title: 'Programação da semana',
     description: {
