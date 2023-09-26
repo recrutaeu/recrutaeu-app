@@ -14,7 +14,7 @@ import { Popup } from '@/components/shared/Popup';
 import { Title } from '@/components/shared/Title';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, withTheme } from '@/contexts/ThemeContext';
-import getDataUser from '@/firebase/firestore/queries';
+import getDataUser, { useFindAllApplicationByUserId } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
 
 const Profile = withTheme(({ theme, variant = 'default' }) => {
@@ -25,31 +25,26 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
 
   const { user } = useAuthContext();
 
-  const [userLogged, setUserLogged] = useState('');
   const [escolaridade, setEscolaridade] = useState([]);
   const [experiencia, setExperiencia] = useState([]);
   const [cursos, setCursos] = useState([]);
 
   const buscarEscolaridade = useCallback(async () => {
-    const { result } = await getDataUser('escolaridade', user.uid);
+    const { result } = await getDataUser('escolaridade', user.authId);
     setEscolaridade(result.docs.map((doc) => doc.data()));
   }, [user?.uid]);
 
   const buscarExperiencia = useCallback(async () => {
-    const { result } = await getDataUser('emprego', user.uid);
+    const { result } = await getDataUser('emprego', user.authId);
     setExperiencia(result.docs.map((doc) => doc.data()));
   }, [user?.uid]);
 
   const buscarCursos = useCallback(async () => {
-    const { result } = await getDataUser('cursos', user.uid);
+    const { result } = await getDataUser('cursos', user.authId);
     setCursos(result.docs.map((doc) => doc.data()));
   }, [user?.uid]);
 
   const buscarDados = useCallback(async () => {
-    const { result } = await getDataUser('users', user.uid);
-    result.forEach((doc) => {
-      setUserLogged(doc.data());
-    });
     await Promise.all([buscarEscolaridade(), buscarExperiencia(), buscarCursos()]);
   }, [buscarCursos, buscarEscolaridade, buscarExperiencia, user?.uid]);
 
@@ -84,47 +79,6 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
 
   const style = styles[variant];
 
-  const userData = {
-    name: userLogged.nome,
-    subtitle: 'UI Designer',
-    profile_img: '/assets/images/img_profile.png',
-    contact: '+55 11 98977-3645',
-    email: 'helena@email.com',
-    summary: '',
-    work_experience: [
-      {
-        id: 1,
-        title: 'Fiap LTDA',
-        subtitle: 'UI Design',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat',
-        start: '20/04/2020',
-        end: '20/04/22',
-      },
-      {
-        id: 1,
-        title: 'Fiap LTDA',
-        subtitle: 'UI Design',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat',
-        start: '20/04/2020',
-        end: '20/04/22',
-      },
-    ],
-    education: [
-      {
-        id: 1,
-        title: 'Fiap LTDA',
-        subtitle: 'UI Design',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat',
-        start: '20/04/2020',
-        end: '20/04/22',
-      },
-    ],
-    extras: [],
-  };
-
   return (
     <div className="h-full overflow-auto px-5">
       <Title className="text-3xl mb-2" variant="inverse">
@@ -137,8 +91,8 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         )}
       >
         <div>
-          <UserInfo userData={userLogged} />
-          <DescriptionSection userData={userLogged} onEdit={() => setIsOpenDescription(true)} />
+          <UserInfo userData={user} />
+          <DescriptionSection userData={user} onEdit={() => setIsOpenDescription(true)} />
           <ProfileSection
             title={'Ultimas Empresas'}
             content={experiencia}
@@ -160,7 +114,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         </div>
       </Card>
       <Popup title={'Descrição'} isOpen={isOpenDescription} setIsOpen={setIsOpenDescription}>
-        <PopupDescription user={userLogged} />
+        <PopupDescription user={user} />
       </Popup>
       <Popup title={'Ultimas Empresas'} isOpen={isOpenExperiences} setIsOpen={setIsOpenExperiences}>
         <PopupExperiences />

@@ -9,6 +9,8 @@ import { UserInfo } from './UserInfo';
 import { Card } from '@/components/shared/Card';
 import { Title } from '@/components/shared/Title';
 import { themes, withTheme } from '@/contexts/ThemeContext';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { useFindAllApplicationByUserId } from '@/firebase/firestore/queries';
 
 const Dashboard = withTheme(({ theme, variant = 'default' }) => {
   const styles = {
@@ -38,48 +40,8 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
 
   const style = styles[variant];
 
-  const userData = {
-    nome: 'Renato Lourenço',
-    cargo: 'UI Designer',
-    profile_img: '/assets/images/img_profile.png',
-    contact: '+55 11 98977-3645',
-    email: 'helena@email.com',
-    summary: '',
-    applications: [
-      {
-        titulo: 'Teste',
-        vaga: 'TESTE',
-        cidade: 'São',
-        estado: 'Testezih',
-        remuneracao: '545454',
-        contrato: 'clt',
-        steps: [
-          { stepIndex: 1, title: 'teste' },
-          { stepIndex: 2, title: 'videochamada' },
-          { stepIndex: 3, title: 'entrevista' },
-          { stepIndex: 4, title: 'teste 2' },
-          { stepIndex: 5, title: 'teste 3' },
-        ],
-        currentStep: 2,
-      },
-      {
-        titulo: 'Teste',
-        vaga: 'TESTE',
-        cidade: 'São',
-        estado: 'Testezih',
-        remuneracao: '545454',
-        contrato: 'clt',
-        steps: [
-          { stepIndex: 1, title: 'teste' },
-          { stepIndex: 2, title: 'videochamada' },
-          { stepIndex: 3, title: 'entrevista' },
-          { stepIndex: 4, title: 'teste 2' },
-          { stepIndex: 5, title: 'teste 3' },
-        ],
-        currentStep: 4,
-      },
-    ],
-  };
+  const { user } = useAuthContext();
+  const { data: applications } = useFindAllApplicationByUserId({ userId: user.id });
 
   return (
     <>
@@ -102,7 +64,7 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
               style.card[theme],
             )}
           >
-            <UserInfo userData={userData} />
+            <UserInfo userData={{ ...user, applications }} />
           </Card>
           <Card
             className={twMerge(
@@ -118,7 +80,7 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
               style.card[theme],
             )}
           >
-            <LastApplications applications={userData.applications} />
+            <LastApplications applications={applications} />
           </Card>
           <div className="order-4 lg:col-start-3 lg:col-end-6 lg:row-start-1 row-end-4">
             <SuggestedVacancy />

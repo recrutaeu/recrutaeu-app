@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge';
 import { Title } from '@/components/shared/Title';
 import { withTheme, themes } from '@/contexts/ThemeContext';
 
-const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) => {
+const UserInfo = withTheme(({ user, theme, variant = 'default', onEdit }) => {
   const styles = {
     default: {
       text: {
@@ -41,10 +41,10 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
       <div>
         <div className="flex flex-col items-center lg:items-start">
           <Title variant="bgTransformSecundary" className="text-base lg:text-xl">
-            {userData.nome}
+            {user?.name}
           </Title>
           <Title variant="bgTransformSecundary" className="text-sm lg:text-base font-regular">
-            {userData.cargo}
+            {user?.profession}
           </Title>
         </div>
       </div>

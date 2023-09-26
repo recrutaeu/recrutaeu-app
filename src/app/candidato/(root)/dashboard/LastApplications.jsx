@@ -13,14 +13,14 @@ const LastApplications = withTheme(({ applications }) => {
           Ultimas candidaturas
         </Title>
         <div>
-          {applications.map((appli) => {
+          {applications?.map((application) => {
             return (
               <Application
                 variant="inverse"
                 key={1}
-                application={appli}
-                onClick={(appli) => {
-                  setselectedApplication(appli);
+                application={application}
+                onClick={(application) => {
+                  setselectedApplication(application);
                   setisApplicationOpen(true);
                 }}
               />
