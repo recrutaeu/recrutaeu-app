@@ -59,32 +59,41 @@ const SignIn = ({ variant = 'default' }) => {
       </Layout.Left>
 
       <Layout.Right className="flex flex-col items-center" variant="inverse">
-        <div className="w-full flex">
-          <AuthNavbar
-            variant="inverse"
-            onBack={() => {
-              route.push('/');
-            }}
-          />
-        </div>
-        <div className="w-full grow flex flex-col items-center justify-center gap-8">
-          <Title className={twMerge('text-5xl', style.titleForm[theme])}>
-            {candidate.signin.form.title}
-          </Title>
-          <p
-            className={twMerge('lg:hidden w-full text-base text-center', style.description[theme])}
-          >
-            {candidate.signin.form.description}
-          </p>
-          <PersonalForm variant="inverse" className="w-3/4" />
-        </div>
-        <div className="w-full flex justify-center gap-2">
-          <p className={twMerge('text-lg', style.description[theme])}>
-            {candidate.signin.buttonLink.description}
-          </p>
-          <ButtonLink href="/candidato/cadastro" variant="inverse" className="text-lg">
-            {candidate.signin.buttonLink.label}
-          </ButtonLink>
+        <div className="lg:pl-10  w-full h-full flex flex-col items-center">
+          <div className="w-full flex">
+            <AuthNavbar
+              variant="inverse"
+              onBack={() => {
+                route.push('/');
+              }}
+            />
+          </div>
+          <div className="w-full grow flex flex-col items-center justify-center  gap-6 lg:gap-8">
+            <Title className={twMerge('text-4xl lg:text-5xl', style.titleForm[theme])}>
+              {candidate.signin.form.title}
+            </Title>
+            <p
+              className={twMerge(
+                'lg:hidden w-full text-sm lg:text-base text-center',
+                style.description[theme],
+              )}
+            >
+              {candidate.signin.form.description}
+            </p>
+            <PersonalForm variant="inverse" className="w-3/4" />
+          </div>
+          <div className="w-full flex justify-center gap-2">
+            <p className={twMerge(' text-base lg:text-lg', style.description[theme])}>
+              {candidate.signin.buttonLink.description}
+            </p>
+            <ButtonLink
+              href="/candidato/cadastro"
+              variant="inverse"
+              className="text-base lg:text-lg"
+            >
+              {candidate.signin.buttonLink.label}
+            </ButtonLink>
+          </div>
         </div>
       </Layout.Right>
     </>
