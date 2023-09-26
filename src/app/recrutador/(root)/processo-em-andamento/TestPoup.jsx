@@ -22,8 +22,8 @@ const TestPopup = ({ isOpen, setIsOpen, application }) => {
   const { register, handleSubmit } = useForm({
     defaultValues: {
       link: test?.data?.link,
-      startAt: test?.data?.startAt.split('T')[0],
-      endAt: test?.data?.endAt.split('T')[0],
+      startAt: test?.data?.startAt.toDate().toISOString().split('T')[0],
+      endAt: test?.data?.endAt.toDate().toISOString().split('T')[0],
     },
     resolver: zodResolver(formSchema),
   });
@@ -43,8 +43,8 @@ const TestPopup = ({ isOpen, setIsOpen, application }) => {
       ...test,
       data: {
         ...formData,
-        startAt: new Date(formData.startAt).toISOString(),
-        endAt: new Date(formData.endAt).toISOString(),
+        startAt: new Date(formData.startAt),
+        endAt: new Date(formData.endAt),
       },
     };
 

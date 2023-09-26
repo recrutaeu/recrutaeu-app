@@ -63,7 +63,7 @@ const VacancyDetails = ({ vacancy, variant = 'default' }) => {
           type: 'subscribed',
           status: 'pending',
           data: {
-            date: new Date().toISOString(),
+            date: new Date(),
           },
         },
         {

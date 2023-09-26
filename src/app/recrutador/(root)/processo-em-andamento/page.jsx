@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GoAlertFill } from 'react-icons/go';
 import { twMerge } from 'tailwind-merge';
 import CardProcessContext from './CardProcessContext';
@@ -89,6 +89,37 @@ const JobProcess = () => {
   const { user } = useAuthContext();
   const { data: applications } = useFindAllApplicationByRecruiterIdHydrated({ userId: user.id });
 
+  useEffect(() => {
+    if (selectedApplication) {
+      const application = applications.find((item) => item.id === selectedApplication.id);
+      setSelectedApplication(application);
+    } else {
+      setSelectedApplication(applications?.[0]);
+    }
+  }, [applications]);
+
+  const titles = {
+    subscribed: 'Inscrição',
+    test: 'Teste',
+    interview: 'Entrevista',
+    feedback: 'Feedback',
+  };
+
+  const hasPendingStatus = (steps) => {
+    return !!steps.find((step) => !step.data);
+  };
+
+  const currentStep = (steps) => {
+    const currentStep = steps.reduce(
+      (last, item) => (item.index > last.index && item.status === 'approved' ? item : last),
+      steps[0],
+    );
+
+    return steps[currentStep.index + 1] && currentStep.status === 'approved'
+      ? steps[currentStep.index + 1]
+      : currentStep;
+  };
+
   return (
     <>
       <ProcessPopup isOpen={isOpen} setIsOpen={setIsOpen} application={selectedApplication} />
@@ -117,19 +148,22 @@ const JobProcess = () => {
               </div>
               <div className="flex gap-1 items-center">
                 <p className={style.title[theme]}>Status da candidatura:</p>
-                <p className={style.description[theme]}>{item.status}</p>
+                <p className={style.description[theme]}>{titles[currentStep(item.steps).type]}</p>
               </div>
-              <div
-                className={twMerge(
-                  'flex gap-2 items-center   py-1 rounded-sm px-2',
-                  style.backgroundAlert[theme],
-                )}
-              >
-                <GoAlertFill className={style.contextAlert[theme]} />
-                <p className={twMerge('text-sm', style.contextAlert[theme])}>
-                  existe pendencias no processo
-                </p>
-              </div>
+              {hasPendingStatus(item.steps) && (
+                <div
+                  className={twMerge(
+                    'flex gap-2 items-center   py-1 rounded-sm px-2',
+                    style.backgroundAlert[theme],
+                  )}
+                >
+                  <GoAlertFill className={style.contextAlert[theme]} />
+                  <p className={twMerge('text-sm', style.contextAlert[theme])}>
+                    existe pendencias no processo
+                  </p>
+                </div>
+              )}
+
               <div className="w-full flex justify-star mt-2">
                 <ButtonLabel
                   type="button"

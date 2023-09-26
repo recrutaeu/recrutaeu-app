@@ -45,8 +45,8 @@ const VacancyPopup = ({ isOpen, setIsOpen, vacancy }) => {
   const { register, handleSubmit, control, reset } = useForm({
     defaultValues: {
       ...vacancy,
-      startAt: vacancy?.startAt.split('T')[0],
-      endAt: vacancy?.endAt.split('T')[0],
+      startAt: vacancy?.startAt.toDate().toISOString().split('T')[0],
+      endAt: vacancy?.endAt.toDate().toISOString().split('T')[0],
     },
     resolver: zodResolver(formSchema),
   });
@@ -66,8 +66,8 @@ const VacancyPopup = ({ isOpen, setIsOpen, vacancy }) => {
       ...formData,
       id: vacancy?.id || uuid(),
       userId: user.id,
-      startAt: new Date(formData.startAt).toISOString(),
-      endAt: new Date(formData.endAt).toISOString(),
+      startAt: new Date(formData.startAt),
+      endAt: new Date(formData.endAt),
     };
 
     createVacancy(data);

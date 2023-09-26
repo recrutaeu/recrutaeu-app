@@ -9,10 +9,17 @@ const styles = {
       [themes.LIGHT]: 'text-neutral-90',
     },
   },
+  inverse: {
+    description: {
+      [themes.DEFAULT]: 'text-neutral-0',
+      [themes.DARK]: 'text-neutral-90 md:text-neutral-0',
+      [themes.LIGHT]: 'text-neutral-0 md:text-neutral-90',
+    },
+  },
 };
-const ProgressBar = ({ className, ...props }) => {
+const ProgressBar = ({ className, variant = 'default', ...props }) => {
   const { theme } = useTheme();
-  const style = styles['default'];
+  const style = styles[variant];
   const { bgcolor, completed, label } = props;
 
   const containerStyles = {

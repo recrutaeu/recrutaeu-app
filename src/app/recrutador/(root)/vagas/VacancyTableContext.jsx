@@ -43,7 +43,7 @@ const VacancyTableContext = ({ vacancy, onDetails, checkAll, selectedRows, setSe
   const CustomCell = ({ children, className }) => (
     <Table.Cells className={twMerge(style.background[theme], className)}>{children}</Table.Cells>
   );
-
+  console.log(vacancy);
   return (
     <tbody>
       <Table.Row>
@@ -75,10 +75,10 @@ const VacancyTableContext = ({ vacancy, onDetails, checkAll, selectedRows, setSe
           {vacancy.quantity}
         </CustomCell>
         <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
-          {new Date(vacancy.startAt).toLocaleDateString('pt-BR')}
+          {vacancy.startAt.toDate().toLocaleDateString('pt-BR')}
         </CustomCell>
         <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
-          {new Date(vacancy.endAt).toLocaleDateString('pt-BR')}
+          {vacancy.endAt.toDate().toLocaleDateString('pt-BR')}
         </CustomCell>
 
         <CustomCell>
