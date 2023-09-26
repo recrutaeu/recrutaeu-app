@@ -10,9 +10,9 @@ import { NumberPages } from '@/components/shared/NumberPages';
 import { Title } from '@/components/shared/Title';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
+import { useDeleteUserById } from '@/firebase/firestore/mutations';
 import { useFindAllUsersByCompanyId } from '@/firebase/firestore/queries';
 import { company } from '@/locales';
-import { useDeleteUserById } from '@/firebase/firestore/mutations';
 
 const styles = {
   default: {

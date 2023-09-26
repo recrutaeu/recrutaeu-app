@@ -1,3 +1,6 @@
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { DataPicker } from '@/components/shared/DataPicker';
 import { InputLabel } from '@/components/shared/InputLabel';
@@ -6,9 +9,6 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { withTheme } from '@/contexts/ThemeContext';
 import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 const PopupExtras = withTheme(
   ({ className, variant = 'default', setIsOpen, editItem, ...props }) => {

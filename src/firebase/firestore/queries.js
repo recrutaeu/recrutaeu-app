@@ -103,7 +103,6 @@ export const useFindUserById = ({ id, ...props }) =>
     ...props,
   });
 
-
 export const useFindAllInterviewsByUserId = ({ id, ...props }) =>
   useQuery({
     queryKey: ['interviews', id],
@@ -111,7 +110,7 @@ export const useFindAllInterviewsByUserId = ({ id, ...props }) =>
     ...props,
   });
 
-  export const useFindAllUsersByCompanyId = ({ id, ...props }) =>
+export const useFindAllUsersByCompanyId = ({ id, ...props }) =>
   useQuery({
     queryKey: ['users', id],
     queryFn: () => findAllUsersByCompanyId(id),

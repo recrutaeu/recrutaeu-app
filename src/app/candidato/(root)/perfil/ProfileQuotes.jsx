@@ -2,10 +2,10 @@
 
 import { LuPencil } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
+import { ButtonIcon } from '@/components/shared/ButtonIcon';
 import { Quote } from '@/components/shared/Quote';
 import { Title } from '@/components/shared/Title';
 import { withTheme, themes } from '@/contexts/ThemeContext';
-import { ButtonIcon } from '@/components/shared/ButtonIcon';
 
 const ProfileQuotes = withTheme(({ items, theme, onEdit, variant = 'default' }) => {
   const styles = {

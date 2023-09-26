@@ -6,12 +6,12 @@ import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { DataPicker } from '@/components/shared/DataPicker';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { Poup } from '@/components/shared/Poup';
+import { useAuthContext } from '@/contexts/AuthContext';
 import {
   useCreateOrUpdateApplication,
   useCreateOrUpdateInterview,
 } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
-import { useAuthContext } from '@/contexts/AuthContext';
 
 const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
   const [error, setError] = useState(undefined);

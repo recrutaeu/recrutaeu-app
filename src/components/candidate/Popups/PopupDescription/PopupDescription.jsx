@@ -1,11 +1,11 @@
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { TextArea } from '@/components/shared/TextArea';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { withTheme } from '@/contexts/ThemeContext';
 import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 const PopupDescription = withTheme(
   ({ className, variant = 'default', editItem, setIsOpen, ...props }) => {
