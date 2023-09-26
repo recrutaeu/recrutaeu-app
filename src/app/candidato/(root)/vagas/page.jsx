@@ -60,7 +60,7 @@ const VacancyList = ({ variant = 'default' }) => {
             {commons.jobs.numberJobs.replace('{amount}', vacancies?.length || 0)}
           </p>
 
-          <div className="my-4 h-full">
+          <div className="my-4 h-full overflow-auto">
             {vacancies?.map((vacancy) => (
               <Vacancy
                 key={vacancy?.id}
@@ -72,7 +72,7 @@ const VacancyList = ({ variant = 'default' }) => {
               />
             ))}
           </div>
-
+          
           <NumberPages currentPage={1} totalPage={1} />
         </Card>
 
