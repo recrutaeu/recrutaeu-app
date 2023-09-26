@@ -24,7 +24,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [isOpenEducation, setIsOpenEducation] = useState(false);
   const [isOpenExperiences, setIsOpenExperiences] = useState(false);
   const [isOpenExtras, setIsOpenExtras] = useState(false);
-  const [isOpenSkills, setIsOpenSkills] = useState(true);
+  const [isOpenSkills, setIsOpenSkills] = useState(false);
 
   const { user } = useAuthContext();
 
@@ -32,7 +32,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [escolaridade, setEscolaridade] = useState([]);
   const [experiencia, setExperiencia] = useState([]);
   const [cursos, setCursos] = useState([]);
-  const [skills, setSkills] = useState(['teste', 'testt2']);
+  const [skills, setSkills] = useState(['teste', teste]);
 
   const buscarEscolaridade = useCallback(async () => {
     const { result } = await getDataUser('escolaridade', user.uid);
