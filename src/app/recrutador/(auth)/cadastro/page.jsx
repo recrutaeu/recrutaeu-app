@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { SignupForm } from '@/components/recruiter/Signup';
@@ -38,14 +39,14 @@ const SignUp = ({ variant = 'default' }) => {
   return (
     <>
       <Layout.Left className="hidden lg:flex flex-col">
-        <div className="mb-40">
+        <Link href="/" className="mb-40 cursor-pointer">
           <Image
             src={`/assets/images/${style.logo[theme]}.png`}
             width={120}
             height={120}
             alt="logo recrutaeu"
           />
-        </div>
+        </Link>
         <div className="flex flex-col  gap-4">
           <Title>{recruiter.signup.title}</Title>
           <p className={twMerge('text-xl', style.text[theme])}>{recruiter.signup.description}</p>

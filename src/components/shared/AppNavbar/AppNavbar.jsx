@@ -9,9 +9,6 @@ const AppNavbar = ({ variant, className }) => {
   return (
     <div className={twMerge('flex w-full items-center', className)}>
       <Navbar.Root>
-        <Navbar.Link active={pathname === '/'} variant={variant} href="/">
-          {commons.navbar.home}
-        </Navbar.Link>
         <Navbar.Link
           active={pathname.includes('/candidato')}
           variant={variant}

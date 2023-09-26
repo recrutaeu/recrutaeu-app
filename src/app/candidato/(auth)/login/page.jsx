@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { PersonalForm } from '@/components/candidate/SigninForm/SigninForm';
@@ -43,14 +44,14 @@ const SignIn = ({ variant = 'default' }) => {
   return (
     <>
       <Layout.Left className="hidden lg:flex flex-col" variant="inverse">
-        <div className="mb-40">
+        <Link href="/" className="mb-40 cursor-pointer">
           <Image
             src={`/assets/images/${style.logo[theme]}.png`}
             width={120}
             height={120}
             alt="logo recrutaeu"
           />
-        </div>
+        </Link>
         <div className="flex flex-col w-3/4 gap-4">
           <Title variant="inverse">{candidate.signin.title}</Title>
           <p className={twMerge('text-xl', style.text[theme])}>{candidate.signin.description}</p>
@@ -58,15 +59,6 @@ const SignIn = ({ variant = 'default' }) => {
       </Layout.Left>
 
       <Layout.Right className="flex flex-col items-center" variant="inverse">
-        {/* <div className="w-full flex">
-          <AuthNavbar
-            variant="inverse"
-            onBack={() => {
-              route.push('/');
-            }}
-            className="w-full"
-          />
-        </div> */}
         <div className="w-full flex">
           <AuthNavbar
             variant="inverse"

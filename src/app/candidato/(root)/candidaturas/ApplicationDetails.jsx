@@ -37,7 +37,7 @@ const ApplicationDetails = ({ isOpen, setIsOpen, application }) => {
                 <>
                   <div
                     className={twMerge(
-                      'flex lg:items-center flex-col lg:flex-row  gap-1lg:gap-5 rounded-md p-2',
+                      'flex lg:items-center flex-col lg:flex-row  gap-1 lg:gap-5 rounded-md p-2',
                       style.backgroundCard[theme],
                     )}
                   >
