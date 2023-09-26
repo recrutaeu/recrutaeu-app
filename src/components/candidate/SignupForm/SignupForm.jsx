@@ -89,6 +89,10 @@ const PersonalForm = ({ variant = 'default' }) => {
       name: formData.name,
       roles: ['candidate'],
       email: formData.email,
+      contact: '',
+      summary: '',
+      subtitle: '',
+      extras: []
     };
     createOrUpdateUser(data);
   };

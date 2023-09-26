@@ -7,7 +7,7 @@ import { Quote } from '@/components/shared/Quote';
 import { Title } from '@/components/shared/Title';
 import { withTheme, themes } from '@/contexts/ThemeContext';
 
-const ProfileQuotes = withTheme(({ items, theme, onEdit, variant = 'default' }) => {
+const ProfileQuotes = withTheme(({ items, theme, onEdit, variant = 'default', setEditingObject=()=>{} }) => {
   const styles = {
     default: {
       text: {
