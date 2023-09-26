@@ -62,12 +62,19 @@ const Recruiters = ({}) => {
           </div>
         </div>
       </div>
-      <RecruiterTable
-        recruiters={recruiters}
-        onDelete={(recruiter) => {
-          deleteUser(recruiter.id);
-        }}
-      />
+
+      {recruiters?.length > 0 ? (
+        <RecruiterTable
+          recruiters={recruiters}
+          onDetails={(recruiter) => {
+            setIsOpenDetails(true);
+            setSelectRecruiter(recruiter);
+          }}
+        />
+      ) : (
+        <p className={style.description[theme]}>Nenhum colaborador adicionado até o momento.</p>
+      )}
+
       <div className="w-full flex justify-center items-center">
         <NumberPages currentPage={1} totalPage={10} variant="inverse" />
       </div>
