@@ -42,7 +42,7 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
       <div>
         <div className="flex flex-col items-center lg:items-start">
           <Title variant="bgTransform" className="text-base lg:text-xl">
-            {userData?.name}
+            {userData?.name}{' '}
           </Title>
           <Title variant="bgTransform" className="text-sm lg:text-base">
             {userData?.role}
