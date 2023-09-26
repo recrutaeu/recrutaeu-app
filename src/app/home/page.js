@@ -90,7 +90,12 @@ const Home = ({ variant = 'default' }) => {
           <AppNavbar variant="inverse" className="lg:hidden" />
         </div>
         <div className="hidden lg:flex lg:absolute z-10 top-[60%] left-0 flex-col w-full gap-3 ">
-          <p className={twMerge('uppercase lg:text-7xl xl:text-8xl font-bold leading-none', style.text[theme])}>
+          <p
+            className={twMerge(
+              'uppercase lg:text-7xl xl:text-8xl font-bold leading-none',
+              style.text[theme],
+            )}
+          >
             {commons.home.authenticity}
           </p>
           <p
