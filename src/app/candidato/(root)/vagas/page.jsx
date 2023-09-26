@@ -72,7 +72,7 @@ const VacancyList = ({ variant = 'default' }) => {
               />
             ))}
           </div>
-          
+
           <NumberPages currentPage={1} totalPage={1} />
         </Card>
 

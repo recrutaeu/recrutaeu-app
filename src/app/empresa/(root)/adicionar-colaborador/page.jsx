@@ -63,14 +63,17 @@ const Recruiters = ({}) => {
         </div>
       </div>
 
-      {recruiters?.length > 0 
-        ?  <RecruiterTable recruiters={recruiters}
-            onDetails={(recruiter) => {
+      {recruiters?.length > 0 ? (
+        <RecruiterTable
+          recruiters={recruiters}
+          onDetails={(recruiter) => {
             setIsOpenDetails(true);
             setSelectRecruiter(recruiter);
-          }}/>
-        : <p className={style.description[theme]}>Nenhum colaborador adicionado até o momento.</p>
-        }
+          }}
+        />
+      ) : (
+        <p className={style.description[theme]}>Nenhum colaborador adicionado até o momento.</p>
+      )}
 
       <div className="w-full flex justify-center items-center">
         <NumberPages currentPage={1} totalPage={10} variant="inverse" />
