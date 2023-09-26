@@ -5,7 +5,6 @@ import { twMerge } from 'tailwind-merge';
 import { Vacancy } from './Vacancy';
 import { VacancyDetails } from './VacancyDetails';
 import { Card } from '@/components/shared/Card';
-import { Filter } from '@/components/shared/Filter';
 import { InputSearch } from '@/components/shared/InputSearch';
 import { NumberPages } from '@/components/shared/NumberPages';
 import { Poup } from '@/components/shared/Poup';
@@ -51,7 +50,6 @@ const VacancyList = ({ variant = 'default' }) => {
               placeholder="pesquisar por vagas"
               className="w-full"
             />
-            <Filter size={40} />
           </div>
           <p
             className={twMerge(

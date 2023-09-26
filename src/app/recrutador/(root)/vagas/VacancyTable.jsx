@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { VacancyTableContext } from './VacancyTableContext';
 import { ButtonSelectAll } from '@/components/shared/ButtonSelectAll';
-import { Filter } from '@/components/shared/Filter';
 import { Table } from '@/components/shared/Table';
 import { commons } from '@/locales';
 
@@ -19,33 +18,24 @@ const VacancyTable = ({ vacancies, className, onDetails, selectedRows, setSelect
             </div>
           </Table.Header>
           <Table.Header>
-            <div className="flex items-center text-sm lg:text-base">
-              {commons.tableJobs.jobs}
-              <Filter size={20} variant="inverse" />
-            </div>
+            <div className="flex items-center text-sm lg:text-base">{commons.tableJobs.jobs}</div>
           </Table.Header>
           <Table.Header>
-            <div className="flex items-center text-sm lg:text-base">
-              {commons.tableJobs.sector}
-              <Filter size={20} variant="inverse" />
-            </div>
+            <div className="flex items-center text-sm lg:text-base">{commons.tableJobs.sector}</div>
           </Table.Header>
           <Table.Header className={'hidden lg:table-cell'}>
             <div className="flex items-center justify-center text-sm lg:text-base">
               {commons.tableJobs.numberJobs}
-              <Filter size={20} variant="inverse" />
             </div>
           </Table.Header>
           <Table.Header className={'hidden lg:table-cell'}>
             <div className="flex items-center justify-center text-sm lg:text-base">
               {commons.tableJobs.initialDate}
-              <Filter size={20} variant="inverse" />
             </div>
           </Table.Header>
           <Table.Header className={'hidden lg:table-cell'}>
             <div className="flex items-center justify-center text-sm lg:text-base">
               {commons.tableJobs.finalDate}
-              <Filter size={20} variant="inverse" />
             </div>
           </Table.Header>
           <Table.Header className={'justify-center text-center text-sm lg:text-base'}>

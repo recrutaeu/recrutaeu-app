@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { RecruiterTableContext } from './RecruiterTableContext';
 import { ButtonSelectAll } from '@/components/shared/ButtonSelectAll';
-import { Filter } from '@/components/shared/Filter';
 import { Table } from '@/components/shared/Table';
 import { commons } from '@/locales';
 
@@ -20,13 +19,11 @@ const RecruiterTable = ({ recruiters, className, onDetails }) => {
           <Table.Header>
             <div className="flex items-center text-sm lg:text-base">
               {commons.tableRecruiters.name}
-              <Filter size={20} variant="inverse" />
             </div>
           </Table.Header>
           <Table.Header>
             <div className="flex items-center text-sm lg:text-base">
               {commons.tableRecruiters.email}
-              <Filter size={20} variant="inverse" />
             </div>
           </Table.Header>
         </Table.Row>

@@ -1,6 +1,5 @@
 'use client';
 import { twMerge } from 'tailwind-merge';
-import { Filter } from '@/components/shared/Filter';
 import { InputSearch } from '@/components/shared/InputSearch';
 import { NumberPages } from '@/components/shared/NumberPages';
 import { Quote } from '@/components/shared/Quote';
@@ -60,7 +59,6 @@ const WeeksSchedule = ({}) => {
 
         <div className="flex lg:w-1/2 gap-1 mt-3">
           <InputSearch variant="inverseSecundary" />
-          <Filter className="w-7 h-7 lg:w-8 lg:h-8" variant="inverse" />
         </div>
       </div>
 
