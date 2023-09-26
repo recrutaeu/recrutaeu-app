@@ -30,7 +30,7 @@ const Settings = () => {
       </div>
 
       <div className="overflow-auto h-full">
-        <div className="flex flex-col lg:flex-row gap-8 px-5">
+        <div className="flex flex-col lg:flex-row gap-8 px-5 pb-5 lg:pb-10">
           <div className="w-full flex flex-col-reverse lg:flex-col  gap-5">
             <form className="flex w-full flex-col gap-3 pt-5 lg:pt-0">
               <p className={style.title[theme]}>{commons.settings.form.titleDocument}</p>
@@ -136,6 +136,20 @@ const Settings = () => {
                   { value: 'Preto', label: 'Preto' },
                   { value: 'Pardo', label: 'Pardo' },
                   { value: 'Outro', label: 'Outro' },
+                ]}
+                onChange={console.log}
+              />
+
+              <Select
+                variant="inverse"
+                titleLabel="Orientação Sexual:"
+                label="---"
+                options={[
+                  { value: 'hetero', label: 'Hétero' },
+                  { value: 'gay', label: 'Gay' },
+                  { value: 'lesbica', label: 'Lesbica' },
+                  { value: 'outro', label: 'Outro' },
+                  { value: 'na', label: 'Prefiro não dizer' },
                 ]}
                 onChange={console.log}
               />
