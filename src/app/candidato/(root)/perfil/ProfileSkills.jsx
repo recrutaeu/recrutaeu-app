@@ -1,9 +1,8 @@
-import { twMerge } from 'tailwind-merge';
-import { ProfileQuotes } from './ProfileQuotes';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { SkillPill } from '@/components/shared/SkillPill/SkillPill';
 import { Title } from '@/components/shared/Title';
-import { withTheme, themes } from '@/contexts/ThemeContext';
+import { themes, withTheme } from '@/contexts/ThemeContext';
+import { twMerge } from 'tailwind-merge';
 
 const ProfileSkills = withTheme(({ title, skills, onAdd, theme, variant = 'default' }) => {
   const styles = {

@@ -2,6 +2,7 @@
 import { LuX } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
+import { LuX } from 'react-icons/lu';
 
 const styles = {
   default: {
