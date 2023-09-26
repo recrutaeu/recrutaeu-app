@@ -16,12 +16,15 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 import getDataUser from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
+import { ProfileSkills } from './ProfileSkills';
+import { PopupSkills } from '@/components/candidate/Popups/PopupSkills/PopupSkills';
 
 const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [isOpenDescription, setIsOpenDescription] = useState(false);
   const [isOpenEducation, setIsOpenEducation] = useState(false);
   const [isOpenExperiences, setIsOpenExperiences] = useState(false);
   const [isOpenExtras, setIsOpenExtras] = useState(false);
+  const [isOpenSkills, setIsOpenSkills] = useState(true);
 
   const { user } = useAuthContext();
 
@@ -29,6 +32,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [escolaridade, setEscolaridade] = useState([]);
   const [experiencia, setExperiencia] = useState([]);
   const [cursos, setCursos] = useState([]);
+  const [skills, setSkills] = useState(['teste', 'testt2']);
 
   const buscarEscolaridade = useCallback(async () => {
     const { result } = await getDataUser('escolaridade', user.uid);
@@ -84,47 +88,6 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
 
   const style = styles[variant];
 
-  const userData = {
-    name: userLogged.nome,
-    subtitle: 'UI Designer',
-    profile_img: '/assets/images/img_profile.png',
-    contact: '+55 11 98977-3645',
-    email: 'helena@email.com',
-    summary: '',
-    work_experience: [
-      {
-        id: 1,
-        title: 'Fiap LTDA',
-        subtitle: 'UI Design',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat',
-        start: '20/04/2020',
-        end: '20/04/22',
-      },
-      {
-        id: 1,
-        title: 'Fiap LTDA',
-        subtitle: 'UI Design',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat',
-        start: '20/04/2020',
-        end: '20/04/22',
-      },
-    ],
-    education: [
-      {
-        id: 1,
-        title: 'Fiap LTDA',
-        subtitle: 'UI Design',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat',
-        start: '20/04/2020',
-        end: '20/04/22',
-      },
-    ],
-    extras: [],
-  };
-
   return (
     <div className="h-full overflow-auto px-5">
       <Title className="text-3xl mb-2" variant="inverse">
@@ -157,6 +120,11 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
             content={cursos}
             onAdd={() => setIsOpenExtras(true)}
           />
+          <ProfileSkills
+            title={'Skills'}
+            skills={skills}
+            onAdd={() => setIsOpenSkills(true)}
+          />
         </div>
       </Card>
       <Popup title={'Descrição'} isOpen={isOpenDescription} setIsOpen={setIsOpenDescription}>
@@ -170,6 +138,9 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
       </Popup>
       <Popup title={'Cursos e Idiomas'} isOpen={isOpenExtras} setIsOpen={setIsOpenExtras}>
         <PopupExtras />
+      </Popup>
+      <Popup title={'Habilidades'} isOpen={isOpenSkills} setIsOpen={setIsOpenSkills}>
+        <PopupSkills skills={skills}/>
       </Popup>
     </div>
   );
