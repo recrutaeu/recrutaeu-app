@@ -31,13 +31,12 @@ const InformationApplication = ({ application, variant = 'default' }) => {
   const vacancy = application?.vacancy;
   const { mutate: deleteApplicationById } = useDeleteApplicationById();
 
-
-  if(!application){
+  if (!application) {
     return (
-      <div className='w-full h-full flex justify-center items-center'>
-          <p className=''>Selecione uma candidatura</p>
+      <div className="w-full h-full flex justify-center items-center">
+        <p className="">Selecione uma candidatura</p>
       </div>
-    )
+    );
   }
 
   return (
