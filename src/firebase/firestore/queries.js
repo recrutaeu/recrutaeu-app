@@ -45,6 +45,7 @@ const makeFindOneWhere = (coll, field) => async (value) => {
 export const findUserByAuthId = makeFindOneWhere('users', 'authId');
 const findUserById = makeFindOneWhere('users', 'id');
 const findAllUsersByCompanyId = makeFindAllWhere('users', 'companyId');
+const findAllInterviewsByUserId = makeFindAllWhere('interviews', 'date');
 const findAllVacanciesByUserId = makeFindAllWhere('vacancies', 'userId');
 const findAllVacanciesByIds = makeFindAllWhere('vacancies', 'id', 'in');
 const findAllVacancies = makeFindAll('vacancies');

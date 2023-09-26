@@ -48,6 +48,11 @@ const styles = {
     [themes.DARK]: 'text-neutral-90',
     [themes.LIGHT]: 'text-neutral-0',
   },
+  inverseFormDetails: {
+    [themes.DEFAULT]: 'text-primary-40',
+    [themes.DARK]: 'text-neutral-90',
+    [themes.LIGHT]: 'text-neutral-0',
+  },
 };
 
 const Title = ({ children, variant = 'default', className, ...props }) => {

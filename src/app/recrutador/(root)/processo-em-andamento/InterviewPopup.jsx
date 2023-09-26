@@ -6,7 +6,11 @@ import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { DataPicker } from '@/components/shared/DataPicker';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { Poup } from '@/components/shared/Poup';
-import { useCreateOrUpdateApplication } from '@/firebase/firestore/mutations';
+import {
+  useCreateOrUpdateApplication,
+  useCreateOrUpdateInterview,
+} from '@/firebase/firestore/mutations';
+import { uuid } from '@/firebase/uuid';
 
 const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
   const [error, setError] = useState(undefined);
@@ -25,7 +29,7 @@ const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
       employee: interview?.data?.employee,
       link: interview?.data?.link,
       address: interview?.data?.address,
-      date: interview?.data?.date.split('T')[0],
+      date: interview?.data?.date.toDate().toISOString().split('T')[0],
     },
     resolver: zodResolver(formSchema),
   });
@@ -39,11 +43,18 @@ const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
     },
   });
 
+  const { mutate: createOrUpdateInterview } = useCreateOrUpdateInterview();
+
   const handleForm = async (formData) => {
     const interview = application.steps.find((item) => item.type === 'interview');
+    const data = {
+      ...formData,
+      id: interview?.data?.id || uuid(),
+      date: new Date(formData.date),
+    };
     const newInterview = {
       ...interview,
-      data: { ...formData, date: new Date(formData.date).toISOString() },
+      data,
     };
 
     const steps = application.steps.map((item) =>
@@ -53,6 +64,14 @@ const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
     createOrUpdateApplication({
       id: application.id,
       steps,
+    });
+    console.log(application.vacancy.userId);
+    createOrUpdateInterview({
+      id: newInterview?.data?.id,
+      ...data,
+      userId: application.vacancy.userId,
+      candidate: application.candidate,
+      vacancy: application.vacancy,
     });
   };
 
