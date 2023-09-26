@@ -48,7 +48,7 @@ const Home = ({ variant = 'default' }) => {
         style.background[theme],
       )}
     >
-      <Container className="relative lg:min-h-[900px]">
+      <Container className="relative">
         <div className="grow flex w-full flex-col items-center lg:items-start lg:gap-3">
           <div className="w-full flex justify-between">
             <Image
@@ -90,12 +90,17 @@ const Home = ({ variant = 'default' }) => {
           <AppNavbar variant="inverse" className="lg:hidden" />
         </div>
         <div className="hidden lg:flex lg:absolute z-10 top-[60%] left-0 flex-col w-full gap-3 ">
-          <p className={twMerge('uppercase text-[92px] font-bold leading-none', style.text[theme])}>
+          <p
+            className={twMerge(
+              'uppercase lg:text-7xl xl:text-8xl font-bold leading-none',
+              style.text[theme],
+            )}
+          >
             {commons.home.authenticity}
           </p>
           <p
             className={twMerge(
-              'uppercase text-[92px] font-bold leading-none ml-[40%] mr-10',
+              'uppercase lg:text-7xl xl:text-8xl font-bold leading-none ml-[40%] mr-10',
               style.middleText[theme],
             )}
           >
@@ -103,7 +108,7 @@ const Home = ({ variant = 'default' }) => {
           </p>
           <p
             className={twMerge(
-              'uppercase text-[92px] font-bold leading-none ml-[5%]',
+              'uppercase lg:text-7xl xl:text-8xl font-bold leading-none ml-[5%]',
               style.text[theme],
             )}
           >
