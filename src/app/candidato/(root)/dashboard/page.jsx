@@ -44,7 +44,7 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
     profile_img: '/assets/images/img_profile.png',
     contact: '+55 11 98977-3645',
     email: 'helena@email.com',
-    summary: '',
+    summary: 'A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica para preencher os espaços de texto em publicações para testar e ajustar aspectos visuais antes de utilizar conteúdo real. ',
     applications: [
       {
         titulo: 'Teste',
@@ -98,7 +98,7 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
         <div className="flex-col flex-wrap h-full gap-5 lg:grid lg:grid-cols-5 lg:grid-rows-[0.5fr_1fr_1fr_1fr_1fr]">
           <Card
             className={twMerge(
-              'order-1 lg:flex lg:items-center lg:col-start-3 lg:col-end-6 lg:row-span-2 lg:row-start-4 row-end-5',
+              'order-1 lg:flex lg:items-center lg:col-start-3 lg:col-end-6 lg:row-span-2 lg:row-start-1 lg:row-end-2',
               style.card[theme],
             )}
           >
@@ -106,7 +106,7 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
           </Card>
           <Card
             className={twMerge(
-              'order-2 lg:col-start-1 lg:col-end-3 lg:row-span-2',
+              'order-2 lg:col-start-1 lg:col-end-3 lg:row-span-1',
               style.card[theme],
             )}
           >
@@ -114,13 +114,13 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
           </Card>
           <Card
             className={twMerge(
-              'order-3 lg:col-start-1 lg:col-end-3 lg:row-span-3',
+              'order-3 lg:col-start-1 lg:col-end-3 lg:row-span-4',
               style.card[theme],
             )}
           >
             <LastApplications applications={userData.applications} />
           </Card>
-          <div className="order-4 lg:col-start-3 lg:col-end-6 lg:row-start-1 row-end-4">
+          <div className="order-4 lg:col-start-3 lg:col-end-6 lg:row-start-2 row-end-6">
             <SuggestedVacancy />
           </div>
         </div>

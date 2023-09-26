@@ -9,9 +9,9 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
   const styles = {
     default: {
       text: {
-        [themes.DEFAULT]: 'text-neutral-0 md:text-neutral-90',
-        [themes.DARK]: 'text-neutral-90 md:text-neutral-0',
-        [themes.LIGHT]: 'text-neutral-0 md:text-neutral-90',
+        [themes.DEFAULT]: 'text-neutral-0',
+        [themes.DARK]: 'text-neutral-0',
+        [themes.LIGHT]: 'text-neutral-90',
       },
       icon: {
         [themes.DEFAULT]: 'text-primary-90',
@@ -46,6 +46,7 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
           <Title variant="bgTransformSecundary" className="text-sm lg:text-base font-regular">
             {userData.cargo}
           </Title>
+          <p className={twMerge(style.text[theme], 'hidden md:block mt-2 text-sm')}> {userData.summary}</p>
         </div>
       </div>
     </div>

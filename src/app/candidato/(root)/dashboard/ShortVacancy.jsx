@@ -1,11 +1,7 @@
-import { LuChevronRight } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { Card } from '@/components/shared/Card';
-import { Divider } from '@/components/shared/Divider';
-import { Stepper } from '@/components/shared/Stepper';
 import { themes, useTheme } from '@/contexts/ThemeContext';
-import { commons } from '@/locales';
 
 const styles = {
   default: {
@@ -23,7 +19,7 @@ const ShortVacancy = ({ vacancy, variant = 'default', onClick, ...props }) => {
 
   return (
     <Card
-      className="flex flex-col items-center flex-wrap px-2 py-3 cursor-pointer"
+      className="flex flex-col items-center flex-wrap px-5 py-5 cursor-pointer h-full"
       onClick={onClick}
     >
       <p className={twMerge('text-sm font-bold leading-6', style.text[theme])}>{vacancy?.titulo}</p>

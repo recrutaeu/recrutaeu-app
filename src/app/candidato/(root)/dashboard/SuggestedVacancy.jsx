@@ -13,7 +13,7 @@ const SuggestedVacancy = withTheme(({ applications }) => {
         <Title variant="bgTransformTertiary" className="text-xl mb-5">
           Vagas sugeridas
         </Title>
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="flex gap-3 justify-between">
           {/* {applications.map((appli) => {
                 return (
                     <Application
@@ -41,65 +41,7 @@ const SuggestedVacancy = withTheme(({ applications }) => {
               estado: 'SP',
             }}
           />
-          <ShortVacancy
-            vacancy={{
-              titulo: 'Banco itau',
-              vaga: 'Design Gráfico',
-              cidade: 'São Paulo',
-              estado: 'SP',
-            }}
-          />
-          <ShortVacancy
-            vacancy={{
-              titulo: 'Banco itau',
-              vaga: 'Design Gráfico',
-              cidade: 'São Paulo',
-              estado: 'SP',
-            }}
-          />
-          <ShortVacancy
-            vacancy={{
-              titulo: 'Banco itau',
-              vaga: 'Design Gráfico',
-              cidade: 'São Paulo',
-              estado: 'SP',
-            }}
-          />
-          <ShortVacancy
-            vacancy={{
-              titulo: 'Banco itau',
-              vaga: 'Design Gráfico',
-              cidade: 'São Paulo',
-              estado: 'SP',
-            }}
-          />
-          <ShortVacancy
-            vacancy={{
-              titulo: 'Banco itau',
-              vaga: 'Design Gráfico',
-              cidade: 'São Paulo',
-              estado: 'SP',
-            }}
-          />
-          <ShortVacancy
-            vacancy={{
-              titulo: 'Banco itau',
-              vaga: 'Design Gráfico',
-              cidade: 'São Paulo',
-              estado: 'SP',
-            }}
-          />
-          <div className="hidden lg:flex md:w-full">
-            <ShortVacancy
-              className="w-full"
-              vacancy={{
-                titulo: 'Banco itau',
-                vaga: 'Design Gráfico',
-                cidade: 'São Paulo',
-                estado: 'SP',
-              }}
-            />
-          </div>
+
         </div>
         <div className="hidden w-full items-center lg:flex justify-center py-6">
           <ButtonLabel type="button">veja mais</ButtonLabel>
