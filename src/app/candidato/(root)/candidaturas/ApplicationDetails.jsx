@@ -42,7 +42,9 @@ const ApplicationDetails = ({ isOpen, setIsOpen, application }) => {
                     )}
                   >
                     <div className="flex gap-2 items-center">
-                      <p className={twMerge(' text-base lg:text-lg font-medium', style.text[theme])}>
+                      <p
+                        className={twMerge(' text-base lg:text-lg font-medium', style.text[theme])}
+                      >
                         Data da candidatura:
                       </p>
                       <p className={twMerge('text-base', style.text[theme])}>
@@ -50,7 +52,9 @@ const ApplicationDetails = ({ isOpen, setIsOpen, application }) => {
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
-                      <p className={twMerge('text-base lg:text-lg font-medium', style.text[theme])}>Status:</p>
+                      <p className={twMerge('text-base lg:text-lg font-medium', style.text[theme])}>
+                        Status:
+                      </p>
                       <p className={twMerge('text-base font-light', style.text[theme])}>
                         {step.status}
                       </p>
@@ -69,7 +73,9 @@ const ApplicationDetails = ({ isOpen, setIsOpen, application }) => {
                       style.backgroundCard[theme],
                     )}
                   >
-                    <p className={twMerge('text-base lg:text-xl font-medium', style.text[theme])}>Etapa teste</p>
+                    <p className={twMerge('text-base lg:text-xl font-medium', style.text[theme])}>
+                      Etapa teste
+                    </p>
                     <div className="flex gap-2 items-center">
                       <p className={twMerge('text-base font-medium', style.text[theme])}>Link:</p>
                       <Link
@@ -110,7 +116,9 @@ const ApplicationDetails = ({ isOpen, setIsOpen, application }) => {
                       style.backgroundCard[theme],
                     )}
                   >
-                    <p className={twMerge('text-base lg:text-xl font-medium', style.text[theme])}>Entrevista</p>
+                    <p className={twMerge('text-base lg:text-xl font-medium', style.text[theme])}>
+                      Entrevista
+                    </p>
                     <div className="flex gap-2 items-center">
                       <p className={twMerge('text-base font-medium', style.text[theme])}>Link:</p>
                       <Link
@@ -168,7 +176,9 @@ const ApplicationDetails = ({ isOpen, setIsOpen, application }) => {
                       style.backgroundCard[theme],
                     )}
                   >
-                    <p className={twMerge('text-base lg:text-xl font-medium', style.text[theme])}>Feedback</p>
+                    <p className={twMerge('text-base lg:text-xl font-medium', style.text[theme])}>
+                      Feedback
+                    </p>
 
                     <p className={twMerge('text-base', style.text[theme])}>{step.data.feedback}</p>
                   </div>
