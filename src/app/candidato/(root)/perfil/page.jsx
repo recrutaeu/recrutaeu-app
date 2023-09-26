@@ -4,13 +4,15 @@ import React, { useCallback, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { DescriptionSection } from './DescriptionSection';
 import { ProfileSection } from './ProfileSection';
+import { ProfileSkills } from './ProfileSkills';
 import { UserInfo } from './UserInfo';
 import { PopupDescription } from '@/components/candidate/Popups/PopupDescription';
 import { PopupEducation } from '@/components/candidate/Popups/PopupEducation';
 import { PopupExperiences } from '@/components/candidate/Popups/PopupExperiences';
 import { PopupExtras } from '@/components/candidate/Popups/PopupExtras';
+import { PopupSkills } from '@/components/candidate/Popups/PopupSkills/PopupSkills';
 import { Card } from '@/components/shared/Card';
-import { Popup } from '@/components/shared/Popup';
+import { Poup } from '@/components/shared/Poup';
 import { Title } from '@/components/shared/Title';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, withTheme } from '@/contexts/ThemeContext';
@@ -22,6 +24,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [isOpenEducation, setIsOpenEducation] = useState(false);
   const [isOpenExperiences, setIsOpenExperiences] = useState(false);
   const [isOpenExtras, setIsOpenExtras] = useState(false);
+  const [isOpenSkills, setIsOpenSkills] = useState(false);
 
   const { user } = useAuthContext();
 
@@ -29,6 +32,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [escolaridade, setEscolaridade] = useState([]);
   const [experiencia, setExperiencia] = useState([]);
   const [cursos, setCursos] = useState([]);
+  const [skills, setSkills] = useState(['teste', 'teste']);
 
   const buscarEscolaridade = useCallback(async () => {
     const { result } = await getDataUser('escolaridade', user.uid);
@@ -84,47 +88,6 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
 
   const style = styles[variant];
 
-  const userData = {
-    name: userLogged.nome,
-    subtitle: 'UI Designer',
-    profile_img: '/assets/images/img_profile.png',
-    contact: '+55 11 98977-3645',
-    email: 'helena@email.com',
-    summary: '',
-    work_experience: [
-      {
-        id: 1,
-        title: 'Fiap LTDA',
-        subtitle: 'UI Design',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat',
-        start: '20/04/2020',
-        end: '20/04/22',
-      },
-      {
-        id: 1,
-        title: 'Fiap LTDA',
-        subtitle: 'UI Design',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat',
-        start: '20/04/2020',
-        end: '20/04/22',
-      },
-    ],
-    education: [
-      {
-        id: 1,
-        title: 'Fiap LTDA',
-        subtitle: 'UI Design',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat',
-        start: '20/04/2020',
-        end: '20/04/22',
-      },
-    ],
-    extras: [],
-  };
-
   return (
     <div className="h-full overflow-auto px-5">
       <Title className="text-3xl mb-2" variant="inverse">
@@ -157,20 +120,49 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
             content={cursos}
             onAdd={() => setIsOpenExtras(true)}
           />
+          <ProfileSkills title={'Skills'} skills={skills} onAdd={() => setIsOpenSkills(true)} />
         </div>
       </Card>
-      <Popup title={'Descrição'} isOpen={isOpenDescription} setIsOpen={setIsOpenDescription}>
+      <Poup
+        variant="inverseForm"
+        title={'Descrição'}
+        isOpen={isOpenDescription}
+        setIsOpen={setIsOpenDescription}
+      >
         <PopupDescription user={userLogged} />
-      </Popup>
-      <Popup title={'Ultimas Empresas'} isOpen={isOpenExperiences} setIsOpen={setIsOpenExperiences}>
+      </Poup>
+      <Poup
+        variant="inverseForm"
+        title={'Ultimas Empresas'}
+        isOpen={isOpenExperiences}
+        setIsOpen={setIsOpenExperiences}
+      >
         <PopupExperiences />
-      </Popup>
-      <Popup title={'Escolaridade'} isOpen={isOpenEducation} setIsOpen={setIsOpenEducation}>
+      </Poup>
+      <Poup
+        variant="inverseForm"
+        title={'Escolaridade'}
+        isOpen={isOpenEducation}
+        setIsOpen={setIsOpenEducation}
+      >
         <PopupEducation />
-      </Popup>
-      <Popup title={'Cursos e Idiomas'} isOpen={isOpenExtras} setIsOpen={setIsOpenExtras}>
+      </Poup>
+      <Poup
+        variant="inverseForm"
+        title={'Cursos e Idiomas'}
+        isOpen={isOpenExtras}
+        setIsOpen={setIsOpenExtras}
+      >
         <PopupExtras />
-      </Popup>
+      </Poup>
+      <Poup
+        variant="inverseForm"
+        title={'Habilidades'}
+        isOpen={isOpenSkills}
+        setIsOpen={setIsOpenSkills}
+      >
+        <PopupSkills skills={skills} />
+      </Poup>
     </div>
   );
 });
