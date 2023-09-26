@@ -8,11 +8,11 @@ import { Card } from '@/components/shared/Card';
 import { Filter } from '@/components/shared/Filter';
 import { InputSearch } from '@/components/shared/InputSearch';
 import { NumberPages } from '@/components/shared/NumberPages';
+import { Poup } from '@/components/shared/Poup';
 import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { useFindAllVacancies } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
-import { Poup } from '@/components/shared/Poup';
 
 const styles = {
   default: {
@@ -83,7 +83,7 @@ const VacancyList = ({ variant = 'default' }) => {
         </Card>
       </div>
       <Poup
-        variant='inverseSecundary'
+        variant="inverseSecundary"
         isOpen={isVacancyOpen}
         setIsOpen={setIsVacancyOpen}
         className="lg:hidden"

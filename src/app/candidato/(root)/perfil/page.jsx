@@ -4,20 +4,20 @@ import React, { useCallback, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { DescriptionSection } from './DescriptionSection';
 import { ProfileSection } from './ProfileSection';
+import { ProfileSkills } from './ProfileSkills';
 import { UserInfo } from './UserInfo';
 import { PopupDescription } from '@/components/candidate/Popups/PopupDescription';
 import { PopupEducation } from '@/components/candidate/Popups/PopupEducation';
 import { PopupExperiences } from '@/components/candidate/Popups/PopupExperiences';
 import { PopupExtras } from '@/components/candidate/Popups/PopupExtras';
+import { PopupSkills } from '@/components/candidate/Popups/PopupSkills/PopupSkills';
 import { Card } from '@/components/shared/Card';
+import { Poup } from '@/components/shared/Poup';
 import { Title } from '@/components/shared/Title';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 import getDataUser from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
-import { ProfileSkills } from './ProfileSkills';
-import { PopupSkills } from '@/components/candidate/Popups/PopupSkills/PopupSkills';
-import { Poup } from '@/components/shared/Poup';
 
 const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [isOpenDescription, setIsOpenDescription] = useState(false);
@@ -120,27 +120,48 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
             content={cursos}
             onAdd={() => setIsOpenExtras(true)}
           />
-          <ProfileSkills
-            title={'Skills'}
-            skills={skills}
-            onAdd={() => setIsOpenSkills(true)}
-          />
+          <ProfileSkills title={'Skills'} skills={skills} onAdd={() => setIsOpenSkills(true)} />
         </div>
       </Card>
-      <Poup variant='inverseForm' title={'Descrição'} isOpen={isOpenDescription} setIsOpen={setIsOpenDescription}>
+      <Poup
+        variant="inverseForm"
+        title={'Descrição'}
+        isOpen={isOpenDescription}
+        setIsOpen={setIsOpenDescription}
+      >
         <PopupDescription user={userLogged} />
       </Poup>
-      <Poup variant='inverseForm' title={'Ultimas Empresas'} isOpen={isOpenExperiences} setIsOpen={setIsOpenExperiences}>
+      <Poup
+        variant="inverseForm"
+        title={'Ultimas Empresas'}
+        isOpen={isOpenExperiences}
+        setIsOpen={setIsOpenExperiences}
+      >
         <PopupExperiences />
       </Poup>
-      <Poup variant='inverseForm' title={'Escolaridade'} isOpen={isOpenEducation} setIsOpen={setIsOpenEducation}>
+      <Poup
+        variant="inverseForm"
+        title={'Escolaridade'}
+        isOpen={isOpenEducation}
+        setIsOpen={setIsOpenEducation}
+      >
         <PopupEducation />
       </Poup>
-      <Poup variant='inverseForm' title={'Cursos e Idiomas'} isOpen={isOpenExtras} setIsOpen={setIsOpenExtras}>
+      <Poup
+        variant="inverseForm"
+        title={'Cursos e Idiomas'}
+        isOpen={isOpenExtras}
+        setIsOpen={setIsOpenExtras}
+      >
         <PopupExtras />
       </Poup>
-      <Poup variant='inverseForm' title={'Habilidades'} isOpen={isOpenSkills} setIsOpen={setIsOpenSkills}>
-        <PopupSkills skills={skills}/>
+      <Poup
+        variant="inverseForm"
+        title={'Habilidades'}
+        isOpen={isOpenSkills}
+        setIsOpen={setIsOpenSkills}
+      >
+        <PopupSkills skills={skills} />
       </Poup>
     </div>
   );

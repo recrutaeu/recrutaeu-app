@@ -6,12 +6,12 @@ import { Application } from './Application';
 import { InformationApplication } from './InformationApplication';
 import { Card } from '@/components/shared/Card';
 import { NumberPages } from '@/components/shared/NumberPages';
+import { Poup } from '@/components/shared/Poup';
 import { Title } from '@/components/shared/Title';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { useFindAllApplicationByUserId } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
-import { Poup } from '@/components/shared/Poup';
 
 const styles = {
   default: {

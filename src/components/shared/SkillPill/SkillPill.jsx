@@ -1,7 +1,7 @@
 'use client';
+import { LuX } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
-import { LuX } from 'react-icons/lu';
 
 const styles = {
   default: {
@@ -36,14 +36,21 @@ const SkillPill = ({ text, className, onDelete, variant = 'default' }) => {
 
   return (
     <div
-    onClick={()=> onDelete()}
+      onClick={() => onDelete()}
       className={twMerge(
         ' w-full rounded-3xl py-1.5 px-5 text-center flex items-center justify-center gap-2 ',
         style.background[theme],
-        className
+        className,
       )}
     >
-      <p className={twMerge(" text-neutral-0 lowercase text-sm lg:text-base w-full", style.text[theme])}>{text}</p>
+      <p
+        className={twMerge(
+          ' text-neutral-0 lowercase text-sm lg:text-base w-full',
+          style.text[theme],
+        )}
+      >
+        {text}
+      </p>
       {onDelete && <LuX size={20} className={twMerge('cursor-pointer', style.text[theme])} />}
     </div>
   );

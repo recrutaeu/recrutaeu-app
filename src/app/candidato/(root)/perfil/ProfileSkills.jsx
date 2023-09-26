@@ -1,12 +1,12 @@
+import { twMerge } from 'tailwind-merge';
 import { ProfileQuotes } from './ProfileQuotes';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { SkillPill } from '@/components/shared/SkillPill/SkillPill';
 import { Title } from '@/components/shared/Title';
 import { withTheme, themes } from '@/contexts/ThemeContext';
-import { twMerge } from 'tailwind-merge';
 
 const ProfileSkills = withTheme(({ title, skills, onAdd, theme, variant = 'default' }) => {
-    const styles = {
+  const styles = {
     default: {
       text: {
         [themes.DEFAULT]: 'text-neutral-90',
@@ -28,11 +28,16 @@ const ProfileSkills = withTheme(({ title, skills, onAdd, theme, variant = 'defau
       <Title variant="bgTransform" className="text-base">
         {title}
       </Title>
-      <div className='flex flex-wrap gap-2'>
-        {skills.length > 0 
-          ? skills.map((s, i) => { return <SkillPill key={i} text={s} className='w-auto'/>} )
-          : <p className={twMerge('text-sm mb-3 mt-1', style.text[theme])}>Nenhuma habilidade cadastrada.</p>
-        }
+      <div className="flex flex-wrap gap-2">
+        {skills.length > 0 ? (
+          skills.map((s, i) => {
+            return <SkillPill key={i} text={s} className="w-auto" />;
+          })
+        ) : (
+          <p className={twMerge('text-sm mb-3 mt-1', style.text[theme])}>
+            Nenhuma habilidade cadastrada.
+          </p>
+        )}
       </div>
       <ButtonLink variant="bgTransform" className="self-center" onClick={onAdd}>
         Adicionar
