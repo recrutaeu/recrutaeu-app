@@ -12,7 +12,6 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { useFindAllApplicationByUserId } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
-import { Poup } from '@/components/shared/Poup';
 
 const styles = {
   default: {

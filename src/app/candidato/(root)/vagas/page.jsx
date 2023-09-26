@@ -13,7 +13,6 @@ import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { useFindAllVacancies } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
-import { Poup } from '@/components/shared/Poup';
 
 const styles = {
   default: {

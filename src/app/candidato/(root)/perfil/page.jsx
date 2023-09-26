@@ -18,9 +18,6 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 import getDataUser from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
-import { ProfileSkills } from './ProfileSkills';
-import { PopupSkills } from '@/components/candidate/Popups/PopupSkills/PopupSkills';
-import { Poup } from '@/components/shared/Poup';
 
 const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [isOpenDescription, setIsOpenDescription] = useState(false);
@@ -123,11 +120,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
             content={cursos}
             onAdd={() => setIsOpenExtras(true)}
           />
-          <ProfileSkills
-            title={'Skills'}
-            skills={skills}
-            onAdd={() => setIsOpenSkills(true)}
-          />
+          <ProfileSkills title={'Skills'} skills={skills} onAdd={() => setIsOpenSkills(true)} />
         </div>
       </Card>
       <Poup
