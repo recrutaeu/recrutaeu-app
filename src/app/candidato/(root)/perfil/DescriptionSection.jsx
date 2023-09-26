@@ -36,7 +36,7 @@ const DescriptionSection = withTheme(({ userData, theme, variant = 'default', on
       </div>
 
       <p className={twMerge('text-sm', style.text[theme])}>
-        {userData.descricao ? userData.descricao : 'Adicione uma descrição'}
+        {userData?.summary || 'Adicione uma descrição'}
       </p>
     </section>
   );

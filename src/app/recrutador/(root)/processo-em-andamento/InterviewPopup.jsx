@@ -11,11 +11,14 @@ import {
   useCreateOrUpdateInterview,
 } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
+import { useAuthContext } from '@/contexts/AuthContext';
 
 const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
   const [error, setError] = useState(undefined);
 
   const interview = application?.steps?.find((item) => item.type === 'interview');
+
+  const { user } = useAuthContext();
 
   const formSchema = z.object({
     employee: z.string().min(1, 'O Responsavel é obrigatório'),
@@ -65,11 +68,12 @@ const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
       id: application.id,
       steps,
     });
-    console.log(application.vacancy.userId);
+    console.log(user.companyId);
     createOrUpdateInterview({
       id: newInterview?.data?.id,
       ...data,
       userId: application.vacancy.userId,
+      companyId: user.companyId,
       candidate: application.candidate,
       vacancy: application.vacancy,
     });

@@ -4,11 +4,24 @@ import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { SkillPill } from '@/components/shared/SkillPill/SkillPill';
 import { withTheme, themes } from '@/contexts/ThemeContext';
+import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
 
 const PopupSkills = withTheme(
-  ({ className, skills, theme, variant = 'default', user = {}, ...props }) => {
+  ({ className, skills, theme, variant = 'default', setIsOpen, user, ...props }) => {
     const [inputValue, setInputValue] = useState('');
     const [userSkills, setUserSkills] = useState(skills);
+
+    const { mutate: createOrUpdateUser } = useCreateOrUpdateUser();
+
+    const handleSave = async () => {
+      const data = {
+        id: user.id,
+        skills: userSkills,
+      };
+
+      setIsOpen(false);
+      createOrUpdateUser(data);
+    };
 
     const handleAddItem = (value) => {
       if (value) setUserSkills([...userSkills, value]);
@@ -74,7 +87,7 @@ const PopupSkills = withTheme(
             <></>
           )}
         </div>
-        <ButtonPrimary variant="inverse" onClick={() => console.log(userSkills)}>
+        <ButtonPrimary variant="inverse" onClick={handleSave}>
           Salvar
         </ButtonPrimary>
       </div>

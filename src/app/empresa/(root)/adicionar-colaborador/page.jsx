@@ -1,11 +1,9 @@
 'use client';
 import { useState } from 'react';
 import { MdAddBox } from 'react-icons/md';
-import { PiTrashSimpleFill } from 'react-icons/pi';
 import { twMerge } from 'tailwind-merge';
-import RecruiterDetails from './RecruiterDetails';
 import { RecruiterPoup } from './RecruiterPoup';
-import { JobTable, RecruiterTable } from './RecruiterTable';
+import { RecruiterTable } from './RecruiterTable';
 import { ButtonIcon } from '@/components/shared/ButtonIcon';
 import { InputSearch } from '@/components/shared/InputSearch';
 import { NumberPages } from '@/components/shared/NumberPages';
@@ -14,6 +12,7 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { useFindAllUsersByCompanyId } from '@/firebase/firestore/queries';
 import { company } from '@/locales';
+import { useDeleteUserById } from '@/firebase/firestore/mutations';
 
 const styles = {
   default: {
@@ -29,10 +28,9 @@ const Recruiters = ({}) => {
   const { theme } = useTheme();
   const style = styles['default'];
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpenDetails, setIsOpenDetails] = useState(false);
-  const [selectRecruiter, setSelectRecruiter] = useState(undefined);
   const { user } = useAuthContext();
   const { data: recruiters } = useFindAllUsersByCompanyId({ id: user.id });
+  const { mutate: deleteUser } = useDeleteUserById();
 
   return (
     <div className="h-full lg:px-7 px-5 py-5">
@@ -61,17 +59,13 @@ const Recruiters = ({}) => {
             >
               <MdAddBox className="w-6 h-6 lg:w-7 lg:h-7" />
             </ButtonIcon>
-            <ButtonIcon disabled={true}>
-              <PiTrashSimpleFill className="w-6 h-6 lg:w-7 lg:h-7" />
-            </ButtonIcon>
           </div>
         </div>
       </div>
       <RecruiterTable
         recruiters={recruiters}
-        onDetails={(recruiter) => {
-          setIsOpenDetails(true);
-          setSelectRecruiter(recruiter);
+        onDelete={(recruiter) => {
+          deleteUser(recruiter.id);
         }}
       />
       <div className="w-full flex justify-center items-center">

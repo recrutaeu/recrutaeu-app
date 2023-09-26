@@ -2,10 +2,10 @@
 
 import { LuPencil } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
-import { ButtonLink } from '@/components/shared/ButtonLink';
 import { Quote } from '@/components/shared/Quote';
 import { Title } from '@/components/shared/Title';
 import { withTheme, themes } from '@/contexts/ThemeContext';
+import { ButtonIcon } from '@/components/shared/ButtonIcon';
 
 const ProfileQuotes = withTheme(({ items, theme, onEdit, variant = 'default' }) => {
   const styles = {
@@ -25,24 +25,24 @@ const ProfileQuotes = withTheme(({ items, theme, onEdit, variant = 'default' }) 
 
   const style = styles[variant];
 
-  if (items.length < 1)
+  if (items?.length < 1)
     return <p className={twMerge('text-sm mb-3 mt-1', style.text[theme])}>Dados não informados</p>;
 
-  return items.map((i) => (
+  return items?.map((i) => (
     <Quote key={i} variant="bgTransform">
       <div className="flex justify-between">
         <Title variant="bgTransform" className="text-sm">
           {i.nome}
         </Title>
-        <ButtonLink onClick={onEdit}>
+        <ButtonIcon type="button" onClick={() => onEdit(i)}>
           <LuPencil size={20} className={style.icon[theme]} />
-        </ButtonLink>
+        </ButtonIcon>
       </div>
 
-      <p className={twMerge('text-sm', style.text[theme])}> {i.cargo || i.curso} </p>
-      <p className={twMerge('my-3 text-sm', style.text[theme])}> {i.descricao} </p>
+      <p className={twMerge('text-sm', style.text[theme])}> {i.role || i.course || i.name} </p>
+      <p className={twMerge('my-3 text-sm', style.text[theme])}> {i.description} </p>
       <p className={twMerge('text-sm', style.text[theme])}>
-        {i.dataInicial} a {i.dataFinal}
+        {i.startDate} a {i.endDate}
       </p>
     </Quote>
   ));

@@ -4,6 +4,8 @@ import { MdFiberManualRecord } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
 import { Table } from '@/components/shared/Table';
 import { themes, useTheme } from '@/contexts/ThemeContext';
+import { ButtonIcon } from '@/components/shared/ButtonIcon';
+import { PiTrashSimpleFill } from 'react-icons/pi';
 
 const styles = {
   default: {
@@ -25,7 +27,7 @@ const styles = {
   },
 };
 
-const RecruiterTableContext = ({ recruiter, onDetails, checkAll }) => {
+const RecruiterTableContext = ({ recruiter, onDelete, checkAll }) => {
   const { theme } = useTheme();
   const style = styles['default'];
   const [checked, setChecked] = useState(false);
@@ -41,7 +43,7 @@ const RecruiterTableContext = ({ recruiter, onDetails, checkAll }) => {
   return (
     <tbody>
       <Table.Row>
-        <CustomCell>
+        {/* <CustomCell>
           <div className="flex items-center justify-center">
             <input
               type="checkbox"
@@ -52,9 +54,14 @@ const RecruiterTableContext = ({ recruiter, onDetails, checkAll }) => {
               className={twMerge('cursor-pointer', style.checkbox[theme])}
             />
           </div>
-        </CustomCell>
+        </CustomCell> */}
         <CustomCell className="text-xs font-light lg:text-sm">{recruiter.name}</CustomCell>
         <CustomCell className="text-xs font-light lg:text-sm">{recruiter.email}</CustomCell>
+        <CustomCell>
+          <ButtonIcon onClick={() => onDelete(recruiter)}>
+            <PiTrashSimpleFill className="w-5 h-5 lg:w-6 lg:h-6" />
+          </ButtonIcon>
+        </CustomCell>
       </Table.Row>
     </tbody>
   );

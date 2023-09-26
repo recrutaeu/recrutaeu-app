@@ -55,6 +55,7 @@ const createOrUpdateApplication = createOrUpdateFactory('applications');
 const createOrUpdateInterview = createOrUpdateFactory('interviews');
 
 const deleteVacancyById = deleteByIdFactory('vacancies');
+const deleteUserById = deleteByIdFactory('users');
 const deleteApplicationById = deleteByIdFactory('applications');
 const deleteManyByIds = deleteManyByIdFactory('vacancies');
 
@@ -70,7 +71,7 @@ export const useCreateOrUpdateInterview = ({ onSuccess, onError } = {}) => {
   });
 };
 
-export const useCreateOrUpdateUser = ({ onSuccess, onError }) => {
+export const useCreateOrUpdateUser = ({ onSuccess, onError } = {}) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data) => createOrUpdateUser(data.id, data),
@@ -103,6 +104,16 @@ export const useCreateOrUpdateVacancy = ({ onSuccess, onError }) => {
       onSuccess?.(data);
     },
     onError,
+  });
+};
+
+export const useDeleteUserById = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id) => deleteUserById(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
   });
 };
 
