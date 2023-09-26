@@ -84,7 +84,7 @@ const Application = ({ application, variant = 'default', onClick, ...props }) =>
             setIsOpen(true);
           }}
         >
-          detalhes da Candidatura
+          detalhes da candidatura
         </ButtonLabel>
       </div>
       <Divider className="mt-3" />
