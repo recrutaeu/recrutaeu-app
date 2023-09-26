@@ -66,6 +66,18 @@ const styles = {
       [themes.LIGHT]: 'text-neutral-90',
     },
   },
+  inverseFormDetails: {
+    background: {
+      [themes.DEFAULT]: 'bg-primary-90',
+      [themes.DARK]: 'bg-neutral-0',
+      [themes.LIGHT]: 'bg-neutral-90 border-l border-l-neutral-0',
+    },
+    icon: {
+      [themes.DEFAULT]: 'text-primary-40',
+      [themes.DARK]: 'text-neutral-90',
+      [themes.LIGHT]: 'text-neutral-0',
+    },
+  },
 };
 
 const Poup = ({ children, isOpen, setIsOpen, title, className, variant = 'default' }) => {

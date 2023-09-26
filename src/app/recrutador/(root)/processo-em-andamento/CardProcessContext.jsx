@@ -42,8 +42,6 @@ const CardProcessContext = ({ application }) => {
 
     const steps = application.steps.map((item) => (item.type === step.type ? newStep : item));
 
-    console.log(steps);
-
     createOrUpdateApplication({
       id: application.id,
       steps,
@@ -61,7 +59,7 @@ const CardProcessContext = ({ application }) => {
               <div className="flex gap-2 text-sm leading-7">
                 <p className={twMerge('font-medium', style.cardDescription[theme])}>Candidatura:</p>
                 <p className={twMerge('font-ligth', style.cardDescription[theme])}>
-                  {new Date(item.data.date).toLocaleDateString('pt-BR')}
+                  {item.data.date.toDate().toLocaleDateString('pt-BR')}
                 </p>
               </div>
               <Select
@@ -110,11 +108,11 @@ const CardProcessContext = ({ application }) => {
               <div className="flex gap-2 text-sm pb-3">
                 <p className={twMerge('text-sm font-medium', style.dataText[theme])}>Prazo:</p>
 
-                <p className={twMerge('text-sm font-light', style.dataText[theme])}>{`${new Date(
-                  item.data.startAt,
-                ).toLocaleDateString('pt-BR')} à ${new Date(item.data.endAt).toLocaleDateString(
-                  'pt-BR',
-                )}`}</p>
+                <p
+                  className={twMerge('text-sm font-light', style.dataText[theme])}
+                >{`${item.data.startAt.toDate().toLocaleDateString('pt-BR')} à ${item.data.endAt
+                  .toDate()
+                  .toLocaleDateString('pt-BR')}`}</p>
               </div>
               <Select
                 options={[
@@ -168,14 +166,14 @@ const CardProcessContext = ({ application }) => {
                   <p className={twMerge('text-sm font-medium', style.dataText[theme])}>Data:</p>
 
                   <p className={twMerge('text-sm font-light', style.dataText[theme])}>
-                    {new Date(item.data.date).toLocaleDateString('pt-BR')}
+                    {item.data.date.toDate().toLocaleDateString('pt-BR')}
                   </p>
                 </div>
                 <div className="flex gap-1">
                   <p className={twMerge('text-sm font-medium', style.dataText[theme])}>Horário:</p>
 
                   <p className={twMerge('text-sm font-light', style.dataText[theme])}>
-                    {new Date(item.data.date).toLocaleTimeString('pt-BR', {
+                    {item.data.date.toDate().toLocaleTimeString('pt-BR', {
                       hour: '2-digit',
                       minute: '2-digit',
                     })}
