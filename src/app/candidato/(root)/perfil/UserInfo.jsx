@@ -1,10 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import { LuMail, LuPhone, LuStar } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { Title } from '@/components/shared/Title';
 import { withTheme, themes } from '@/contexts/ThemeContext';
-import { LuMail, LuPhone, LuStar } from 'react-icons/lu';
 
 const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) => {
   const styles = {
@@ -48,18 +48,22 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
             {userData?.role}
           </Title>
         </div>
-        <div className='mt-4 mb-4 lg:mb-0 flex gap-2 flex-wrap justify-evenly lg:flex-col'>
-          <div className='flex gap-2 align-middle'>
-            <LuMail size={20} className={style.icon[theme]}/>
+        <div className="mt-4 mb-4 lg:mb-0 flex gap-2 flex-wrap justify-evenly lg:flex-col">
+          <div className="flex gap-2 align-middle">
+            <LuMail size={20} className={style.icon[theme]} />
             <p className={style.text[theme]}>{userData.email}</p>
           </div>
-          <div className='flex gap-2 align-middle'>
-            <LuPhone size={20} className={style.icon[theme]}/>
-            <p className={style.text[theme]}>{userData.telefone ? userData.telefone : 'Não informado'}</p>
+          <div className="flex gap-2 align-middle">
+            <LuPhone size={20} className={style.icon[theme]} />
+            <p className={style.text[theme]}>
+              {userData.telefone ? userData.telefone : 'Não informado'}
+            </p>
           </div>
-          <div className='flex gap-2 align-middle'>
-            <LuStar size={20} className={style.icon[theme]}/>
-            <p className={style.text[theme]}>{userData.deficiencia ? userData.deficiencia : 'Não informado'}</p>
+          <div className="flex gap-2 align-middle">
+            <LuStar size={20} className={style.icon[theme]} />
+            <p className={style.text[theme]}>
+              {userData.deficiencia ? userData.deficiencia : 'Não informado'}
+            </p>
           </div>
         </div>
       </div>
