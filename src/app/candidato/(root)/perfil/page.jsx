@@ -20,6 +20,7 @@ import getDataUser from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
 import { ProfileSkills } from './ProfileSkills';
 import { PopupSkills } from '@/components/candidate/Popups/PopupSkills/PopupSkills';
+import { Poup } from '@/components/shared/Poup';
 
 const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [isOpenDescription, setIsOpenDescription] = useState(false);
