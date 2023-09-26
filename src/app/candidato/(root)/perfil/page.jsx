@@ -10,7 +10,6 @@ import { PopupEducation } from '@/components/candidate/Popups/PopupEducation';
 import { PopupExperiences } from '@/components/candidate/Popups/PopupExperiences';
 import { PopupExtras } from '@/components/candidate/Popups/PopupExtras';
 import { Card } from '@/components/shared/Card';
-import { Popup } from '@/components/shared/Popup';
 import { Title } from '@/components/shared/Title';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, withTheme } from '@/contexts/ThemeContext';
@@ -18,6 +17,7 @@ import getDataUser from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
 import { ProfileSkills } from './ProfileSkills';
 import { PopupSkills } from '@/components/candidate/Popups/PopupSkills/PopupSkills';
+import { Poup } from '@/components/shared/Poup';
 
 const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [isOpenDescription, setIsOpenDescription] = useState(false);
@@ -32,7 +32,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [escolaridade, setEscolaridade] = useState([]);
   const [experiencia, setExperiencia] = useState([]);
   const [cursos, setCursos] = useState([]);
-  const [skills, setSkills] = useState(['teste', teste]);
+  const [skills, setSkills] = useState(['teste', 'teste']);
 
   const buscarEscolaridade = useCallback(async () => {
     const { result } = await getDataUser('escolaridade', user.uid);
@@ -127,21 +127,21 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
           />
         </div>
       </Card>
-      <Popup title={'Descrição'} isOpen={isOpenDescription} setIsOpen={setIsOpenDescription}>
+      <Poup variant='inverseForm' title={'Descrição'} isOpen={isOpenDescription} setIsOpen={setIsOpenDescription}>
         <PopupDescription user={userLogged} />
-      </Popup>
-      <Popup title={'Ultimas Empresas'} isOpen={isOpenExperiences} setIsOpen={setIsOpenExperiences}>
+      </Poup>
+      <Poup variant='inverseForm' title={'Ultimas Empresas'} isOpen={isOpenExperiences} setIsOpen={setIsOpenExperiences}>
         <PopupExperiences />
-      </Popup>
-      <Popup title={'Escolaridade'} isOpen={isOpenEducation} setIsOpen={setIsOpenEducation}>
+      </Poup>
+      <Poup variant='inverseForm' title={'Escolaridade'} isOpen={isOpenEducation} setIsOpen={setIsOpenEducation}>
         <PopupEducation />
-      </Popup>
-      <Popup title={'Cursos e Idiomas'} isOpen={isOpenExtras} setIsOpen={setIsOpenExtras}>
+      </Poup>
+      <Poup variant='inverseForm' title={'Cursos e Idiomas'} isOpen={isOpenExtras} setIsOpen={setIsOpenExtras}>
         <PopupExtras />
-      </Popup>
-      <Popup title={'Habilidades'} isOpen={isOpenSkills} setIsOpen={setIsOpenSkills}>
+      </Poup>
+      <Poup variant='inverseForm' title={'Habilidades'} isOpen={isOpenSkills} setIsOpen={setIsOpenSkills}>
         <PopupSkills skills={skills}/>
-      </Popup>
+      </Poup>
     </div>
   );
 });
