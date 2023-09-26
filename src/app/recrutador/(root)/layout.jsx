@@ -20,10 +20,10 @@ const links = [
     icon: <LuLayoutDashboard className="md:w-7 md:h-7 w-6 h-6" />,
   },
   { href: '/recrutador/vagas', icon: <LuBriefcase className="md:w-7 md:h-7 w-6 h-6" /> },
-  {
-    href: '/recrutador/buscar-candidato',
-    icon: <RiUserSearchLine className="md:w-7 md:h-7 w-6 h-6" />,
-  },
+  // {
+  //   href: '/recrutador/buscar-candidato',
+  //   icon: <RiUserSearchLine className="md:w-7 md:h-7 w-6 h-6" />,
+  // },
   {
     href: '/recrutador/processo-em-andamento',
     icon: <LuHourglass className="md:w-7 md:h-7 w-6 h-6" />,

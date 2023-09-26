@@ -39,7 +39,7 @@ const ProfileSkills = withTheme(({ title, skills, onAdd, theme, variant = 'defau
         )}
       </div>
       <ButtonLink variant="bgTransform" className="self-center" onClick={onAdd}>
-        Adicionar
+        {skills?.length > 0 ? 'Editar' : 'Adicionar'}
       </ButtonLink>
     </section>
   );

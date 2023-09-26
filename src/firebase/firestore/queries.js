@@ -52,6 +52,8 @@ export const findUserByAuthId = makeFindOneWhere('users', 'authId');
 const findUserById = makeFindOneWhere('users', 'id');
 const findAllUsersByCompanyId = makeFindAllWhere('users', 'companyId');
 const findAllInterviewsByUserId = makeFindAllWhere('interviews', 'userId');
+const findAllInterviewsByCompanyId = makeFindAllWhere('interviews', 'companyId');
+
 const findAllVacanciesByUserId = makeFindAllWhere('vacancies', 'userId');
 const findAllVacanciesByIds = makeFindAllWhere('vacancies', 'id', 'in');
 const findAllVacancies = makeFindAll('vacancies');
@@ -94,6 +96,13 @@ const findAllApplicationByRecruiterIdHydrated = async (userId) => {
   }));
 };
 
+export const useFindUserById = ({ id, ...props }) =>
+  useQuery({
+    queryKey: ['users', id],
+    queryFn: () => findUserById(id),
+    ...props,
+  });
+
 export const useFindAllInterviewsByUserId = ({ id, ...props }) =>
   useQuery({
     queryKey: ['interviews', id],
@@ -105,6 +114,13 @@ export const useFindAllUsersByCompanyId = ({ id, ...props }) =>
   useQuery({
     queryKey: ['users', id],
     queryFn: () => findAllUsersByCompanyId(id),
+    ...props,
+  });
+
+export const useFindAllInterviewsByCompanyId = ({ id, ...props }) =>
+  useQuery({
+    queryKey: ['interviews', id],
+    queryFn: () => findAllInterviewsByCompanyId(id),
     ...props,
   });
 

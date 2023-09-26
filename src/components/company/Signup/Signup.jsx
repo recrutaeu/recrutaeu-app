@@ -68,7 +68,7 @@ const SignupForm = ({ variant = 'default' }) => {
 
   const { mutate: createOrUpdateUser } = useCreateOrUpdateUser({
     onSuccess: () => {
-      router.push('/empresa/dashboard');
+      router.push('/empresa/adicionar-colaborador');
     },
     onError: (e) => {
       setError(e.message);

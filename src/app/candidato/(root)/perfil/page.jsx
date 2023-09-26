@@ -16,7 +16,7 @@ import { Poup } from '@/components/shared/Poup';
 import { Title } from '@/components/shared/Title';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, withTheme } from '@/contexts/ThemeContext';
-import getDataUser from '@/firebase/firestore/queries';
+import getDataUser, { useFindUserById } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
 
 const Profile = withTheme(({ theme, variant = 'default' }) => {
@@ -26,40 +26,13 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [isOpenExtras, setIsOpenExtras] = useState(false);
   const [isOpenSkills, setIsOpenSkills] = useState(false);
 
-  const { user } = useAuthContext();
+  const { user: authUser } = useAuthContext();
+  const { data: user } = useFindUserById({ id: authUser.id, enabled: !!authUser?.id });
 
-  const [userLogged, setUserLogged] = useState('');
-  const [escolaridade, setEscolaridade] = useState([]);
-  const [experiencia, setExperiencia] = useState([]);
-  const [cursos, setCursos] = useState([]);
-  const [skills, setSkills] = useState(['teste', 'teste']);
-
-  const buscarEscolaridade = useCallback(async () => {
-    const { result } = await getDataUser('escolaridade', user.uid);
-    setEscolaridade(result.docs.map((doc) => doc.data()));
-  }, [user?.uid]);
-
-  const buscarExperiencia = useCallback(async () => {
-    const { result } = await getDataUser('emprego', user.uid);
-    setExperiencia(result.docs.map((doc) => doc.data()));
-  }, [user?.uid]);
-
-  const buscarCursos = useCallback(async () => {
-    const { result } = await getDataUser('cursos', user.uid);
-    setCursos(result.docs.map((doc) => doc.data()));
-  }, [user?.uid]);
-
-  const buscarDados = useCallback(async () => {
-    const { result } = await getDataUser('users', user.uid);
-    result.forEach((doc) => {
-      setUserLogged(doc.data());
-    });
-    await Promise.all([buscarEscolaridade(), buscarExperiencia(), buscarCursos()]);
-  }, [buscarCursos, buscarEscolaridade, buscarExperiencia, user?.uid]);
-
-  React.useEffect(() => {
-    buscarDados().then();
-  }, [buscarDados]);
+  const [experience, setExperience] = useState();
+  const [description, setDescription] = useState();
+  const [education, setEducation] = useState();
+  const [extras, setExtras] = useState();
 
   const styles = {
     default: {
@@ -100,27 +73,49 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         )}
       >
         <div>
-          <UserInfo userData={userLogged} />
-          <DescriptionSection userData={userLogged} onEdit={() => setIsOpenDescription(true)} />
+          <UserInfo userData={user} />
+          <DescriptionSection
+            userData={user}
+            onEdit={(item) => {
+              setDescription(item);
+              setIsOpenDescription(true);
+            }}
+          />
           <ProfileSection
             title={'Ultimas Empresas'}
-            content={experiencia}
+            content={user?.experiencies}
             onAdd={() => setIsOpenExperiences(true)}
+            onEdit={(item) => {
+              setExperience(item);
+              setIsOpenExperiences(true);
+            }}
           />
         </div>
 
         <div>
           <ProfileSection
             title={'Escolaridade'}
-            content={escolaridade}
+            content={user?.education}
             onAdd={() => setIsOpenEducation(true)}
+            onEdit={(item) => {
+              setEducation(item);
+              setIsOpenEducation(true);
+            }}
           />
           <ProfileSection
             title={'Cursos e idiomas'}
-            content={cursos}
+            content={user?.extras}
             onAdd={() => setIsOpenExtras(true)}
+            onEdit={(item) => {
+              setExtras(item);
+              setIsOpenEducation(true);
+            }}
           />
-          <ProfileSkills title={'Skills'} skills={skills} onAdd={() => setIsOpenSkills(true)} />
+          <ProfileSkills
+            title={'Skills'}
+            skills={user?.skills || []}
+            onAdd={() => setIsOpenSkills(true)}
+          />
         </div>
       </Card>
       <Poup
@@ -129,7 +124,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         isOpen={isOpenDescription}
         setIsOpen={setIsOpenDescription}
       >
-        <PopupDescription user={userLogged} />
+        <PopupDescription editItem={user} setIsOpen={setIsOpenDescription} user={user} />
       </Poup>
       <Poup
         variant="inverseForm"
@@ -137,7 +132,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         isOpen={isOpenExperiences}
         setIsOpen={setIsOpenExperiences}
       >
-        <PopupExperiences />
+        <PopupExperiences setIsOpen={setIsOpenExperiences} editItem={experience} />
       </Poup>
       <Poup
         variant="inverseForm"
@@ -145,7 +140,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         isOpen={isOpenEducation}
         setIsOpen={setIsOpenEducation}
       >
-        <PopupEducation />
+        <PopupEducation setIsOpen={setIsOpenEducation} editItem={education} />
       </Poup>
       <Poup
         variant="inverseForm"
@@ -153,7 +148,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         isOpen={isOpenExtras}
         setIsOpen={setIsOpenExtras}
       >
-        <PopupExtras />
+        <PopupExtras setIsOpen={setIsOpenExtras} editItem={extras} />
       </Poup>
       <Poup
         variant="inverseForm"
@@ -161,7 +156,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
         isOpen={isOpenSkills}
         setIsOpen={setIsOpenSkills}
       >
-        <PopupSkills skills={skills} />
+        <PopupSkills skills={user?.skills || []} setIsOpen={setIsOpenSkills} user={user} />
       </Poup>
     </div>
   );

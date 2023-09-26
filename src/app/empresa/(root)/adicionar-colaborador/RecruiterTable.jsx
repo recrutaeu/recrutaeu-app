@@ -5,17 +5,17 @@ import { ButtonSelectAll } from '@/components/shared/ButtonSelectAll';
 import { Table } from '@/components/shared/Table';
 import { commons } from '@/locales';
 
-const RecruiterTable = ({ recruiters, className, onDetails }) => {
+const RecruiterTable = ({ recruiters, className, onDelete }) => {
   const [checked, setChecked] = useState(false);
   return (
     <Table.Root className={className}>
       <thead>
         <Table.Row>
-          <Table.Header>
+          {/* <Table.Header>
             <div className="flex items-center justify-center">
               <ButtonSelectAll onChange={setChecked} />
             </div>
-          </Table.Header>
+          </Table.Header> */}
           <Table.Header>
             <div className="flex items-center text-sm lg:text-base">
               {commons.tableRecruiters.name}
@@ -26,6 +26,9 @@ const RecruiterTable = ({ recruiters, className, onDetails }) => {
               {commons.tableRecruiters.email}
             </div>
           </Table.Header>
+          <Table.Header>
+            <div className="flex items-center text-sm lg:text-base">Deletar</div>
+          </Table.Header>
         </Table.Row>
       </thead>
       {recruiters?.map((recruiter, index) => {
@@ -35,7 +38,7 @@ const RecruiterTable = ({ recruiters, className, onDetails }) => {
             key={index}
             recruiter={recruiter}
             checkAll={checked}
-            onDetails={onDetails}
+            onDelete={onDelete}
           />
         );
       })}

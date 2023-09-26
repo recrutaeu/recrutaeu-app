@@ -55,7 +55,7 @@ const SigninForm = ({ variant = 'default' }) => {
       return;
     }
 
-    return router.push('/empresa/dashboard');
+    return router.push('/empresa/adicionar-colaborador');
   };
 
   const handleFormError = (errors) => {
