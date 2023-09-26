@@ -34,7 +34,8 @@ const AlertHome = withTheme(({ theme, variant = 'default', title }) => {
         {title}
       </Title>
       <p className={twMerge(style.text[theme])}>
-        Você tem uma entrevista marca, para segunda-feira 08/05/2023 as 10:00 horas da manhã com o candidato Pedro Fernandes. Acesse o link http://fiap.com.br/
+        Você tem uma entrevista marca, para segunda-feira 08/05/2023 as 10:00 horas da manhã com o
+        candidato Pedro Fernandes. Acesse o link http://fiap.com.br/
       </p>
     </div>
   );

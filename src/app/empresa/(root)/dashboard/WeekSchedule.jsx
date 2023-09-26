@@ -1,10 +1,10 @@
 'use client';
 import { twMerge } from 'tailwind-merge';
+import { ButtonLink } from '@/components/shared/ButtonLink';
 import { Quote } from '@/components/shared/Quote';
 import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
-import { ButtonLink } from '@/components/shared/ButtonLink';
 
 const weeks = [
   {
@@ -152,9 +152,10 @@ const WeeksSchedule = ({}) => {
               </div>
             </Quote>
           ))}
-
         </div>
-        <ButtonLink variant='bgTransform' className='self-center'>ver tudo</ButtonLink>
+        <ButtonLink variant="bgTransform" className="self-center">
+          ver tudo
+        </ButtonLink>
       </div>
     </div>
   );

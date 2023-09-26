@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import Graph from './Graph';
+import { UserInfo } from './UserInfo';
+import WeeksSchedule from './WeekSchedule';
 import { Card } from '@/components/shared/Card';
 import { Title } from '@/components/shared/Title';
 import { themes, withTheme } from '@/contexts/ThemeContext';
-import { UserInfo } from './UserInfo';
-import WeeksSchedule from './WeekSchedule';
-import Graph from './Graph';
 
 const Dashboard = withTheme(({ theme, variant = 'default' }) => {
   const styles = {
@@ -39,7 +39,7 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
 
   const userData = {
     nome: 'Fiap Ltda',
-    cnpj: '52.233.611/0001-83'
+    cnpj: '52.233.611/0001-83',
   };
 
   return (
@@ -65,15 +65,16 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
           >
             <UserInfo userData={userData} />
           </Card>
-          <Card
-            className={twMerge(
-              'order-3 lg:col-start-1 lg:col-end-3 lg:row-span-5',
-            )}
-          >
+          <Card className={twMerge('order-3 lg:col-start-1 lg:col-end-3 lg:row-span-5')}>
             <WeeksSchedule />
           </Card>
-          <Card className={twMerge("order-4 lg:col-start-3 lg:col-end-6 lg:row-start-1 row-end-4", style.card[theme],)}>
-              <Graph />
+          <Card
+            className={twMerge(
+              'order-4 lg:col-start-3 lg:col-end-6 lg:row-start-1 row-end-4',
+              style.card[theme],
+            )}
+          >
+            <Graph />
           </Card>
         </div>
       </div>

@@ -65,7 +65,7 @@ const Graph = ({}) => {
 
   return (
     <>
-      <div className={twMerge("w-full", style.background[theme])}>
+      <div className={twMerge('w-full', style.background[theme])}>
         <Title className="text-lg lg:text-xl" variant="bgTransformSecundary">
           {commons.dash.titlePage}
         </Title>
@@ -81,7 +81,7 @@ const Graph = ({}) => {
               <div className={twMerge('flex w-full flex-col gap-4 py-8 lg:py-0')}>
                 {testData.map((item, idx) => (
                   <ProgressBar
-                    variant='inverse'
+                    variant="inverse"
                     key={idx}
                     bgcolor={item.bgcolor}
                     completed={item.completed}
