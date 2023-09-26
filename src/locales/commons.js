@@ -105,10 +105,13 @@ const commons = {
     title: 'Programação da semana',
     description: {
       title: 'Entrevista',
-      candidate: 'candidato',
-      area: 'Area',
-      date: 'Data',
-      hour: 'hora',
+      candidate: 'candidato:',
+      area: 'Vaga:',
+      sector: 'Setor:',
+      local: 'Local',
+      link: 'Link:',
+      date: 'Data:',
+      hour: 'Horário:',
     },
   },
   process: {

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import { and, collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import { app } from '../config';
 
 const db = getFirestore(app);
@@ -32,6 +32,12 @@ const makeFindAllWhere =
     return snapshot?.docs?.map((doc) => doc.data()) || [];
   };
 
+const makeFindAllConditions = async (coll, ...conditions) => {
+  const q = query(collection(db, coll), ...conditions);
+  const snapshot = await getDocs(q);
+  return snapshot?.docs?.map((doc) => doc.data()) || [];
+};
+
 const makeFindOneWhere = (coll, field) => async (value) => {
   const q = query(collection(db, coll), where(field, '==', value));
   const snapshot = await getDocs(q);
@@ -45,7 +51,7 @@ const makeFindOneWhere = (coll, field) => async (value) => {
 export const findUserByAuthId = makeFindOneWhere('users', 'authId');
 const findUserById = makeFindOneWhere('users', 'id');
 const findAllUsersByCompanyId = makeFindAllWhere('users', 'companyId');
-const findAllInterviewsByUserId = makeFindAllWhere('interviews', 'date');
+const findAllInterviewsByUserId = makeFindAllWhere('interviews', 'userId');
 const findAllVacanciesByUserId = makeFindAllWhere('vacancies', 'userId');
 const findAllVacanciesByIds = makeFindAllWhere('vacancies', 'id', 'in');
 const findAllVacancies = makeFindAll('vacancies');
@@ -87,6 +93,13 @@ const findAllApplicationByRecruiterIdHydrated = async (userId) => {
     candidate: userById[item.userId],
   }));
 };
+
+export const useFindAllInterviewsByUserId = ({ id, ...props }) =>
+  useQuery({
+    queryKey: ['interviews', id],
+    queryFn: () => findAllInterviewsByUserId(id),
+    ...props,
+  });
 
 export const useFindAllUsersByCompanyId = ({ id, ...props }) =>
   useQuery({
