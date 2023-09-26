@@ -57,22 +57,31 @@ const Applications = ({ variant = 'default' }) => {
             style.card[theme],
           )}
         >
-          <div className="sm:overflow-auto no-scrollbar h-auto">
-            {applications?.map((application) => {
-              return (
-                <Application
-                  key={application.id}
-                  application={application}
-                  onClick={(application) => {
-                    setSelectedApplication(application);
-                    setIsApplicationOpen(true);
-                  }}
-                />
-              );
-            })}
-          </div>
+          {applications ? (
+            <>
+              <div className="sm:overflow-auto no-scrollbar h-auto">
+                {applications?.map((application) => {
+                  return (
+                    <Application
+                      key={application.id}
+                      application={application}
+                      onClick={(application) => {
+                        setSelectedApplication(application);
+                        setIsApplicationOpen(true);
+                      }}
+                    />
+                  );
+                })}
+              </div>
 
-          <NumberPages currentPage={1} totalPage={1} />
+              <NumberPages currentPage={1} totalPage={1} />
+            </>
+          ) : (
+            <div className="w-full h-full flex justify-center items-center">
+              {' '}
+              <p className="">Você não possui candidaturas ainda.</p>{' '}
+            </div>
+          )}
         </Card>
 
         <Card className="lg:flex flex-col p-8 lg:w-2/3 hidden">
