@@ -109,7 +109,9 @@ const Settings = () => {
                 label="---"
                 options={[
                   { value: 'M', label: 'Masculino' },
+                  { value: 'TM', label: 'Transgênero Masculino' },
                   { value: 'F', label: 'Feminino' },
+                  { value: 'TF', label: 'Transgênero Feminino' },
                   { value: 'O', label: 'Outro' },
                 ]}
                 onChange={console.log}
@@ -120,9 +122,13 @@ const Settings = () => {
                 titleLabel="Tipo de Deficiencia:"
                 label="---"
                 options={[
-                  { value: '1', label: 'A' },
-                  { value: '2', label: 'B' },
-                  { value: '3', label: 'C' },
+                  { value: 'DF', label: 'Deficiência Fisica' },
+                  { value: 'DV', label: 'Deficiência Visual' },
+                  { value: 'DA', label: 'Deficiência Auditiva' },
+                  { value: 'DI', label: 'Deficiência Intelectual' },
+                  { value: 'DP', label: 'Deficiência Psicossocial' },
+                  { value: 'DM', label: 'Deficiência Múltipla' },
+                  { value: 'N', label: 'Nenhuma' },
                 ]}
                 onChange={console.log}
               />
@@ -133,9 +139,10 @@ const Settings = () => {
                 label="---"
                 options={[
                   { value: 'Branco', label: 'Branca' },
-                  { value: 'Preto', label: 'Preto' },
-                  { value: 'Pardo', label: 'Pardo' },
-                  { value: 'Outro', label: 'Outro' },
+                  { value: 'Preta', label: 'Preta' },
+                  { value: 'Pardo', label: 'Parda' },
+                  { value: 'Amarela', label: 'Amarela' },
+                  { value: 'Indigena', label: 'Indígena' },
                 ]}
                 onChange={console.log}
               />
@@ -145,9 +152,8 @@ const Settings = () => {
                 titleLabel="Orientação Sexual:"
                 label="---"
                 options={[
-                  { value: 'hetero', label: 'Hétero' },
-                  { value: 'gay', label: 'Gay' },
-                  { value: 'lesbica', label: 'Lesbica' },
+                  { value: 'hetero', label: 'Héterossexual' },
+                  { value: 'homo', label: 'Homossexual' },
                   { value: 'outro', label: 'Outro' },
                   { value: 'na', label: 'Prefiro não dizer' },
                 ]}
