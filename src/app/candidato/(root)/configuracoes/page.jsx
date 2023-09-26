@@ -140,6 +140,20 @@ const Settings = () => {
                 onChange={console.log}
               />
 
+              <Select
+                variant="inverse"
+                titleLabel="Orientação Sexual:"
+                label="---"
+                options={[
+                  { value: 'hetero', label: 'Hétero' },
+                  { value: 'gay', label: 'Gay' },
+                  { value: 'lesbica', label: 'Lesbica' },
+                  { value: 'outro', label: 'Outro' },
+                  { value: 'na', label: 'Prefiro não dizer' },
+                ]}
+                onChange={console.log}
+              />
+
               <div className="w-full flex justify-center mt-3">
                 <ButtonLabel className="font-semibold">
                   {commons.settings.form.button.label}
