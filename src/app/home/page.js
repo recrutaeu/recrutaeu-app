@@ -48,7 +48,7 @@ const Home = ({ variant = 'default' }) => {
         style.background[theme],
       )}
     >
-      <Container className="relative lg:min-h-[900px]">
+      <Container className="relative">
         <div className="grow flex w-full flex-col items-center lg:items-start lg:gap-3">
           <div className="w-full flex justify-between">
             <Image
