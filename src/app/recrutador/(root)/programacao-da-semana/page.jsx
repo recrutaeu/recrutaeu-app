@@ -1,11 +1,13 @@
 'use client';
+import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
-import { Filter } from '@/components/shared/Filter';
 import { InputSearch } from '@/components/shared/InputSearch';
 import { NumberPages } from '@/components/shared/NumberPages';
 import { Quote } from '@/components/shared/Quote';
 import { Title } from '@/components/shared/Title';
+import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
+import { useFindAllInterviewsByUserId } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
 
 const weeks = [
@@ -44,6 +46,14 @@ const WeeksSchedule = ({}) => {
   const { theme } = useTheme();
   const style = styles['default'];
 
+  const { user } = useAuthContext();
+  const { data: interviews } = useFindAllInterviewsByUserId({
+    id: user.id,
+  });
+
+  const now = new Date();
+  const filteredInterviews = interviews?.filter((item) => item.date.toDate() > now);
+
   return (
     <div className="lg:px-7 h-full flex flex-col gap-7 overflow-auto">
       <div className="w-full flex flex-col gap-3 px-5">
@@ -53,13 +63,12 @@ const WeeksSchedule = ({}) => {
 
         <div className="flex lg:w-1/2 gap-1 mt-3">
           <InputSearch variant="inverseSecundary" />
-          <Filter className="w-7 h-7 lg:w-8 lg:h-8" variant="inverse" />
         </div>
       </div>
 
       <div className="h-full">
         <div className="h-full px-5 pb-5 flex flex-col gap-5 lg:gap-8 lg:w-1/2">
-          {weeks.map((item, id) => (
+          {filteredInterviews?.map((item, id) => (
             <Quote key={id} variant="inverse">
               <p className={twMerge('font-semibold text-base capitalize', style.title[theme])}>
                 {commons.weeksSchedule.description.title}
@@ -76,7 +85,7 @@ const WeeksSchedule = ({}) => {
                 <p
                   className={twMerge('font-light text-sm capitalize leading-6', style.text[theme])}
                 >
-                  {item.candidate}
+                  {item.candidate.name}
                 </p>
               </div>
               <div className="flex items-center gap-1">
@@ -91,9 +100,42 @@ const WeeksSchedule = ({}) => {
                 <p
                   className={twMerge('font-light text-sm capitalize leading-6', style.text[theme])}
                 >
-                  {item.area}
+                  {item.vacancy.title}
                 </p>
               </div>
+              <div className="flex items-center gap-1">
+                <p
+                  className={twMerge(
+                    'font-semibold text-sm capitalize leading-6',
+                    style.text[theme],
+                  )}
+                >
+                  {commons.weeksSchedule.description.sector}
+                </p>
+                <p
+                  className={twMerge('font-light text-sm capitalize leading-6', style.text[theme])}
+                >
+                  {item.vacancy.sector}
+                </p>
+              </div>
+              <div className="flex items-center gap-1">
+                <p
+                  className={twMerge(
+                    'font-semibold text-sm capitalize leading-6',
+                    style.text[theme],
+                  )}
+                >
+                  {commons.weeksSchedule.description.link}
+                </p>
+                <Link
+                  href={item.link}
+                  type="button"
+                  className={twMerge('font-light text-sm capitalize leading-6', style.text[theme])}
+                >
+                  {item.link}
+                </Link>
+              </div>
+
               <div className="flex gap-6">
                 <div className="flex items-center gap-1">
                   <p
@@ -110,7 +152,7 @@ const WeeksSchedule = ({}) => {
                       style.text[theme],
                     )}
                   >
-                    {item.date}
+                    {item.date.toDate().toLocaleDateString('pt-br')}
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
@@ -128,7 +170,10 @@ const WeeksSchedule = ({}) => {
                       style.text[theme],
                     )}
                   >
-                    {item.hour}
+                    {item.date.toDate().toLocaleTimeString('pt-BR', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
                   </p>
                 </div>
               </div>
