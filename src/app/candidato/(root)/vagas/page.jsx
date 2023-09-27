@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Vacancy } from './Vacancy';
 import { VacancyDetails } from './VacancyDetails';
@@ -27,6 +27,7 @@ const VacancyList = ({ variant = 'default' }) => {
   const { theme } = useTheme();
   const style = styles[variant];
 
+  const [search, setSearch] = useState('');
   const [isVacancyOpen, setIsVacancyOpen] = useState(false);
   const [selectedVacancy, setSelectedVacancy] = useState(undefined);
   const { data: vacancies } = useFindAllVacancies({
@@ -34,6 +35,11 @@ const VacancyList = ({ variant = 'default' }) => {
       setSelectedVacancy(vacancies[0]);
     },
   });
+
+  const filteredVacancies =
+    search !== ''
+      ? vacancies?.filter((vacancy) => vacancy.title.toLowerCase().includes(search.toLowerCase()))
+      : vacancies;
 
   return (
     <>
@@ -47,6 +53,8 @@ const VacancyList = ({ variant = 'default' }) => {
               type="text"
               id="search"
               size={20}
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
               placeholder="pesquisar por vagas"
               className="w-full"
             />
@@ -61,7 +69,7 @@ const VacancyList = ({ variant = 'default' }) => {
           </p>
 
           <div className="my-4 h-full overflow-auto">
-            {vacancies?.map((vacancy) => (
+            {filteredVacancies?.map((vacancy) => (
               <Vacancy
                 key={vacancy?.id}
                 vacancy={vacancy}

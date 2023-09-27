@@ -24,7 +24,7 @@ const links = [
     icon: <RiUserAddLine className="md:w-7 md:h-7 w-6 h-6" />,
   },
   {
-    href: '/empresa/programacao-da-semana',
+    href: '/empresa/entrevistas-agendadas',
     icon: <LuCalendarDays className="md:w-7 md:h-7 w-6 h-6" />,
   },
   { href: '/empresa/configuracoes', icon: <LuSettings className="md:w-7 md:h-7 w-6 h-6" /> },

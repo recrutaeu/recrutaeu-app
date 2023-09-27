@@ -102,7 +102,7 @@ const commons = {
     },
   },
   weeksSchedule: {
-    title: 'Programação da semana',
+    title: 'Entrevistas agendadas',
     description: {
       title: 'Entrevista',
       candidate: 'candidato:',

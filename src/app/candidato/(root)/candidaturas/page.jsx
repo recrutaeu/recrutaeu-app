@@ -23,15 +23,6 @@ const styles = {
   },
 };
 
-const appli = {
-  titulo: 'Teste',
-  vaga: 'TESTE',
-  cidade: 'São',
-  estado: 'Testezih',
-  remuneracao: '545454',
-  contrato: 'clt',
-};
-
 const Applications = ({ variant = 'default' }) => {
   const { theme } = useTheme();
   const style = styles[variant];
@@ -57,7 +48,7 @@ const Applications = ({ variant = 'default' }) => {
             style.card[theme],
           )}
         >
-          {applications ? (
+          {applications?.length > 0 ? (
             <>
               <div className="sm:overflow-auto no-scrollbar h-auto">
                 {applications?.map((application) => {

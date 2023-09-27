@@ -34,47 +34,9 @@ const styles = {
   },
 };
 
-const DataPicker = ({
-  variant = 'default',
-  label,
-  className,
-  registerStart,
-  registerEnd,
-  dataInicial,
-  dataFinal,
-  setEditingObject,
-  editingObject,
-}) => {
+const DataPicker = ({ variant = 'default', label, className, registerStart, registerEnd }) => {
   const { theme } = useTheme();
   const style = styles[variant];
-  var dataInicialFormatada = '';
-  var dataFinalFormatada = '';
-
-  if (dataFinal && dataInicial) {
-    console.log(dataInicial);
-    function formatarDataInicial() {
-      const partes = dataInicial.split('/');
-      if (partes.length !== 3) {
-        return null;
-      }
-      const dia = partes[0];
-      const mes = partes[1];
-      const ano = partes[2];
-      dataInicialFormatada = `${ano}-${mes}-${dia}`;
-    }
-    function formatarDataFinal() {
-      const partes = dataFinal.split('/');
-      if (partes.length !== 3) {
-        return null;
-      }
-      const dia = partes[0];
-      const mes = partes[1];
-      const ano = partes[2];
-      dataFinalFormatada = `${ano}-${mes}-${dia}`;
-    }
-    formatarDataInicial();
-    formatarDataFinal();
-  }
 
   return (
     <div className={twMerge('w-full flex flex-col gap-1 cursor-pointer', className)}>
@@ -85,8 +47,6 @@ const DataPicker = ({
       </label>
       <div className="flex items-center justify-between lg:gap-5">
         <InputLabel
-          value={dataInicialFormatada}
-          onChange={(e) => setEditingObject({ ...editingObject, dataInicial: e.target.value })}
           type="date"
           id={'start'}
           className={twMerge('w-full text-xs lg:text-base', className)}
@@ -95,8 +55,6 @@ const DataPicker = ({
         />
         <p className={twMerge('text-sm lg:text-base', style.text[theme], className)}>à</p>
         <InputLabel
-          value={dataFinalFormatada}
-          onChange={(e) => setEditingObject({ ...editingObject, dataFinal: e.target.value })}
           type="date"
           id={'end'}
           className={twMerge('w-full text-xs lg:text-base', className)}

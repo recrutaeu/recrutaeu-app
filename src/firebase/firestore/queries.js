@@ -63,14 +63,18 @@ const findApplicationById = makeFindOneWhere('applications', 'id');
 const findAllApplicationsByVancancyIds = makeFindAllWhere('applications', 'vacancyId', 'in');
 
 const findAllApplicationByUserIdHydrated = async (userId) => {
-  const applications = await findAllApplicationByUserId(userId);
-  const vacancyIds = applications.map((application) => application.vacancyId);
-  const vacancies = await findAllVacanciesByIds(vacancyIds);
-  const vacanciesById = vacancies.reduce((acc, item) => {
-    return { ...acc, [item.id]: item };
-  }, {});
+  try {
+    const applications = await findAllApplicationByUserId(userId);
+    const vacancyIds = applications.map((application) => application.vacancyId);
+    const vacancies = await findAllVacanciesByIds(vacancyIds);
+    const vacanciesById = vacancies.reduce((acc, item) => {
+      return { ...acc, [item.id]: item };
+    }, {});
 
-  return applications.map((item) => ({ ...item, vacancy: vacanciesById[item.vacancyId] }));
+    return applications.map((item) => ({ ...item, vacancy: vacanciesById[item.vacancyId] }));
+  } catch {
+    return [];
+  }
 };
 
 const findAllApplicationByRecruiterIdHydrated = async (userId) => {
