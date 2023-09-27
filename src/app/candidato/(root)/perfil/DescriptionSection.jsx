@@ -2,9 +2,9 @@
 
 import { LuPencil } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
-import { ButtonLink } from '@/components/shared/ButtonLink';
+import { ButtonIcon } from '@/components/shared/ButtonIcon';
 import { Title } from '@/components/shared/Title';
-import { withTheme, themes } from '@/contexts/ThemeContext';
+import { themes, withTheme } from '@/contexts/ThemeContext';
 
 const DescriptionSection = withTheme(({ userData, theme, variant = 'default', onEdit }) => {
   const styles = {
@@ -30,9 +30,9 @@ const DescriptionSection = withTheme(({ userData, theme, variant = 'default', on
         <Title variant="bgTransform" className="text-base  mb-2">
           Descrição
         </Title>
-        <ButtonLink onClick={onEdit}>
+        <ButtonIcon onClick={onEdit}>
           <LuPencil size={20} className={style.icon[theme]} />
-        </ButtonLink>
+        </ButtonIcon>
       </div>
 
       <p className={twMerge('text-sm first-letter:Capitalize', style.text[theme])}>

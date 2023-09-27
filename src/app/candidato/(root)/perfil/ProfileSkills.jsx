@@ -1,4 +1,5 @@
 import { twMerge } from 'tailwind-merge';
+import { ButtonLabel } from '@/components/shared/ButtonLabel';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { SkillPill } from '@/components/shared/SkillPill/SkillPill';
 import { Title } from '@/components/shared/Title';
@@ -38,9 +39,9 @@ const ProfileSkills = withTheme(({ title, skills, onAdd, theme, variant = 'defau
           </p>
         )}
       </div>
-      <ButtonLink variant="bgTransform" className="self-center" onClick={onAdd}>
+      <ButtonLabel variant="inverseQuarto" className="self-center" onClick={onAdd}>
         {skills?.length > 0 ? 'Editar' : 'Adicionar'}
-      </ButtonLink>
+      </ButtonLabel>
     </section>
   );
 });
