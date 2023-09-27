@@ -51,18 +51,18 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
         <div className="mt-4 mb-4 lg:mb-0 flex gap-2 flex-wrap justify-evenly lg:flex-col">
           <div className="flex gap-2 align-middle">
             <LuMail size={20} className={style.icon[theme]} />
-            <p className={style.text[theme]}>{userData.email}</p>
+            <p className={style.text[theme]}>{userData?.email}</p>
           </div>
           <div className="flex gap-2 align-middle">
             <LuPhone size={20} className={style.icon[theme]} />
             <p className={style.text[theme]}>
-              {userData.telefone ? userData.telefone : 'Não informado'}
+              {userData?.telefone ? userData.telefone : 'Não informado'}
             </p>
           </div>
           <div className="flex gap-2 align-middle">
             <LuStar size={20} className={style.icon[theme]} />
             <p className={style.text[theme]}>
-              {userData.deficiencia ? userData.deficiencia : 'Não informado'}
+              {userData?.deficiencia ? userData.deficiencia : 'Não informado'}
             </p>
           </div>
         </div>
