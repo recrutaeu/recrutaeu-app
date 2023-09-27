@@ -92,7 +92,7 @@ const PersonalForm = ({ variant = 'default' }) => {
       contact: '',
       summary: '',
       subtitle: '',
-      extras: []
+      extras: [],
     };
     createOrUpdateUser(data);
   };

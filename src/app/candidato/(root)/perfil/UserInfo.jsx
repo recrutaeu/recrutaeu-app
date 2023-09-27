@@ -28,7 +28,7 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
   };
 
   const style = styles[variant];
-console.log(userData)
+  console.log(userData);
   return (
     <div className="flex flex-col justify-center items-center mb-5 lg:my-5 relative lg:flex-row lg:justify-start lg:mt-0">
       <Image
