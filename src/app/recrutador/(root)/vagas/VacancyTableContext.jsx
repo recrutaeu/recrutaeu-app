@@ -43,7 +43,6 @@ const VacancyTableContext = ({ vacancy, onDetails, checkAll, selectedRows, setSe
   const CustomCell = ({ children, className }) => (
     <Table.Cells className={twMerge(style.background[theme], className)}>{children}</Table.Cells>
   );
-  console.log(vacancy);
   return (
     <tbody>
       <Table.Row>

@@ -68,7 +68,6 @@ const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
       id: application.id,
       steps,
     });
-    console.log(user.companyId);
     createOrUpdateInterview({
       id: newInterview?.data?.id,
       ...data,

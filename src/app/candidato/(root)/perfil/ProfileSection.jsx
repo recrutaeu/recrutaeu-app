@@ -1,5 +1,5 @@
 import { ProfileQuotes } from './ProfileQuotes';
-import { ButtonLink } from '@/components/shared/ButtonLink';
+import { ButtonLabel } from '@/components/shared/ButtonLabel';
 import { Title } from '@/components/shared/Title';
 import { withTheme } from '@/contexts/ThemeContext';
 
@@ -10,9 +10,9 @@ const ProfileSection = withTheme(({ title, content, onAdd, onEdit }) => {
         {title}
       </Title>
       <ProfileQuotes items={content} onEdit={onEdit} />
-      <ButtonLink variant="bgTransform" className="self-center" onClick={onAdd}>
-        Adicionar
-      </ButtonLink>
+      <ButtonLabel type="button" className="self-center" onClick={onAdd} variant="inverseQuarto">
+        adicionar
+      </ButtonLabel>
     </section>
   );
 });

@@ -28,7 +28,6 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
   const { data: user } = useFindUserById({ id: authUser.id, enabled: !!authUser?.id });
 
   const [experience, setExperience] = useState();
-  const [description, setDescription] = useState();
   const [education, setEducation] = useState();
   const [extras, setExtras] = useState();
 
@@ -74,8 +73,7 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
           <UserInfo userData={user} />
           <DescriptionSection
             userData={user}
-            onEdit={(item) => {
-              setDescription(item);
+            onEdit={() => {
               setIsOpenDescription(true);
             }}
           />
