@@ -34,9 +34,19 @@ const Vacancy = ({}) => {
   const [vacancy, setSelectVacancy] = useState(undefined);
   const { user } = useAuthContext();
   const [selectedRows, setSelectedRows] = useState(new Set());
+  const [search, setSearch] = useState('');
 
   const { data: vacancies } = useFindAllVacanciesByUserId({ userId: user.id });
   const { mutate: deleteSelectedVacancies } = useDeleteVacancyByIds();
+
+  const filteredVacancies =
+    search !== ''
+      ? vacancies?.filter(
+          (vacancy) =>
+            vacancy.title.toLowerCase().includes(search.toLowerCase()) ||
+            vacancy.sector.toLowerCase().includes(search.toLowerCase()),
+        )
+      : vacancies;
 
   return (
     <div className="h-full lg:px-7 px-5 py-5">
@@ -57,7 +67,13 @@ const Vacancy = ({}) => {
         </p>
 
         <div className="flex mt-4 mb-7 lg:w-1/2 w-full">
-          <InputSearch variant="inverseSecundary" />
+          <InputSearch
+            variant="inverseSecundary"
+            id="search"
+            placeholder="pesquisar por vagas"
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
+          />
           <div className="ml-4 gap-2 flex">
             <ButtonIcon
               onClick={() => {
@@ -78,8 +94,9 @@ const Vacancy = ({}) => {
           </div>
         </div>
       </div>
+
       <VacancyTable
-        vacancies={vacancies}
+        vacancies={filteredVacancies}
         onDetails={(vacancy) => {
           setIsOpenDetails(true);
           setSelectVacancy(vacancy);
@@ -87,6 +104,7 @@ const Vacancy = ({}) => {
         selectedRows={selectedRows}
         setSelectedRows={setSelectedRows}
       />
+
       <div className="w-full flex justify-center items-center">
         <NumberPages currentPage={1} totalPage={1} variant="inverse" />
       </div>

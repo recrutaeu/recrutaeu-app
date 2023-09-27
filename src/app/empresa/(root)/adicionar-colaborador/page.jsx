@@ -31,6 +31,16 @@ const Recruiters = ({}) => {
   const { user } = useAuthContext();
   const { data: recruiters } = useFindAllUsersByCompanyId({ id: user.id });
   const { mutate: deleteUser } = useDeleteUserById();
+  const [search, setSearch] = useState('');
+
+  const filteredRecuiter =
+    search !== ''
+      ? recruiters?.filter(
+          (recruiter) =>
+            recruiter.name.toLowerCase().includes(search.toLowerCase()) ||
+            recruiter.email.toLowerCase().includes(search.toLowerCase()),
+        )
+      : recruiters;
 
   return (
     <div className="h-full lg:px-7 px-5 py-5">
@@ -50,7 +60,12 @@ const Recruiters = ({}) => {
         </p>
 
         <div className="flex mt-4 mb-7 lg:w-1/2 w-full">
-          <InputSearch variant="inverseSecundary" />
+          <InputSearch
+            variant="inverseSecundary"
+            placeholder="pesquisar usuário"
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
+          />
           <div className="ml-4 gap-2 flex">
             <ButtonIcon
               onClick={() => {
@@ -62,21 +77,14 @@ const Recruiters = ({}) => {
           </div>
         </div>
       </div>
-
-      {recruiters?.length > 0 ? (
-        <RecruiterTable
-          recruiters={recruiters}
-          onDetails={(recruiter) => {
-            setIsOpenDetails(true);
-            setSelectRecruiter(recruiter);
-          }}
-        />
-      ) : (
-        <p className={style.description[theme]}>Nenhum colaborador adicionado até o momento.</p>
-      )}
-
+      <RecruiterTable
+        recruiters={filteredRecuiter}
+        onDelete={(recruiter) => {
+          deleteUser(recruiter.id);
+        }}
+      />
       <div className="w-full flex justify-center items-center">
-        <NumberPages currentPage={1} totalPage={10} variant="inverse" />
+        <NumberPages currentPage={1} totalPage={1} variant="inverse" />
       </div>
     </div>
   );

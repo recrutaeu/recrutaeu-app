@@ -29,7 +29,7 @@ const links = [
     icon: <LuHourglass className="md:w-7 md:h-7 w-6 h-6" />,
   },
   {
-    href: '/recrutador/programacao-da-semana',
+    href: '/recrutador/entrevistas-agendadas',
     icon: <LuCalendarDays className="md:w-7 md:h-7 w-6 h-6" />,
   },
   { href: '/recrutador/configuracoes', icon: <LuSettings className="md:w-7 md:h-7 w-6 h-6" /> },
