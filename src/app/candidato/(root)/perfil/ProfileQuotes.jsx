@@ -30,20 +30,38 @@ const ProfileQuotes = withTheme(({ items, theme, onEdit, variant = 'default' }) 
 
   return items?.map((i) => (
     <Quote key={i} variant="bgTransform">
-      <div className="flex justify-between">
-        <Title variant="bgTransform" className="text-sm">
-          {i.nome}
-        </Title>
-        <ButtonIcon type="button" onClick={() => onEdit(i)}>
-          <LuPencil size={20} className={style.icon[theme]} />
-        </ButtonIcon>
-      </div>
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between">
+          <Title variant="bgTransform" className="text-base font-medium first-letter:capitalize">
+            {i.name}
+          </Title>
+          <ButtonIcon type="button" onClick={() => onEdit(i)}>
+            <LuPencil size={20} className={style.icon[theme]} />
+          </ButtonIcon>
+        </div>
 
-      <p className={twMerge('text-sm', style.text[theme])}> {i.role || i.course || i.name} </p>
-      <p className={twMerge('my-3 text-sm', style.text[theme])}> {i.description} </p>
-      <p className={twMerge('text-sm', style.text[theme])}>
-        {i.startDate} a {i.endDate}
-      </p>
+        <div className="flex flex-col gap-3">
+          <p
+            className={twMerge(
+              'text-sm first-letter:capitalize font-ligth m-0 leading-none',
+              style.text[theme],
+            )}
+          >
+            {i.role || i.course || i.name}
+          </p>
+          <p
+            className={twMerge(
+              'my-3 text-sm font-ligth first-letter:capitalize m-0 leading-none',
+              style.text[theme],
+            )}
+          >
+            {i.description}
+          </p>
+          <p className={twMerge('text-sm font-ligth m-0 leading-none', style.text[theme])}>
+            {i.startDate} a {i.endDate}
+          </p>
+        </div>
+      </div>
     </Quote>
   ));
 });

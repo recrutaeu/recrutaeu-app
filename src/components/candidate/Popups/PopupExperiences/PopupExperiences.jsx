@@ -5,13 +5,12 @@ import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { DataPicker } from '@/components/shared/DataPicker/DataPicker';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { TextArea } from '@/components/shared/TextArea';
-import { useAuthContext } from '@/contexts/AuthContext';
 import { withTheme } from '@/contexts/ThemeContext';
 import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
 
 const PopupExperiences = withTheme(
-  ({ className, variant = 'default', setIsOpen, editItem, ...props }) => {
+  ({ className, variant = 'default', setIsOpen, user, editItem, ...props }) => {
     const formSchema = z.object({
       name: z.string().min(1, 'o nome é obrigatório'),
       role: z.string().min(1, 'o cargo é obrigatório'),
@@ -20,18 +19,17 @@ const PopupExperiences = withTheme(
       description: z.string().min(1, 'a descrição é obrigatória'),
     });
 
-    const { register, handleSubmit } = useForm({
+    const { register, handleSubmit, reset } = useForm({
       defaultValues: editItem,
       resolver: zodResolver(formSchema),
     });
 
-    const { user } = useAuthContext();
     const { mutate: createOrUpdateUser } = useCreateOrUpdateUser();
 
     const handleForm = async (formData) => {
       if (editItem) {
         const updatedExperince = user?.experiencies?.map((item) =>
-          item.id == editItem?.id ? { ...editItem, ...formData } : item,
+          item.id == editItem.id ? { ...editItem, ...formData } : item,
         );
         const data = {
           id: user.id,
@@ -39,6 +37,7 @@ const PopupExperiences = withTheme(
         };
 
         createOrUpdateUser(data);
+        reset();
         setIsOpen(false);
         return;
       }
@@ -50,11 +49,22 @@ const PopupExperiences = withTheme(
       };
 
       createOrUpdateUser(data);
+      reset();
+      setIsOpen(false);
+    };
+
+    const handleDelete = () => {
+      const data = {
+        id: user.id,
+        experiencies: user?.experiencies.filter((item) => item.id !== editItem?.id),
+      };
+
+      createOrUpdateUser(data);
       setIsOpen(false);
     };
 
     return (
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleForm, console.log)}>
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleForm)}>
         <InputLabel
           placeholder="ex: Google"
           label="Nome:"
@@ -79,7 +89,11 @@ const PopupExperiences = withTheme(
           rows={10}
         />
         <div className="flex justify-evenly mt-7 gap-2">
-          {editItem && <ButtonPrimary variant="inverseSecundary">Deletar</ButtonPrimary>}
+          {editItem && (
+            <ButtonPrimary variant="inverseSecundary" onClick={handleDelete}>
+              Deletar
+            </ButtonPrimary>
+          )}
           <ButtonPrimary variant="inverse">Salvar</ButtonPrimary>
         </div>
       </form>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { DescriptionSection } from './DescriptionSection';
 import { ProfileSection } from './ProfileSection';
@@ -16,15 +16,13 @@ import { Poup } from '@/components/shared/Poup';
 import { Title } from '@/components/shared/Title';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, withTheme } from '@/contexts/ThemeContext';
-import getDataUser, { useFindUserById } from '@/firebase/firestore/queries';
+import { useFindUserById } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
 
 const Profile = withTheme(({ theme, variant = 'default' }) => {
   const [isOpenDescription, setIsOpenDescription] = useState(false);
-  const [isOpenEducation, setIsOpenEducation] = useState(false);
-  const [isOpenExperiences, setIsOpenExperiences] = useState(false);
-  const [isOpenExtras, setIsOpenExtras] = useState(false);
   const [isOpenSkills, setIsOpenSkills] = useState(false);
+  const [currentPopUp, setCurrentPopUp] = useState(false);
 
   const { user: authUser } = useAuthContext();
   const { data: user } = useFindUserById({ id: authUser.id, enabled: !!authUser?.id });
@@ -84,10 +82,10 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
           <ProfileSection
             title={'Ultimas Empresas'}
             content={user?.experiencies}
-            onAdd={() => setIsOpenExperiences(true)}
+            onAdd={() => setCurrentPopUp('AddExpirience')}
             onEdit={(item) => {
               setExperience(item);
-              setIsOpenExperiences(true);
+              setCurrentPopUp('EditExpirience');
             }}
           />
         </div>
@@ -96,19 +94,19 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
           <ProfileSection
             title={'Escolaridade'}
             content={user?.education}
-            onAdd={() => setIsOpenEducation(true)}
+            onAdd={() => setCurrentPopUp('AddEducation')}
             onEdit={(item) => {
               setEducation(item);
-              setIsOpenEducation(true);
+              setCurrentPopUp('EditEducation');
             }}
           />
           <ProfileSection
             title={'Cursos e idiomas'}
             content={user?.extras}
-            onAdd={() => setIsOpenExtras(true)}
+            onAdd={() => setCurrentPopUp('AddExtras')}
             onEdit={(item) => {
               setExtras(item);
-              setIsOpenEducation(true);
+              setCurrentPopUp('EditExtras');
             }}
           />
           <ProfileSkills
@@ -129,26 +127,38 @@ const Profile = withTheme(({ theme, variant = 'default' }) => {
       <Poup
         variant="inverseForm"
         title={'Ultimas Empresas'}
-        isOpen={isOpenExperiences}
-        setIsOpen={setIsOpenExperiences}
+        isOpen={currentPopUp === 'EditExpirience' || currentPopUp === 'AddExpirience'}
+        setIsOpen={setCurrentPopUp}
       >
-        <PopupExperiences setIsOpen={setIsOpenExperiences} editItem={experience} />
+        <PopupExperiences
+          setIsOpen={setCurrentPopUp}
+          user={user}
+          editItem={currentPopUp === 'EditExpirience' ? experience : null}
+        />
       </Poup>
       <Poup
         variant="inverseForm"
         title={'Escolaridade'}
-        isOpen={isOpenEducation}
-        setIsOpen={setIsOpenEducation}
+        isOpen={currentPopUp === 'EditEducation' || currentPopUp === 'AddEducation'}
+        setIsOpen={setCurrentPopUp}
       >
-        <PopupEducation setIsOpen={setIsOpenEducation} editItem={education} />
+        <PopupEducation
+          setIsOpen={setCurrentPopUp}
+          user={user}
+          editItem={currentPopUp === 'EditEducation' ? education : null}
+        />
       </Poup>
       <Poup
         variant="inverseForm"
         title={'Cursos e Idiomas'}
-        isOpen={isOpenExtras}
-        setIsOpen={setIsOpenExtras}
+        isOpen={currentPopUp === 'EditExtras' || currentPopUp === 'AddExtras'}
+        setIsOpen={setCurrentPopUp}
       >
-        <PopupExtras setIsOpen={setIsOpenExtras} editItem={extras} />
+        <PopupExtras
+          setIsOpen={setCurrentPopUp}
+          user={user}
+          editItem={currentPopUp === 'EditExtras' ? extras : null}
+        />
       </Poup>
       <Poup
         variant="inverseForm"

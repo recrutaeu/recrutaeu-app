@@ -41,7 +41,7 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
       <div>
         <div className="flex flex-col items-center lg:items-start">
           <Title variant="bgTransformSecundary" className="text-base lg:text-xl">
-            {userData.nome}
+            {userData.name}
           </Title>
         </div>
       </div>

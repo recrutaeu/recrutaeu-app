@@ -5,13 +5,12 @@ import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { DataPicker } from '@/components/shared/DataPicker';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { TextArea } from '@/components/shared/TextArea';
-import { useAuthContext } from '@/contexts/AuthContext';
 import { withTheme } from '@/contexts/ThemeContext';
 import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
 
 const PopupEducation = withTheme(
-  ({ className, editItem, setIsOpen, variant = 'default', ...props }) => {
+  ({ className, editItem, setIsOpen, user, variant = 'default', ...props }) => {
     const formSchema = z.object({
       name: z.string().min(1, 'o nome da instituição é obrigatório'),
       course: z.string().min(1, 'o curso é obrigatório'),
@@ -20,18 +19,17 @@ const PopupEducation = withTheme(
       description: z.string().min(1, 'a descrição é obrigatória'),
     });
 
-    const { register, handleSubmit } = useForm({
+    const { register, handleSubmit, reset } = useForm({
       defaultValues: editItem,
       resolver: zodResolver(formSchema),
     });
 
-    const { user } = useAuthContext();
     const { mutate: createOrUpdateUser } = useCreateOrUpdateUser();
 
     const handleForm = async (formData) => {
       if (editItem) {
         const updatedEducation = user?.education.map((item) =>
-          item.id == editItem?.id ? { ...editItem, ...formData } : item,
+          item.id == editItem.id ? { ...editItem, ...formData } : item,
         );
         const data = {
           id: user.id,
@@ -39,6 +37,7 @@ const PopupEducation = withTheme(
         };
 
         createOrUpdateUser(data);
+        reset();
         setIsOpen(false);
         return;
       }
@@ -47,6 +46,17 @@ const PopupEducation = withTheme(
       const data = {
         id: user.id,
         education: [...currEducation, { id: uuid(), ...formData }],
+      };
+
+      createOrUpdateUser(data);
+      reset();
+      setIsOpen(false);
+    };
+
+    const handleDelete = () => {
+      const data = {
+        id: user.id,
+        education: user?.education.filter((item) => item.id !== editItem?.id),
       };
 
       createOrUpdateUser(data);
@@ -79,7 +89,11 @@ const PopupEducation = withTheme(
           rows={10}
         />
         <div className="flex justify-evenly mt-7 gap-2">
-          {editItem && <ButtonPrimary variant="inverseSecundary">Deletar</ButtonPrimary>}
+          {editItem && (
+            <ButtonPrimary variant="inverseSecundary" onClick={handleDelete}>
+              Deletar
+            </ButtonPrimary>
+          )}
           <ButtonPrimary variant="inverse">Salvar</ButtonPrimary>
         </div>
       </form>
