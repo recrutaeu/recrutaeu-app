@@ -5,47 +5,58 @@ import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { DataPicker } from '@/components/shared/DataPicker';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { TextArea } from '@/components/shared/TextArea';
-import { useAuthContext } from '@/contexts/AuthContext';
 import { withTheme } from '@/contexts/ThemeContext';
 import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
 
 const PopupExtras = withTheme(
-  ({ className, variant = 'default', setIsOpen, editItem, ...props }) => {
+  ({ className, variant = 'default', setIsOpen, editItem, user, ...props }) => {
     const formSchema = z.object({
-      name: z.string().min(1, 'o cargo é obrigatório'),
+      name: z.string().min(1, 'o nome do instituição é obrigatório'),
+      course: z.string().min(1, 'o curso é obrigatório'),
       startDate: z.string().min(1, 'a data de inicio é obrigatória'),
       endDate: z.string().min(1, 'a data de término é obrigatória'),
       description: z.string().min(1, 'a descrição é obrigatória'),
     });
 
-    const { register, handleSubmit } = useForm({
+    const { register, handleSubmit, reset } = useForm({
       defaultValues: editItem,
       resolver: zodResolver(formSchema),
     });
 
-    const { user } = useAuthContext();
     const { mutate: createOrUpdateUser } = useCreateOrUpdateUser();
 
     const handleForm = async (formData) => {
       if (editItem) {
-        const updatedExperince = user?.extras?.map((item) =>
+        const updatedExtas = user?.extras?.map((item) =>
           item.id == editItem?.id ? { ...editItem, ...formData } : item,
         );
         const data = {
           id: user.id,
-          extras: updatedExperince,
+          extras: updatedExtas,
         };
 
         createOrUpdateUser(data);
+        reset();
         setIsOpen(false);
         return;
       }
 
-      const currExperince = user?.extras || [];
+      const currExtras = user?.extras || [];
       const data = {
         id: user.id,
-        extras: [...currExperince, { id: uuid(), ...formData }],
+        extras: [...currExtras, { id: uuid(), ...formData }],
+      };
+
+      createOrUpdateUser(data);
+      reset();
+      setIsOpen(false);
+    };
+
+    const handleDelete = () => {
+      const data = {
+        id: user.id,
+        extras: user?.extras.filter((item) => item.id !== editItem?.id),
       };
 
       createOrUpdateUser(data);
@@ -78,7 +89,11 @@ const PopupExtras = withTheme(
           register={register('description')}
         />
         <div className="flex justify-evenly mt-7 gap-2">
-          {editItem && <ButtonPrimary variant="inverseSecundary">Deletar</ButtonPrimary>}
+          {editItem && (
+            <ButtonPrimary variant="inverseSecundary" onClick={handleDelete}>
+              Deletar
+            </ButtonPrimary>
+          )}
           <ButtonPrimary variant="inverse">Salvar</ButtonPrimary>
         </div>
       </form>
