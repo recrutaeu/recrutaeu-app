@@ -27,7 +27,7 @@ const DescriptionSection = withTheme(({ userData, theme, variant = 'default', on
   return (
     <section className="my-6 self-start">
       <div className="flex justify-between">
-        <Title variant="bgTransform" className="text-base mb-2">
+        <Title variant="bgTransform" className="text-base  mb-2">
           Descrição
         </Title>
         <ButtonLink onClick={onEdit}>
@@ -35,7 +35,7 @@ const DescriptionSection = withTheme(({ userData, theme, variant = 'default', on
         </ButtonLink>
       </div>
 
-      <p className={twMerge('text-sm', style.text[theme])}>
+      <p className={twMerge('text-sm first-letter:Capitalize', style.text[theme])}>
         {userData?.summary || 'Adicione uma descrição'}
       </p>
     </section>
