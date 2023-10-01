@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
+import { InputLabel } from '@/components/shared/InputLabel';
 import { InputPassword } from '@/components/shared/InputPassword';
+import { useToast } from '@/contexts/ToastContext';
 import signIn from '@/firebase/auth/signin';
 import { candidate } from '@/locales/candidate';
-import { InputLabel } from '@/components/shared/InputLabel';
-import { useToast } from '@/contexts/ToastContext';
 
 const PersonalForm = ({ variant }) => {
   const router = useRouter();

@@ -1,7 +1,7 @@
 'use client';
+import { Input } from 'rsuite';
 import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
-import { Input } from 'rsuite';
 
 const styles = {
   default: {

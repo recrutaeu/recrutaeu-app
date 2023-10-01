@@ -1,12 +1,12 @@
 import Link from 'next/link';
+import { Description } from './Description';
+import { Logo } from './Logo';
+import { Navbar } from './Navbar';
 import { PersonalForm } from '@/components/candidate/SigninForm/SigninForm';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { Layout } from '@/components/shared/Layout';
 import { Title } from '@/components/shared/Title';
 import { candidate } from '@/locales/candidate';
-import { Logo } from './Logo';
-import { Description } from './Description';
-import { Navbar } from './Navbar';
 
 const SignIn = ({ variant = 'default' }) => {
   return (

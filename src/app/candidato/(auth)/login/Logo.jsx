@@ -1,7 +1,7 @@
 'use client';
 
-import { themes, useTheme } from '@/contexts/ThemeContext';
 import Image from 'next/image';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {

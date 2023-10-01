@@ -12,8 +12,7 @@ const themes = {
 const ThemeProvider = ({ children }) => {
   const [theme, setNewTheme] = useState(themes.DEFAULT);
 
-
-  const [mounted, setMounted] = React.useState(false)
+  const [mounted, setMounted] = React.useState(false);
 
   const setTheme = (theme) => {
     localStorage.setItem('theme', theme);
@@ -21,7 +20,7 @@ const ThemeProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    setMounted(true)
+    setMounted(true);
 
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme) {
@@ -29,13 +28,15 @@ const ThemeProvider = ({ children }) => {
     }
   }, []);
 
-  const body =  <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>
+  const body = (
+    <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>
+  );
 
   if (!mounted) {
-    return <div style={{ visibility: 'hidden' }}>{body}</div>
+    return <div style={{ visibility: 'hidden' }}>{body}</div>;
   }
 
-  return body
+  return body;
 };
 
 const withTheme = (Child) => (props) => (

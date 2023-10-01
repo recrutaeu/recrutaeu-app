@@ -1,7 +1,7 @@
 'use client';
 
-import { themes, useTheme } from '@/contexts/ThemeContext';
 import { twMerge } from 'tailwind-merge';
+import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const styles = {
   default: {
@@ -17,7 +17,7 @@ const styles = {
       [themes.DARK]: 'text-neutral-0',
       [themes.LIGHT]: 'text-neutral-90',
     },
-  }
+  },
 };
 
 export const Description = ({ variant, children, className }) => {

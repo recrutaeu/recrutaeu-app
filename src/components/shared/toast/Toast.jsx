@@ -1,7 +1,7 @@
-import { useToast } from '@/contexts/ToastContext';
 import { use, useEffect } from 'react';
 import { MdClose } from 'react-icons/md';
 import { ButtonIcon } from '../ButtonIcon';
+import { useToast } from '@/contexts/ToastContext';
 
 const Toast = () => {
   const { toast, setToast } = useToast();
