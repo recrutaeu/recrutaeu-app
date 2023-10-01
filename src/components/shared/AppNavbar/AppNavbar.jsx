@@ -1,3 +1,4 @@
+'use client';
 import { usePathname } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { Navbar } from '../Navbar';

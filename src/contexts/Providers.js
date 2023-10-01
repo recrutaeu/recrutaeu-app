@@ -2,14 +2,19 @@
 import VLibras from '@djpfs/react-vlibras';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@/contexts/ThemeContext';
+import { ToastProvider } from './ToastContext';
+import { Toast } from '@/components/shared/toast';
 
 const Providers = ({ children }) => {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <VLibras forceOnload={true} />
-        {children}
+        <ToastProvider>
+          <VLibras forceOnload={true} />
+          {children}
+          <Toast />
+        </ToastProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

@@ -22,6 +22,11 @@ const styles = {
       [themes.DARK]: 'text-neutral-90',
       [themes.LIGHT]: 'text-neutral-90',
     },
+    error: {
+      [themes.DEFAULT]: 'text-red-400',
+      [themes.DARK]: 'text-red-500',
+      [themes.LIGHT]: 'text-red-500',
+    },
   },
 };
 
@@ -38,11 +43,14 @@ const InputPassword = ({ variant = 'default', placeholder, error, ...props }) =>
     <div className="w-full flex flex-col gap-2">
       <InputGroup
         inside
-        className={twMerge('flex rounded-md w-full h-14', style.background[theme])}
+        className={twMerge('flex rounded-md w-full h-12 lg:h-14', style.background[theme])}
       >
         <Input
           type={visible ? 'text' : 'password'}
-          className={twMerge('w-full rounded-md outline-none pl-3', style.backgroundInput[theme])}
+          className={twMerge(
+            'w-full rounded-md outline-none pl-3 text-xs font-light lg:text-base',
+            style.backgroundInput[theme],
+          )}
           placeholder={placeholder}
           {...props}
         />
@@ -59,7 +67,7 @@ const InputPassword = ({ variant = 'default', placeholder, error, ...props }) =>
       </InputGroup>
       {error && (
         <div className="w-full">
-          <p className="text-red-500">{error}</p>
+          <p className={style.error[theme]}>{error}</p>
         </div>
       )}
     </div>
