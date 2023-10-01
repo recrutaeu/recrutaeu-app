@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
@@ -36,7 +36,12 @@ const PersonalForm = ({ variant }) => {
       .min(6, 'A senha precisa ter pelo menos 6 caracteres'),
   });
 
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm({
     defaultValues: {
       email: '',
       password: '',
@@ -70,8 +75,22 @@ const PersonalForm = ({ variant }) => {
           <Input.Field type="email" label="email" register={register('email')} />
         </Input.Root>
 
-        <InputPassword variant={variant} label="senha" register={register('password')} />
-        {error ? <p className={twMerge('w-full pl-4', style.description[theme])}>{error}</p> : null}
+        <Controller
+          name="password"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <InputPassword
+                variant={variant}
+                placeholder="senha"
+                onChange={onChange}
+                value={value}
+                error={errors?.['password']?.message}
+              />
+            );
+          }}
+        />
+
         <div className="w-full">
           <ButtonLink variant={variant} className="flex justify-end text-sm lg:text-base">
             {candidate.signin.form.forgotPassword.label}
