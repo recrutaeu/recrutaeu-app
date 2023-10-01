@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
+import { Input, InputGroup } from 'rsuite';
 import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
-import { Input, InputGroup } from 'rsuite';
 
 const styles = {
   default: {
