@@ -25,4 +25,5 @@ const Logo = () => {
     />
   );
 };
+
 export { Logo };
