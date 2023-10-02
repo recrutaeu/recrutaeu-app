@@ -96,7 +96,7 @@ const JobProcess = () => {
     } else {
       setSelectedApplication(applications?.[0]);
     }
-  }, [applications]);
+  }, [applications, selectedApplication]);
 
   const titles = {
     subscribed: 'Inscrição',

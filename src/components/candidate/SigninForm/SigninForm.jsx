@@ -7,26 +7,15 @@ import { z } from 'zod';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Input } from '@/components/shared/Input';
+import { InputLabel } from '@/components/shared/InputLabel';
 import { InputPassword } from '@/components/shared/InputPassword';
-import { themes, useTheme } from '@/contexts/ThemeContext';
+import { useToast } from '@/contexts/ToastContext';
 import signIn from '@/firebase/auth/signin';
 import { candidate } from '@/locales/candidate';
 
-const styles = {
-  default: {
-    description: {
-      [themes.DEFAULT]: 'text-neutral-0',
-      [themes.DARK]: 'text-neutral-0',
-      [themes.LIGHT]: 'text-neutral-90',
-    },
-  },
-};
-
 const PersonalForm = ({ variant }) => {
-  const style = styles['default'];
-  const { theme } = useTheme();
   const router = useRouter();
-  const [error, setError] = useState(undefined);
+  const { setToast } = useToast();
 
   const formSchema = z.object({
     email: z.string().email('Email invalido').min(1, 'o email é obrigatório'),
@@ -54,22 +43,15 @@ const PersonalForm = ({ variant }) => {
     const { result, error } = await signIn(email, password);
 
     if (error) {
-      setError(error.mensagem);
+      setToast(error);
       return;
     }
 
     return router.push('/candidato/dashboard');
   };
 
-  const handleFormError = (errors) => {
-    setError(Object.values(errors).find((error) => error.message)?.message);
-  };
-
   return (
-    <form
-      className="w-full flex flex-col gap-6 items-center"
-      onSubmit={handleSubmit(handleForm, handleFormError)}
-    >
+    <form className="w-full flex flex-col gap-6 items-center" onSubmit={handleSubmit(handleForm)}>
       <>
         <Input.Root variant={variant}>
           <Input.Field type="email" label="email" register={register('email')} />
