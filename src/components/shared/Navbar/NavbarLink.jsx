@@ -44,7 +44,7 @@ const NavbarLink = ({
   return (
     <div
       className={twMerge(
-        'py-2 lg:px-4 w-full font-semibold px-2 text-sm lg:text-lg',
+        'py-2 lg:px-4 w-full font-semibold px-2 text-base lg:text-lg',
         style.div[theme],
         className,
         active && style.active[theme],
