@@ -1,24 +1,21 @@
-import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
-import { Input } from '@/components/shared/Input';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { InputPassword } from '@/components/shared/InputPassword';
 import { useToast } from '@/contexts/ToastContext';
 import signIn from '@/firebase/auth/signin';
 import { candidate } from '@/locales/candidate';
 
-const PersonalForm = ({ variant }) => {
+const PersonalForm = ({ variant = 'default' }) => {
   const router = useRouter();
   const { setToast } = useToast();
 
   const formSchema = z.object({
-    email: z.string().email('Email invalido').min(1, 'o email é obrigatório'),
+    email: z.string().min(1, 'O email é obrigatório').email('Por favor insira um email válido'),
     password: z
       .string()
       .min(1, 'A senha é  obrigatória')
@@ -53,9 +50,22 @@ const PersonalForm = ({ variant }) => {
   return (
     <form className="w-full flex flex-col gap-6 items-center" onSubmit={handleSubmit(handleForm)}>
       <>
-        <Input.Root variant={variant}>
-          <Input.Field type="email" label="email" register={register('email')} />
-        </Input.Root>
+        <Controller
+          name="email"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <InputLabel
+                type="email"
+                placeholder="email"
+                variant={variant}
+                onChange={onChange}
+                value={value}
+                error={errors?.['email']?.message}
+              />
+            );
+          }}
+        />
 
         <Controller
           name="password"

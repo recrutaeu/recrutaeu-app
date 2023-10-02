@@ -20,10 +20,12 @@ const styles = {
   },
 };
 
-export const Description = ({ variant, children, className }) => {
+const Description = ({ variant, children, className }) => {
   const { theme } = useTheme();
 
   const style = styles[variant];
 
   return <p className={twMerge('text-xl', style.text[theme], className)}>{children}</p>;
 };
+
+export { Description };

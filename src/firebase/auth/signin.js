@@ -22,7 +22,7 @@ async function retornarErro(error) {
     case 'auth/missing-password':
       return 'Insira a senha.';
     case 'auth/invalid-login-credentials':
-      return 'Email e/ou senha incorreto/s. Verifique e tente novamente.';
+      return 'Email ou senha incorreto. Verifique e tente novamente.';
     default:
       return error;
   }

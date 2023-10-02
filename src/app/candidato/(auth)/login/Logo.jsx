@@ -13,9 +13,8 @@ const styles = {
   },
 };
 
-export const Logo = ({ variant }) => {
+const Logo = ({ variant }) => {
   const { theme } = useTheme();
-
   const style = styles[variant];
 
   return (
@@ -27,3 +26,4 @@ export const Logo = ({ variant }) => {
     />
   );
 };
+export { Logo };
