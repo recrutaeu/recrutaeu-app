@@ -9,24 +9,22 @@ import { Layout } from '@/components/shared/Layout';
 import { Title } from '@/components/shared/Title';
 import { candidate } from '@/locales/candidate';
 
-const SignIn = ({ variant = 'default' }) => {
+const SignIn = () => {
   return (
     <>
       <Layout.Left className="hidden lg:flex flex-col" variant="inverse">
         <Link href="/" className="mb-40 cursor-pointer">
-          <Logo variant={variant} />
+          <Logo />
         </Link>
-        <div className="flex flex-col w-3/4 gap-4">
+        <div className="flex flex-col w-4/5 gap-4">
           <Title variant="inverse">{candidate.signin.title}</Title>
-          <Description variant={variant}>{candidate.signin.description}</Description>
+          <Description>{candidate.signin.description}</Description>
         </div>
       </Layout.Left>
 
       <Layout.Right className="flex flex-col items-center" variant="inverse">
         <div className="lg:pl-10  w-full h-full flex flex-col items-center">
-          <div className="w-full flex">
-            <Navbar />
-          </div>
+          <Navbar />
           <div className="w-full grow flex flex-col items-center justify-center  gap-6 lg:gap-8">
             <Title className="text-4xl lg:text-5xl" variant="inverseForm">
               {candidate.signin.form.title}
@@ -40,7 +38,7 @@ const SignIn = ({ variant = 'default' }) => {
             <PersonalForm variant="inverse" className="w-3/4" />
           </div>
           <div className="w-full flex justify-center gap-2">
-            <Description variant="inverse" className=" text-base lg:text-lg">
+            <Description variant="inverse" className="text-base lg:text-lg">
               {candidate.signin.buttonLink.description}
             </Description>
             <ButtonLink

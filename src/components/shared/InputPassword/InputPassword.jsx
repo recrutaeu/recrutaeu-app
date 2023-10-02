@@ -28,11 +28,33 @@ const styles = {
       [themes.LIGHT]: 'text-red-500',
     },
   },
+  inverse: {
+    background: {
+      [themes.DEFAULT]: 'bg-neutral-15',
+      [themes.DARK]: 'bg-neutral-0 border border-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0',
+    },
+    backgroundInput: {
+      [themes.DEFAULT]: 'bg-neutral-15',
+      [themes.DARK]: 'bg-neutral-0',
+      [themes.LIGHT]: 'bg-neutral-0',
+    },
+    inputIcon: {
+      [themes.DEFAULT]: 'text-primary-90',
+      [themes.DARK]: 'text-neutral-90',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
+    error: {
+      [themes.DEFAULT]: 'text-red-400',
+      [themes.DARK]: 'text-red-500',
+      [themes.LIGHT]: 'text-red-500',
+    },
+  },
 };
 
 const InputPassword = ({ variant = 'default', placeholder, error, ...props }) => {
   const { theme } = useTheme();
-  const style = styles['default'];
+  const style = styles[variant];
   const [visible, setVisible] = useState(false);
 
   const handleChange = () => {

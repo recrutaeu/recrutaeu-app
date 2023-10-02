@@ -23,7 +23,6 @@ const PersonalForm = ({ variant = 'default' }) => {
   });
 
   const {
-    register,
     handleSubmit,
     formState: { errors },
     control,
@@ -37,7 +36,7 @@ const PersonalForm = ({ variant = 'default' }) => {
 
   const handleForm = async (data) => {
     const { email, password } = data;
-    const { result, error } = await signIn(email, password);
+    const { error } = await signIn(email, password);
 
     if (error) {
       setToast(error);
