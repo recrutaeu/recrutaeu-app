@@ -6,12 +6,12 @@ import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
+import { Input } from '@/components/shared/Input';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { InputPassword } from '@/components/shared/InputPassword';
 import { useToast } from '@/contexts/ToastContext';
 import signIn from '@/firebase/auth/signin';
 import { candidate } from '@/locales/candidate';
-import { Input } from '@/components/shared/Input';
 
 const PersonalForm = ({ variant }) => {
   const router = useRouter();

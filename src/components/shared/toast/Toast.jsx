@@ -12,7 +12,7 @@ const Toast = () => {
         setToast(undefined);
       }, 5000);
     }
-  }, [toast]);
+  }, [toast, setToast]);
 
   return toast ? (
     <div className="fixed bottom-10 right-10 z-50 p-8 min-w-[200px] text-center rounded-lg bg-red-500 text-neutral-0 text-lg">

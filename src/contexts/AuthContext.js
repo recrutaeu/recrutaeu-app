@@ -52,7 +52,7 @@ export const AuthContextProvider = ({ children, callbackUrl, role }) => {
     });
 
     return () => unsubscribe();
-  }, [callbackUrl, route]);
+  }, [callbackUrl, route, role]);
 
   return (
     <AuthContext.Provider value={{ user }}>{loading ? <Loading /> : children}</AuthContext.Provider>
