@@ -1,6 +1,8 @@
 import { Archivo } from 'next/font/google';
 import { Providers } from '@/contexts/Providers';
 import './globals.css';
+// import 'rsuite/dist/rsuite.min.css';
+
 const inter = Archivo({ subsets: ['latin'] });
 
 const RootLayout = ({ children }) => {

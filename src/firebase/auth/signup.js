@@ -30,7 +30,7 @@ function parseError(error) {
     case 'auth/admin-restricted-operation':
       return 'Verifique os dados inseridos para realizar o cadastro.';
     case 'auth/email-already-in-use':
-      return 'Email já está em uso';
+      return 'Não foi possivel fazer o cadastro do usuário.';
     case 'auth/invalid-login-credentials':
       return 'Email e/ou senha incorreto/s. Verifique e tente novamente.';
     default:
