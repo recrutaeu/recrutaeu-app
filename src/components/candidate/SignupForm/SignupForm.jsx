@@ -2,9 +2,9 @@
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CpfValidator } from 'clean-cpf-validator';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
+import { isCPF } from 'validation-br';
 import { z } from 'zod';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
@@ -58,8 +58,8 @@ const PersonalForm = ({ variant = 'default' }) => {
       document: z
         .string()
         .min(1, 'O CPF é obrigatório.')
-        .refine((document) => CpfValidator.validate(document), 'Insira um cpf válido.')
-        .transform((document) => document.replace(/\D/g, '')),
+        .transform((document) => document.replace(/\D/g, ''))
+        .refine((document) => isCPF(document), 'Insira um cpf válido.'),
       name: z
         .string()
         .min(1, 'O nome é obrigatório.')

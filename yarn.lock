@@ -1395,11 +1395,6 @@ classnames@^2.2.5, classnames@^2.3.1:
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
   integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
 
-clean-cpf-validator@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/clean-cpf-validator/-/clean-cpf-validator-1.0.2.tgz#6ea2b521cbb59d791c1e6d9fbe143957fb1fac5c"
-  integrity sha512-cqUceSluCU6eV9PteQr1uj4/hHgWKvYO97lswauok+ZQAnY5QZBjcRTB7UaHH/qjb5tMhO6U7fwie6UY8j4Nbg==
-
 client-only@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/client-only/-/client-only-0.0.1.tgz#38bba5d403c41ab150bff64a95c85013cf73bca1"
@@ -4337,6 +4332,11 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
+
+validation-br@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/validation-br/-/validation-br-1.4.4.tgz#caa6f67cd7d8075a1a6efeaf3ac65eccbb4667e5"
+  integrity sha512-7CPzlwWQO3coCMciH4GbyMBK3h1tNG+ZrY6R97IyUZC1WS0GCYlH2j6pQCIdhZdZOpe/nwv7px1+F2k0RWvaWQ==
 
 watchpack@2.4.0:
   version "2.4.0"
