@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CpfValidator } from 'clean-cpf-validator';
@@ -11,6 +11,7 @@ import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { InputMask } from '@/components/shared/InputMask';
 import { InputPassword } from '@/components/shared/InputPassword';
+import { Select } from '@/components/shared/Select';
 import { DOCUMENT_MASK } from '@/consts/mask';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { useToast } from '@/contexts/ToastContext';
@@ -22,6 +23,11 @@ import { candidate } from '@/locales';
 const styles = {
   default: {
     description: {
+      [themes.DEFAULT]: 'text-neutral-90',
+      [themes.DARK]: 'text-neutral-90',
+      [themes.LIGHT]: 'text-neutral-0',
+    },
+    textDeficiency: {
       [themes.DEFAULT]: 'text-neutral-90',
       [themes.DARK]: 'text-neutral-90',
       [themes.LIGHT]: 'text-neutral-0',
@@ -39,7 +45,6 @@ const PersonalForm = ({ variant = 'default' }) => {
   const style = styles[variant];
   const router = useRouter();
   const [formStep, setFormStep] = useState(formSteps.profile);
-  const [error, setError] = React.useState(undefined);
   const { setToast } = useToast();
 
   const formSchema = z
@@ -53,8 +58,14 @@ const PersonalForm = ({ variant = 'default' }) => {
       document: z
         .string()
         .min(1, 'O CPF é obrigatório.')
-        .refine((document) => CpfValidator.validate(document), 'Insira um cpf válido.'),
-      name: z.string().min(1, 'O nome é obrigatório.'),
+        .refine((document) => CpfValidator.validate(document), 'Insira um cpf válido.')
+        .transform((document) => document.replace(/\D/g, '')),
+      name: z
+        .string()
+        .min(1, 'O nome é obrigatório.')
+        .refine((name) => name.split(' ').length >= 2, 'Insira o nome completo'),
+      deficiency: z.string({ required_error: 'Selecione uma opção.' }),
+      cid: z.string().optional(),
     })
     .refine((data) => data.password === data.confirmPassword, {
       path: ['confirmPassword'],
@@ -65,6 +76,7 @@ const PersonalForm = ({ variant = 'default' }) => {
     handleSubmit,
     control,
     formState: { errors },
+    watch,
   } = useForm({
     defaultValues: {
       email: '',
@@ -81,13 +93,14 @@ const PersonalForm = ({ variant = 'default' }) => {
       router.push('/candidato/dashboard');
     },
     onError: (e) => {
-      setError(e.message);
+      setToast(e.message);
     },
   });
 
   const handleForm = async (formData) => {
     const { email, password } = formData;
     const { response, error } = await signUp(email, password);
+
     if (error) {
       setToast(error);
       return;
@@ -106,20 +119,15 @@ const PersonalForm = ({ variant = 'default' }) => {
       summary: '',
       subtitle: '',
       extras: [],
+      deficiency: formData.deficiency,
+      cid: formData.cid || '',
     };
+
     createOrUpdateUser(data);
   };
 
-  const handleFormError = (errors) => {
-    console.log(errors);
-    setError(Object.values(errors).find((error) => error.message)?.message);
-  };
-
   return (
-    <form
-      className="w-full flex flex-col gap-6 items-center"
-      onSubmit={handleSubmit(handleForm, handleFormError)}
-    >
+    <form className="w-full flex flex-col gap-6 items-center" onSubmit={handleSubmit(handleForm)}>
       {formStep === formSteps.profile && (
         <>
           <p
@@ -180,6 +188,59 @@ const PersonalForm = ({ variant = 'default' }) => {
             }}
           />
 
+          <Controller
+            name="deficiency"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <Select
+                  className="w-full"
+                  label="- Deficiência -"
+                  options={[
+                    { value: 'NA', label: 'Não tenho deficiência' },
+                    { value: 'Fisica', label: 'Fisica' },
+                    { value: 'Auditiva', label: 'Auditiva' },
+                    { value: 'Intelectual', label: 'Intelectual' },
+                    { value: 'Visual', label: 'Visual' },
+                    { value: 'Autismo', label: 'Autismo' },
+                    { value: 'Psicossocial', label: 'Psicossocial' },
+                    { value: 'Outros', label: 'Outros' },
+                  ]}
+                  onChange={onChange}
+                  value={value}
+                  error={errors?.['deficiency']?.message}
+                />
+              );
+            }}
+          />
+          {watch('deficiency') !== 'NA' && watch('deficiency') !== undefined && (
+            <div className="w-full flex flex-col gap-2">
+              <Controller
+                name="cid"
+                control={control}
+                render={({ field: { onChange, value } }) => {
+                  return (
+                    <InputLabel
+                      variant="inverse"
+                      placeholder="Número do CID - Opcional"
+                      onChange={onChange}
+                      value={value}
+                    />
+                  );
+                }}
+              />
+
+              <p
+                className={twMerge(
+                  'font-light text-sm lg:text-base w-full text-center',
+                  style.textDeficiency[theme],
+                )}
+              >
+                Informe o número do CID que consta no seu laudo. (Válido somente os abrangidos pela
+                Lei 8.213/91).
+              </p>
+            </div>
+          )}
           <ButtonPrimary
             type="button"
             className="mt-5"

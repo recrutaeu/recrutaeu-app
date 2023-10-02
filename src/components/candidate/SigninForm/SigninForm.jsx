@@ -1,3 +1,4 @@
+'use client';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
@@ -10,7 +11,7 @@ import { useToast } from '@/contexts/ToastContext';
 import signIn from '@/firebase/auth/signin';
 import { candidate } from '@/locales/candidate';
 
-const PersonalForm = ({ variant = 'default' }) => {
+const PersonalForm = () => {
   const router = useRouter();
   const { setToast } = useToast();
 
@@ -57,7 +58,6 @@ const PersonalForm = ({ variant = 'default' }) => {
               <InputLabel
                 type="email"
                 placeholder="email"
-                variant={variant}
                 onChange={onChange}
                 value={value}
                 error={errors?.['email']?.message}
@@ -72,7 +72,6 @@ const PersonalForm = ({ variant = 'default' }) => {
           render={({ field: { onChange, value } }) => {
             return (
               <InputPassword
-                variant={variant}
                 placeholder="senha"
                 onChange={onChange}
                 value={value}
@@ -83,12 +82,12 @@ const PersonalForm = ({ variant = 'default' }) => {
         />
 
         <div className="w-full">
-          <ButtonLink variant={variant} className="flex justify-end text-sm lg:text-base">
+          <ButtonLink className="flex justify-end text-sm lg:text-base">
             {candidate.signin.form.forgotPassword.label}
           </ButtonLink>
         </div>
 
-        <ButtonPrimary type="submit" className="mt-5" variant={variant}>
+        <ButtonPrimary variant="inverse" type="submit" className="mt-5">
           {candidate.signin.form.button.label}
         </ButtonPrimary>
       </>

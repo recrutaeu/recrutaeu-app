@@ -22,9 +22,9 @@ const SignUp = () => {
       </Layout.Left>
 
       <Layout.Right className="flex flex-col items-center ">
-        <div className="lg:pl-10  w-full h-full flex flex-col items-center">
+        <div className="lg:pl-10  w-full h-full flex flex-col items-center gap-10">
           <Navbar />
-          <div className="w-full grow flex flex-col items-center justify-center gap-8">
+          <div className="w-full grow flex flex-col items-center justify-center  gap-5 lg:gap-8">
             <Title variant="inverse" className="text-5xl">
               {candidate.signup.form.title}
             </Title>
