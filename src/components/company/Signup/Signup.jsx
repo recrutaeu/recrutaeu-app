@@ -1,14 +1,19 @@
+'use client';
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
+import { isCNPJ } from 'validation-br';
 import { z } from 'zod';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Input } from '@/components/shared/Input';
+import { InputMask } from '@/components/shared/InputMask';
 import { InputPassword } from '@/components/shared/InputPassword';
+import { CNPJ_MASK } from '@/consts/mask';
 import { themes, useTheme } from '@/contexts/ThemeContext';
+import { useToast } from '@/contexts/ToastContext';
 import signUp from '@/firebase/auth/signup';
 import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
@@ -28,6 +33,7 @@ const SignupForm = ({ variant = 'default' }) => {
   const { theme } = useTheme();
   const style = styles[variant];
   const router = useRouter();
+  const { setToast } = useToast();
 
   const formSteps = {
     profile: 'profile',
@@ -45,7 +51,11 @@ const SignupForm = ({ variant = 'default' }) => {
         .min(1, 'A senha é  obrigatória')
         .min(6, 'A senha precisa ter pelo menos 6 caracteres'),
       confirmPassword: z.string().min(1, 'Confirmação de senha é obrigatório'),
-      document: z.string().min(1, 'O CNPJ é obrigatório'),
+      document: z
+        .string()
+        .min(1, 'O CPF é obrigatório.')
+        .transform((document) => document.replace(/\D/g, ''))
+        .refine((document) => isCNPJ(document), 'Insira um CNPJ válido.'),
       name: z.string().min(1, 'A razão social é obrigatória'),
       nickname: z.string().min(1, 'O nome fantasia é obrigatório'),
     })
@@ -54,7 +64,12 @@ const SignupForm = ({ variant = 'default' }) => {
       message: 'As senhas não iguais',
     });
 
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       email: '',
       password: '',
@@ -71,15 +86,16 @@ const SignupForm = ({ variant = 'default' }) => {
       router.push('/empresa/adicionar-colaborador');
     },
     onError: (e) => {
-      setError(e.message);
+      setToast(e.message);
     },
   });
 
   const handleForm = async (formData) => {
     const { email, password } = formData;
     const { response, error } = await signUp(email, password);
+
     if (error) {
-      setError(error);
+      setToast(error);
       return;
     }
 
@@ -119,9 +135,27 @@ const SignupForm = ({ variant = 'default' }) => {
           <Input.Root>
             <Input.Field type="text" label="nome fantasia" register={register('nickname')} />
           </Input.Root>
-          <Input.Root>
+
+          <Controller
+            name="document"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <InputMask
+                  variant="inverse"
+                  placeholder="cnpj"
+                  type="text"
+                  mask={CNPJ_MASK}
+                  onChange={onChange}
+                  value={value}
+                  error={errors?.['document']?.message}
+                />
+              );
+            }}
+          />
+          {/* <Input.Root>
             <Input.Field type="text" label="cnpj" register={register('document')} />
-          </Input.Root>
+          </Input.Root> */}
           <Input.Root>
             <Input.Field label="email" register={register('email')} />
           </Input.Root>
