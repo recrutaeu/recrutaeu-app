@@ -40,7 +40,7 @@ const SignIn = ({ variant = 'default' }) => {
             <PersonalForm variant="inverse" className="w-3/4" />
           </div>
           <div className="w-full flex justify-center gap-2">
-            <Description variant={variant} className=" text-base lg:text-lg">
+            <Description variant="inverse" className=" text-base lg:text-lg">
               {candidate.signin.buttonLink.description}
             </Description>
             <ButtonLink
