@@ -1,5 +1,5 @@
 'use client';
-import { Input } from 'rsuite';
+import { MaskedInput } from 'rsuite';
 import { twMerge } from 'tailwind-merge';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 
@@ -64,11 +64,12 @@ const styles = {
   // },
 };
 
-const InputLabel = ({
+const InputMask = ({
   label,
   placeholder,
   variant = 'default',
   type,
+  mask,
   error,
   className,
   ...props
@@ -85,13 +86,14 @@ const InputLabel = ({
         >
           {label}
         </label>
-        <Input
+        <MaskedInput
           type={type}
           placeholder={placeholder}
           className={twMerge(
             'w-full rounded-md outline-none text-xs font-light h-12 lg:h-14 px-3 mt-1 lg:text-base',
             style.input[theme],
           )}
+          mask={mask}
           {...props}
         />
       </div>
@@ -104,4 +106,4 @@ const InputLabel = ({
   );
 };
 
-export { InputLabel };
+export { InputMask };

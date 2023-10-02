@@ -1,14 +1,19 @@
+'use client';
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { CpfValidator } from 'clean-cpf-validator';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
-import { Input } from '@/components/shared/Input';
+import { InputLabel } from '@/components/shared/InputLabel';
+import { InputMask } from '@/components/shared/InputMask';
 import { InputPassword } from '@/components/shared/InputPassword';
+import { DOCUMENT_MASK } from '@/consts/mask';
 import { themes, useTheme } from '@/contexts/ThemeContext';
+import { useToast } from '@/contexts/ToastContext';
 import signUp from '@/firebase/auth/signup';
 import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
@@ -35,24 +40,32 @@ const PersonalForm = ({ variant = 'default' }) => {
   const router = useRouter();
   const [formStep, setFormStep] = useState(formSteps.profile);
   const [error, setError] = React.useState(undefined);
+  const { setToast } = useToast();
 
   const formSchema = z
     .object({
-      email: z.string().email('Email invalido').min(1, 'o email é obrigatório'),
+      email: z.string().min(1, 'O email é obrigatório.').email('Por favor insira um email válido.'),
       password: z
         .string()
-        .min(1, 'A senha é  obrigatória')
-        .min(6, 'A senha precisa ter pelo menos 6 caracteres'),
-      confirmPassword: z.string().min(1, 'Confirmação de senha é obrigatório'),
-      document: z.string().min(1, 'O CPF é obrigatório'),
-      name: z.string().min(1, 'O nome é obrigatório'),
+        .min(1, 'A senha é  obrigatória.')
+        .min(6, 'A senha precisa ter pelo menos 6 caracteres.'),
+      confirmPassword: z.string().min(1, 'A confirmação de senha é obrigatória.'),
+      document: z
+        .string()
+        .min(1, 'O CPF é obrigatório.')
+        .refine((document) => CpfValidator.validate(document), 'Insira um cpf válido.'),
+      name: z.string().min(1, 'O nome é obrigatório.'),
     })
     .refine((data) => data.password === data.confirmPassword, {
       path: ['confirmPassword'],
       message: 'As senhas não iguais',
     });
 
-  const { register, handleSubmit } = useForm({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       email: '',
       password: '',
@@ -76,7 +89,7 @@ const PersonalForm = ({ variant = 'default' }) => {
     const { email, password } = formData;
     const { response, error } = await signUp(email, password);
     if (error) {
-      setError(error);
+      setToast(error);
       return;
     }
 
@@ -98,6 +111,7 @@ const PersonalForm = ({ variant = 'default' }) => {
   };
 
   const handleFormError = (errors) => {
+    console.log(errors);
     setError(Object.values(errors).find((error) => error.message)?.message);
   };
 
@@ -113,15 +127,58 @@ const PersonalForm = ({ variant = 'default' }) => {
           >
             {candidate.signup.form.description}
           </p>
-          <Input.Root>
-            <Input.Field label="nome" type="text" register={register('name')} />
-          </Input.Root>
-          <Input.Root>
-            <Input.Field label="cpf" type="text" register={register('document')} />
-          </Input.Root>
-          <Input.Root>
-            <Input.Field label="email" register={register('email')} />
-          </Input.Root>
+
+          <Controller
+            name="name"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <InputLabel
+                  placeholder="nome completo"
+                  type="text"
+                  variant="inverse"
+                  onChange={onChange}
+                  value={value}
+                  error={errors?.['name']?.message}
+                />
+              );
+            }}
+          />
+
+          <Controller
+            name="document"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <InputMask
+                  placeholder="cpf"
+                  type="text"
+                  mask={DOCUMENT_MASK}
+                  variant="inverse"
+                  onChange={onChange}
+                  value={value}
+                  error={errors?.['document']?.message}
+                />
+              );
+            }}
+          />
+
+          <Controller
+            name="email"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <InputLabel
+                  type="email"
+                  placeholder="email"
+                  variant="inverse"
+                  onChange={onChange}
+                  value={value}
+                  error={errors?.['email']?.message}
+                />
+              );
+            }}
+          />
 
           <ButtonPrimary
             type="button"
@@ -140,10 +197,37 @@ const PersonalForm = ({ variant = 'default' }) => {
           >
             {candidate.signup.form.descriptionPassword}
           </p>
-          <InputPassword label="senha" register={register('password')} />
+          <Controller
+            name="password"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <InputPassword
+                  placeholder="senha"
+                  variant="inverse"
+                  onChange={onChange}
+                  value={value}
+                  error={errors?.['password']?.message}
+                />
+              );
+            }}
+          />
 
-          <InputPassword label="repetir senha" register={register('confirmPassword')} />
-          {error && <p className={twMerge('w-full pl-4', style.description[theme])}>{error}</p>}
+          <Controller
+            name="confirmPassword"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <InputPassword
+                  placeholder="repetir senha"
+                  variant="inverse"
+                  onChange={onChange}
+                  value={value}
+                  error={errors?.['confirmPassword']?.message}
+                />
+              );
+            }}
+          />
 
           <ButtonPrimary type="submit" className="mt-5">
             {candidate.signup.form.buttonSubmit.label}
