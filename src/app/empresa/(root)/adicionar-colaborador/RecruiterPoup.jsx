@@ -82,7 +82,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
     >
       <form
         className="w-full h-full flex flex-col"
-        onSubmit={handleSubmit(handleForm, console.log)}
+        onSubmit={handleSubmit(handleForm)}
       >
         <div className="w-full flex flex-col grow gap-3 lg:gap-5">
           <Controller

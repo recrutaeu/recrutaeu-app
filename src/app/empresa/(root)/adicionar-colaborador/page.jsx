@@ -43,11 +43,11 @@ const Recruiters = ({}) => {
       : recruiters;
 
   return (
-    <div className="h-full lg:px-7 px-5 py-5">
+    <div className="h-full lg:px-7 lg:py-0 px-5 py-5">
       <RecruiterPoup isOpen={isOpen} setIsOpen={setIsOpen} />
 
       <div>
-        <Title className="text-xl llg:text-3xl px-5 lg:pl-10 lg:pr-12" variant="inverse">
+        <Title className="text-xl lg:text-3xl px-5 lg:px-0 " variant="inverse">
           {company.recruiters.title}
         </Title>
         <p
