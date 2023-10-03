@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+'use client';
+import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { ButtonLink } from '@/components/shared/ButtonLink';

@@ -1,6 +1,4 @@
-'use client';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { Description } from './Description';
 import { Logo } from './Logo';
 import { Navbar } from './Navbar';
@@ -8,34 +6,9 @@ import { SignupForm } from '@/components/recruiter/Signup';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { Layout } from '@/components/shared/Layout';
 import { Title } from '@/components/shared/Title';
-import { themes, useTheme } from '@/contexts/ThemeContext';
 import { recruiter } from '@/locales';
 
-const styles = {
-  default: {
-    logo: {
-      [themes.DEFAULT]: 'logo_recrutaeu_green',
-      [themes.DARK]: 'logo_recrutaeu_white',
-      [themes.LIGHT]: 'logo_recrutaeu_black',
-    },
-    text: {
-      [themes.DEFAULT]: 'text-neutral-0',
-      [themes.DARK]: 'text-neutral-0',
-      [themes.LIGHT]: 'text-neutral-90',
-    },
-    description: {
-      [themes.DEFAULT]: 'text-neutral-90',
-      [themes.DARK]: 'text-neutral-90',
-      [themes.LIGHT]: 'text-neutral-0',
-    },
-  },
-};
-
-const SignUp = ({ variant = 'default' }) => {
-  const { theme } = useTheme();
-  const style = styles[variant];
-  const route = useRouter();
-
+const SignUp = () => {
   return (
     <>
       <Layout.Left className="hidden lg:flex flex-col">
