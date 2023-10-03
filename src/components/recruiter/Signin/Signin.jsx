@@ -1,34 +1,19 @@
 'use client';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
-import { Input } from '@/components/shared/Input';
+import { InputLabel } from '@/components/shared/InputLabel';
 import { InputPassword } from '@/components/shared/InputPassword';
-import { themes, useTheme } from '@/contexts/ThemeContext';
+import { useToast } from '@/contexts/ToastContext';
 import signIn from '@/firebase/auth/signin';
 import { recruiter } from '@/locales';
 
-const styles = {
-  default: {
-    description: {
-      [themes.DEFAULT]: 'text-neutral-0',
-      [themes.DARK]: 'text-neutral-0',
-      [themes.LIGHT]: 'text-neutral-90',
-    },
-  },
-};
-
-const SigninForm = ({ variant = 'default' }) => {
+const SigninForm = () => {
   const router = useRouter();
-  const { theme } = useTheme();
-  const style = styles['default'];
-
-  const [error, setError] = useState(undefined);
+  const { setToast } = useToast();
 
   const formSchema = z.object({
     email: z.string().email('Email invalido').min(1, 'o email é obrigatório'),
@@ -38,7 +23,12 @@ const SigninForm = ({ variant = 'default' }) => {
       .min(6, 'A senha precisa ter pelo menos 6 caracteres'),
   });
 
-  const { register, handleSubmit } = useForm({
+  const {    
+    register, 
+    handleSubmit, 
+    formState: { errors },
+    control, 
+  } = useForm({
     defaultValues: {
       email: '',
       password: '',
@@ -51,38 +41,55 @@ const SigninForm = ({ variant = 'default' }) => {
     const { error } = await signIn(email, password);
 
     if (error) {
-      setError(error.mensagem);
+      setToast(error);
       return;
     }
 
     return router.push('/recrutador/dashboard');
   };
 
-  const handleFormError = (errors) => {
-    setError(Object.values(errors).find((error) => error.message)?.message);
-  };
-
   return (
-    <form
-      className="w-full flex flex-col gap-6 items-center"
-      onSubmit={handleSubmit(handleForm, handleFormError)}
-    >
+    <form className="w-full flex flex-col gap-6 items-center" onSubmit={handleSubmit(handleForm)}>
       <>
-        <p className={twMerge('lg:hidden w-full text-base text-center', style.description[theme])}>
+        {/* <p className={twMerge('lg:hidden w-full text-base text-center', style.description[theme])}>
           {recruiter.signin.form.description}
-        </p>
-        <Input.Root variant={variant}>
-          <Input.Field type="email" label="email" register={register('email')} />
-        </Input.Root>
-        <InputPassword variant={variant} label="senha" register={register('password')} />
-        {error && <p className={twMerge('w-full pl-4', style.description[theme])}>{error}</p>}
+        </p> */}
+        <Controller
+          name="email"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <InputLabel
+                type="email"
+                placeholder="email"
+                onChange={onChange}
+                value={value}
+                error={errors?.['email']?.message}
+              />
+            );
+          }}
+        />
+        <Controller
+          name="password"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <InputPassword
+                placeholder="senha"
+                onChange={onChange}
+                value={value}
+                error={errors?.['password']?.message}
+              />
+            );
+          }}
+        />
         <div className="w-full">
-          <ButtonLink variant={variant} className="flex justify-end text-sm lg:text-base">
+          <ButtonLink className="flex justify-end text-sm lg:text-base">
             {recruiter.signin.form.forgotPassword.label}
           </ButtonLink>
         </div>
 
-        <ButtonPrimary type="submit" className="mt-5" variant={variant}>
+        <ButtonPrimary variant='inverse' type="submit" className="mt-5">
           {recruiter.signin.form.button.label}
         </ButtonPrimary>
       </>
