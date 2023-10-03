@@ -20,7 +20,6 @@ const PopupExtras = withTheme(
     });
 
     const {
-      register,
       handleSubmit,
       reset,
       control,
@@ -107,15 +106,33 @@ const PopupExtras = withTheme(
           }}
         />
 
-        <DataPicker registerStart={register('startDate')} registerEnd={register('endDate')} />
-        <TextArea
-          variant="inverse"
-          id={'description'}
-          label={'Descrição'}
-          placeholder={'Descreva algo...'}
-          rows={10}
-          register={register('description')}
+        <DataPicker
+          label="Prazo"
+          startName="startDate"
+          endName="endDate"
+          control={control}
+          error={errors?.['startDate']?.message || errors?.['endDate']?.message}
         />
+
+        <Controller
+          name="description"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <TextArea
+                variant="inverse"
+                id={'description'}
+                label="Descrição"
+                placeholder="Descreva algo..."
+                rows={10}
+                onChange={onChange}
+                value={value}
+                error={errors?.['description']?.message}
+              />
+            );
+          }}
+        />
+
         <div className="flex justify-evenly mt-7 gap-2">
           {editItem && (
             <ButtonPrimary variant="inverseSecundary" onClick={handleDelete}>

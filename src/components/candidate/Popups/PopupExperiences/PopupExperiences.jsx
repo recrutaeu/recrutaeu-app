@@ -107,15 +107,31 @@ const PopupExperiences = withTheme(
           }}
         />
 
-        <DataPicker registerStart={register('startDate')} registerEnd={register('endDate')} />
+        <DataPicker
+          label="Prazo"
+          startName="startDate"
+          endName="endDate"
+          control={control}
+          error={errors?.['startDate']?.message || errors?.['endDate']?.message}
+        />
 
-        <TextArea
-          variant="inverse"
-          id={'description'}
-          label={'Descrição'}
-          placeholder={'Descreva algo...'}
-          register={register('description')}
-          rows={10}
+        <Controller
+          name="description"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <TextArea
+                variant="inverse"
+                id={'description'}
+                label="Descrição"
+                placeholder="Descreva algo..."
+                rows={10}
+                onChange={onChange}
+                value={value}
+                error={errors?.['description']?.message}
+              />
+            );
+          }}
         />
 
         <div className="flex justify-evenly mt-7 gap-2">
