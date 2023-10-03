@@ -113,8 +113,6 @@ const Settings = () => {
       <div className="h-full overflow-hidden">
         <div className="h-full overflow-auto flex flex-col lg:gap-8 lg:w-1/2 lg:px-7 px-5 py-5">
           <form className="flex w-full flex-col gap-2" onSubmit={handleSubmit(handleForm)}>
-            {/* <p className={style.title[theme]}>{commons.settings.form.titleDocument}</p> */}
-            {/* <InputLabel label="Empresa" variant="inverse" /> */}
             <Controller
               name="name"
               control={control}
@@ -149,7 +147,6 @@ const Settings = () => {
                 );
               }}
             />
-            {/* <InputLabel label="Celular" variant="inverse" /> */}
 
             <div className="w-full flex justify-center mt-3">
               <ButtonLabel className="font-semibold">
@@ -157,7 +154,10 @@ const Settings = () => {
               </ButtonLabel>
             </div>
           </form>
-          <form className="flex w-full flex-col gap-4 mt-8 lg:mt-0">
+          <form
+            className="flex w-full flex-col gap-4 mt-8 lg:mt-0"
+            onSubmit={passwordForm.handleSubmit(handleFormPassword)}
+          >
             <p className={style.title[theme]}>{commons.settings.form.titlePassword}</p>
             <Controller
               name="oldPassword"
