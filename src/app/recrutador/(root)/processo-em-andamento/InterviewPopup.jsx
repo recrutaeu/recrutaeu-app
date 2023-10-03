@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
@@ -23,16 +23,20 @@ const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
   const formSchema = z.object({
     employee: z.string().min(1, 'O Responsavel é obrigatório'),
     link: z.string().min(1, 'O link é obrigatório'),
-    address: z.string(),
+    address: z.string().optional(),
     date: z.string().min(1, 'Data e horario são obrigatória'),
   });
 
-  const { register, handleSubmit } = useForm({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
-      employee: interview?.data?.employee,
-      link: interview?.data?.link,
-      address: interview?.data?.address,
-      date: interview?.data?.date.toDate().toISOString().split('T')[0],
+      employee: interview?.data?.employee || '',
+      link: interview?.data?.link || '',
+      address: interview?.data?.address || '',
+      date: interview?.data?.date.toDate().toISOString().split('T')[0] || '',
     },
     resolver: zodResolver(formSchema),
   });
@@ -90,23 +94,71 @@ const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
             className="flex flex-col gap-5 py-5"
             onSubmit={handleSubmit(handleForm, handleFormError)}
           >
-            <InputLabel
-              label="Responsável:"
-              variant="inverseSecundary"
-              register={register('employee')}
+            <Controller
+              name="employee"
+              control={control}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <InputLabel
+                    label="Responsável:"
+                    variant="inverseSecundary"
+                    onChange={onChange}
+                    value={value}
+                    error={errors?.['employee']?.message}
+                  />
+                );
+              }}
             />
-            <InputLabel label="Link:" variant="inverseTertiary" register={register('link')} />
-            <InputLabel
-              label="Endereço:"
-              variant="inverseTertiary"
-              register={register('address')}
+
+            <Controller
+              name="link"
+              control={control}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <InputLabel
+                    label="Link:"
+                    variant="inverseTertiary"
+                    onChange={onChange}
+                    value={value}
+                    error={errors?.['link']?.message}
+                  />
+                );
+              }}
             />
-            <InputLabel
-              type="datetime-local"
-              label="Data:"
-              variant="inverseTertiary"
-              register={register('date')}
+
+            <Controller
+              name="address"
+              control={control}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <InputLabel
+                    label="Endereço:"
+                    variant="inverseTertiary"
+                    onChange={onChange}
+                    value={value}
+                    error={errors?.['address']?.message}
+                  />
+                );
+              }}
             />
+
+            <Controller
+              name="date"
+              control={control}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <InputLabel
+                    type="datetime-local"
+                    label="Data:"
+                    variant="inverseTertiary"
+                    onChange={onChange}
+                    value={value}
+                    error={errors?.['date']?.message}
+                  />
+                );
+              }}
+            />
+
             {error && <p>{error}</p>}
 
             <div className="w-full flex items-center justify-center">
