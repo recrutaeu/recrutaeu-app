@@ -19,12 +19,12 @@ const PopupExtras = withTheme(
       description: z.string().min(1, 'a descrição é obrigatória'),
     });
 
-    const { 
-      register, 
-      handleSubmit, 
-      reset,       
+    const {
+      register,
+      handleSubmit,
+      reset,
       control,
-      formState: { errors }, 
+      formState: { errors },
     } = useForm({
       defaultValues: editItem,
       resolver: zodResolver(formSchema),
@@ -71,42 +71,42 @@ const PopupExtras = withTheme(
 
     return (
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleForm)}>
-          <Controller
-            name="name"
-            control={control}
-            render={({ field: { onChange, value } }) => {
-              return (
-                <InputLabel
-                  placeholder="ex: Wizard"
-                  type="text"
-                  label="Nome da instituição:"
-                  variant="inverseSecundary"
-                  onChange={onChange}
-                  value={value}
-                  error={errors?.['name']?.message}
-                />
-              );
-            }}
-          />
+        <Controller
+          name="name"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <InputLabel
+                placeholder="ex: Wizard"
+                type="text"
+                label="Nome da instituição:"
+                variant="inverseSecundary"
+                onChange={onChange}
+                value={value}
+                error={errors?.['name']?.message}
+              />
+            );
+          }}
+        />
 
-          <Controller
-            name="course"
-            control={control}
-            render={({ field: { onChange, value } }) => {
-              return (
-                <InputLabel
-                  placeholder="ex: Inglês Avançado"
-                  type="text"
-                  label="Curso:"
-                  variant="inverseSecundary"
-                  onChange={onChange}
-                  value={value}
-                  error={errors?.['course']?.message}
-                />
-              );
-            }}
-          />
-          
+        <Controller
+          name="course"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <InputLabel
+                placeholder="ex: Inglês Avançado"
+                type="text"
+                label="Curso:"
+                variant="inverseSecundary"
+                onChange={onChange}
+                value={value}
+                error={errors?.['course']?.message}
+              />
+            );
+          }}
+        />
+
         <DataPicker registerStart={register('startDate')} registerEnd={register('endDate')} />
         <TextArea
           variant="inverse"

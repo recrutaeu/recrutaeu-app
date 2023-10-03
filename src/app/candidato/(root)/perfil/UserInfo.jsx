@@ -61,8 +61,8 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
           <div className="flex gap-2 align-middle">
             <LuAccessibility size={20} className={style.icon[theme]} />
             <p className={style.text[theme]}>
-              {userData?.deficiency 
-                ? userData.deficiency == 'NA' 
+              {userData?.deficiency
+                ? userData.deficiency == 'NA'
                   ? 'Nenhuma'
                   : 'Deficiência ' + userData.deficiency + ' | CID ' + userData.cid
                 : 'Não informado'}
