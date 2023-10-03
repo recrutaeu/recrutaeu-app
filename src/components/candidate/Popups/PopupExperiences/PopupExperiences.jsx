@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
@@ -19,7 +19,13 @@ const PopupExperiences = withTheme(
       description: z.string().min(1, 'a descrição é obrigatória'),
     });
 
-    const { register, handleSubmit, reset } = useForm({
+    const {
+      register,
+      handleSubmit,
+      control,
+      formState: { errors },
+      reset,
+    } = useForm({
       defaultValues: editItem,
       resolver: zodResolver(formSchema),
     });
@@ -64,22 +70,45 @@ const PopupExperiences = withTheme(
     };
 
     return (
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleForm)}>
-        <InputLabel
-          placeholder="ex: Google"
-          label="Nome:"
-          className=""
-          variant="inverseSecundary"
-          register={register('name')}
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleForm, console.log())}>
+        <Controller
+          name="name"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <InputLabel
+                placeholder="ex: Google"
+                type="text"
+                label="Nome:"
+                variant="inverseSecundary"
+                onChange={onChange}
+                value={value}
+                error={errors?.['name']?.message}
+              />
+            );
+          }}
         />
-        <InputLabel
-          placeholder="ex: Programadora..."
-          label="Cargo:"
-          className=""
-          variant="inverseSecundary"
-          register={register('role')}
+
+        <Controller
+          name="role"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <InputLabel
+                placeholder="ex: Programadora..."
+                type="text"
+                label="Cargo:"
+                variant="inverseSecundary"
+                onChange={onChange}
+                value={value}
+                error={errors?.['role']?.message}
+              />
+            );
+          }}
         />
+
         <DataPicker registerStart={register('startDate')} registerEnd={register('endDate')} />
+
         <TextArea
           variant="inverse"
           id={'description'}
@@ -88,6 +117,7 @@ const PopupExperiences = withTheme(
           register={register('description')}
           rows={10}
         />
+
         <div className="flex justify-evenly mt-7 gap-2">
           {editItem && (
             <ButtonPrimary variant="inverseSecundary" onClick={handleDelete}>

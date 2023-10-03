@@ -40,7 +40,7 @@ const styles = {
   },
   inverseSecundary: {
     label: {
-      [themes.DEFAULT]: 'text-primary-90',
+      [themes.DEFAULT]: 'text-neutral-0',
       [themes.DARK]: 'text-neutral-0',
       [themes.LIGHT]: 'text-neutral-90',
     },
