@@ -93,6 +93,7 @@ const commons = {
   },
   dash: {
     titlePage: 'Vagas Aplicadas',
+    titlePageSecond: 'Diversidade',
     subtitle: 'Essa análise é baseada nas candidaturas totais da sua empresa.',
   },
   applications: {

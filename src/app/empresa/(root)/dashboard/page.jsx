@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import Graph from './Graph';
 import { UserInfo } from './UserInfo';
@@ -8,8 +8,24 @@ import WeeksSchedule from './WeekSchedule';
 import { Card } from '@/components/shared/Card';
 import { Title } from '@/components/shared/Title';
 import { themes, withTheme } from '@/contexts/ThemeContext';
+import { useFindAllInterviewsByCompanyId, useFindUserById } from '@/firebase/firestore/queries';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { Pie } from 'react-chartjs-2';
+import DiversityGraph from './DiversityGraph';
 
 const Dashboard = withTheme(({ theme, variant = 'default' }) => {
+
+  const { user } = useAuthContext();
+
+
+
+  // const now = new Date();
+  // if(interviews){
+  //   // const filtered = interviews?.filter((item) => item.date.toDate() > now);
+  //   setFilteredInterviews(interviews)
+  // }
+
+
   const styles = {
     default: {
       background: {
@@ -35,6 +51,8 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
     },
   };
 
+
+
   const style = styles[variant];
 
   const userData = {
@@ -56,17 +74,20 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
           style.background[theme],
         )}
       >
-        <div className="flex-col flex-wrap h-full gap-5 lg:grid lg:grid-cols-5 lg:grid-rows-[0.5fr_1fr_1fr_1fr_1fr]">
+        <div className="flex-col flex-wrap h-full gap-5 lg:grid lg:grid-cols-5 lg:grid-rows-[1fr_1fr_1fr_1fr_1fr]">
           <Card
             className={twMerge(
-              'order-1 lg:flex lg:items-center lg:col-start-3 lg:col-end-6 lg:row-span-2 lg:row-start-4 row-end-5',
+              'order-1 lg:flex lg:items-center lg:col-start-3 lg:col-end-6 lg:row-span-2 lg:row-start-4 row-end-5 lg:pt-7',
               style.card[theme],
             )}
           >
-            <UserInfo userData={userData} />
+            <div className={twMerge('w-full ')}>
+            <DiversityGraph user={user}/>
+            </div>
+            {/* <UserInfo userData={user} /> */}
           </Card>
           <Card className={twMerge('order-3 lg:col-start-1 lg:col-end-3 lg:row-span-5')}>
-            <WeeksSchedule />
+            <WeeksSchedule user={user} />
           </Card>
           <Card
             className={twMerge(
@@ -74,7 +95,7 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
               style.card[theme],
             )}
           >
-            <Graph />
+            <Graph user={user} />
           </Card>
         </div>
       </div>

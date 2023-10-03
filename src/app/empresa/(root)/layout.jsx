@@ -15,10 +15,10 @@ import { AuthContextProvider } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 
 const links = [
-  // {
-  //   href: '/empresa/dashboard',
-  //   icon: <LuLayoutDashboard className="md:w-7 md:h-7 w-6 h-6" />,
-  // },
+  {
+    href: '/empresa/dashboard',
+    icon: <LuLayoutDashboard className="md:w-7 md:h-7 w-6 h-6" />,
+  },
   {
     href: '/empresa/adicionar-colaborador',
     icon: <RiUserAddLine className="md:w-7 md:h-7 w-6 h-6" />,
