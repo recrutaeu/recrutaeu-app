@@ -11,6 +11,7 @@ import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Input } from '@/components/shared/Input';
 import { InputMask } from '@/components/shared/InputMask';
 import { InputPassword } from '@/components/shared/InputPassword';
+import { DOCUMENT_MASK } from '@/consts/mask';
 import { CNPJ_MASK } from '@/consts/mask';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { useToast } from '@/contexts/ToastContext';
@@ -18,6 +19,7 @@ import signUp from '@/firebase/auth/signup';
 import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
 import { company } from '@/locales';
+import { InputLabel } from '@/components/shared/InputLabel';
 
 const styles = {
   default: {
@@ -41,11 +43,10 @@ const SignupForm = ({ variant = 'default' }) => {
   };
 
   const [formStep, setFormStep] = useState(formSteps.profile);
-  const [error, setError] = React.useState(undefined);
 
   const formSchema = z
     .object({
-      email: z.string().email('Email invalido').min(1, 'o email é obrigatório'),
+      email: z.string().min(1, 'O email é obrigatório.').email('Por favor insira um email válido.'),
       password: z
         .string()
         .min(1, 'A senha é  obrigatória')
@@ -53,7 +54,7 @@ const SignupForm = ({ variant = 'default' }) => {
       confirmPassword: z.string().min(1, 'Confirmação de senha é obrigatório'),
       document: z
         .string()
-        .min(1, 'O CPF é obrigatório.')
+        .min(1, 'O CNPJ é obrigatório.')
         .transform((document) => document.replace(/\D/g, ''))
         .refine((document) => isCNPJ(document), 'Insira um CNPJ válido.'),
       name: z.string().min(1, 'A razão social é obrigatória'),
@@ -64,11 +65,10 @@ const SignupForm = ({ variant = 'default' }) => {
       message: 'As senhas não iguais',
     });
 
-  const {
-    register,
+  const {     
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors }, 
   } = useForm({
     defaultValues: {
       email: '',
@@ -113,15 +113,8 @@ const SignupForm = ({ variant = 'default' }) => {
     createOrUpdateUser(data);
   };
 
-  const handleFormError = (errors) => {
-    setError(Object.values(errors).find((error) => error.message)?.message);
-  };
-
   return (
-    <form
-      className="w-full flex flex-col gap-6 items-center"
-      onSubmit={handleSubmit(handleForm, handleFormError)}
-    >
+    <form className="w-full flex flex-col gap-6 items-center" onSubmit={handleSubmit(handleForm)}>
       {formStep === formSteps.profile && (
         <>
           <p
@@ -129,13 +122,38 @@ const SignupForm = ({ variant = 'default' }) => {
           >
             {company.signup.form.description}
           </p>
-          <Input.Root>
-            <Input.Field type="text" label="razão social" register={register('name')} />
-          </Input.Root>
-          <Input.Root>
-            <Input.Field type="text" label="nome fantasia" register={register('nickname')} />
-          </Input.Root>
-
+          <Controller
+            name="name"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <InputLabel
+                  placeholder="razão social"
+                  type="text"
+                  variant="inverse"
+                  onChange={onChange}
+                  value={value}
+                  error={errors?.['name']?.message}
+                />
+              );
+            }}
+          />
+          <Controller
+            name="nickname"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <InputLabel
+                  placeholder="nome fantasia"
+                  type="text"
+                  variant="inverse"
+                  onChange={onChange}
+                  value={value}
+                  error={errors?.['nickname']?.message}
+                />
+              );
+            }}
+          />
           <Controller
             name="document"
             control={control}
@@ -153,13 +171,22 @@ const SignupForm = ({ variant = 'default' }) => {
               );
             }}
           />
-          {/* <Input.Root>
-            <Input.Field type="text" label="cnpj" register={register('document')} />
-          </Input.Root> */}
-          <Input.Root>
-            <Input.Field label="email" register={register('email')} />
-          </Input.Root>
-
+          <Controller
+            name="email"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <InputLabel
+                  type="email"
+                  placeholder="email"
+                  variant="inverse"
+                  onChange={onChange}
+                  value={value}
+                  error={errors?.['email']?.message}
+                />
+              );
+            }}
+          />
           <ButtonPrimary
             type="button"
             className="mt-5"
@@ -177,12 +204,37 @@ const SignupForm = ({ variant = 'default' }) => {
           >
             {company.signup.form.descriptionPassword}
           </p>
-          <InputPassword label="senha" register={register('password')} />
+          <Controller
+            name="password"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <InputPassword
+                  placeholder="senha"
+                  variant="inverse"
+                  onChange={onChange}
+                  value={value}
+                  error={errors?.['password']?.message}
+                />
+              );
+            }}
+          />
 
-          <InputPassword label="repetir senha" register={register('confirmPassword')} />
-          {error ? (
-            <p className={twMerge('w-full pl-4', style.description[theme])}>{error}</p>
-          ) : null}
+          <Controller
+            name="confirmPassword"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <InputPassword
+                  placeholder="repetir senha"
+                  variant="inverse"
+                  onChange={onChange}
+                  value={value}
+                  error={errors?.['confirmPassword']?.message}
+                />
+              );
+            }}
+          />
 
           <ButtonPrimary type="submit" className="mt-5" onClick={() => {}}>
             {company.signup.form.buttonSubmit.label}
