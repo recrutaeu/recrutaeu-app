@@ -53,7 +53,7 @@ const Vacancy = ({}) => {
       <VacancyPopup isOpen={isOpen} setIsOpen={setIsOpen} />
       <VacancyDetails isOpen={isOpenDetails} setIsOpen={setIsOpenDetails} vacancy={vacancy} />
 
-      <div>
+      <div className="lg:pl-10 lg:pr-12">
         <Title className="text-xl lg:text-3xl" variant="inverse">
           {recruiter.jobs.title}
         </Title>
@@ -95,15 +95,17 @@ const Vacancy = ({}) => {
         </div>
       </div>
 
-      <VacancyTable
-        vacancies={filteredVacancies}
-        onDetails={(vacancy) => {
-          setIsOpenDetails(true);
-          setSelectVacancy(vacancy);
-        }}
-        selectedRows={selectedRows}
-        setSelectedRows={setSelectedRows}
-      />
+      <div className="w-full lg:pl-10 lg:pr-12">
+        <VacancyTable
+          vacancies={filteredVacancies}
+          onDetails={(vacancy) => {
+            setIsOpenDetails(true);
+            setSelectVacancy(vacancy);
+          }}
+          selectedRows={selectedRows}
+          setSelectedRows={setSelectedRows}
+        />
+      </div>
 
       <div className="w-full flex justify-center items-center">
         <NumberPages currentPage={1} totalPage={1} variant="inverse" />

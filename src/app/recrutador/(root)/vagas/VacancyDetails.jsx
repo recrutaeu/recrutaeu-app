@@ -45,7 +45,12 @@ const VacancyDetails = ({ isOpen, setIsOpen, vacancy }) => {
 
           <div className={twMerge(style.text[theme], 'mt-3')}>
             <p className="mr-1 capitalize font-bold">{`${commons.jobs.descriptionJob.job}:`}</p>
-            <p className="capitalize">{vacancy?.title}</p>
+            <div className="flex gap-2">
+              <p className="capitalize">{vacancy?.title}</p>
+              {vacancy?.affirmativeVacancies && (
+                <p className="font-semibold">[ {vacancy?.affirmativeVacancies} ]</p>
+              )}
+            </div>
           </div>
 
           <div className={twMerge(style.text[theme])}>

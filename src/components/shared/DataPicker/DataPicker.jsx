@@ -1,4 +1,5 @@
 'use client';
+import { Controller } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 import { InputLabel } from '../InputLabel';
 import { themes, useTheme } from '@/contexts/ThemeContext';
@@ -10,12 +11,22 @@ const styles = {
       [themes.DARK]: 'text-neutral-0',
       [themes.LIGHT]: 'text-neutral-90',
     },
+    error: {
+      [themes.DEFAULT]: 'text-red-400',
+      [themes.DARK]: 'text-red-500',
+      [themes.LIGHT]: 'text-red-500',
+    },
   },
   inverse: {
     text: {
       [themes.DEFAULT]: 'text-primary-90',
       [themes.DARK]: 'text-neutral-0',
       [themes.LIGHT]: 'text-neutral-90',
+    },
+    error: {
+      [themes.DEFAULT]: 'text-red-400',
+      [themes.DARK]: 'text-red-500',
+      [themes.LIGHT]: 'text-red-500',
     },
   },
   inverseSecundary: {
@@ -24,6 +35,11 @@ const styles = {
       [themes.DARK]: 'text-neutral-0',
       [themes.LIGHT]: 'text-neutral-90',
     },
+    error: {
+      [themes.DEFAULT]: 'text-red-400',
+      [themes.DARK]: 'text-red-500',
+      [themes.LIGHT]: 'text-red-500',
+    },
   },
   inverseTertiary: {
     text: {
@@ -31,10 +47,23 @@ const styles = {
       [themes.DARK]: 'text-neutral-90',
       [themes.LIGHT]: 'text-neutral-0',
     },
+    error: {
+      [themes.DEFAULT]: 'text-red-400',
+      [themes.DARK]: 'text-red-500',
+      [themes.LIGHT]: 'text-red-500',
+    },
   },
 };
 
-const DataPicker = ({ variant = 'default', label, className, registerStart, registerEnd }) => {
+const DataPicker = ({
+  variant = 'default',
+  label,
+  className,
+  control,
+  startName,
+  endName,
+  error,
+}) => {
   const { theme } = useTheme();
   const style = styles[variant];
 
@@ -46,22 +75,44 @@ const DataPicker = ({ variant = 'default', label, className, registerStart, regi
         {label}
       </label>
       <div className="flex items-center justify-between lg:gap-5">
-        <InputLabel
-          type="date"
-          id={'start'}
-          className={twMerge('w-full text-xs lg:text-base', className)}
-          variant={variant}
-          register={registerStart}
+        <Controller
+          control={control}
+          name={startName}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <InputLabel
+                type="date"
+                className={twMerge('w-full text-xs lg:text-base', className)}
+                variant={variant}
+                onChange={onChange}
+                value={value}
+              />
+            );
+          }}
         />
+
         <p className={twMerge('text-sm lg:text-base', style.text[theme], className)}>à</p>
-        <InputLabel
-          type="date"
-          id={'end'}
-          className={twMerge('w-full text-xs lg:text-base', className)}
-          variant={variant}
-          register={registerEnd}
+        <Controller
+          control={control}
+          name={endName}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <InputLabel
+                type="date"
+                className={twMerge('w-full text-xs lg:text-base', className)}
+                variant={variant}
+                onChange={onChange}
+                value={value}
+              />
+            );
+          }}
         />
       </div>
+      {error && (
+        <div className="w-full mt-2">
+          <p className={style.error[theme]}>{error}</p>
+        </div>
+      )}
     </div>
   );
 };
