@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
@@ -13,7 +13,11 @@ const PopupDescription = withTheme(
       summary: z.string(),
     });
 
-    const { register, handleSubmit } = useForm({
+    const {
+      handleSubmit,
+      formState: { errors },
+      control,
+    } = useForm({
       defaultValues: editItem,
       resolver: zodResolver(formSchema),
     });
@@ -36,12 +40,23 @@ const PopupDescription = withTheme(
         className="flex flex-col justify-center items-center gap-6"
         onSubmit={handleSubmit(handleForm)}
       >
-        <TextArea
-          id={'description'}
-          placeholder={'Descreva algo...'}
-          rows={14}
-          register={register('summary')}
+        <Controller
+          name="summary"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <TextArea
+                id={'description'}
+                placeholder={'Descreva algo...'}
+                rows={14}
+                onChange={onChange}
+                value={value}
+                error={errors?.['summary']?.message}
+              />
+            );
+          }}
         />
+
         <ButtonPrimary variant="inverse">Salvar</ButtonPrimary>
       </form>
     );

@@ -97,7 +97,7 @@ const PopupEducation = withTheme(
               <InputLabel
                 placeholder="ex: Desenvolvimento de Softwares"
                 type="text"
-                label="Nome da instituição:"
+                label="Curso:"
                 variant="inverseSecundary"
                 onChange={onChange}
                 value={value}
@@ -107,15 +107,33 @@ const PopupEducation = withTheme(
           }}
         />
 
-        <DataPicker registerStart={register('startDate')} registerEnd={register('endDate')} />
-        <TextArea
-          variant="inverse"
-          id={'description'}
-          label={'Descrição'}
-          placeholder={'Descreva algo...'}
-          register={register('description')}
-          rows={10}
+        <DataPicker
+          label="Prazo:"
+          startName="startDate"
+          endName="endDate"
+          control={control}
+          error={errors?.['startDate']?.message || errors?.['endDate']?.message}
         />
+
+        <Controller
+          name="description"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <TextArea
+                variant="inverse"
+                id={'description'}
+                label="Descrição"
+                placeholder="Descreva algo..."
+                rows={10}
+                onChange={onChange}
+                value={value}
+                error={errors?.['description']?.message}
+              />
+            );
+          }}
+        />
+
         <div className="flex justify-evenly mt-7 gap-2">
           {editItem && (
             <ButtonPrimary variant="inverseSecundary" onClick={handleDelete}>
