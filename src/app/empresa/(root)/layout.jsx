@@ -1,12 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import {
-  LuBriefcase,
-  LuCalendarDays,
-  LuHourglass,
-  LuLayoutDashboard,
-  LuSettings,
-} from 'react-icons/lu';
+import { LuCalendarDays, LuLayoutDashboard, LuSettings } from 'react-icons/lu';
 import { RiUserAddLine } from 'react-icons/ri';
 import { twMerge } from 'tailwind-merge';
 import { AccessibilityNavbar } from '@/components/shared/AccessibilityNavbar';
@@ -57,7 +51,7 @@ const Layout = ({ children, variant = 'default' }) => {
             onLogout={() => {
               route.push('/');
             }}
-            className="w-full flex items-center justify-end"
+            className="w-full flex items-center justify-end px-5  py-7 lg:pr-12"
           />
           {children}
         </div>
