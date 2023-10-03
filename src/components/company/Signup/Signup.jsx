@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
@@ -8,10 +8,9 @@ import { isCNPJ } from 'validation-br';
 import { z } from 'zod';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
-import { Input } from '@/components/shared/Input';
+import { InputLabel } from '@/components/shared/InputLabel';
 import { InputMask } from '@/components/shared/InputMask';
 import { InputPassword } from '@/components/shared/InputPassword';
-import { DOCUMENT_MASK } from '@/consts/mask';
 import { CNPJ_MASK } from '@/consts/mask';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { useToast } from '@/contexts/ToastContext';
@@ -19,7 +18,6 @@ import signUp from '@/firebase/auth/signup';
 import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
 import { company } from '@/locales';
-import { InputLabel } from '@/components/shared/InputLabel';
 
 const styles = {
   default: {
@@ -65,10 +63,10 @@ const SignupForm = ({ variant = 'default' }) => {
       message: 'As senhas não iguais',
     });
 
-  const {     
+  const {
     handleSubmit,
     control,
-    formState: { errors }, 
+    formState: { errors },
   } = useForm({
     defaultValues: {
       email: '',

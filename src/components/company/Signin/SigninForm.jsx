@@ -12,7 +12,6 @@ import signIn from '@/firebase/auth/signin';
 import { company } from '@/locales';
 
 const SigninForm = () => {
-
   const router = useRouter();
 
   const { setToast } = useToast();
@@ -25,12 +24,12 @@ const SigninForm = () => {
       .min(6, 'A senha precisa ter pelo menos 6 caracteres'),
   });
 
-  const { 
-    register, 
-    handleSubmit, 
+  const {
+    register,
+    handleSubmit,
     formState: { errors },
     control,
-   } = useForm({
+  } = useForm({
     defaultValues: {
       email: '',
       password: '',
@@ -91,7 +90,7 @@ const SigninForm = () => {
           </ButtonLink>
         </div>
 
-        <ButtonPrimary variant='inverse' type="submit" className="mt-5">
+        <ButtonPrimary variant="inverse" type="submit" className="mt-5">
           {company.signin.form.button.label}
         </ButtonPrimary>
       </>
