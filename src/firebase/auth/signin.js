@@ -1,29 +1,13 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { app } from '../config';
-
-const auth = getAuth(app);
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { errorHandler } from './error-handler';
+import auth from '../auth';
 
 export default async function signIn(email, password) {
-  let result = null,
-    error = null;
   try {
-    result = await signInWithEmailAndPassword(auth, email, password);
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    return { result, error: null };
   } catch (e) {
-    error = retornarErro(e.code);
-  }
-
-  return { result, error };
-}
-
-async function retornarErro(error) {
-  switch (error) {
-    case 'auth/invalid-email':
-      return 'Email inválido. Verifique o email inserido.';
-    case 'auth/missing-password':
-      return 'Insira a senha.';
-    case 'auth/invalid-login-credentials':
-      return 'Email ou senha incorreto. Verifique e tente novamente.';
-    default:
-      return error;
+    const error = errorHandler(e.code);
+    return { result: null, error };
   }
 }
