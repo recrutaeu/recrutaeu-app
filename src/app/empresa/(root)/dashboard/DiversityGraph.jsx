@@ -1,31 +1,19 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { Bar, Doughnut, Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
-import { twMerge } from 'tailwind-merge';
-import ProgressBar from '@/components/shared/ProgressBar/ProgressBar';
-import { Title } from '@/components/shared/Title';
-import { themes, useTheme } from '@/contexts/ThemeContext';
-import { commons } from '@/locales';
-import { useFindAllApplicationByCompanyId, useFindAllInterviewsByCompanyId, useFindAllVacanciesByCompanyId } from '@/firebase/firestore/queries';
-import { useAuthContext } from '@/contexts/AuthContext';
+import { useEffect, useState } from 'react';
+import { Bar } from 'react-chartjs-2';
 import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
   BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  Tooltip,
 } from 'chart.js';
 import { twMerge } from 'tailwind-merge';
-import ProgressBar from '@/components/shared/ProgressBar/ProgressBar';
 import { Title } from '@/components/shared/Title';
-import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import {
   useFindAllApplicationByCompanyId,
-  useFindAllInterviewsByCompanyId,
   useFindAllVacanciesByCompanyId,
 } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
@@ -45,15 +33,7 @@ const styles = {
   },
 };
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -85,21 +65,22 @@ const DiversityGraph = ({ user = null }) => {
     }, 0);
   };
 
-  useEffect(()=>{
-    if(vacancies){
-      const blackDiversity = vacancies.filter(vacancy => vacancy.diversity.includes("black"));
-      const lgbtDiversity = vacancies.filter(vacancy => vacancy.diversity.includes("lgbt"));
-      const disabilityDiversity = vacancies.filter(vacancy => vacancy.diversity.includes("disability"));
-      const elderlyDiversity = vacancies.filter(vacancy => vacancy.diversity.includes("elderly"));
+  useEffect(() => {
+    if (vacancies) {
+      const blackDiversity = vacancies.filter((vacancy) => vacancy.diversity.includes('black'));
+      const lgbtDiversity = vacancies.filter((vacancy) => vacancy.diversity.includes('lgbt'));
+      const disabilityDiversity = vacancies.filter((vacancy) =>
+        vacancy.diversity.includes('disability'),
+      );
+      const elderlyDiversity = vacancies.filter((vacancy) => vacancy.diversity.includes('elderly'));
 
       // Calcular a quantidade total para cada filtro.
-      setBlackVacanciesQtd(calculateTotal(blackDiversity))
-      setLgbtVacanciesQtd(calculateTotal(lgbtDiversity))
-      setDisabilityVacanciesQtd(calculateTotal(disabilityDiversity))
-      setElderlyVacanciesQtd(calculateTotal(elderlyDiversity))
+      setBlackVacanciesQtd(calculateTotal(blackDiversity));
+      setLgbtVacanciesQtd(calculateTotal(lgbtDiversity));
+      setDisabilityVacanciesQtd(calculateTotal(disabilityDiversity));
+      setElderlyVacanciesQtd(calculateTotal(elderlyDiversity));
     }
-
-  }, [vacancies])
+  }, [vacancies]);
 
   useEffect(() => {
     if (applications) {

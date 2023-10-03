@@ -8,11 +8,10 @@ import { SuggestedVacancy } from './SuggestedVacancy';
 import { UserInfo } from './UserInfo';
 import { Card } from '@/components/shared/Card';
 import { Title } from '@/components/shared/Title';
-import { themes, withTheme } from '@/contexts/ThemeContext';
 import { useAuthContext } from '@/contexts/AuthContext';
+import { themes, withTheme } from '@/contexts/ThemeContext';
 
 const Dashboard = withTheme(({ theme, variant = 'default' }) => {
-
   const { user } = useAuthContext();
 
   const styles = {
@@ -60,7 +59,7 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
         steps: [
           { stepIndex: 1, type: 'teste', status: 'approved' },
           { stepIndex: 2, type: 'videochamada', status: 'pending' },
-          { stepIndex: 3, type: 'entrevista' ,status: 'pending' },
+          { stepIndex: 3, type: 'entrevista', status: 'pending' },
           { stepIndex: 4, type: 'teste 2', status: 'pending' },
           { stepIndex: 5, type: 'teste 3', status: 'pending' },
         ],

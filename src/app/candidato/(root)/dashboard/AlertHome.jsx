@@ -1,43 +1,40 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { format } from 'date-fns';
 import { LuAlertTriangle } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { Title } from '@/components/shared/Title';
-import { withTheme, themes } from '@/contexts/ThemeContext';
-import { useFindAllInterviews, useFindAllInterviewsByUserId, useFindAllVacancies, usefindAllInterviewsByCandidateId } from '@/firebase/firestore/queries';
-import { useEffect, useState } from 'react';
-import { format } from 'date-fns';
+import { themes, withTheme } from '@/contexts/ThemeContext';
+import { useFindAllInterviews } from '@/firebase/firestore/queries';
 
-const AlertHome = withTheme(({ user = {},theme, variant = 'default', title }) => {
+const AlertHome = withTheme(({ user = {}, theme, variant = 'default', title }) => {
+  const [interviewsSearched, setInterviewsSearched] = useState([]);
+  const [nextInterview, setNextInterview] = useState(null);
 
-  const [interviewsSearched, setInterviewsSearched] = useState([])
-  const [nextInterview, setNextInterview] = useState(null)
+  const { data: interviews } = useFindAllInterviews({});
 
-  const { data: interviews } = useFindAllInterviews({ });
-
-  useEffect(()=>{
-    if(interviews){
-      setInterviewsSearched(interviews)
+  useEffect(() => {
+    if (interviews) {
+      setInterviewsSearched(interviews);
     }
-  }, [interviews])
+  }, [interviews]);
 
-  useEffect(()=>{
-    if(interviewsSearched.length > 1){
-        const upcomingInterviews = interviewsSearched.filter(interview => {
+  useEffect(() => {
+    if (interviewsSearched.length > 1) {
+      const upcomingInterviews = interviewsSearched.filter((interview) => {
         return interview.candidate.id === user.id;
       });
 
       upcomingInterviews.sort((a, b) => a.date - b.date);
 
-    
       if (upcomingInterviews.length > 0) {
-       setNextInterview(upcomingInterviews[0]);
+        setNextInterview(upcomingInterviews[0]);
       } else {
-        setNextInterview(null); 
+        setNextInterview(null);
       }
     }
-
-  }, [interviewsSearched])
+  }, [interviewsSearched, user.id]);
 
   const styles = {
     default: {
@@ -67,8 +64,15 @@ const AlertHome = withTheme(({ user = {},theme, variant = 'default', title }) =>
         {title}
       </Title>
       <p className={twMerge(style.text[theme])}>
-        {nextInterview? `Você tem uma entrevista marcada, para dia ${format(nextInterview.date.toDate(), 'dd/MM/yyyy HH:mm')} com
-        ${nextInterview.employee} para a vaga de ${nextInterview.vacancy.title}. Acesse o link ${nextInterview.link}`: 'Você ainda não possui entrevistas marcadas.'}
+        {nextInterview
+          ? `Você tem uma entrevista marcada, para dia ${format(
+              nextInterview.date.toDate(),
+              'dd/MM/yyyy HH:mm',
+            )} com
+        ${nextInterview.employee} para a vaga de ${nextInterview.vacancy.title}. Acesse o link ${
+          nextInterview.link
+        }`
+          : 'Você ainda não possui entrevistas marcadas.'}
       </p>
     </div>
   );

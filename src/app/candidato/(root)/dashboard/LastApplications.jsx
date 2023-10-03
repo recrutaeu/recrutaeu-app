@@ -1,26 +1,24 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Application } from './Application';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { Title } from '@/components/shared/Title';
 import { withTheme } from '@/contexts/ThemeContext';
 import { useFindAllApplicationByUserId } from '@/firebase/firestore/queries';
-import { useEffect, useState } from 'react';
 
-const LastApplications = withTheme(({ user= {}}) => {
-
-  const [applicationsSearched, setApplicationsSearched] = useState([])
+const LastApplications = withTheme(({ user = {} }) => {
+  const [applicationsSearched, setApplicationsSearched] = useState([]);
 
   const { data: applications } = useFindAllApplicationByUserId({
     userId: user.id,
   });
 
-  useEffect(()=>{
-    if(applications){
-      setApplicationsSearched(applications)
+  useEffect(() => {
+    if (applications) {
+      setApplicationsSearched(applications);
     }
-  },[applications])
-
+  }, [applications]);
 
   return (
     <div className="flex flex-col overflow-auto h-full justify-between">
@@ -45,7 +43,11 @@ const LastApplications = withTheme(({ user= {}}) => {
           })}
         </div>
       </div>
-      <ButtonLink href='/candidato/candidaturas' variant="inverseSecundary" className="flex self-center mt-5 justify-self-end">
+      <ButtonLink
+        href="/candidato/candidaturas"
+        variant="inverseSecundary"
+        className="flex self-center mt-5 justify-self-end"
+      >
         Ver todas
       </ButtonLink>
     </div>

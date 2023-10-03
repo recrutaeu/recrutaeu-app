@@ -1,11 +1,11 @@
+import { useEffect, useState } from 'react';
 import { LuChevronRight } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { Divider } from '@/components/shared/Divider';
 import { Stepper } from '@/components/shared/Stepper';
 import { themes, useTheme } from '@/contexts/ThemeContext';
-import { commons } from '@/locales';
 import { useFindApplicationById, useFindVacancyById } from '@/firebase/firestore/queries';
-import { useEffect, useState } from 'react';
+import { commons } from '@/locales';
 
 const styles = {
   default: {
@@ -53,20 +53,17 @@ const steps = [
 ];
 
 const Application = ({ vacancyID, variant = 'default', onClick, application, ...props }) => {
-
-  const [vacancySearched, setVacancySearched] = useState({})
+  const [vacancySearched, setVacancySearched] = useState({});
 
   const { data: vacancy } = useFindVacancyById({
     id: vacancyID,
   });
 
-  useEffect(()=>{
-    if(vacancy){
-      setVacancySearched(vacancy)
+  useEffect(() => {
+    if (vacancy) {
+      setVacancySearched(vacancy);
     }
-    console.log(vacancyID)
-  },[vacancy])
-
+  }, [vacancy]);
 
   const { theme } = useTheme();
   const style = styles[variant];
@@ -77,13 +74,13 @@ const Application = ({ vacancyID, variant = 'default', onClick, application, ...
 
   function getCurrentStep(actualApplication) {
     const { steps } = actualApplication;
-    
+
     for (let i = 0; i < steps.length; i++) {
       if (steps[i].status === 'pending') {
-        if(i == 0){
-          return steps[i]
-        }else{
-          return steps[i-1];
+        if (i == 0) {
+          return steps[i];
+        } else {
+          return steps[i - 1];
         }
       }
     }

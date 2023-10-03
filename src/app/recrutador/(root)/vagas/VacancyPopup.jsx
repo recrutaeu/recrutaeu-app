@@ -110,7 +110,7 @@ const VacancyPopup = ({ isOpen, setIsOpen, vacancy }) => {
       startAt: vacancy?.startAt?.toDate()?.toISOString()?.split('T')?.[0] || '',
       endAt: vacancy?.endAt?.toDate()?.toISOString()?.split('T')?.[0] || '',
     });
-  }, [vacancy]);
+  }, [vacancy, reset]);
 
   return (
     <Poup

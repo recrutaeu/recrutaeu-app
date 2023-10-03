@@ -117,7 +117,7 @@ export const useFindAllInterviewsByUserId = ({ id, ...props }) =>
     ...props,
   });
 
-  export const usefindAllInterviewsByCandidateId = ({ id, ...props }) =>
+export const useFindAllInterviewsByCandidateId = ({ id, ...props }) =>
   useQuery({
     queryKey: ['interviews', id],
     queryFn: () => findAllInterviewsByCandidateId(id),
@@ -144,7 +144,6 @@ export const useFindApplicationById = ({ id, ...props }) =>
     queryFn: () => findApplicationById(id),
     ...props,
   });
-
 
 export const useFindVacancyById = ({ id, ...props }) =>
   useQuery({
@@ -200,10 +199,9 @@ export const useFindAllVacancies = ({ onSuccess }) =>
     onSuccess: onSuccess,
   });
 
-  export const useFindAllInterviews = ({ onSuccess }) =>
+export const useFindAllInterviews = ({ onSuccess }) =>
   useQuery({
     queryKey: ['interviews'],
     queryFn: () => findAllInterviews(),
     onSuccess: onSuccess,
   });
-
