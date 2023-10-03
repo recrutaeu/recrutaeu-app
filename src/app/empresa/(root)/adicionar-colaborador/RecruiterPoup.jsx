@@ -1,19 +1,20 @@
 'use client';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { Poup } from '@/components/shared/Poup';
 import { useAuthContext } from '@/contexts/AuthContext';
+import { useToast } from '@/contexts/ToastContext';
+import resetPassword from '@/firebase/auth/password-reset';
 import { signUpWithoutLogin } from '@/firebase/auth/signup';
 import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
 import { commons } from '@/locales';
 
 const RecruiterPoup = ({ isOpen, setIsOpen }) => {
-  const [error, setError] = useState(undefined);
+  const { setToast } = useToast();
 
   const { user } = useAuthContext();
 
@@ -22,7 +23,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
     email: z.string().email('email invalido').min(1, 'O email é obrigatorio'),
   });
 
-  const { register, handleSubmit } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {},
     resolver: zodResolver(formSchema),
   });
@@ -32,15 +33,23 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
       setIsOpen(false);
     },
     onError: (e) => {
-      setError(e.message);
+      setToast(e.message);
     },
   });
 
   const handleForm = async (formData) => {
     const { email } = formData;
     const { response, error } = await signUpWithoutLogin(email, 'recruta123');
+
     if (error) {
-      setError(error);
+      setToast(error);
+      return;
+    }
+
+    const { error: resetPasswordError } = await resetPassword(email);
+
+    if (resetPasswordError) {
+      setToast(resetPasswordError);
       return;
     }
 
@@ -58,10 +67,6 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
     createOrUpdateUser(data);
   };
 
-  const handleFormError = (errors) => {
-    setError(Object.values(errors).find((error) => error.message)?.message);
-  };
-
   return (
     <Poup
       isOpen={isOpen}
@@ -71,18 +76,37 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
     >
       <form
         className="w-full h-full flex flex-col"
-        onSubmit={handleSubmit(handleForm, handleFormError)}
+        onSubmit={handleSubmit(handleForm, console.log)}
       >
         <div className="w-full flex flex-col grow gap-3 lg:gap-5">
-          <InputLabel
-            placeholder="ex: Fulano de tal"
-            label="Nome Completo:"
-            register={register('name')}
+          <Controller
+            name="name"
+            control={control}
+            render={({ field: { value, onChange } }) => {
+              return (
+                <InputLabel
+                  placeholder="ex: Fulano de tal"
+                  label="Nome Completo:"
+                  value={value}
+                  onChange={onChange}
+                />
+              );
+            }}
           />
-          <InputLabel
-            placeholder="ex: fulano@gmail.com"
-            label="Email:"
-            register={register('email')}
+
+          <Controller
+            name="email"
+            control={control}
+            render={({ field: { value, onChange } }) => {
+              return (
+                <InputLabel
+                  placeholder="ex: fulano@gmail.com"
+                  label="Email:"
+                  onChange={onChange}
+                  value={value}
+                />
+              );
+            }}
           />
 
           <div className="w-full flex justify-center items-center pb-5 lg:pb-7">
