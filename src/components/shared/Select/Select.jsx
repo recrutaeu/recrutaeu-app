@@ -33,29 +33,35 @@ const styles = {
       [themes.LIGHT]: 'text-red-500',
     },
   },
-  // inverse:
-  //   label: {
-  //     [themes.DEFAULT]: 'text-neutral-90 lg:text-base font-medium',
-  //     [themes.DARK]: 'text-neutral-90 lg:text-base font-medium',
-  //     [themes.LIGHT]: 'text-neutral-0 lg:text-base font-medium',
-  //   },
-  //   buttonLabel: {
-  //     [themes.DEFAULT]: 'bg-neutral-0',
-  //     [themes.DARK]: 'bg-neutral-0 border border-neutral-90',
-  //     [themes.LIGHT]: 'bg-neutral-0',
-  //   },
-  //   ul: {
-  //     [themes.DEFAULT]: 'bg-neutral-0 lg:text-sm lg:font-medium',
-  //     [themes.DARK]: 'bg-neutral-90 lg:text-sm lg:font-medium',
-  //     [themes.LIGHT]: 'bg-neutral-0 lg:text-sm lg:font-medium',
-  //   },
-  //   li: {
-  //     [themes.DEFAULT]: 'bg-neutral-0 hover:bg-primary-90 hover:text-neutral-0 hover:font-medium',
-  //     [themes.DARK]: 'text-neutral-0 hover:bg-neutral-30 hover:text-neutral-90 hover:font-medium',
-  //     [themes.LIGHT]:
-  //       'text-neutral-90 lg:text-sm lg:font-medium hover:bg-neutral-30 hover:text-neutral-90 hover:font-medium',
-  //   },
-  // },
+  inverse: {
+    label: {
+      [themes.DEFAULT]: 'text-neutral-90 lg:text-base font-medium',
+      [themes.DARK]: 'text-neutral-0 lg:text-base font-medium',
+      [themes.LIGHT]: 'text-neutral-90 lg:text-base font-medium',
+    },
+    buttonLabel: {
+      [themes.DEFAULT]: 'bg-neutral-0',
+      [themes.DARK]: 'bg-neutral-0',
+      [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
+    },
+    ul: {
+      [themes.DEFAULT]: 'bg-neutral-0 lg:text-sm lg:font-medium',
+      [themes.DARK]: 'bg-neutral-15 lg:text-sm lg:font-medium',
+      [themes.LIGHT]: 'bg-neutral-15 lg:text-sm lg:font-medium',
+    },
+    li: {
+      [themes.DEFAULT]:
+        'bg-neutral-0 text-neutral-90 hover:bg-primary-90 hover:text-neutral-0 hover:font-medium',
+      [themes.DARK]: 'text-neutral-90 hover:bg-neutral-30 hover:text-neutral-90 hover:font-medium',
+      [themes.LIGHT]:
+        'text-neutral-90 lg:text-base hover:bg-neutral-30 hover:text-neutral-90 hover:font-medium',
+    },
+    error: {
+      [themes.DEFAULT]: 'text-red-400',
+      [themes.DARK]: 'text-red-500',
+      [themes.LIGHT]: 'text-red-500',
+    },
+  },
 };
 
 const Select = ({
@@ -72,7 +78,7 @@ const Select = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [currentOption, setCurrentOption] = useState(firstOption);
   const { theme } = useTheme();
-  const style = styles['default'];
+  const style = styles[variant];
 
   const handleChange = (option) => {
     onChange(option.value);

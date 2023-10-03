@@ -47,7 +47,7 @@ const Recruiters = ({}) => {
       <RecruiterPoup isOpen={isOpen} setIsOpen={setIsOpen} />
 
       <div>
-        <Title className="text-xl lg:text-3xl" variant="inverse">
+        <Title className="text-xl llg:text-3xl px-5 lg:pl-10 lg:pr-12" variant="inverse">
           {company.recruiters.title}
         </Title>
         <p

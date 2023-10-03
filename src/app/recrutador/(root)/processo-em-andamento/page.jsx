@@ -124,11 +124,11 @@ const JobProcess = () => {
     <>
       <ProcessPopup isOpen={isOpen} setIsOpen={setIsOpen} application={selectedApplication} />
 
-      <Title className="text-xl lg:text-3xl px-5 lg:px-7" variant="inverse">
+      <Title className="text-xl lg:text-3xl px-5 lg:pl-10" variant="inverse">
         {commons.process.title}
       </Title>
 
-      <div className="h-full overflow-hidden flex">
+      <div className="h-full overflow-hidden flex lg:pl-10 lg:pr-11">
         <div className="h-full overflow-auto no-scrollbar w-full flex flex-col lg:gap-8 lg:w-1/2 lg:px-7 px-5 py-5 gap-5">
           {applications?.map((item) => (
             <div

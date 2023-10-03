@@ -43,18 +43,20 @@ const VacancyTable = ({ vacancies, className, onDetails, selectedRows, setSelect
           </Table.Header>
         </Table.Row>
       </thead>
-      {vacancies?.map((vacancy) => {
-        return (
-          <VacancyTableContext
-            key={vacancy.id}
-            vacancy={vacancy}
-            checkAll={checked}
-            onDetails={onDetails}
-            selectedRows={selectedRows}
-            setSelectedRows={setSelectedRows}
-          />
-        );
-      })}
+      <tbody className="">
+        {vacancies?.map((vacancy) => {
+          return (
+            <VacancyTableContext
+              key={vacancy.id}
+              vacancy={vacancy}
+              checkAll={checked}
+              onDetails={onDetails}
+              selectedRows={selectedRows}
+              setSelectedRows={setSelectedRows}
+            />
+          );
+        })}
+      </tbody>
     </Table.Root>
   );
 };
