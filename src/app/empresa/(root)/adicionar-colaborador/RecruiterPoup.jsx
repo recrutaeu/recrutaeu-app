@@ -80,10 +80,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
       title="Cadastar novo colaborador"
       variant="inverseSecundary"
     >
-      <form
-        className="w-full h-full flex flex-col"
-        onSubmit={handleSubmit(handleForm, console.log)}
-      >
+      <form className="w-full h-full flex flex-col" onSubmit={handleSubmit(handleForm)}>
         <div className="w-full flex flex-col grow gap-3 lg:gap-5">
           <Controller
             name="name"
