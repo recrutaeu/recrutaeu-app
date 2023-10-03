@@ -1,9 +1,4 @@
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
-import { DataPicker } from '@/components/shared/DataPicker';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { Poup } from '@/components/shared/Poup';
 import { useAuthContext } from '@/contexts/AuthContext';
@@ -12,6 +7,10 @@ import {
   useCreateOrUpdateInterview,
 } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
   const [error, setError] = useState(undefined);
@@ -72,6 +71,7 @@ const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
       id: application.id,
       steps,
     });
+
     createOrUpdateInterview({
       id: newInterview?.data?.id,
       ...data,
@@ -82,17 +82,13 @@ const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
     });
   };
 
-  const handleFormError = (errors) => {
-    setError(Object.values(errors).find((error) => error.message)?.message);
-  };
-
   return (
     <Poup isOpen={isOpen} setIsOpen={setIsOpen} title="Entrevista" variant="inverseForm">
       <div className="h-full overflow-hidden">
         <div className="h-full overflow-auto flex flex-col">
           <form
             className="flex flex-col gap-5 py-5"
-            onSubmit={handleSubmit(handleForm, handleFormError)}
+            onSubmit={handleSubmit(handleForm, console.log)}
           >
             <Controller
               name="employee"
@@ -101,7 +97,7 @@ const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
                 return (
                   <InputLabel
                     label="Responsável:"
-                    variant="inverseSecundary"
+                    variant="inverseTertiary"
                     onChange={onChange}
                     value={value}
                     error={errors?.['employee']?.message}

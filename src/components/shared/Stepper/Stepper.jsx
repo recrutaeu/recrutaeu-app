@@ -15,7 +15,7 @@ const styles = {
       [themes.DEFAULT]: 'text-neutral-0 border-primary-90 bg-primary-90',
       [themes.DARK]: 'text-neutral-90 md:border-neutral-0 bg-neutral-0 border-neutral-90',
       [themes.LIGHT]: 'text-neutral-0 md:border-neutral-90 bg-neutral-90 border-neutral-0',
-    },    
+    },
     repprovedStep: {
       [themes.DEFAULT]: 'bg-red-500 border border-red-400',
       [themes.DARK]: 'text-neutral-90 md:border-neutral-0 bg-neutral-0 border-neutral-90',
@@ -98,15 +98,17 @@ const Stepper = ({ steps, currentStep, variant = 'default', className, ...props 
           const stepDoneStyle =
             s.index <= currentStep?.index && currentStep?.status === 'approved'
               ? style.doneStep[theme]
-              : s?.status === 'reproved'  
-                ? style.repprovedStep[theme] 
-                : null
+              : s?.status === 'reproved'
+              ? style.repprovedStep[theme]
+              : null;
           const stepContent =
-            s.index <= currentStep?.index && currentStep?.status === 'approved' 
-            ? ( <LuCheck size={15} /> ) 
-            : s?.status === 'reproved'  
-              ? ( <LuX size={15} /> ) 
-              : (i + 1 )
+            s.index <= currentStep?.index && currentStep?.status === 'approved' ? (
+              <LuCheck size={15} />
+            ) : s?.status === 'reproved' ? (
+              <LuX size={15} />
+            ) : (
+              i + 1
+            );
 
           return (
             <>
