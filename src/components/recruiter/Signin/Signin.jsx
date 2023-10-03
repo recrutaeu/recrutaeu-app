@@ -23,11 +23,11 @@ const SigninForm = () => {
       .min(6, 'A senha precisa ter pelo menos 6 caracteres'),
   });
 
-  const {    
-    register, 
-    handleSubmit, 
+  const {
+    register,
+    handleSubmit,
     formState: { errors },
-    control, 
+    control,
   } = useForm({
     defaultValues: {
       email: '',
@@ -89,7 +89,7 @@ const SigninForm = () => {
           </ButtonLink>
         </div>
 
-        <ButtonPrimary variant='inverse' type="submit" className="mt-5">
+        <ButtonPrimary variant="inverse" type="submit" className="mt-5">
           {recruiter.signin.form.button.label}
         </ButtonPrimary>
       </>
