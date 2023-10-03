@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -30,15 +30,19 @@ const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
     handleSubmit,
     control,
     formState: { errors },
+    reset,
   } = useForm({
-    defaultValues: {
+    resolver: zodResolver(formSchema),
+  });
+
+  useEffect(() => {
+    reset({
       employee: interview?.data?.employee || '',
       link: interview?.data?.link || '',
       address: interview?.data?.address || '',
       date: interview?.data?.date.toDate().toISOString().split('T')[0] || '',
-    },
-    resolver: zodResolver(formSchema),
-  });
+    });
+  }, [application]);
 
   const { mutate: createOrUpdateApplication } = useCreateOrUpdateApplication({
     onSuccess: () => {

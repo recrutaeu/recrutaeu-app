@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -20,12 +20,16 @@ const FeedbackPopup = ({ isOpen, setIsOpen, application }) => {
     handleSubmit,
     formState: { errors },
     control,
+    reset,
   } = useForm({
-    defaultValues: {
-      feedback: feedback?.data?.feedback,
-    },
     resolver: zodResolver(formSchema),
   });
+
+  useEffect(() => {
+    reset({
+      feedback: feedback?.data?.feedback || '',
+    });
+  }, [application]);
 
   const { mutate: createOrUpdateApplication } = useCreateOrUpdateApplication({
     onSuccess: () => {

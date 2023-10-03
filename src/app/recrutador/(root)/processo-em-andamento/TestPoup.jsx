@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -20,18 +20,21 @@ const TestPopup = ({ isOpen, setIsOpen, application }) => {
   });
 
   const {
-    register,
     handleSubmit,
     control,
     formState: { errors },
+    reset,
   } = useForm({
-    defaultValues: {
+    resolver: zodResolver(formSchema),
+  });
+
+  useEffect(() => {
+    reset({
       link: test?.data?.link,
       startAt: test?.data?.startAt.toDate().toISOString().split('T')[0],
       endAt: test?.data?.endAt.toDate().toISOString().split('T')[0],
-    },
-    resolver: zodResolver(formSchema),
-  });
+    });
+  }, [application]);
 
   const { mutate: createOrUpdateApplication } = useCreateOrUpdateApplication({
     onSuccess: () => {
