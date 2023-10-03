@@ -56,7 +56,7 @@ const PopupSkills = withTheme(
               className="w-full"
               variant="inverseSecundary"
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={(value) => setInputValue(value)}
             />
             <ButtonPrimary
               variant="inverse"
