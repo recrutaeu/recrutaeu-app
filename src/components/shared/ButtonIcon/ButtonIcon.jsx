@@ -10,11 +10,25 @@ const styles = {
       [themes.LIGHT]: 'text-neutral-0 disabled:text-neutral-60',
     },
   },
+  inverse: {
+    icon: {
+      [themes.DEFAULT]: 'text-primary-90 disabled:text-neutral-60',
+      [themes.DARK]: 'text-neutral-90 disabled:text-neutral-60',
+      [themes.LIGHT]: 'text-neutral-90 disabled:text-neutral-60',
+    },
+  },
 };
 
-const ButtonIcon = ({ children, disabled = false, type, className, onClick }) => {
+const ButtonIcon = ({
+  children,
+  disabled = false,
+  type,
+  className,
+  onClick,
+  variant = 'default',
+}) => {
   const { theme } = useTheme();
-  const style = styles['default'];
+  const style = styles[variant];
 
   return (
     <button

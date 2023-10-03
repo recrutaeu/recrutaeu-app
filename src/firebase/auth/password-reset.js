@@ -1,7 +1,5 @@
-import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
-import { app } from '../config';
-
-const auth = getAuth(app);
+import { sendPasswordResetEmail } from 'firebase/auth';
+import auth from '../auth';
 
 export default async function resetPassword(email) {
   try {

@@ -78,7 +78,7 @@ const commons = {
     },
   },
   settings: {
-    title: 'Configurações',
+    title: 'Dados Pessoais',
     form: {
       titleDocument: 'Dados obrigatórios',
       titleDocumentSecundary: 'Dados não obrigatórios',

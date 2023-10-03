@@ -93,7 +93,7 @@ const PersonalForm = ({ variant = 'default' }) => {
       router.push('/candidato/dashboard');
     },
     onError: (e) => {
-      setToast(e.message);
+      setToast({ message: e.message, type: 'error' });
     },
   });
 
@@ -102,7 +102,7 @@ const PersonalForm = ({ variant = 'default' }) => {
     const { response, error } = await signUp(email, password);
 
     if (error) {
-      setToast(error);
+      setToast({ message: error, type: 'error' });
       return;
     }
 
