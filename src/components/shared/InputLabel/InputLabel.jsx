@@ -38,30 +38,30 @@ const styles = {
       [themes.LIGHT]: 'text-red-500',
     },
   },
-  // inverseSecundary: {
-  //   label: {
-  //     [themes.DEFAULT]: 'text-neutral-0',
-  //     [themes.DARK]: 'text-neutral-0',
-  //     [themes.LIGHT]: 'text-neutral-90',
-  //   },
-  //   input: {
-  //     [themes.DEFAULT]: 'bg-neutral-0',
-  //     [themes.DARK]: 'bg-neutral-0',
-  //     [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
-  //   },
-  // },
-  // inverseTertiary: {
-  //   label: {
-  //     [themes.DEFAULT]: 'text-neutral-0',
-  //     [themes.DARK]: 'text-neutral-0',
-  //     [themes.LIGHT]: 'text-neutral-90',
-  //   },
-  //   input: {
-  //     [themes.DEFAULT]: 'bg-neutral-0',
-  //     [themes.DARK]: 'bg-neutral-0 border border-neutral-90',
-  //     [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
-  //   },
-  // },
+  inverseSecundary: {
+    label: {
+      [themes.DEFAULT]: 'text-primary-90',
+      [themes.DARK]: 'text-neutral-0',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
+    input: {
+      [themes.DEFAULT]: 'bg-neutral-0',
+      [themes.DARK]: 'bg-neutral-0',
+      [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
+    },
+  },
+  inverseTertiary: {
+    label: {
+      [themes.DEFAULT]: 'text-neutral-0',
+      [themes.DARK]: 'text-neutral-0',
+      [themes.LIGHT]: 'text-neutral-90',
+    },
+    input: {
+      [themes.DEFAULT]: 'bg-neutral-0',
+      [themes.DARK]: 'bg-neutral-0 border border-neutral-90',
+      [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
+    },
+  },
 };
 
 const InputLabel = ({

@@ -88,6 +88,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
             render={({ field: { value, onChange } }) => {
               return (
                 <InputLabel
+                  variant='inverseSecundary'
                   placeholder="ex: Fulano de tal"
                   label="Nome Completo:"
                   value={value}
@@ -104,6 +105,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
             render={({ field: { value, onChange } }) => {
               return (
                 <InputLabel
+                  variant='inverseSecundary'
                   placeholder="ex: fulano@gmail.com"
                   label="Email:"
                   onChange={onChange}
