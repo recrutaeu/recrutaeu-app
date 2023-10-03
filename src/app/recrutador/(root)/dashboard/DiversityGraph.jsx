@@ -10,6 +10,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import { twMerge } from 'tailwind-merge';
+import { VacancyTable } from '../vagas/VacancyTable';
 import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import {
@@ -17,7 +18,6 @@ import {
   useFindAllVacanciesByCompanyId,
 } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
-import { VacancyTable } from '../vagas/VacancyTable';
 
 const styles = {
   default: {
@@ -69,11 +69,10 @@ const DiversityGraph = ({ user = null }) => {
 
   useEffect(() => {
     if (applications) {
-
       const blackDiversity = applications.filter((application) =>
       application.diversity?  application.diversity.includes('black'):null,
       );
-      console.log(blackDiversity)
+      console.log(blackDiversity);
       const lgbtDiversity = applications.filter((application) =>
          application.diversity? application.diversity.includes('lgbt'):null,
       );
@@ -107,8 +106,6 @@ const DiversityGraph = ({ user = null }) => {
       return total + parseInt(objeto.quantity, 10);
     }, 0);
   };
-
-
 
   const options = {
     responsive: true,

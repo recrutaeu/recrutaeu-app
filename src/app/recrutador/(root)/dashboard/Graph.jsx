@@ -93,22 +93,28 @@ const Graph = ({ user = null }) => {
   const testData = [
     {
       bgcolor: '#F18AAD',
-      completed: approved.length > 0? Math.round((approved.length / totalApplications.length) * 100) : 0,
+      completed:
+        approved.length > 0 ? Math.round((approved.length / totalApplications.length) * 100) : 0,
       label: 'Aprovados',
     },
     {
       bgcolor: '#BDBAED',
-      completed: reproved.length > 0? Math.round((reproved.length / totalApplications.length) * 100) :0,
+      completed:
+        reproved.length > 0 ? Math.round((reproved.length / totalApplications.length) * 100) : 0,
       label: 'Reprovados',
     },
     {
       bgcolor: '#E9FE47',
-      completed: pendingNotReproved.length > 0? Math.round((pendingNotReproved.length / totalApplications.length) * 100) : 0,
+      completed:
+        pendingNotReproved.length > 0
+          ? Math.round((pendingNotReproved.length / totalApplications.length) * 100)
+          : 0,
       label: 'Em processo de seleção',
     },
     {
       bgcolor: '#EEC226',
-      completed: paused.length > 0? Math.round((paused.length / totalApplications.length) * 100) : 0,
+      completed:
+        paused.length > 0 ? Math.round((paused.length / totalApplications.length) * 100) : 0,
       label: 'Vagas pausadas',
     },
   ];
