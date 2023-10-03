@@ -97,6 +97,7 @@ const VacancyPopup = ({ isOpen, setIsOpen, vacancy }) => {
   useEffect(() => {
     reset({
       // ...vacancy,
+      company: user?.company || '',
       title: vacancy?.title || '',
       sector: vacancy?.sector || '',
       city: vacancy?.city || '',
