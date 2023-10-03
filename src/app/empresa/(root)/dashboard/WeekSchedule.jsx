@@ -7,6 +7,7 @@ import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { useFindAllInterviewsByCompanyId } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
+import { useEffect, useState } from 'react';
 
 const weeks = [
   {
@@ -54,9 +55,17 @@ const WeeksSchedule = ({ user = null }) => {
   const { theme } = useTheme();
   const style = styles['default'];
 
+  const[interviewsSearched, setInterviewSearched] = useState([])
+
   const { data: interviews } = useFindAllInterviewsByCompanyId({
     id: user.id,
   });
+
+useEffect(()=>{
+  if(interviews){
+    setInterviewSearched(interviews)
+  }
+}, [interviews])
 
   return (
     <div className="h-full flex flex-col gap-7 overflow-auto">
@@ -68,7 +77,7 @@ const WeeksSchedule = ({ user = null }) => {
 
       <div className="h-full flex flex-col">
         <div className="h-full pb-5 flex flex-col gap-5 lg:gap-8 lg:w-1/2">
-          {interviews?.map((item, index) => (
+          {interviewsSearched.length> 0 ? interviewsSearched?.map((item, index) => (
             <Quote key={item.id}>
               <p className={twMerge('font-semibold text-base capitalize', style.title[theme])}>
                 {commons.weeksSchedule.description.title}
@@ -157,7 +166,7 @@ const WeeksSchedule = ({ user = null }) => {
                 </div>
               </div>
             </Quote>
-          ))}
+          )): 'Ainda não há entrevistas agendadas'}
         </div>
         <ButtonLink
           href="/empresa/entrevistas-agendadas"
