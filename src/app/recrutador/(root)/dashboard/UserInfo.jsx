@@ -31,7 +31,7 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
   return (
     <div className="flex flex-col justify-center items-center lg:flex-row lg:justify-start">
       <Image
-        src="/assets/images/img_profile.png"
+        src="/assets/images/img_profile_default.png"
         width={80}
         height={80}
         alt="profile"

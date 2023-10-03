@@ -26,12 +26,12 @@ const ShortVacancy = ({ vacancy, variant = 'default', onClick, ...props }) => {
       className="flex flex-col items-center flex-wrap px-2 py-3 cursor-pointer"
       onClick={onClick}
     >
-      <p className={twMerge('text-sm font-bold leading-6', style.text[theme])}>{vacancy?.titulo}</p>
+      <p className={twMerge('text-sm font-bold leading-6', style.text[theme])}>{vacancy?.title}</p>
       <div className="my-3">
-        <p className={twMerge('text-sm font-light', style.text[theme])}>{vacancy?.vaga}</p>
+        <p className={twMerge('text-sm font-light', style.text[theme])}>{vacancy?.sector}</p>
         <p
           className={twMerge('text-sm font-light', style.text[theme])}
-        >{`${vacancy?.cidade} - ${vacancy?.estado}`}</p>
+        >{`${vacancy?.city} - ${vacancy?.state}`}</p>
       </div>
 
       <ButtonLink variant="bgTransform" className={'text-sm'}>

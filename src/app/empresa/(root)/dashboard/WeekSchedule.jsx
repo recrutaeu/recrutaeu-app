@@ -1,11 +1,9 @@
 'use client';
-import { useState } from 'react';
 import { format } from 'date-fns';
 import { twMerge } from 'tailwind-merge';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { Quote } from '@/components/shared/Quote';
 import { Title } from '@/components/shared/Title';
-import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { useFindAllInterviewsByCompanyId } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
@@ -59,7 +57,7 @@ const WeeksSchedule = ({ user = null }) => {
   const { data: interviews } = useFindAllInterviewsByCompanyId({
     id: user.id,
   });
-  console.log(interviews);
+
   return (
     <div className="h-full flex flex-col gap-7 overflow-auto">
       <div className="w-full flex flex-col gap-3">

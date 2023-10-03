@@ -1,26 +1,16 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { Pie } from 'react-chartjs-2';
 import { twMerge } from 'tailwind-merge';
 import DiversityGraph from './DiversityGraph';
 import Graph from './Graph';
-import { UserInfo } from './UserInfo';
 import WeeksSchedule from './WeekSchedule';
 import { Card } from '@/components/shared/Card';
 import { Title } from '@/components/shared/Title';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, withTheme } from '@/contexts/ThemeContext';
-import { useFindAllInterviewsByCompanyId, useFindUserById } from '@/firebase/firestore/queries';
 
 const Dashboard = withTheme(({ theme, variant = 'default' }) => {
   const { user } = useAuthContext();
-
-  // const now = new Date();
-  // if(interviews){
-  //   // const filtered = interviews?.filter((item) => item.date.toDate() > now);
-  //   setFilteredInterviews(interviews)
-  // }
 
   const styles = {
     default: {

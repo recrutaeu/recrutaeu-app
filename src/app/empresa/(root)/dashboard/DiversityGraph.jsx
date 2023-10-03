@@ -1,23 +1,19 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { Bar, Doughnut, Pie } from 'react-chartjs-2';
+import { useEffect, useState } from 'react';
+import { Bar } from 'react-chartjs-2';
 import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
   BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  Tooltip,
 } from 'chart.js';
 import { twMerge } from 'tailwind-merge';
-import ProgressBar from '@/components/shared/ProgressBar/ProgressBar';
 import { Title } from '@/components/shared/Title';
-import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import {
   useFindAllApplicationByCompanyId,
-  useFindAllInterviewsByCompanyId,
   useFindAllVacanciesByCompanyId,
 } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
@@ -36,6 +32,8 @@ const styles = {
     },
   },
 };
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -61,7 +59,7 @@ const DiversityGraph = ({ user = null }) => {
   const [disabilityApplicationsQtd, setDisabilityApplicationsQtd] = useState(0);
   const [elderlyApplicationsQtd, setElderlyApplicationsQtd] = useState(0);
 
-  const calcularQuantidadeTotal = (filtro) => {
+  const calculateTotal = (filtro) => {
     return filtro.reduce((total, objeto) => {
       return total + parseInt(objeto.quantity, 10);
     }, 0);
@@ -77,10 +75,10 @@ const DiversityGraph = ({ user = null }) => {
       const elderlyDiversity = vacancies.filter((vacancy) => vacancy.diversity.includes('elderly'));
 
       // Calcular a quantidade total para cada filtro.
-      setBlackVacanciesQtd(calcularQuantidadeTotal(blackDiversity));
-      setLgbtVacanciesQtd(calcularQuantidadeTotal(lgbtDiversity));
-      setDisabilityVacanciesQtd(calcularQuantidadeTotal(disabilityDiversity));
-      setElderlyVacanciesQtd(calcularQuantidadeTotal(elderlyDiversity));
+      setBlackVacanciesQtd(calculateTotal(blackDiversity));
+      setLgbtVacanciesQtd(calculateTotal(lgbtDiversity));
+      setDisabilityVacanciesQtd(calculateTotal(disabilityDiversity));
+      setElderlyVacanciesQtd(calculateTotal(elderlyDiversity));
     }
   }, [vacancies]);
 
@@ -196,7 +194,6 @@ const DiversityGraph = ({ user = null }) => {
           {commons.dash.titlePageSecond}
         </Title>
       </div>
-
       <div
         className={twMerge(
           'h-full w-full overflow-hidden lg:ml-0 lg:mb-6',

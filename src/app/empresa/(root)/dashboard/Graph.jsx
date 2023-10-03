@@ -1,16 +1,12 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
 import { twMerge } from 'tailwind-merge';
 import ProgressBar from '@/components/shared/ProgressBar/ProgressBar';
 import { Title } from '@/components/shared/Title';
-import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
-import {
-  useFindAllApplicationByCompanyId,
-  useFindAllInterviewsByCompanyId,
-} from '@/firebase/firestore/queries';
+import { useFindAllApplicationByCompanyId } from '@/firebase/firestore/queries';
 import { commons } from '@/locales';
 
 const styles = {
@@ -33,7 +29,6 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const Graph = ({ user = null }) => {
   const { theme } = useTheme();
   const style = styles['default'];
-
   const { data: applications } = useFindAllApplicationByCompanyId({
     companyId: user.id,
   });
@@ -85,6 +80,15 @@ const Graph = ({ user = null }) => {
           'rgba(233, 254, 71, 1)',
           'rgba(241, 238, 230, 1)',
         ],
+        borderColor: [
+          'rgba(241, 138, 173, 1)',
+          'rgba(189, 186, 237, 1)',
+          'rgba(233, 254, 71, 1)',
+          'rgba(241, 238, 230, 1)',
+        ],
+        borderWidth: 1,
+        paddingBottom: 18,
+
         borderColor: [
           'rgba(241, 138, 173, 1)',
           'rgba(189, 186, 237, 1)',
