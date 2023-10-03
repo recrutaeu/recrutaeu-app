@@ -35,13 +35,19 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
         width={80}
         height={80}
         alt="profile"
-        className={twMerge('rounded-full border-2 mb-2 lg:w-[150px] lg:mr-5', style.image[theme])}
+        className={twMerge(
+          'rounded-full border-2 mb-2 lg:w-[120px] lg:ml-10 lg:mr-5',
+          style.image[theme],
+        )}
       />
 
       <div>
         <div className="flex flex-col items-center lg:items-start">
           <Title variant="bgTransformSecundary" className="text-base lg:text-xl">
             {userData.name}
+          </Title>
+          <Title variant="bgTransformSecundary" className="text-base lg:text-xl font-light">
+            {userData.document}
           </Title>
         </div>
       </div>
