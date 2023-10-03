@@ -52,12 +52,20 @@ const DiversityGraph = ({ user = null }) => {
 
   useEffect(() => {
     if (vacancies) {
-      const blackDiversity = vacancies.filter((vacancy) => vacancy.affirmativeVacancies ? vacancy.affirmativeVacancies.includes('Pessoas Pretas'): null);
-      const lgbtDiversity = vacancies.filter((vacancy) => vacancy.affirmativeVacancies ? vacancy.affirmativeVacancies.includes('LGBTQIAP+'):null);
-      const disabilityDiversity = vacancies.filter((vacancy) =>
-      vacancy.affirmativeVacancies ? vacancy.affirmativeVacancies.includes('Deficientes'):null,
+      const blackDiversity = vacancies.filter((vacancy) =>
+        vacancy.affirmativeVacancies
+          ? vacancy.affirmativeVacancies.includes('Pessoas Pretas')
+          : null,
       );
-      const elderlyDiversity = vacancies.filter((vacancy) => vacancy.affirmativeVacancies ? vacancy.affirmativeVacancies.includes('Pessoas 50+'):null);
+      const lgbtDiversity = vacancies.filter((vacancy) =>
+        vacancy.affirmativeVacancies ? vacancy.affirmativeVacancies.includes('LGBTQIAP+') : null,
+      );
+      const disabilityDiversity = vacancies.filter((vacancy) =>
+        vacancy.affirmativeVacancies ? vacancy.affirmativeVacancies.includes('Deficientes') : null,
+      );
+      const elderlyDiversity = vacancies.filter((vacancy) =>
+        vacancy.affirmativeVacancies ? vacancy.affirmativeVacancies.includes('Pessoas 50+') : null,
+      );
 
       // Calcular a quantidade total para cada filtro.
       setBlackVacanciesQtd(calculateTotal(blackDiversity));
@@ -70,17 +78,17 @@ const DiversityGraph = ({ user = null }) => {
   useEffect(() => {
     if (applications) {
       const blackDiversity = applications.filter((application) =>
-      application.diversity?  application.diversity.includes('black'):null,
+        application.diversity ? application.diversity.includes('black') : null,
       );
       console.log(blackDiversity);
       const lgbtDiversity = applications.filter((application) =>
-         application.diversity? application.diversity.includes('lgbt'):null,
+        application.diversity ? application.diversity.includes('lgbt') : null,
       );
       const disabilityDiversity = applications.filter((application) =>
-        application.diversity? application.diversity.includes('disability'):null,
+        application.diversity ? application.diversity.includes('disability') : null,
       );
       const elderlyDiversity = applications.filter((application) =>
-       application.diversity? application.diversity.includes('elderly'):null,
+        application.diversity ? application.diversity.includes('elderly') : null,
       );
 
       // Calcular a quantidade total para cada filtro.
@@ -127,7 +135,7 @@ const DiversityGraph = ({ user = null }) => {
         },
 
         min: 0,
-        max: blackVacanciesQtd ? blackVacanciesQtd + (blackVacanciesQtd*2) : 10,
+        max: blackVacanciesQtd ? blackVacanciesQtd + blackVacanciesQtd * 2 : 10,
         ticks: {
           stepSize: blackVacanciesQtd
             ? blackVacanciesQtd > 10
