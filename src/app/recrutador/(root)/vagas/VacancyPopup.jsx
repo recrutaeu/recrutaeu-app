@@ -88,7 +88,7 @@ const VacancyPopup = ({ isOpen, setIsOpen, vacancy }) => {
       userId: user.id,
       startAt: new Date(formData.startAt),
       endAt: new Date(formData.endAt),
-      companyId: user.companyId
+      companyId: user.companyId,
     };
 
     createVacancy(data);

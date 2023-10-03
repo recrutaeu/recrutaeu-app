@@ -138,7 +138,7 @@ export const useFindApplicationById = ({ id, ...props }) =>
     ...props,
   });
 
-  export const useFindVacancyById = ({ id, ...props }) =>
+export const useFindVacancyById = ({ id, ...props }) =>
   useQuery({
     queryKey: ['vacancies', id],
     queryFn: () => findVacancyById(id),
@@ -159,7 +159,7 @@ export const useFindAllApplicationByUserId = ({ userId, ...props }) =>
     ...props,
   });
 
-  export const useFindAllApplicationByCompanyId = ({ companyId, ...props }) =>
+export const useFindAllApplicationByCompanyId = ({ companyId, ...props }) =>
   useQuery({
     queryKey: ['applications', companyId],
     queryFn: () => findAllApplicationByCompanyId(companyId),
@@ -179,7 +179,7 @@ export const useFindAllVacanciesByUserId = ({ userId }) =>
     queryFn: () => findAllVacanciesByUserId(userId),
   });
 
-  export const useFindAllVacanciesByCompanyId = ({ companyId }) =>
+export const useFindAllVacanciesByCompanyId = ({ companyId }) =>
   useQuery({
     queryKey: ['vacancies', companyId],
     queryFn: () => findAllVacanciesByCompanyId(companyId),
