@@ -21,14 +21,14 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
     email: z.string().email('email invalido').min(1, 'O email é obrigatorio'),
   });
 
-  const { 
+  const {
     handleSubmit,
     formState: { errors },
-    control, 
+    control,
   } = useForm({
     defaultValues: {
       name: '',
-      email: ''
+      email: '',
     },
     resolver: zodResolver(formSchema),
   });
@@ -43,7 +43,6 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
   });
 
   const handleForm = async (formData) => {
-
     if (error) {
       setToast({ message: error, type: 'error' });
       return;
@@ -88,7 +87,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
             render={({ field: { value, onChange } }) => {
               return (
                 <InputLabel
-                  variant='inverseSecundary'
+                  variant="inverseSecundary"
                   placeholder="ex: Fulano de tal"
                   label="Nome Completo:"
                   value={value}
@@ -105,7 +104,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
             render={({ field: { value, onChange } }) => {
               return (
                 <InputLabel
-                  variant='inverseSecundary'
+                  variant="inverseSecundary"
                   placeholder="ex: fulano@gmail.com"
                   label="Email:"
                   onChange={onChange}
