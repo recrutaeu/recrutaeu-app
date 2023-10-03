@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
@@ -16,7 +16,11 @@ const FeedbackPopup = ({ isOpen, setIsOpen, application }) => {
     feedback: z.string().min(1, 'A descrição é obrigatória'),
   });
 
-  const { register, handleSubmit } = useForm({
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm({
     defaultValues: {
       feedback: feedback?.data?.feedback,
     },
@@ -47,26 +51,28 @@ const FeedbackPopup = ({ isOpen, setIsOpen, application }) => {
     });
   };
 
-  const handleFormError = (errors) => {
-    setError(Object.values(errors).find((error) => error.message)?.message);
-  };
-
   return (
     <Poup isOpen={isOpen} setIsOpen={setIsOpen} title="Feedback" variant="inverseForm">
       <div className="h-full overflow-hidden">
         <div className="h-full overflow-auto flex flex-col">
-          <form
-            className="flex flex-col gap-5 py-5"
-            onSubmit={handleSubmit(handleForm, handleFormError)}
-          >
-            <TextArea
-              label="Descrição"
-              rows={20}
-              variant="inverse"
-              className="lg:text-xl"
-              register={register('feedback')}
+          <form className="flex flex-col gap-5 py-5" onSubmit={handleSubmit(handleForm)}>
+            <Controller
+              name="feedback"
+              control={control}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <TextArea
+                    label="Descrição"
+                    rows={20}
+                    variant="inverse"
+                    className="lg:text-xl"
+                    onChange={onChange}
+                    value={value}
+                    error={errors?.['feedback']?.message}
+                  />
+                );
+              }}
             />
-            {error && <p>{error}</p>}
             <div className="w-full flex items-center justify-center">
               <ButtonPrimary type="submit" variant="inverse">
                 salvar

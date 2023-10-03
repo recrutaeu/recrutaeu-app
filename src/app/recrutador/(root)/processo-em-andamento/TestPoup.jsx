@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
@@ -19,7 +19,12 @@ const TestPopup = ({ isOpen, setIsOpen, application }) => {
     endAt: z.string().min(1, 'Data final é  obrigatória'),
   });
 
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       link: test?.data?.link,
       startAt: test?.data?.startAt.toDate().toISOString().split('T')[0],
@@ -68,11 +73,28 @@ const TestPopup = ({ isOpen, setIsOpen, application }) => {
             className="flex flex-col gap-5 py-5"
             onSubmit={handleSubmit(handleForm, handleFormError)}
           >
-            <InputLabel label="Link:" variant="inverseTertiary" register={register('link')} />
+            <Controller
+              name="link"
+              control={control}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <InputLabel
+                    label="Link:"
+                    variant="inverseTertiary"
+                    onChange={onChange}
+                    value={value}
+                    error={errors?.['link']?.message}
+                  />
+                );
+              }}
+            />
+
             <DataPicker
               label="Prazo"
-              registerStart={register('startAt')}
-              registerEnd={register('endAt')}
+              startName="startAt"
+              endName="endAt"
+              control={control}
+              error={errors?.['startAt']?.message || errors?.['endAt']?.message}
             />
             {error && <p>{error}</p>}
             <div className="w-full flex items-center justify-center">
