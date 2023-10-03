@@ -1,3 +1,7 @@
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { Poup } from '@/components/shared/Poup';
@@ -7,10 +11,6 @@ import {
   useCreateOrUpdateInterview,
 } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 const InterviewPopup = ({ isOpen, setIsOpen, application }) => {
   const [error, setError] = useState(undefined);
