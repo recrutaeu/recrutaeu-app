@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { LuMail, LuPhone, LuStar } from 'react-icons/lu';
+import { LuAccessibility, LuMail, LuPhone } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { Title } from '@/components/shared/Title';
 import { withTheme, themes } from '@/contexts/ThemeContext';
@@ -59,9 +59,13 @@ const UserInfo = withTheme(({ userData, theme, variant = 'default', onEdit }) =>
             </p>
           </div>
           <div className="flex gap-2 align-middle">
-            <LuStar size={20} className={style.icon[theme]} />
+            <LuAccessibility size={20} className={style.icon[theme]} />
             <p className={style.text[theme]}>
-              {userData?.deficiencia ? userData.deficiencia : 'Não informado'}
+              {userData?.deficiency
+                ? userData.deficiency == 'NA'
+                  ? 'Nenhuma'
+                  : 'Deficiência ' + userData.deficiency + ' | CID ' + userData.cid
+                : 'Não informado'}
             </p>
           </div>
         </div>

@@ -2,11 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import DiversityGraph from './DiversityGraph';
 import Graph from './Graph';
 import { UserInfo } from './UserInfo';
 import WeeksSchedule from './WeekSchedule';
 import { Card } from '@/components/shared/Card';
 import { Title } from '@/components/shared/Title';
+import { useAuthContext } from '@/contexts/AuthContext';
 import { themes, withTheme } from '@/contexts/ThemeContext';
 import { useFindAllInterviewsByCompanyId, useFindUserById } from '@/firebase/firestore/queries';
 import { useAuthContext } from '@/contexts/AuthContext';
@@ -16,15 +18,6 @@ import DiversityGraph from './DiversityGraph';
 const Dashboard = withTheme(({ theme, variant = 'default' }) => {
 
   const { user } = useAuthContext();
-
-
-
-  // const now = new Date();
-  // if(interviews){
-  //   // const filtered = interviews?.filter((item) => item.date.toDate() > now);
-  //   setFilteredInterviews(interviews)
-  // }
-
 
   const styles = {
     default: {
@@ -82,7 +75,7 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
             )}
           >
             <div className={twMerge('w-full ')}>
-            <DiversityGraph user={user}/>
+              <DiversityGraph user={user} />
             </div>
             {/* <UserInfo userData={user} /> */}
           </Card>

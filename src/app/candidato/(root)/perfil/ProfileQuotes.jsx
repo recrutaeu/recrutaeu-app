@@ -26,7 +26,7 @@ const ProfileQuotes = withTheme(
 
     const style = styles[variant];
 
-    if (items?.length < 1)
+    if (items?.length < 1 || !items)
       return (
         <p className={twMerge('text-sm mb-3 mt-1', style.text[theme])}>Dados não informados</p>
       );

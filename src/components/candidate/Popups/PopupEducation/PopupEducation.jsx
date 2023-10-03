@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
@@ -19,7 +19,13 @@ const PopupEducation = withTheme(
       description: z.string().min(1, 'a descrição é obrigatória'),
     });
 
-    const { register, handleSubmit, reset } = useForm({
+    const {
+      register,
+      handleSubmit,
+      control,
+      formState: { errors },
+      reset,
+    } = useForm({
       defaultValues: editItem,
       resolver: zodResolver(formSchema),
     });
@@ -65,20 +71,42 @@ const PopupEducation = withTheme(
 
     return (
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleForm)}>
-        <InputLabel
-          placeholder="ex: Universidade de São Paulo"
-          label="Nome da instituição:"
-          className=""
-          variant="inverseSecundary"
-          register={register('name')}
+        <Controller
+          name="name"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <InputLabel
+                placeholder="ex: Universidade de São Paulo"
+                type="text"
+                label="Nome da instituição:"
+                variant="inverseSecundary"
+                onChange={onChange}
+                value={value}
+                error={errors?.['name']?.message}
+              />
+            );
+          }}
         />
-        <InputLabel
-          placeholder="ex: Desenvolvimento de Softwares"
-          label="Curso:"
-          className=""
-          variant="inverseSecundary"
-          register={register('course')}
+
+        <Controller
+          name="course"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <InputLabel
+                placeholder="ex: Desenvolvimento de Softwares"
+                type="text"
+                label="Nome da instituição:"
+                variant="inverseSecundary"
+                onChange={onChange}
+                value={value}
+                error={errors?.['course']?.message}
+              />
+            );
+          }}
         />
+
         <DataPicker registerStart={register('startDate')} registerEnd={register('endDate')} />
         <TextArea
           variant="inverse"

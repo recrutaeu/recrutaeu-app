@@ -44,55 +44,53 @@ const VacancyTableContext = ({ vacancy, onDetails, checkAll, selectedRows, setSe
     <Table.Cells className={twMerge(style.background[theme], className)}>{children}</Table.Cells>
   );
   return (
-    <tbody>
-      <Table.Row>
-        <CustomCell>
-          <div className="flex items-center justify-center">
-            <input
-              type="checkbox"
-              name=""
-              id="checkbox"
-              value={vacancy?.id}
-              checked={checked}
-              onChange={(e) => {
-                const value = e.target.value;
-                if (selectedRows.has(value)) {
-                  selectedRows.delete(value);
-                } else {
-                  selectedRows.add(value);
-                }
-                setSelectedRows(new Set([...selectedRows]));
-                setChecked(!checked);
-              }}
-              className={twMerge('cursor-pointer', style.checkbox[theme])}
-            />
-          </div>
-        </CustomCell>
-        <CustomCell className="text-xs font-light lg:text-sm">{vacancy.title}</CustomCell>
-        <CustomCell className="text-xs font-light lg:text-sm">{vacancy.sector}</CustomCell>
-        <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
-          {vacancy.quantity}
-        </CustomCell>
-        <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
-          {vacancy.startAt.toDate().toLocaleDateString('pt-BR')}
-        </CustomCell>
-        <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
-          {vacancy.endAt.toDate().toLocaleDateString('pt-BR')}
-        </CustomCell>
+    <Table.Row>
+      <CustomCell>
+        <div className="flex items-center justify-center">
+          <input
+            type="checkbox"
+            name=""
+            id="checkbox"
+            value={vacancy?.id}
+            checked={checked}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (selectedRows.has(value)) {
+                selectedRows.delete(value);
+              } else {
+                selectedRows.add(value);
+              }
+              setSelectedRows(new Set([...selectedRows]));
+              setChecked(!checked);
+            }}
+            className={twMerge('cursor-pointer', style.checkbox[theme])}
+          />
+        </div>
+      </CustomCell>
+      <CustomCell className="text-xs font-light lg:text-sm">{vacancy.title}</CustomCell>
+      <CustomCell className="text-xs font-light lg:text-sm">{vacancy.sector}</CustomCell>
+      <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
+        {vacancy.quantity}
+      </CustomCell>
+      <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
+        {vacancy.startAt.toDate().toLocaleDateString('pt-BR')}
+      </CustomCell>
+      <CustomCell className="hidden text-center text-xs font-light lg:text-sm lg:table-cell">
+        {vacancy.endAt.toDate().toLocaleDateString('pt-BR')}
+      </CustomCell>
 
-        <CustomCell>
-          <button
-            type="button"
-            className="w-full flex items-center justify-center cursor-pointer"
-            onClick={() => onDetails(vacancy)}
-          >
-            <MdFiberManualRecord size={10} className={style.details[theme]} />
-            <MdFiberManualRecord size={10} className={style.details[theme]} />
-            <MdFiberManualRecord size={10} className={style.details[theme]} />
-          </button>
-        </CustomCell>
-      </Table.Row>
-    </tbody>
+      <CustomCell>
+        <button
+          type="button"
+          className="w-full flex items-center justify-center cursor-pointer"
+          onClick={() => onDetails(vacancy)}
+        >
+          <MdFiberManualRecord size={10} className={style.details[theme]} />
+          <MdFiberManualRecord size={10} className={style.details[theme]} />
+          <MdFiberManualRecord size={10} className={style.details[theme]} />
+        </button>
+      </CustomCell>
+    </Table.Row>
   );
 };
 

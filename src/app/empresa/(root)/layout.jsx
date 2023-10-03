@@ -27,7 +27,7 @@ const links = [
     href: '/empresa/entrevistas-agendadas',
     icon: <LuCalendarDays className="md:w-7 md:h-7 w-6 h-6" />,
   },
-  { href: '/empresa/configuracoes', icon: <LuSettings className="md:w-7 md:h-7 w-6 h-6" /> },
+  { href: '/empresa/dados-pessoais', icon: <LuSettings className="md:w-7 md:h-7 w-6 h-6" /> },
 ];
 
 const styles = {
@@ -57,7 +57,7 @@ const Layout = ({ children, variant = 'default' }) => {
             onLogout={() => {
               route.push('/');
             }}
-            className="w-full flex items-center justify-end p-4"
+            className="w-full flex items-center justify-end"
           />
           {children}
         </div>

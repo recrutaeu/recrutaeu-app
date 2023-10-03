@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { MdFiberManualRecord } from 'react-icons/md';
 import { PiTrashSimpleFill } from 'react-icons/pi';
 import { twMerge } from 'tailwind-merge';
 import { ButtonIcon } from '@/components/shared/ButtonIcon';
@@ -37,28 +36,18 @@ const RecruiterTableContext = ({ recruiter, onDelete, checkAll }) => {
   }, [checkAll]);
 
   const CustomCell = ({ children, className }) => (
-    <Table.Cells className={twMerge(style.background[theme], className)}>{children}</Table.Cells>
+    <Table.Cells className={twMerge('pl-2 lg:pl-5', style.background[theme], className)}>
+      {children}
+    </Table.Cells>
   );
 
   return (
     <tbody>
       <Table.Row>
-        {/* <CustomCell>
-          <div className="flex items-center justify-center">
-            <input
-              type="checkbox"
-              name=""
-              id="checkbox"
-              checked={checked}
-              onChange={() => setChecked(!checked)}
-              className={twMerge('cursor-pointer', style.checkbox[theme])}
-            />
-          </div>
-        </CustomCell> */}
         <CustomCell className="text-xs font-light lg:text-sm">{recruiter.name}</CustomCell>
         <CustomCell className="text-xs font-light lg:text-sm">{recruiter.email}</CustomCell>
         <CustomCell>
-          <ButtonIcon onClick={() => onDelete(recruiter)}>
+          <ButtonIcon onClick={() => onDelete(recruiter)} variant="inverse">
             <PiTrashSimpleFill className="w-5 h-5 lg:w-6 lg:h-6" />
           </ButtonIcon>
         </CustomCell>
