@@ -1,10 +1,10 @@
 'use client';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { twMerge } from 'tailwind-merge';
+import { Description } from './Description';
+import { Logo } from './Logo';
+import { Navbar } from './Navbar';
 import { SignupForm } from '@/components/recruiter/Signup';
-import { AuthNavbar } from '@/components/shared/AuthNavbar';
 import { ButtonLink } from '@/components/shared/ButtonLink';
 import { Layout } from '@/components/shared/Layout';
 import { Title } from '@/components/shared/Title';
@@ -40,39 +40,32 @@ const SignUp = ({ variant = 'default' }) => {
     <>
       <Layout.Left className="hidden lg:flex flex-col">
         <Link href="/" className="mb-40 cursor-pointer">
-          <Image
-            src={`/assets/images/${style.logo[theme]}.png`}
-            width={120}
-            height={120}
-            alt="logo recrutaeu"
-          />
+          <Logo />
         </Link>
-        <div className="flex flex-col  gap-4">
+        <div className="flex flex-col w-5/6 gap-4">
           <Title>{recruiter.signup.title}</Title>
-          <p className={twMerge('text-xl', style.text[theme])}>{recruiter.signup.description}</p>
+          <Description className="text-xl" variant="inverse">
+            {recruiter.signup.description}
+          </Description>
         </div>
       </Layout.Left>
 
       <Layout.Right className="flex flex-col items-center ">
-        <AuthNavbar
-          onBack={() => {
-            route.push('/recrutador/login');
-          }}
-        />
-        <div className="w-full grow flex flex-col items-center justify-center gap-8">
-          <Title variant="inverse" className="text-5xl">
-            {recruiter.signup.form.title}
-          </Title>
+        <div className="lg:pl-10  w-full h-full flex flex-col items-center">
+          <Navbar />
+          <div className="w-full grow flex flex-col items-center justify-center gap-8">
+            <Title variant="inverse" className="text-5xl">
+              {recruiter.signup.form.title}
+            </Title>
 
-          <SignupForm />
-        </div>
-        <div className="w-full flex justify-center gap-2">
-          <p className={twMerge('text-lg', style.description[theme])}>
-            {recruiter.signup.buttonLink.description}
-          </p>
-          <ButtonLink href="/recrutador/login" className="text-lg">
-            {recruiter.signup.buttonLink.label}
-          </ButtonLink>
+            <SignupForm />
+          </div>
+          <div className="w-full flex justify-center gap-2">
+            <Description className="text-lg">{recruiter.signup.buttonLink.description}</Description>
+            <ButtonLink href="/recrutador/login" className="text-lg">
+              {recruiter.signup.buttonLink.label}
+            </ButtonLink>
+          </div>
         </div>
       </Layout.Right>
     </>
