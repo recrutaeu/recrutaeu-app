@@ -48,15 +48,21 @@ const DiversityGraph = ({ user = null }) => {
   const { data: applications } = useFindAllApplicationByCompanyId({
     companyId: user.id,
   });
-  
+
   useEffect(() => {
     if (vacancies) {
-      const blackDiversity = vacancies.filter((vacancy) => vacancy.diversity? vacancy.diversity.includes('black') : null);
-      const lgbtDiversity = vacancies.filter((vacancy) => vacancy.diversity? vacancy.diversity.includes('lgbt'): null);
-      const disabilityDiversity = vacancies.filter((vacancy) =>
-      vacancy.diversity? vacancy.diversity.includes('disability'): null,
+      const blackDiversity = vacancies.filter((vacancy) =>
+        vacancy.diversity ? vacancy.diversity.includes('black') : null,
       );
-      const elderlyDiversity = vacancies.filter((vacancy) => vacancy.diversity? vacancy.diversity.includes('elderly'): null);
+      const lgbtDiversity = vacancies.filter((vacancy) =>
+        vacancy.diversity ? vacancy.diversity.includes('lgbt') : null,
+      );
+      const disabilityDiversity = vacancies.filter((vacancy) =>
+        vacancy.diversity ? vacancy.diversity.includes('disability') : null,
+      );
+      const elderlyDiversity = vacancies.filter((vacancy) =>
+        vacancy.diversity ? vacancy.diversity.includes('elderly') : null,
+      );
 
       // Calcular a quantidade total para cada filtro.
       setBlackVacanciesQtd(calculateTotal(blackDiversity));
@@ -70,16 +76,16 @@ const DiversityGraph = ({ user = null }) => {
     if (applications) {
       console.log(applications);
       const blackDiversity = applications.filter((application) =>
-      application.diversity? application.diversity.includes('black'): null,
+        application.diversity ? application.diversity.includes('black') : null,
       );
       const lgbtDiversity = applications.filter((application) =>
-        application.diversity? application.diversity.includes('lgbt'): null,
+        application.diversity ? application.diversity.includes('lgbt') : null,
       );
       const disabilityDiversity = applications.filter((application) =>
-        application.diversity? application.diversity.includes('disability'): null,
+        application.diversity ? application.diversity.includes('disability') : null,
       );
       const elderlyDiversity = applications.filter((application) =>
-        application.diversity? application.diversity.includes('elderly'): null,
+        application.diversity ? application.diversity.includes('elderly') : null,
       );
 
       // Calcular a quantidade total para cada filtro.
@@ -104,8 +110,6 @@ const DiversityGraph = ({ user = null }) => {
       return total + parseInt(objeto.quantity, 10);
     }, 0);
   };
-
-
 
   const options = {
     responsive: true,

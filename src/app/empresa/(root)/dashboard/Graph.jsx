@@ -109,17 +109,17 @@ const Graph = ({ user = null }) => {
     },
     {
       bgcolor: '#BDBAED',
-      completed:  Math.floor((reproved.length / totalApplications.length) * 100),
+      completed: Math.floor((reproved.length / totalApplications.length) * 100),
       label: 'Reprovados',
     },
     {
       bgcolor: '#E9FE47',
-      completed:  Math.floor((pendingNotReproved.length / totalApplications.length) * 100),
+      completed: Math.floor((pendingNotReproved.length / totalApplications.length) * 100),
       label: 'Em processo de seleção',
     },
     {
       bgcolor: '#EEC226',
-      completed:  Math.floor((paused.length / totalApplications.length) * 100),
+      completed: Math.floor((paused.length / totalApplications.length) * 100),
       label: 'Vagas pausadas',
     },
   ];
