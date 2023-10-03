@@ -19,12 +19,19 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
   const { user } = useAuthContext();
 
   const formSchema = z.object({
-    name: z.string().min(1, 'A nome é obrigatória'),
+    name: z.string().min(1, 'O nome é obrigatório'),
     email: z.string().email('email invalido').min(1, 'O email é obrigatorio'),
   });
 
-  const { control, handleSubmit } = useForm({
-    defaultValues: {},
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm({
+    defaultValues: {
+      name: '',
+      email: '',
+    },
     resolver: zodResolver(formSchema),
   });
 
@@ -38,15 +45,14 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
   });
 
   const handleForm = async (formData) => {
-    const { email } = formData;
-    const { response, error } = await signUpWithoutLogin(email, 'recruta123');
+    const { response, error } = await signUpWithoutLogin(formData.email, 'recruta123');
 
     if (error) {
       setToast({ message: error, type: 'error' });
       return;
     }
 
-    const { error: resetPasswordError } = await resetPassword(email);
+    const { error: resetPasswordError } = await resetPassword(formData.email);
 
     if (resetPasswordError) {
       setToast({ message: resetPasswordError, type: 'error' });
@@ -60,7 +66,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
       authId,
       companyId: user.id,
       name: formData.name,
-      email: email,
+      email: formData.email,
       roles: ['recruiter'],
     };
 
@@ -85,10 +91,12 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
             render={({ field: { value, onChange } }) => {
               return (
                 <InputLabel
-                  placeholder="ex: Fulano de tal"
+                  variant="inverseSecundary"
+                  placeholder="ex: Nome do seu colaborador"
                   label="Nome Completo:"
                   value={value}
                   onChange={onChange}
+                  error={errors?.['name']?.message}
                 />
               );
             }}
@@ -100,10 +108,12 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
             render={({ field: { value, onChange } }) => {
               return (
                 <InputLabel
-                  placeholder="ex: fulano@gmail.com"
+                  variant="inverseSecundary"
+                  placeholder="ex: colaborador@gmail.com"
                   label="Email:"
                   onChange={onChange}
                   value={value}
+                  error={errors?.['email']?.message}
                 />
               );
             }}

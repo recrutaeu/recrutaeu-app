@@ -102,8 +102,6 @@ const Settings = () => {
       <div className="h-full overflow-hidden">
         <div className="h-full overflow-auto flex flex-col lg:gap-8 lg:w-1/2  lg:pl-10 lg:pr-12 px-5 py-5">
           <form className="flex w-full flex-col gap-3 lg:gap-5" onSubmit={handleSubmit(handleForm)}>
-            {/* <TitleForm>{commons.settings.form.titleDocument}</TitleForm> */}
-
             <Controller
               name="name"
               control={control}
@@ -198,9 +196,6 @@ const Settings = () => {
                 );
               }}
             />
-            {/* <InputPassword label="senha atual" variant="inverseSecundary" />
-              <InputPassword label="nova senha" variant="inverseSecundary" />
-              <InputPassword label="repitir nova senha" variant="inverseSecundary" /> */}
 
             <div className="w-full flex justify-center mt-3">
               <ButtonLabel className="font-semibold">

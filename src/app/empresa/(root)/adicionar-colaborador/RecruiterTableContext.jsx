@@ -47,7 +47,7 @@ const RecruiterTableContext = ({ recruiter, onDelete, checkAll }) => {
         <CustomCell className="text-xs font-light lg:text-sm">{recruiter.name}</CustomCell>
         <CustomCell className="text-xs font-light lg:text-sm">{recruiter.email}</CustomCell>
         <CustomCell>
-          <ButtonIcon onClick={() => onDelete(recruiter)}>
+          <ButtonIcon onClick={() => onDelete(recruiter)} variant="inverse">
             <PiTrashSimpleFill className="w-5 h-5 lg:w-6 lg:h-6" />
           </ButtonIcon>
         </CustomCell>
