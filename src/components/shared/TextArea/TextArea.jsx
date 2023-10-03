@@ -13,6 +13,11 @@ const styles = {
       [themes.DARK]: 'bg-neutral-0',
       [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
     },
+    error: {
+      [themes.DEFAULT]: 'text-red-400',
+      [themes.DARK]: 'text-red-500',
+      [themes.LIGHT]: 'text-red-500',
+    },
   },
   inverse: {
     label: {
@@ -25,10 +30,15 @@ const styles = {
       [themes.DARK]: 'bg-neutral-0',
       [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
     },
+    error: {
+      [themes.DEFAULT]: 'text-red-400',
+      [themes.DARK]: 'text-red-500',
+      [themes.LIGHT]: 'text-red-500',
+    },
   },
 };
 
-const TextArea = ({ text, label, className, variant = 'default', register, ...props }) => {
+const TextArea = ({ text, label, className, variant = 'default', error, ...props }) => {
   const { theme } = useTheme();
   const style = styles[variant];
 
@@ -50,8 +60,12 @@ const TextArea = ({ text, label, className, variant = 'default', register, ...pr
           style.textArea[theme],
         )}
         {...props}
-        {...register}
       ></textarea>
+      {error && (
+        <div className="w-full mt-2">
+          <p className={style.error[theme]}>{error}</p>
+        </div>
+      )}
     </div>
   );
 };
