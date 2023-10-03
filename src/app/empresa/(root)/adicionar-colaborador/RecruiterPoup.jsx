@@ -7,6 +7,8 @@ import { InputLabel } from '@/components/shared/InputLabel';
 import { Poup } from '@/components/shared/Poup';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useToast } from '@/contexts/ToastContext';
+import resetPassword from '@/firebase/auth/password-reset';
+import { signUpWithoutLogin } from '@/firebase/auth/signup';
 import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
 import { commons } from '@/locales';
@@ -43,12 +45,14 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
   });
 
   const handleForm = async (formData) => {
+    const { response, error } = await signUpWithoutLogin(formData.email, 'recruta123');
+
     if (error) {
       setToast({ message: error, type: 'error' });
       return;
     }
 
-    const { error: resetPasswordError } = await resetPassword(email);
+    const { error: resetPasswordError } = await resetPassword(formData.email);
 
     if (resetPasswordError) {
       setToast({ message: resetPasswordError, type: 'error' });
@@ -62,7 +66,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
       authId,
       companyId: user.id,
       name: formData.name,
-      email: email,
+      email: formData.email,
       roles: ['recruiter'],
     };
 
@@ -88,7 +92,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
               return (
                 <InputLabel
                   variant="inverseSecundary"
-                  placeholder="ex: Fulano de tal"
+                  placeholder="ex: Nome do seu colaborador"
                   label="Nome Completo:"
                   value={value}
                   onChange={onChange}
@@ -105,7 +109,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
               return (
                 <InputLabel
                   variant="inverseSecundary"
-                  placeholder="ex: fulano@gmail.com"
+                  placeholder="ex: colaborador@gmail.com"
                   label="Email:"
                   onChange={onChange}
                   value={value}
