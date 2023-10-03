@@ -64,7 +64,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
     const data = {
       id: uuid(),
       authId,
-      companyId: user.id,
+      companyId: user.companyId,
       name: formData.name,
       email: formData.email,
       roles: ['recruiter'],
