@@ -1,16 +1,12 @@
 'use client';
+import { useRouter } from 'next/navigation';
+import { LuCalendarDays, LuLayoutDashboard, LuSettings } from 'react-icons/lu';
+import { RiUserAddLine } from 'react-icons/ri';
+import { twMerge } from 'tailwind-merge';
 import { AccessibilityNavbar } from '@/components/shared/AccessibilityNavbar';
 import { MenuDesk, MenuMobile } from '@/components/shared/MenuApp';
 import { AuthContextProvider } from '@/contexts/AuthContext';
 import { themes, useTheme } from '@/contexts/ThemeContext';
-import { useRouter } from 'next/navigation';
-import {
-  LuCalendarDays,
-  LuLayoutDashboard,
-  LuSettings
-} from 'react-icons/lu';
-import { RiUserAddLine } from 'react-icons/ri';
-import { twMerge } from 'tailwind-merge';
 
 const links = [
   {
