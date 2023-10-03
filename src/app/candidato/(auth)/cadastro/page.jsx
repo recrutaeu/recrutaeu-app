@@ -15,7 +15,7 @@ const SignUp = () => {
         <Link href="/" className="mb-40 cursor-pointer">
           <Logo />
         </Link>
-        <div className="flex flex-col w-4/5 gap-4">
+        <div className="flex flex-col w-5/6 gap-4">
           <Title>{candidate.signup.title}</Title>
           <Description>{candidate.signup.description}</Description>
         </div>
