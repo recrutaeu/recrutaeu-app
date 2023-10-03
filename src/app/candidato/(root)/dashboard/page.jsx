@@ -9,8 +9,12 @@ import { UserInfo } from './UserInfo';
 import { Card } from '@/components/shared/Card';
 import { Title } from '@/components/shared/Title';
 import { themes, withTheme } from '@/contexts/ThemeContext';
+import { useAuthContext } from '@/contexts/AuthContext';
 
 const Dashboard = withTheme(({ theme, variant = 'default' }) => {
+
+  const { user } = useAuthContext();
+
   const styles = {
     default: {
       background: {
@@ -54,13 +58,12 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
         remuneracao: '545454',
         contrato: 'clt',
         steps: [
-          { stepIndex: 1, title: 'teste' },
-          { stepIndex: 2, title: 'videochamada' },
-          { stepIndex: 3, title: 'entrevista' },
-          { stepIndex: 4, title: 'teste 2' },
-          { stepIndex: 5, title: 'teste 3' },
+          { stepIndex: 1, type: 'teste', status: 'approved' },
+          { stepIndex: 2, type: 'videochamada', status: 'pending' },
+          { stepIndex: 3, type: 'entrevista' ,status: 'pending' },
+          { stepIndex: 4, type: 'teste 2', status: 'pending' },
+          { stepIndex: 5, type: 'teste 3', status: 'pending' },
         ],
-        currentStep: 2,
       },
       {
         titulo: 'Teste',
@@ -102,7 +105,7 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
               style.card[theme],
             )}
           >
-            <UserInfo userData={userData} />
+            <UserInfo userData={user} />
           </Card>
           <Card
             className={twMerge(
@@ -110,7 +113,7 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
               style.card[theme],
             )}
           >
-            <AlertHome title={'Entrevista Marcada'} />
+            <AlertHome user={user} title={'Entrevista Marcada'} />
           </Card>
           <Card
             className={twMerge(
@@ -118,10 +121,10 @@ const Dashboard = withTheme(({ theme, variant = 'default' }) => {
               style.card[theme],
             )}
           >
-            <LastApplications applications={userData.applications} />
+            <LastApplications user={user} applications={userData.applications} />
           </Card>
           <div className="order-4 lg:col-start-3 lg:col-end-6 lg:row-start-1 row-end-4">
-            <SuggestedVacancy />
+            <SuggestedVacancy user={user} />
           </div>
         </div>
       </div>

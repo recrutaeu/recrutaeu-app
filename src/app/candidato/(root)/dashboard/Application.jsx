@@ -4,6 +4,8 @@ import { Divider } from '@/components/shared/Divider';
 import { Stepper } from '@/components/shared/Stepper';
 import { themes, useTheme } from '@/contexts/ThemeContext';
 import { commons } from '@/locales';
+import { useFindApplicationById, useFindVacancyById } from '@/firebase/firestore/queries';
+import { useEffect, useState } from 'react';
 
 const styles = {
   default: {
@@ -50,13 +52,43 @@ const steps = [
   { stepIndex: 5, title: 'teste 3' },
 ];
 
-const Application = ({ application, variant = 'default', onClick, ...props }) => {
+const Application = ({ vacancyID, variant = 'default', onClick, application, ...props }) => {
+
+  const [vacancySearched, setVacancySearched] = useState({})
+
+  const { data: vacancy } = useFindVacancyById({
+    id: vacancyID,
+  });
+
+  useEffect(()=>{
+    if(vacancy){
+      setVacancySearched(vacancy)
+    }
+    console.log(vacancyID)
+  },[vacancy])
+
+
   const { theme } = useTheme();
   const style = styles[variant];
 
-  application.steps.sort(function (a, b) {
-    return a.index - b.index;
-  });
+  // application.steps.sort(function (a, b) {
+  //   return a.index - b.index;
+  // });
+
+  function getCurrentStep(actualApplication) {
+    const { steps } = actualApplication;
+    
+    for (let i = 0; i < steps.length; i++) {
+      if (steps[i].status === 'pending') {
+        if(i == 0){
+          return steps[i]
+        }else{
+          return steps[i-1];
+        }
+      }
+    }
+    return 0;
+  }
 
   return (
     <button
@@ -67,23 +99,23 @@ const Application = ({ application, variant = 'default', onClick, ...props }) =>
       <div className="flex items-center w-full">
         <div className="w-full text-start">
           <p className={twMerge('text-base font-bold leading-6', style.title[theme])}>
-            {application?.titulo}
+            {vacancySearched?.title}
           </p>
           <div className={style.text[theme]}>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.job}:`}</p>
-            <p className="capitalize font-light">{application?.vaga}</p>
+            <p className="capitalize font-light">{vacancySearched?.sector}</p>
           </div>
           <div className={style.text[theme]}>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.location}:`}</p>
-            <p className="capitalize font-light">{`${application?.cidade} - ${application?.estado}`}</p>
+            <p className="capitalize font-light">{`${vacancySearched?.city} - ${vacancySearched?.state}`}</p>
           </div>
           <div className={style.text[theme]}>
             <p className="mr-1 capitalize">{`${commons.jobs.descriptionJob.remuneration}:`}</p>
-            <p className="capitalize font-light">{`R$ ${application?.remuneracao}`}</p>
+            <p className="capitalize font-light">{`R$ ${vacancySearched?.salaryRange}`}</p>
           </div>
           <Stepper
-            steps={steps}
-            currentStep={steps[application.currentStep - 1]}
+            steps={application.steps}
+            currentStep={getCurrentStep(application)}
             className={'mt-2'}
             variant="inverse"
           />

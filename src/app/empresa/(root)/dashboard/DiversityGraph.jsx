@@ -63,12 +63,12 @@ const DiversityGraph = ({user=null}) => {
   const [disabilityApplicationsQtd, setDisabilityApplicationsQtd] = useState(0)
   const [elderlyApplicationsQtd, setElderlyApplicationsQtd] = useState(0)
   
-
-  const calcularQuantidadeTotal = (filtro) => {
+  const calculateTotal = (filtro) => {
     return filtro.reduce((total, objeto) => {
       return total + parseInt(objeto.quantity, 10);
     }, 0);
   };
+
 
   useEffect(()=>{
     if(vacancies){
@@ -78,10 +78,10 @@ const DiversityGraph = ({user=null}) => {
       const elderlyDiversity = vacancies.filter(vacancy => vacancy.diversity.includes("elderly"));
 
       // Calcular a quantidade total para cada filtro.
-      setBlackVacanciesQtd(calcularQuantidadeTotal(blackDiversity))
-      setLgbtVacanciesQtd(calcularQuantidadeTotal(lgbtDiversity))
-      setDisabilityVacanciesQtd(calcularQuantidadeTotal(disabilityDiversity))
-      setElderlyVacanciesQtd(calcularQuantidadeTotal(elderlyDiversity))
+      setBlackVacanciesQtd(calculateTotal(blackDiversity))
+      setLgbtVacanciesQtd(calculateTotal(lgbtDiversity))
+      setDisabilityVacanciesQtd(calculateTotal(disabilityDiversity))
+      setElderlyVacanciesQtd(calculateTotal(elderlyDiversity))
     }
 
   }, [vacancies])

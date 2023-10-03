@@ -5,8 +5,28 @@ import { ButtonLabel } from '@/components/shared/ButtonLabel';
 import { ButtonPrimary } from '@/components/shared/ButtonPrimary';
 import { Title } from '@/components/shared/Title';
 import { withTheme } from '@/contexts/ThemeContext';
+import { useFindAllApplicationByUserId, useFindAllVacancies } from '@/firebase/firestore/queries';
+import { useEffect, useState } from 'react';
 
-const SuggestedVacancy = withTheme(({ applications }) => {
+const SuggestedVacancy = withTheme(({ user = {} }) => {
+
+  const [vacanciesSearched, setVacanciesSearched] = useState([])
+  const [vacanciesTop, setVacanciesTop] = useState([])
+
+  const { data: vacancies } = useFindAllVacancies({ });
+
+  useEffect(()=>{
+    if(vacancies){
+      setVacanciesSearched(vacancies)
+    }
+  },[vacancies])
+
+  useEffect(()=>{
+    const top3RecentVacancies = vacanciesSearched.sort((a, b) => b.startAt - a.startAt).slice(0, 3);
+  
+    setVacanciesTop(top3RecentVacancies);
+  }, [vacanciesSearched])
+
   return (
     <div className="flex flex-col px-7 lg:px-0">
       <div>
@@ -14,95 +34,15 @@ const SuggestedVacancy = withTheme(({ applications }) => {
           Vagas sugeridas
         </Title>
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
-          {/* {applications.map((appli) => {
+          {vacanciesTop.map((vac) => {
                 return (
-                    <Application
-                    variant='inverse'
-                    key={1}
-                    application={appli}
-                    onClick={(appli) => {
-                    setselectedApplication(appli);
-                    setisApplicationOpen(true);
-                }}/>)
-            })} */}
-          <ShortVacancy
-            vacancy={{
-              titulo: 'Banco itau',
-              vaga: 'Design Gráfico',
-              cidade: 'São Paulo',
-              estado: 'SP',
-            }}
-          />
-          <ShortVacancy
-            vacancy={{
-              titulo: 'Banco itau',
-              vaga: 'Design Gráfico',
-              cidade: 'São Paulo',
-              estado: 'SP',
-            }}
-          />
-          <ShortVacancy
-            vacancy={{
-              titulo: 'Banco itau',
-              vaga: 'Design Gráfico',
-              cidade: 'São Paulo',
-              estado: 'SP',
-            }}
-          />
-          <ShortVacancy
-            vacancy={{
-              titulo: 'Banco itau',
-              vaga: 'Design Gráfico',
-              cidade: 'São Paulo',
-              estado: 'SP',
-            }}
-          />
-          <ShortVacancy
-            vacancy={{
-              titulo: 'Banco itau',
-              vaga: 'Design Gráfico',
-              cidade: 'São Paulo',
-              estado: 'SP',
-            }}
-          />
-          <ShortVacancy
-            vacancy={{
-              titulo: 'Banco itau',
-              vaga: 'Design Gráfico',
-              cidade: 'São Paulo',
-              estado: 'SP',
-            }}
-          />
-          <ShortVacancy
-            vacancy={{
-              titulo: 'Banco itau',
-              vaga: 'Design Gráfico',
-              cidade: 'São Paulo',
-              estado: 'SP',
-            }}
-          />
-          <ShortVacancy
-            vacancy={{
-              titulo: 'Banco itau',
-              vaga: 'Design Gráfico',
-              cidade: 'São Paulo',
-              estado: 'SP',
-            }}
-          />
-          <div className="hidden lg:flex md:w-full">
-            <ShortVacancy
-              className="w-full"
-              vacancy={{
-                titulo: 'Banco itau',
-                vaga: 'Design Gráfico',
-                cidade: 'São Paulo',
-                estado: 'SP',
-              }}
-            />
-          </div>
+                  <ShortVacancy
+                    vacancy={vac}
+                />)
+            })}
         </div>
         <div className="hidden w-full items-center lg:flex justify-center py-6">
-          <ButtonLabel type="button">veja mais</ButtonLabel>
+          <ButtonLabel href='/candidato/vagas' type="button">veja mais</ButtonLabel>
         </div>
         <div className="w-full items-center flex justify-center py-4 lg:hidden">
           <ButtonLabel variant="inverseTertiary" type="button">

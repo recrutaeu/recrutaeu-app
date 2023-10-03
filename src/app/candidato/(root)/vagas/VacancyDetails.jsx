@@ -57,6 +57,7 @@ const VacancyDetails = ({ vacancy, variant = 'default' }) => {
       id: uuid(),
       vacancyId: vacancy.id,
       userId: user.id,
+      companyId: vacancy.companyId,
       steps: [
         {
           index: 0,

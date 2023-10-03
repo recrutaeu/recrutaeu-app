@@ -4,8 +4,41 @@ import { LuAlertTriangle } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { Title } from '@/components/shared/Title';
 import { withTheme, themes } from '@/contexts/ThemeContext';
+import { useFindAllInterviews, useFindAllInterviewsByUserId, useFindAllVacancies, usefindAllInterviewsByCandidateId } from '@/firebase/firestore/queries';
+import { useEffect, useState } from 'react';
+import { format } from 'date-fns';
 
-const AlertHome = withTheme(({ theme, variant = 'default', title }) => {
+const AlertHome = withTheme(({ user = {},theme, variant = 'default', title }) => {
+
+  const [interviewsSearched, setInterviewsSearched] = useState([])
+  const [nextInterview, setNextInterview] = useState(null)
+
+  const { data: interviews } = useFindAllInterviews({ });
+
+  useEffect(()=>{
+    if(interviews){
+      setInterviewsSearched(interviews)
+    }
+  }, [interviews])
+
+  useEffect(()=>{
+    if(interviewsSearched.length > 1){
+        const upcomingInterviews = interviewsSearched.filter(interview => {
+        return interview.candidate.id === user.id;
+      });
+
+      upcomingInterviews.sort((a, b) => a.date - b.date);
+
+    
+      if (upcomingInterviews.length > 0) {
+       setNextInterview(upcomingInterviews[0]);
+      } else {
+        setNextInterview(null); 
+      }
+    }
+
+  }, [interviewsSearched])
+
   const styles = {
     default: {
       text: {
@@ -34,8 +67,8 @@ const AlertHome = withTheme(({ theme, variant = 'default', title }) => {
         {title}
       </Title>
       <p className={twMerge(style.text[theme])}>
-        Você tem uma entrevista marca, para segunda-feira 08/05/2023 as 10:00 horas da manhã com
-        Suelen da empresa Fiap. Acesse o link http://fiap.com.br/
+        {nextInterview? `Você tem uma entrevista marcada, para dia ${format(nextInterview.date.toDate(), 'dd/MM/yyyy HH:mm')} com
+        ${nextInterview.employee} para a vaga de ${nextInterview.vacancy.title}. Acesse o link ${nextInterview.link}`: 'Você ainda não possui entrevistas marcadas.'}
       </p>
     </div>
   );
