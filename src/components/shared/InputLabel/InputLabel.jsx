@@ -40,7 +40,7 @@ const styles = {
   },
   inverseSecundary: {
     label: {
-      [themes.DEFAULT]: 'text-primary-90',
+      [themes.DEFAULT]: 'text-neutral-0',
       [themes.DARK]: 'text-neutral-0',
       [themes.LIGHT]: 'text-neutral-90',
     },
@@ -48,7 +48,7 @@ const styles = {
       [themes.DEFAULT]: 'bg-neutral-0',
       [themes.DARK]: 'bg-neutral-0',
       [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
-    },
+    },    
     error: {
       [themes.DEFAULT]: 'text-red-400',
       [themes.DARK]: 'text-red-500',
@@ -65,7 +65,7 @@ const styles = {
       [themes.DEFAULT]: 'bg-neutral-0',
       [themes.DARK]: 'bg-neutral-0 border border-neutral-90',
       [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
-    },
+    },    
     error: {
       [themes.DEFAULT]: 'text-red-400',
       [themes.DARK]: 'text-red-500',
