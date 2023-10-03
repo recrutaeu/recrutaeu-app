@@ -7,8 +7,6 @@ import { InputLabel } from '@/components/shared/InputLabel';
 import { Poup } from '@/components/shared/Poup';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useToast } from '@/contexts/ToastContext';
-import resetPassword from '@/firebase/auth/password-reset';
-import { signUpWithoutLogin } from '@/firebase/auth/signup';
 import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
 import { commons } from '@/locales';
@@ -19,12 +17,19 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
   const { user } = useAuthContext();
 
   const formSchema = z.object({
-    name: z.string().min(1, 'A nome é obrigatória'),
+    name: z.string().min(1, 'O nome é obrigatório'),
     email: z.string().email('email invalido').min(1, 'O email é obrigatorio'),
   });
 
-  const { control, handleSubmit } = useForm({
-    defaultValues: {},
+  const { 
+    handleSubmit,
+    formState: { errors },
+    control, 
+  } = useForm({
+    defaultValues: {
+      name: '',
+      email: ''
+    },
     resolver: zodResolver(formSchema),
   });
 
@@ -38,8 +43,6 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
   });
 
   const handleForm = async (formData) => {
-    const { email } = formData;
-    const { response, error } = await signUpWithoutLogin(email, 'recruta123');
 
     if (error) {
       setToast({ message: error, type: 'error' });
@@ -89,6 +92,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
                   label="Nome Completo:"
                   value={value}
                   onChange={onChange}
+                  error={errors?.['name']?.message}
                 />
               );
             }}
@@ -104,6 +108,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
                   label="Email:"
                   onChange={onChange}
                   value={value}
+                  error={errors?.['email']?.message}
                 />
               );
             }}
