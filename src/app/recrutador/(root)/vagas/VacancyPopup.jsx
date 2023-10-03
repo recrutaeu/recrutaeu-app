@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -13,6 +12,7 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { useCreateOrUpdateVacancy } from '@/firebase/firestore/mutations';
 import { uuid } from '@/firebase/uuid';
 import { commons } from '@/locales';
+import { useToast } from '@/contexts/ToastContext';
 
 const sectorOptions = [
   { value: 'tecnologia', label: 'tecnologia' },
@@ -26,11 +26,11 @@ const contractOptions = [
 ];
 
 const VacancyPopup = ({ isOpen, setIsOpen, vacancy }) => {
-  const [error, setError] = useState(undefined);
   const { user } = useAuthContext();
+  const { setToast } = useToast();
 
   const formSchema = z.object({
-    title: z.string().min(1, 'O nome da vaga é obrigatória'),
+    title: z.string().min(1, 'O nome da vaga é obrigatório'),
     sector: z.string().min(1, 'O setor é obrigatório'),
     contractType: z.string().min(1, 'O contrato é obrigatório'),
     city: z.string().min(1, 'A cidade é obrigatória'),
@@ -42,9 +42,23 @@ const VacancyPopup = ({ isOpen, setIsOpen, vacancy }) => {
     quantity: z.string().min(1, 'A quantidade de vagas é obrigatória'),
     description: z.string().min(200, 'A descrição da vaga é obrigatória'),
   });
-  const { register, handleSubmit, control, reset } = useForm({
+
+  const { 
+    handleSubmit,
+    formState: { errors }, 
+    control, 
+    reset 
+  } = useForm({
     defaultValues: {
-      ...vacancy,
+      // ...vacancy,
+      title: '',
+      sector: '',
+      city: '',
+      state: '',
+      contractType: '',
+      salaryRange: '',
+      benefits: '',
+      quantity: '',
       startAt: vacancy?.startAt.toDate().toISOString().split('T')[0],
       endAt: vacancy?.endAt.toDate().toISOString().split('T')[0],
     },
@@ -57,7 +71,7 @@ const VacancyPopup = ({ isOpen, setIsOpen, vacancy }) => {
       setIsOpen(false);
     },
     onError: (e) => {
-      setError(e.message);
+      setToast(e.message);
     },
   });
 
@@ -73,10 +87,6 @@ const VacancyPopup = ({ isOpen, setIsOpen, vacancy }) => {
     createVacancy(data);
   };
 
-  const handleFormError = (errors) => {
-    setError(Object.values(errors).find((error) => error.message)?.message);
-  };
-
   return (
     <Poup
       isOpen={isOpen}
@@ -86,87 +96,178 @@ const VacancyPopup = ({ isOpen, setIsOpen, vacancy }) => {
     >
       <form
         className="w-full h-full flex flex-col"
-        onSubmit={handleSubmit(handleForm, handleFormError)}
+        onSubmit={handleSubmit(handleForm, console.log)}
       >
         <div className="w-full flex flex-col grow gap-3 lg:gap-5">
-          <InputLabel
-            placeholder="ex: programador front-end"
-            label="Vaga:"
-            id="title"
-            register={register('title')}
-          />
-          <Controller
-            control={control}
-            name="sector"
-            render={({ field: { onChange, value } }) => {
-              return (
-                <Select
-                  titleLabel="Setor:"
-                  label="---"
-                  options={sectorOptions}
-                  onChange={onChange}
-                  value={value}
-                />
-              );
-            }}
-          />
-          <Controller
-            control={control}
-            name="contractType"
-            render={({ field: { onChange, value } }) => {
-              return (
-                <Select
-                  titleLabel="Contrato:"
-                  label="---"
-                  options={contractOptions}
-                  onChange={onChange}
-                  value={value}
-                />
-              );
-            }}
-          />
 
-          <div className="w-full flex justify-between gap-5">
-            <InputLabel
-              label="Cidade:"
-              className="w-full"
-              id="city"
-              placeholder="---"
-              register={register('city')}
+            <Controller
+              name="title"
+              control={control}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <InputLabel
+                    variant='inverseSecundary'
+                    type="text"
+                    placeholder="ex: programador front-end"
+                    label="Vaga:"
+                    onChange={onChange}
+                    value={value}
+                    error={errors?.['title']?.message}
+                  />
+                );
+              }}
             />
-            <InputLabel label="Estado:" id="state" placeholder="---" register={register('state')} />
-          </div>
-          <InputLabel
-            placeholder="ex: R$ 3.500 a R$ 5.000"
-            label="Faixa Salarial:"
-            id="salaryRange"
-            register={register('salaryRange')}
-          />
-          <InputLabel
-            placeholder="ex: curso de dws"
-            label="Beneficios:"
-            id="benefits"
-            register={register('benefits')}
-          />
-          <DataPicker
-            label="Prazo"
-            variant="inverseSecundary"
-            registerStart={register('startAt')}
-            registerEnd={register('endAt')}
-          />
-          <InputLabel
-            placeholder="ex: 10"
-            id="quantity"
-            label="N° de vagas:"
-            register={register('quantity')}
-          />
+              <Controller
+                name="sector"
+                control={control}
+                render={({ field: { onChange, value } }) => {
+                  return (
+                    <Select
+                      titleLabel="Setor:"
+                      label="---"
+                      options={sectorOptions}
+                      onChange={onChange}
+                      value={value}
+                      error={errors?.['sector']?.message}
+                    />
+                  );
+                }}
+              />
+              <Controller
+                name="contractType"
+                control={control}
+                render={({ field: { onChange, value } }) => {
+                  return (
+                    <Select
+                      titleLabel="Contrato:"
+                      label="---"
+                      options={contractOptions}
+                      onChange={onChange}
+                      value={value}
+                      error={errors?.['contractType']?.message}
+                    />
+                  );
+                }}
+              />
 
-          <TextArea
-            label="Descrição:"
-            id="description"
-            rows={14}
-            register={register('description')}
-          />
+              <div className="w-full flex justify-between gap-5">
+                <Controller
+                  name="city"
+                  control={control}
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <InputLabel
+                        variant='inverseSecundary'
+                        type="text"
+                        label="Cidade:"
+                        className="w-full"
+                        id="city"
+                        placeholder="---"
+                        onChange={onChange}
+                        value={value}
+                        error={errors?.['city']?.message}
+                      />
+                    );
+                  }}
+                />    
+
+                <Controller
+                  name="state"
+                  control={control}
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <InputLabel
+                        variant='inverseSecundary'
+                        type="text"
+                        label="Estado:"
+                        className="w-full"
+                        id="state"
+                        placeholder="---"
+                        onChange={onChange}
+                        value={value}
+                        error={errors?.['state']?.message}
+                      />
+                    );
+                  }}
+                />            
+              </div> 
+
+            <Controller
+              name="salaryRange"
+              control={control}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <InputLabel
+                    variant='inverseSecundary'
+                    type="text"
+                    placeholder="ex: R$ 3.500 a R$ 5.000"
+                    label="Faixa Salarial:"
+                    onChange={onChange}
+                    value={value}
+                    error={errors?.['salaryRange']?.message}
+                  />
+                );
+              }}
+            />
+
+            <Controller
+              name="benefits"
+              control={control}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <InputLabel
+                    variant='inverseSecundary'
+                    type="text"
+                    placeholder="ex: curso de dws"
+                    label="Beneficios:"
+                    onChange={onChange}
+                    value={value}
+                    error={errors?.['benefits']?.message}
+                  />
+                );
+              }}
+            />
+
+              {/* <DataPicker
+                label="Prazo"
+                variant="inverseSecundary"
+                registerStart={register('startAt')}
+                registerEnd={register('endAt')}
+              /> */}
+
+            <Controller
+              name="quantity"
+              control={control}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <InputLabel
+                    variant='inverseSecundary'
+                    type="number"
+                    placeholder="ex: 10"
+                    label="N° de vagas:"
+                    onChange={onChange}
+                    value={value}
+                    error={errors?.['quantity']?.message}
+                  />
+                );
+              }}
+            />
+
+            <Controller
+              name="description"
+              control={control}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <TextArea
+                    label="Descrição:"
+                    onChange={onChange}
+                    value={value}
+                    rows={14}                
+                    error={errors?.['quantity']?.message}
+                  />
+                );
+              }}
+            />
 
           <div className="w-full flex justify-center items-center pb-5 lg:pb-7">
             <ButtonPrimary type="submit" variant="inverseSecundary">
