@@ -78,13 +78,13 @@ const Graph = ({ user = null }) => {
           'rgba(241, 138, 173, 1)',
           'rgba(189, 186, 237, 1)',
           'rgba(233, 254, 71, 1)',
-          'rgba(241, 238, 230, 1)',
+          'rgba(238, 194, 38, 1)',
         ],
         borderColor: [
           'rgba(241, 138, 173, 1)',
           'rgba(189, 186, 237, 1)',
           'rgba(233, 254, 71, 1)',
-          'rgba(241, 238, 230, 1)',
+          'rgba(238, 194, 38, 1)',
         ],
         borderWidth: 1,
         paddingBottom: 18,
@@ -93,7 +93,7 @@ const Graph = ({ user = null }) => {
           'rgba(241, 138, 173, 1)',
           'rgba(189, 186, 237, 1)',
           'rgba(233, 254, 71, 1)',
-          'rgba(241, 238, 230, 1)',
+          'rgba(238, 194, 38, 1)',
         ],
         borderWidth: 1,
         paddingBottom: 18,
@@ -104,22 +104,22 @@ const Graph = ({ user = null }) => {
   const testData = [
     {
       bgcolor: '#F18AAD',
-      completed: (approved.length / totalApplications.length) * 100,
+      completed: Math.floor((approved.length / totalApplications.length) * 100),
       label: 'Aprovados',
     },
     {
       bgcolor: '#BDBAED',
-      completed: (reproved.length / totalApplications.length) * 100,
+      completed: Math.floor((reproved.length / totalApplications.length) * 100),
       label: 'Reprovados',
     },
     {
       bgcolor: '#E9FE47',
-      completed: (pendingNotReproved.length / totalApplications.length) * 100,
+      completed: Math.floor((pendingNotReproved.length / totalApplications.length) * 100),
       label: 'Em processo de seleção',
     },
     {
-      bgcolor: '#F1EEE6',
-      completed: (paused.length / totalApplications.length) * 100,
+      bgcolor: '#EEC226',
+      completed: Math.floor((paused.length / totalApplications.length) * 100),
       label: 'Vagas pausadas',
     },
   ];

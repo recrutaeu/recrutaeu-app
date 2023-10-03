@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { twMerge } from 'tailwind-merge';
 import { ButtonLink } from '@/components/shared/ButtonLink';
@@ -54,9 +55,17 @@ const WeeksSchedule = ({ user = null }) => {
   const { theme } = useTheme();
   const style = styles['default'];
 
+  const [interviewsSearched, setInterviewSearched] = useState([]);
+
   const { data: interviews } = useFindAllInterviewsByCompanyId({
     id: user.id,
   });
+
+  useEffect(() => {
+    if (interviews) {
+      setInterviewSearched(interviews);
+    }
+  }, [interviews]);
 
   return (
     <div className="h-full flex flex-col gap-7 overflow-auto">
@@ -68,96 +77,107 @@ const WeeksSchedule = ({ user = null }) => {
 
       <div className="h-full flex flex-col">
         <div className="h-full pb-5 flex flex-col gap-5 lg:gap-8 lg:w-1/2">
-          {interviews?.map((item, index) => (
-            <Quote key={item.id}>
-              <p className={twMerge('font-semibold text-base capitalize', style.title[theme])}>
-                {commons.weeksSchedule.description.title}
-              </p>
-              <div className="flex items-center gap-1">
-                <p
-                  className={twMerge(
-                    'font-semibold text-sm capitalize leading-6',
-                    style.text[theme],
-                  )}
-                >
-                  autor:
-                </p>
-                <p
-                  className={twMerge('font-light text-sm capitalize leading-6', style.text[theme])}
-                >
-                  {item.employee}
-                </p>
-              </div>
-              <div className="flex items-center gap-1">
-                <p
-                  className={twMerge(
-                    'font-semibold text-sm capitalize leading-6',
-                    style.text[theme],
-                  )}
-                >
-                  {commons.weeksSchedule.description.candidate}
-                </p>
-                <p
-                  className={twMerge('font-light text-sm capitalize leading-6', style.text[theme])}
-                >
-                  {item.candidate.name}
-                </p>
-              </div>
-              <div className="flex items-center gap-1">
-                <p
-                  className={twMerge(
-                    'font-semibold text-sm capitalize leading-6',
-                    style.text[theme],
-                  )}
-                >
-                  {commons.weeksSchedule.description.area}
-                </p>
-                <p
-                  className={twMerge('font-light text-sm capitalize leading-6', style.text[theme])}
-                >
-                  {item.vacancy.sector}
-                </p>
-              </div>
-              <div className="flex gap-6">
-                <div className="flex items-center gap-1">
-                  <p
-                    className={twMerge(
-                      'font-semibold text-sm capitalize leading-6',
-                      style.text[theme],
-                    )}
-                  >
-                    {commons.weeksSchedule.description.date}
+          {interviewsSearched.length > 0
+            ? interviewsSearched?.map((item, index) => (
+                <Quote key={item.id}>
+                  <p className={twMerge('font-semibold text-base capitalize', style.title[theme])}>
+                    {commons.weeksSchedule.description.title}
                   </p>
-                  <p
-                    className={twMerge(
-                      'font-light text-sm capitalize leading-6',
-                      style.text[theme],
-                    )}
-                  >
-                    {item.date.toDate().toLocaleDateString('pt-BR')}
-                  </p>
-                </div>
-                <div className="flex items-center gap-1">
-                  <p
-                    className={twMerge(
-                      'font-semibold text-sm capitalize leading-6',
-                      style.text[theme],
-                    )}
-                  >
-                    {commons.weeksSchedule.description.hour}
-                  </p>
-                  <p
-                    className={twMerge(
-                      'font-light text-sm capitalize leading-6',
-                      style.text[theme],
-                    )}
-                  >
-                    {format(item.date.toDate(), 'HH:mm')}
-                  </p>
-                </div>
-              </div>
-            </Quote>
-          ))}
+                  <div className="flex items-center gap-1">
+                    <p
+                      className={twMerge(
+                        'font-semibold text-sm capitalize leading-6',
+                        style.text[theme],
+                      )}
+                    >
+                      autor:
+                    </p>
+                    <p
+                      className={twMerge(
+                        'font-light text-sm capitalize leading-6',
+                        style.text[theme],
+                      )}
+                    >
+                      {item.employee}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <p
+                      className={twMerge(
+                        'font-semibold text-sm capitalize leading-6',
+                        style.text[theme],
+                      )}
+                    >
+                      {commons.weeksSchedule.description.candidate}
+                    </p>
+                    <p
+                      className={twMerge(
+                        'font-light text-sm capitalize leading-6',
+                        style.text[theme],
+                      )}
+                    >
+                      {item.candidate.name}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <p
+                      className={twMerge(
+                        'font-semibold text-sm capitalize leading-6',
+                        style.text[theme],
+                      )}
+                    >
+                      {commons.weeksSchedule.description.area}
+                    </p>
+                    <p
+                      className={twMerge(
+                        'font-light text-sm capitalize leading-6',
+                        style.text[theme],
+                      )}
+                    >
+                      {item.vacancy.sector}
+                    </p>
+                  </div>
+                  <div className="flex gap-6">
+                    <div className="flex items-center gap-1">
+                      <p
+                        className={twMerge(
+                          'font-semibold text-sm capitalize leading-6',
+                          style.text[theme],
+                        )}
+                      >
+                        {commons.weeksSchedule.description.date}
+                      </p>
+                      <p
+                        className={twMerge(
+                          'font-light text-sm capitalize leading-6',
+                          style.text[theme],
+                        )}
+                      >
+                        {item.date.toDate().toLocaleDateString('pt-BR')}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <p
+                        className={twMerge(
+                          'font-semibold text-sm capitalize leading-6',
+                          style.text[theme],
+                        )}
+                      >
+                        {commons.weeksSchedule.description.hour}
+                      </p>
+                      <p
+                        className={twMerge(
+                          'font-light text-sm capitalize leading-6',
+                          style.text[theme],
+                        )}
+                      >
+                        {format(item.date.toDate(), 'HH:mm')}
+                      </p>
+                    </div>
+                  </div>
+                </Quote>
+              ))
+            : 'Ainda não há entrevistas agendadas'}
         </div>
         <ButtonLink
           href="/empresa/entrevistas-agendadas"

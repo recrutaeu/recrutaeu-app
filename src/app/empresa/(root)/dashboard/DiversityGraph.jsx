@@ -49,6 +49,52 @@ const DiversityGraph = ({ user = null }) => {
     companyId: user.id,
   });
 
+  useEffect(() => {
+    if (vacancies) {
+      const blackDiversity = vacancies.filter((vacancy) =>
+        vacancy.diversity ? vacancy.diversity.includes('black') : null,
+      );
+      const lgbtDiversity = vacancies.filter((vacancy) =>
+        vacancy.diversity ? vacancy.diversity.includes('lgbt') : null,
+      );
+      const disabilityDiversity = vacancies.filter((vacancy) =>
+        vacancy.diversity ? vacancy.diversity.includes('disability') : null,
+      );
+      const elderlyDiversity = vacancies.filter((vacancy) =>
+        vacancy.diversity ? vacancy.diversity.includes('elderly') : null,
+      );
+
+      // Calcular a quantidade total para cada filtro.
+      setBlackVacanciesQtd(calculateTotal(blackDiversity));
+      setLgbtVacanciesQtd(calculateTotal(lgbtDiversity));
+      setDisabilityVacanciesQtd(calculateTotal(disabilityDiversity));
+      setElderlyVacanciesQtd(calculateTotal(elderlyDiversity));
+    }
+  }, [vacancies]);
+
+  useEffect(() => {
+    if (applications) {
+      console.log(applications);
+      const blackDiversity = applications.filter((application) =>
+        application.diversity ? application.diversity.includes('black') : null,
+      );
+      const lgbtDiversity = applications.filter((application) =>
+        application.diversity ? application.diversity.includes('lgbt') : null,
+      );
+      const disabilityDiversity = applications.filter((application) =>
+        application.diversity ? application.diversity.includes('disability') : null,
+      );
+      const elderlyDiversity = applications.filter((application) =>
+        application.diversity ? application.diversity.includes('elderly') : null,
+      );
+
+      // Calcular a quantidade total para cada filtro.
+      setBlackApplicationsQtd(blackDiversity.length);
+      setLgbtApplicationsQtd(lgbtDiversity.length);
+      setDisabilityApplicationsQtd(disabilityDiversity.length);
+      setElderlyApplicationsQtd(elderlyDiversity.length);
+    }
+  }, [applications]);
   const [blackVacanciesQtd, setBlackVacanciesQtd] = useState(0);
   const [lgbtVacanciesQtd, setLgbtVacanciesQtd] = useState(0);
   const [disabilityVacanciesQtd, setDisabilityVacanciesQtd] = useState(0);
@@ -64,47 +110,6 @@ const DiversityGraph = ({ user = null }) => {
       return total + parseInt(objeto.quantity, 10);
     }, 0);
   };
-
-  useEffect(() => {
-    if (vacancies) {
-      const blackDiversity = vacancies.filter((vacancy) => vacancy.diversity.includes('black'));
-      const lgbtDiversity = vacancies.filter((vacancy) => vacancy.diversity.includes('lgbt'));
-      const disabilityDiversity = vacancies.filter((vacancy) =>
-        vacancy.diversity.includes('disability'),
-      );
-      const elderlyDiversity = vacancies.filter((vacancy) => vacancy.diversity.includes('elderly'));
-
-      // Calcular a quantidade total para cada filtro.
-      setBlackVacanciesQtd(calculateTotal(blackDiversity));
-      setLgbtVacanciesQtd(calculateTotal(lgbtDiversity));
-      setDisabilityVacanciesQtd(calculateTotal(disabilityDiversity));
-      setElderlyVacanciesQtd(calculateTotal(elderlyDiversity));
-    }
-  }, [vacancies]);
-
-  useEffect(() => {
-    if (applications) {
-      console.log(applications);
-      const blackDiversity = applications.filter((application) =>
-        application.diversity.includes('black'),
-      );
-      const lgbtDiversity = applications.filter((application) =>
-        application.diversity.includes('lgbt'),
-      );
-      const disabilityDiversity = applications.filter((application) =>
-        application.diversity.includes('disability'),
-      );
-      const elderlyDiversity = applications.filter((application) =>
-        application.diversity.includes('elderly'),
-      );
-
-      // Calcular a quantidade total para cada filtro.
-      setBlackApplicationsQtd(blackDiversity.length);
-      setLgbtApplicationsQtd(lgbtDiversity.length);
-      setDisabilityApplicationsQtd(disabilityDiversity.length);
-      setElderlyApplicationsQtd(elderlyDiversity.length);
-    }
-  }, [applications]);
 
   const options = {
     responsive: true,
