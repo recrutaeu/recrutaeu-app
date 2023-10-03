@@ -33,7 +33,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
       setIsOpen(false);
     },
     onError: (e) => {
-      setToast(e.message);
+      setToast({ message: e.message, type: 'error' });
     },
   });
 
@@ -42,14 +42,14 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
     const { response, error } = await signUpWithoutLogin(email, 'recruta123');
 
     if (error) {
-      setToast(error);
+      setToast({ message: error, type: 'error' });
       return;
     }
 
     const { error: resetPasswordError } = await resetPassword(email);
 
     if (resetPasswordError) {
-      setToast(resetPasswordError);
+      setToast({ message: resetPasswordError, type: 'error' });
       return;
     }
 

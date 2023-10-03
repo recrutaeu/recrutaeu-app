@@ -41,7 +41,7 @@ const SigninForm = () => {
     const { error } = await signIn(email, password);
 
     if (error) {
-      setToast(error);
+      setToast({ message: error, type: 'error' });
       return;
     }
 

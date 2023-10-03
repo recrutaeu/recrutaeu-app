@@ -84,7 +84,7 @@ const SignupForm = ({ variant = 'default' }) => {
       router.push('/empresa/adicionar-colaborador');
     },
     onError: (e) => {
-      setToast(e.message);
+      setToast({ message: e.message, type: 'error' });
     },
   });
 
@@ -93,7 +93,7 @@ const SignupForm = ({ variant = 'default' }) => {
     const { response, error } = await signUp(email, password);
 
     if (error) {
-      setToast(error);
+      setToast({ message: error, type: 'error' });
       return;
     }
 
