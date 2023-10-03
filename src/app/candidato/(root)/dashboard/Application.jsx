@@ -54,6 +54,10 @@ const steps = [
 
 const Application = ({ vacancyID, variant = 'default', onClick, application, ...props }) => {
   const [vacancySearched, setVacancySearched] = useState({});
+  const currentStep = application.steps.reduce(
+    (last, item) => (item.index > last.index && item.status === 'approved' ? item : last),
+    application.steps[0],
+  );
 
   const { data: vacancy } = useFindVacancyById({
     id: vacancyID,
@@ -67,25 +71,6 @@ const Application = ({ vacancyID, variant = 'default', onClick, application, ...
 
   const { theme } = useTheme();
   const style = styles[variant];
-
-  // application.steps.sort(function (a, b) {
-  //   return a.index - b.index;
-  // });
-
-  function getCurrentStep(actualApplication) {
-    const { steps } = actualApplication;
-
-    for (let i = 0; i < steps.length; i++) {
-      if (steps[i].status === 'pending') {
-        if (i == 0) {
-          return steps[i];
-        } else {
-          return steps[i - 1];
-        }
-      }
-    }
-    return 0;
-  }
 
   return (
     <button
@@ -112,7 +97,7 @@ const Application = ({ vacancyID, variant = 'default', onClick, application, ...
           </div>
           <Stepper
             steps={application.steps}
-            currentStep={getCurrentStep(application)}
+            currentStep={currentStep}
             className={'mt-2'}
             variant="inverse"
           />

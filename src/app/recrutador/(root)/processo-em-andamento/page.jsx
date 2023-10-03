@@ -128,7 +128,7 @@ const JobProcess = () => {
         {commons.process.title}
       </Title>
 
-      <div className="h-full overflow-hidden flex lg:pl-10 lg:pr-11">
+      <div className="h-full overflow-hidden flex lg:pl-4 lg:pr-11">
         <div className="h-full overflow-auto no-scrollbar w-full flex flex-col lg:gap-8 lg:w-1/2 lg:px-7 px-5 py-5 gap-5">
           {applications?.map((item) => (
             <div

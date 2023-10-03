@@ -38,15 +38,17 @@ const VacancyDetails = ({ vacancy, variant = 'default' }) => {
 
   const { mutate: createOrUpdateApplication } = useCreateOrUpdateApplication();
   const { mutate: deleteApplicationById } = useDeleteApplicationById();
+  const { user } = useAuthContext();
+
   const {
     data: application,
     error,
     refetch,
   } = useFindApplicationByVacancyId({
     vacancyId: vacancy?.id,
+    userId: user.id,
     retry: false,
   });
-  const { user } = useAuthContext();
 
   useEffect(() => {
     refetch();

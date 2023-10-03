@@ -38,6 +38,16 @@ const makeFindAllConditions = async (coll, ...conditions) => {
   return snapshot?.docs?.map((doc) => doc.data()) || [];
 };
 
+const makeFindOneConditions = async (coll, ...conditions) => {
+  const q = query(collection(db, coll), ...conditions);
+  const snapshot = await getDocs(q);
+  const data = snapshot?.docs?.[0]?.data();
+  if (!data) {
+    throw new Error(`${field} with ${value} not found in ${coll}`);
+  }
+  return data;
+};
+
 const makeFindOneWhere = (coll, field) => async (value) => {
   const q = query(collection(db, coll), where(field, '==', value));
   const snapshot = await getDocs(q);
@@ -59,7 +69,12 @@ const findAllVacanciesByCompanyId = makeFindAllWhere('vacancies', 'companyId');
 const findAllVacanciesByIds = makeFindAllWhere('vacancies', 'id', 'in');
 const findAllVacancies = makeFindAll('vacancies');
 const findAllInterviews = makeFindAll('interviews');
-const findApplicationByVacancyId = makeFindOneWhere('applications', 'vacancyId');
+const findApplicationByVacancyId = (vacancyId, userId) =>
+  makeFindOneConditions(
+    'applications',
+    where('vacancyId', '==', vacancyId),
+    where('userId', '==', userId),
+  );
 const findAllApplicationByUserId = makeFindAllWhere('applications', 'userId');
 const findApplicationById = makeFindOneWhere('applications', 'id');
 const findVacancyById = makeFindOneWhere('vacancies', 'id');
@@ -173,10 +188,10 @@ export const useFindAllApplicationByCompanyId = ({ companyId, ...props }) =>
     ...props,
   });
 
-export const useFindApplicationByVacancyId = ({ vacancyId, ...props }) =>
+export const useFindApplicationByVacancyId = ({ vacancyId, userId, ...props }) =>
   useQuery({
-    queryKey: ['applications', vacancyId],
-    queryFn: () => findApplicationByVacancyId(vacancyId),
+    queryKey: ['applications', vacancyId, userId],
+    queryFn: () => findApplicationByVacancyId(vacancyId, userId),
     ...props,
   });
 

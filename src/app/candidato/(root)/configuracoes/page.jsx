@@ -1,10 +1,15 @@
 'use client';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { ButtonLabel } from '@/components/shared/ButtonLabel';
 import { InputLabel } from '@/components/shared/InputLabel';
 import { InputPassword } from '@/components/shared/InputPassword';
 import { Select } from '@/components/shared/Select';
 import { Title } from '@/components/shared/Title';
 import { themes, useTheme } from '@/contexts/ThemeContext';
+import { useToast } from '@/contexts/ToastContext';
+import { useCreateOrUpdateUser } from '@/firebase/firestore/mutations';
 import { commons } from '@/locales';
 
 const styles = {
@@ -21,6 +26,53 @@ const Settings = () => {
   const { theme } = useTheme();
   const style = styles['default'];
 
+  const { setToast } = useToast();
+
+  const formSchemaPassword = z
+    .object({
+      oldPassword: z
+        .string()
+        .min(1, 'A senha atual é  obrigatória')
+        .min(6, 'A senha precisa ter pelo menos 6 caracteres'),
+      password: z
+        .string()
+        .min(1, 'A senha é  obrigatória')
+        .min(6, 'A senha precisa ter pelo menos 6 caracteres'),
+      confirmPassword: z.string().min(1, 'Confirmação de senha é obrigatório'),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      path: ['confirmPassword'],
+      message: 'As senhas não iguais',
+    });
+
+  const passwordForm = useForm({
+    defaultValues: {
+      oldPassword: '',
+      password: '',
+      confirmPassword: '',
+    },
+    resolver: zodResolver(formSchemaPassword),
+  });
+
+  const { mutate: createOrUpdateUser } = useCreateOrUpdateUser();
+
+  const handleFormPassword = async (formData) => {
+    try {
+      const { password } = formData;
+      await updateUserPassword(user.email, formData.oldPassword, password);
+      setToast({
+        message: 'Senha atualizada com sucesso!',
+        type: 'success',
+      });
+      passwordForm.reset();
+    } catch (err) {
+      setToast({
+        message: 'Não foi possivel atualizar a senha, tente novamente mais tarde!',
+        type: 'error',
+      });
+    }
+  };
+
   return (
     <>
       <div className="w-full px-5 pb-4 lg:pb-6">
@@ -34,6 +86,7 @@ const Settings = () => {
           <div className="w-full flex flex-col-reverse lg:flex-col  gap-5">
             <form className="flex w-full flex-col gap-3 pt-5 lg:pt-0">
               <p className={style.title[theme]}>{commons.settings.form.titleDocument}</p>
+
               <InputLabel label="Nome completo" variant="inverse" />
               <InputLabel label="Data de nascimento" type={'date'} variant="inverse" />
               <InputLabel label="CPF" variant="inverse" />
@@ -46,11 +99,59 @@ const Settings = () => {
                 </ButtonLabel>
               </div>
             </form>
-            <form className="flex w-full flex-col gap-3">
+            <form
+              className="flex w-full flex-col gap-3"
+              onSubmit={passwordForm.handleSubmit(handleFormPassword)}
+            >
               <p className={style.title[theme]}>{commons.settings.form.titlePassword}</p>
-              <InputPassword label="senha atual" variant="inverseSecundary" />
-              <InputPassword label="nova senha" variant="inverseSecundary" />
-              <InputPassword label="repitir nova senha" variant="inverseSecundary" />
+
+              <Controller
+                name="oldPassword"
+                control={passwordForm.control}
+                render={({ field: { onChange, value } }) => {
+                  return (
+                    <InputPassword
+                      placeholder="senha atual"
+                      variant="inverse"
+                      onChange={onChange}
+                      value={value}
+                      error={passwordForm.formState.errors?.['oldPassword']?.message}
+                    />
+                  );
+                }}
+              />
+
+              <Controller
+                name="password"
+                control={passwordForm.control}
+                render={({ field: { onChange, value } }) => {
+                  return (
+                    <InputPassword
+                      placeholder="nova senha"
+                      variant="inverse"
+                      onChange={onChange}
+                      value={value}
+                      error={passwordForm.formState.errors?.['password']?.message}
+                    />
+                  );
+                }}
+              />
+
+              <Controller
+                name="confirmPassword"
+                control={passwordForm.control}
+                render={({ field: { onChange, value } }) => {
+                  return (
+                    <InputPassword
+                      placeholder="repetir senha"
+                      variant="inverse"
+                      onChange={onChange}
+                      value={value}
+                      error={passwordForm.formState.errors?.['confirmPassword']?.message}
+                    />
+                  );
+                }}
+              />
 
               <div className="w-full flex justify-center">
                 <ButtonLabel className="font-semibold">
