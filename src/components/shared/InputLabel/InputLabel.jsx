@@ -49,6 +49,11 @@ const styles = {
       [themes.DARK]: 'bg-neutral-0',
       [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
     },
+    error: {
+      [themes.DEFAULT]: 'text-red-400',
+      [themes.DARK]: 'text-red-500',
+      [themes.LIGHT]: 'text-red-500',
+    },
   },
   inverseTertiary: {
     label: {
@@ -60,6 +65,11 @@ const styles = {
       [themes.DEFAULT]: 'bg-neutral-0',
       [themes.DARK]: 'bg-neutral-0 border border-neutral-90',
       [themes.LIGHT]: 'bg-neutral-0 border border-neutral-90',
+    },
+    error: {
+      [themes.DEFAULT]: 'text-red-400',
+      [themes.DARK]: 'text-red-500',
+      [themes.LIGHT]: 'text-red-500',
     },
   },
 };
