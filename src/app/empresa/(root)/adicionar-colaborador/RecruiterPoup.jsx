@@ -27,6 +27,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
     handleSubmit,
     formState: { errors },
     control,
+    reset,
   } = useForm({
     defaultValues: {
       name: '',
@@ -37,6 +38,7 @@ const RecruiterPoup = ({ isOpen, setIsOpen }) => {
 
   const { mutate: createOrUpdateUser } = useCreateOrUpdateUser({
     onSuccess: () => {
+      reset();
       setIsOpen(false);
     },
     onError: (e) => {

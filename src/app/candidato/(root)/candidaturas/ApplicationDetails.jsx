@@ -18,6 +18,12 @@ const styles = {
   },
 };
 
+const statusTranslation = {
+  approved: 'aprovado',
+  reproved: 'reprovado',
+  pending: 'pendente',
+};
+
 const ApplicationDetails = ({ isOpen, setIsOpen, application }) => {
   const { theme } = useTheme();
   const style = styles['default'];
@@ -56,7 +62,7 @@ const ApplicationDetails = ({ isOpen, setIsOpen, application }) => {
                         Status:
                       </p>
                       <p className={twMerge('text-base font-light', style.text[theme])}>
-                        {step.status}
+                        {statusTranslation[step.status]}
                       </p>
                     </div>
                   </div>
@@ -99,7 +105,7 @@ const ApplicationDetails = ({ isOpen, setIsOpen, application }) => {
                     <div className="flex items-center gap-2">
                       <p className={twMerge('text-base font-medium', style.text[theme])}>Status:</p>
                       <p className={twMerge('text-base font-light', style.text[theme])}>
-                        {step.status}
+                        {statusTranslation[step.status]}
                       </p>
                     </div>
                   </div>
@@ -159,7 +165,7 @@ const ApplicationDetails = ({ isOpen, setIsOpen, application }) => {
                     <div className="flex items-center gap-2">
                       <p className={twMerge('text-base font-medium', style.text[theme])}>Status:</p>
                       <p className={twMerge('text-base font-light', style.text[theme])}>
-                        {step.status}
+                        {statusTranslation[step.status]}
                       </p>
                     </div>
                   </div>

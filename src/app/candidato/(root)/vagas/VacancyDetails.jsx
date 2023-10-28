@@ -102,7 +102,7 @@ const VacancyDetails = ({ vacancy, variant = 'default' }) => {
       </Title>
       <div className="grow overflow-auto no-scrollbar mb-10">
         <p className={twMerge('text-lg  font-bold leading-7 ', style.title[theme])}>
-          {vacancy?.company}
+          {vacancy?.company?.name}
         </p>
 
         <div className={twMerge(style.text[theme], 'mt-3')}>

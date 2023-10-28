@@ -68,6 +68,24 @@ const findAllVacanciesByUserId = makeFindAllWhere('vacancies', 'userId');
 const findAllVacanciesByCompanyId = makeFindAllWhere('vacancies', 'companyId');
 const findAllVacanciesByIds = makeFindAllWhere('vacancies', 'id', 'in');
 const findAllVacancies = makeFindAll('vacancies');
+const findAllVacanciesWithCompany = async () => {
+  const vacancies = await findAllVacancies();
+  return Promise.all(
+    vacancies.map(async (vacancy) => {
+      const company = await findUserById(vacancy.companyId);
+      return { ...vacancy, company };
+    }),
+  );
+};
+const findAllVacanciesByIdsWithCompany = async (ids) => {
+  const vacancies = await findAllVacanciesByIds(ids);
+  return Promise.all(
+    vacancies.map(async (vacancy) => {
+      const company = await findUserById(vacancy.companyId);
+      return { ...vacancy, company };
+    }),
+  );
+};
 const findAllInterviews = makeFindAll('interviews');
 const findApplicationByVacancyId = (vacancyId, userId) =>
   makeFindOneConditions(
@@ -84,7 +102,7 @@ const findAllApplicationByUserIdHydrated = async (userId) => {
   try {
     const applications = await findAllApplicationByUserId(userId);
     const vacancyIds = applications.map((application) => application.vacancyId);
-    const vacancies = await findAllVacanciesByIds(vacancyIds);
+    const vacancies = await findAllVacanciesByIdsWithCompany(vacancyIds);
     const vacanciesById = vacancies.reduce((acc, item) => {
       return { ...acc, [item.id]: item };
     }, {});
@@ -210,7 +228,7 @@ export const useFindAllVacanciesByCompanyId = ({ companyId }) =>
 export const useFindAllVacancies = ({ onSuccess }) =>
   useQuery({
     queryKey: ['vacancies'],
-    queryFn: () => findAllVacancies(),
+    queryFn: () => findAllVacanciesWithCompany(),
     onSuccess: onSuccess,
   });
 
